@@ -1,12 +1,13 @@
 import "./Hero.css";
+import bannerImage from "../assets/banner4.jpg"; // Substitua depois por imagem real
 
 export default function Hero() {
   return (
-    <section className="hero">
-      <div className="hero-content">
-        <h1>Bem-vindo à Matilha News</h1>
-        <p>Fique por dentro de tudo que rola com a torcida da RED Canids Kalunga!</p>
-      </div>
+    <section 
+      className="hero"
+      style={{ backgroundImage: `url(${bannerImage})` }}
+    >
+    
     </section>
   );
 }
