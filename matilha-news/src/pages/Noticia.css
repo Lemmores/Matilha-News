@@ -26,9 +26,16 @@
   margin-bottom: 1.5rem;
 }
 
-.noticia-conteudo p {
-  margin-bottom: 1rem;
+/* Ajuste principal para o texto da notícia */
+.noticia-conteudo {
+  text-align: justify;      /* Justifica o texto para alinhamento das margens */
   font-size: 1.1rem;
+  color: #ddd;              /* Tom um pouco mais claro que o branco para melhor leitura */
+  word-wrap: break-word;    /* Evita que palavras longas estoure o container */
+}
+
+.noticia-conteudo p {
+  margin-bottom: 1.2rem;    /* Espaçamento entre parágrafos um pouco maior */
 }
 
 .noticia-autor {

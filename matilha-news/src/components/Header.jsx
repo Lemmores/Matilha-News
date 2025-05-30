@@ -1,44 +1,116 @@
-import './Header.css'
+import './Header.css';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Header() {
+  const [menuAberto, setMenuAberto] = useState(false);
+  const [dropdownAberto, setDropdownAberto] = useState(null);
+
+  const toggleMenu = () => {
+    setMenuAberto(!menuAberto);
+    setDropdownAberto(null);
+  };
+
+  const toggleDropdown = (nome) => {
+    setDropdownAberto(dropdownAberto === nome ? null : nome);
+  };
+
+  const DropdownButton = ({ label, id }) => (
+    <button className="dropdown-toggle" onClick={() => toggleDropdown(id)}>
+      {label} {dropdownAberto === id ? '▲' : '▼'}
+    </button>
+  );
+
   return (
     <header className="header">
-      <div className="logo">
-        <img src="/logo2.png" alt="Logo Matilha News" />
-      </div>
-      <nav className="nav">
-        <div className="nav-item">
-          <a href="#">Início</a>
+      <div className="header-top">
+        <div className="logo">
+          <Link to="/">
+            <img src="/logo2.png" alt="Logo Matilha News" />
+          </Link>
         </div>
-        <div className="nav-item">
-          <a href="#">Campeonatos</a>
-          <div className="dropdown">
-            <a href="#">LTA SUL</a>
-            <a href="#">CIRCUITO DESAFIANTE</a>
-            <a href="#">CS2</a>
-            <a href="#">VALORANT</a>
-          </div>
-        </div>
-        <div className="nav-item">
-          <a href="#">Eventos</a>
-          <div className="dropdown">
-            <a href="#">WATCH PARTIES</a>
-          </div>
-        </div>
+        <button className="menu-toggle" onClick={toggleMenu}>
+          &#9776;
+        </button>
 
+        {/* Menu Desktop */}
+        <nav className="nav-desktop">
           <div className="nav-item">
-          <a href="#">Torneios da Matilha</a>
-          <div className="dropdown">
-            <a href="#">RED CANUDOS 2025</a>
-            <a href="#">TFT DA MATILHA 1º EDIÇÃO</a>
-            <a href="#">OLIMPÍADAS DA MATILHA 2025</a>
+            <Link to="/noticias">Notícias</Link>
           </div>
-        </div>
+          <div className="nav-item">
+            <DropdownButton label="Campeonatos" id="campeonatos" />
+            {dropdownAberto === 'campeonatos' && (
+              <div className="dropdown">
+                <Link to="#">LTA SUL</Link>
+                <Link to="#">CIRCUITO DESAFIANTE</Link>
+                <Link to="#">CS2</Link>
+                <Link to="#">VALORANT</Link>
+              </div>
+            )}
+          </div>
+          <div className="nav-item">
+            <DropdownButton label="Eventos" id="eventos" />
+            {dropdownAberto === 'eventos' && (
+              <div className="dropdown">
+                <Link to="#">WATCH PARTIES</Link>
+              </div>
+            )}
+          </div>
+          <div className="nav-item">
+            <DropdownButton label="Torneios da Matilha" id="torneios" />
+            {dropdownAberto === 'torneios' && (
+              <div className="dropdown">
+                <Link to="#">RED CANUDOS 2025</Link>
+                <Link to="#">TFT DA MATILHA 1º EDIÇÃO</Link>
+                <Link to="#">OLIMPÍADAS DA MATILHA 2025</Link>
+              </div>
+            )}
+          </div>
+          <div className="nav-item">
+            <Link to="#">Contato</Link>
+          </div>
+        </nav>
+      </div>
 
+      {/* Menu Mobile */}
+      <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`}>
         <div className="nav-item">
-          <a href="#">Contato</a>
+          <Link to="/noticias">Notícias</Link>
+        </div>
+        <div className="nav-item">
+          <DropdownButton label="Campeonatos" id="campeonatos-mobile" />
+          {dropdownAberto === 'campeonatos-mobile' && (
+            <div className="dropdown">
+              <Link to="#">LTA SUL</Link>
+              <Link to="#">CIRCUITO DESAFIANTE</Link>
+              <Link to="#">CS2</Link>
+              <Link to="#">VALORANT</Link>
+            </div>
+          )}
+        </div>
+        <div className="nav-item">
+          <DropdownButton label="Eventos" id="eventos-mobile" />
+          {dropdownAberto === 'eventos-mobile' && (
+            <div className="dropdown">
+              <Link to="#">WATCH PARTIES</Link>
+            </div>
+          )}
+        </div>
+        <div className="nav-item">
+          <DropdownButton label="Torneios da Matilha" id="torneios-mobile" />
+          {dropdownAberto === 'torneios-mobile' && (
+            <div className="dropdown">
+              <Link to="#">RED CANUDOS 2025</Link>
+              <Link to="#">TFT DA MATILHA 1º EDIÇÃO</Link>
+              <Link to="#">OLIMPÍADAS DA MATILHA 2025</Link>
+            </div>
+          )}
+        </div>
+        <div className="nav-item">
+          <Link to="#">Contato</Link>
         </div>
       </nav>
     </header>
-  )
+  );
 }

@@ -2,7 +2,7 @@ body {
   margin: 0;
   background-color: #111;
   color: #f1f1f1;
-  font-family: Arial, sans-serif;
+ font-family: 'Montserrat', sans-serif;
 }
 
 .container {
@@ -11,4 +11,19 @@ body {
   align-items: center;
   height: 100vh;
   text-align: center;
+}
+
+.header {
+  background-color: #b90000;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.dropdown-toggle {
+  font-family: 'Montserrat', sans-serif;
+}
+
+button {
+  font: inherit;
+
 }

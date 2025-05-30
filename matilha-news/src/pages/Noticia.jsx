@@ -6,7 +6,7 @@ export default function Noticia() {
 
   return (
     <main className="noticia">
-      <h1 className="noticia-titulo">RED Canids enfrentará a Vivo Keyd Stars valendo a vida!</h1>
+      <h1 className="noticia-titulo">RED Canids enfrentará a Vivo Keyd Stars valendo a vida na LTA SUL!</h1>
       <p className="noticia-data">28 de Maio de 2025</p>
       <img className="noticia-img" src="/news1.jpg" alt="RED Canids vs Vivo Keyd Stars" />
       <div className="noticia-conteudo">
