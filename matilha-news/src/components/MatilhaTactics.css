@@ -1,0 +1,67 @@
+.matilha-tactics {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.matilha-tactics h1 {
+   font-size: 2.5rem; /* Aumentado de 2rem para 2.5rem */
+  margin-bottom: 1.5rem;
+  color: #a80000;
+  text-align: center; 
+}
+
+.matilha-tactics h3 {
+  color: #a80000;
+  text-align: center; 
+}
+
+.banner-tactics {
+  width: 100%;
+  height: 300px; /* altura fixa menor */
+  object-fit: cover; /* para evitar distorção e cortar o excesso */
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+
+.descricao {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.formulario-container {
+  width: 100%;
+  /* Removido: height: 100vh; */
+}
+
+.formulario-container iframe {
+  width: 100%;
+  height: 1600px; /* Tente 1500-1800, dependendo do novo tamanho */
+  border: none;
+}
+
+.botao-inscricao {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #d60000;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s;
+}
+
+.botao-inscricao:hover {
+  background-color: #a80000;
+}
+body.matilha-bg {
+  background-color: #f7eaea; /* ou qualquer outra cor só para essa página */
+}
+
+
+.matilha-tactics {
+  background-color: #f7eaea; /* ou qualquer cor desejada */
+  color: #a80000;
+}   

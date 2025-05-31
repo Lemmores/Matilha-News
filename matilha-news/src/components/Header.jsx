@@ -53,7 +53,7 @@ export default function Header() {
             <DropdownButton label="Eventos" id="eventos" />
             {dropdownAberto === 'eventos' && (
               <div className="dropdown">
-                <Link to="#">WATCH PARTIES</Link>
+                <Link to="/watchparties">WATCH PARTIES</Link>
               </div>
             )}
           </div>
@@ -61,8 +61,8 @@ export default function Header() {
             <DropdownButton label="Torneios da Matilha" id="torneios" />
             {dropdownAberto === 'torneios' && (
               <div className="dropdown">
+                <Link to="/matilhatactics">MATILHA TACTICS</Link>
                 <Link to="#">RED CANUDOS 2025</Link>
-                <Link to="#">TFT DA MATILHA 1º EDIÇÃO</Link>
                 <Link to="#">OLIMPÍADAS DA MATILHA 2025</Link>
               </div>
             )}

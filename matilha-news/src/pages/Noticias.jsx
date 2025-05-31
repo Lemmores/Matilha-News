@@ -8,8 +8,7 @@ const noticiasExemplo = [
   { id: 3, titulo: 'RED Canids Kalunga lança vídeo divertido mostrando os bastidores da preparação do Academy para a final da Upper no Circuito Desafiante', categoria: 'CIRCUITO DESAFIANTE', imagem: '/news3.jpg' },
   { id: 4, titulo: 'RED Canids Academy enfrenta paiN Gaming Academy valendo vaga na final da Série A da Gamers Club', categoria: 'CS2', imagem: '/news4.jpg' },
   { id: 5, titulo: 'RED Canids vence a atual campeã LOS e surpreende na Etapa 2 do VCB', categoria: 'VALORANT', imagem: '/news5.jpg' },
-  { id: 6, titulo: 'Creators se reúnem em evento especial', categoria: 'CREATORS', imagem: '/img/creators.jpg' },
-  { id: 7, titulo: 'Watch Party em Pernambuco foi um sucesso!', categoria: 'EXTRAS', imagem: '/img/valorant.jpg' },
+  { id: 6, titulo: 'Watch Party em Pernambuco foi um sucesso!', categoria: 'EXTRAS', imagem: '/img/valorant.jpg' },
 ];
 
 export default function Noticias() {
@@ -19,7 +18,7 @@ export default function Noticias() {
     ? noticiasExemplo
     : noticiasExemplo.filter(noticia => noticia.categoria === filtro);
 
-  const filtros = ['TUDO', 'LTA SUL', 'CIRCUITO DESAFIANTE', 'CS2', 'VALORANT', 'CREATORS', 'EXTRAS'];
+  const filtros = ['TUDO', 'LTA SUL', 'CIRCUITO DESAFIANTE', 'CS2', 'VALORANT', 'EXTRAS'];
 
   return (
     <div className="pagina-noticias">
