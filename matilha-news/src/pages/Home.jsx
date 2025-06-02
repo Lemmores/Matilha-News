@@ -1,10 +1,11 @@
 import FeaturedNews from "../components/FeaturedNews";
+import Agenda from "../components/Agenda";
 
 export default function Home() {
   return (
     <main>
       <FeaturedNews />
-      {/* Aqui podem vir outras seções como lista de notícias, etc */}
+      <Agenda />
     </main>
   );
 }
