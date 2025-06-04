@@ -14,7 +14,22 @@ export default function Agenda() {
         nome: "Vivo Keyd Stars Academy",
         logo: "/logos/vks.png"
       },
-      campeonato: "Circuito Desafiante"
+      campeonato: "CIRCUITO DESAFIANTE"
+     
+    },
+
+    {
+      data: "04/06",
+      hora: "17:00",
+      timeA: {
+        nome: "RED Canids",
+        logo: "/logos/red-logo.png"
+      },
+      timeB: {
+        nome: "TBK E-sports",
+        logo: "/logos/tbk.png"
+      },
+      campeonato: "CHALLENGERS BRAZIL"
      
     },
   ];

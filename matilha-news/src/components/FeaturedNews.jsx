@@ -3,21 +3,19 @@ import "./FeaturedNews.css";
 import { Link } from "react-router-dom";
 
 // Importações do Swiper
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 export default function FeaturedNews() {
-  const mainNews = {
-   id: 2, img: "/news2.jpg", title: "RED enfrenta a Vivo Keyd Stars na final da upper", tag: "CIRCUITO DESAFIANTE"
-  };
+  const mainNews = { id: 7, img: "/news7.jpg", title: "RED Canids Kalunga vence a VKS e está na final do Circuito Desafiante!", tag: "CIRCUITO DESAFIANTE" };
 
   const sideNews = [
-     { id: 6, img: "/news6.jpg", title: "RED Canids Kalunga é eliminada pela Vivo Keyd Stars na LTA Sul 2025", tag: "LTA SUL" },
+    { id: 8, img: "/news8.jpg", title: "Donos da RED prometem reformulação após queda na LTA SUL", tag: "LTA SUL" },
+    { id: 6, img: "/news6.jpg", title: "RED Canids Kalunga é eliminada pela Vivo Keyd Stars na LTA Sul 2025", tag: "LTA SUL" },
+    {id: 9, img: "/news9.jpg", title: "RED encara a TBK Esports pelo Challengers Brazil nesta quarta (04)", tag: "VALORANT"},
     { id: 3, img: "/news3.jpg", title: "RED lança vídeo dos bastidores do Academy", tag: "CIRCUITO DESAFIANTE" },
     { id: 4, img: "/news4.jpg", title: "Red Academy enfrenta Pain Academy na final da Série A da Gamers Club", tag: "CS2" },
     { id: 5, img: "/news5.jpg", title: "RED estreia com vitória pra cima do atual campeão!", tag: "VALORANT" },
-    { id: 7, img: "/news7.jpg", title: "Campeões do Wild Rift celebram título com a Matilha", tag: "Wild Rift" },
-    { id: 8, img: "/news8.jpg", title: "Teremos Mudanças", tag: "LTA SUL" },
+
   
   ];
 

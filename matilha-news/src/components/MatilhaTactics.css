@@ -7,12 +7,12 @@
 .matilha-tactics h1 {
    font-size: 2.5rem; /* Aumentado de 2rem para 2.5rem */
   margin-bottom: 1.5rem;
-  color: #a80000;
+  color: #ffffff;
   text-align: center; 
 }
 
 .matilha-tactics h3 {
-  color: #a80000;
+  color: #fffdfd;
   text-align: center; 
 }
 
@@ -54,14 +54,14 @@
 }
 
 .botao-inscricao:hover {
-  background-color: #a80000;
+  background-color: #f8f8f8;
 }
 body.matilha-bg {
-  background-color: #f7eaea; /* ou qualquer outra cor só para essa página */
+  background-color: #111; /* ou qualquer outra cor só para essa página */
 }
 
 
 .matilha-tactics {
-  background-color: #f7eaea; /* ou qualquer cor desejada */
-  color: #a80000;
+  background-color: #111; /* ou qualquer cor desejada */
+  color: #ffffff;
 }   

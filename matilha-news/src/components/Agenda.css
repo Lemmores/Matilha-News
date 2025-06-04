@@ -1,5 +1,5 @@
 .agenda {
-  padding: 2rem 1rem;
+  padding: 0.5rem 1rem 2rem 1rem; /* Menos espaço no topo */
   background-color: #1a1a1a;
   color: white;
   text-align: center;
@@ -52,7 +52,6 @@
   font-weight: 500;
 }
 
-
 .jogo-info .local {
   font-size: 0.85rem;
   color: #888;
@@ -65,7 +64,6 @@
   align-items: center;
   gap: 2rem;
 }
-
 
 .time {
   display: flex;

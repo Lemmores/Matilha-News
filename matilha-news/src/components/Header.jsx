@@ -42,8 +42,8 @@ export default function Header() {
             <DropdownButton label="Campeonatos" id="campeonatos" />
             {dropdownAberto === 'campeonatos' && (
               <div className="dropdown">
-                <Link to="#">LTA SUL</Link>
-                <Link to="#">CIRCUITO DESAFIANTE</Link>
+                <Link to="/ltasul">LTA SUL</Link>
+                <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
                 <Link to="#">CS2</Link>
                 <Link to="#">VALORANT</Link>
               </div>
@@ -63,7 +63,6 @@ export default function Header() {
               <div className="dropdown">
                 <Link to="/matilhatactics">MATILHA TACTICS</Link>
                 <Link to="#">RED CANUDOS 2025</Link>
-                <Link to="#">OLIMPÍADAS DA MATILHA 2025</Link>
               </div>
             )}
           </div>
