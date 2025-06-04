@@ -16,6 +16,7 @@ import Noticia8 from './pages/Noticia8';
 import Noticia9 from './pages/Noticia9';
 import LtaSulPage from './pages/LtaSulPage';
 import CircuitoPage from './pages/CircuitoPage';
+import Contato from './components/Contato';
 
 export default function App() {
   return (
@@ -38,6 +39,7 @@ export default function App() {
          <Route path="/matilhatactics" element={<MatilhaTactics />} />
          <Route path="/ltasul" element={<LtaSulPage/>} />
          <Route path="/circuito" element={<CircuitoPage/>} />
+         <Route path="/contato" element={<Contato />} />
         
       </Routes>
       

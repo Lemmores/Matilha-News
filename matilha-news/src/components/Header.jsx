@@ -67,7 +67,7 @@ export default function Header() {
             )}
           </div>
           <div className="nav-item">
-            <Link to="#">Contato</Link>
+            <Link to="/contato">Contato</Link>
           </div>
         </nav>
       </div>
