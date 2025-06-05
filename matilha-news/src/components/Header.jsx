@@ -81,8 +81,8 @@ export default function Header() {
           <DropdownButton label="Campeonatos" id="campeonatos-mobile" />
           {dropdownAberto === 'campeonatos-mobile' && (
             <div className="dropdown">
-              <Link to="#">LTA SUL</Link>
-              <Link to="#">CIRCUITO DESAFIANTE</Link>
+              <Link to="/ltasul">LTA SUL</Link>
+              <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
               <Link to="#">CS2</Link>
               <Link to="#">VALORANT</Link>
             </div>
@@ -92,7 +92,7 @@ export default function Header() {
           <DropdownButton label="Eventos" id="eventos-mobile" />
           {dropdownAberto === 'eventos-mobile' && (
             <div className="dropdown">
-              <Link to="#">WATCH PARTIES</Link>
+              <Link to="/watchparties">WATCH PARTIES</Link>
             </div>
           )}
         </div>
@@ -100,14 +100,13 @@ export default function Header() {
           <DropdownButton label="Torneios da Matilha" id="torneios-mobile" />
           {dropdownAberto === 'torneios-mobile' && (
             <div className="dropdown">
-              <Link to="#">RED CANUDOS 2025</Link>
-              <Link to="#">TFT DA MATILHA 1º EDIÇÃO</Link>
-              <Link to="#">OLIMPÍADAS DA MATILHA 2025</Link>
+                <Link to="/matilhatactics">MATILHA TACTICS</Link>
+                <Link to="#">RED CANUDOS 2025</Link>
             </div>
           )}
         </div>
         <div className="nav-item">
-          <Link to="#">Contato</Link>
+          <Link to="/contato">Contato</Link>
         </div>
       </nav>
     </header>

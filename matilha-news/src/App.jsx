@@ -3,20 +3,22 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Noticias from './pages/Noticias';
-import Noticia from './pages/Noticia'; // você precisa criar esse arquivo
-import Noticia2 from './pages/Noticia2';
-import Noticia3 from './pages/Noticia3';
-import Noticia4 from './pages/Noticia4';
-import Noticia5 from './pages/Noticia5';
-import Noticia6 from './pages/Noticia6';
-import Noticia7 from './pages/Noticia7';
 import WatchParties from './components/WatchParties';
 import MatilhaTactics from './components/MatilhaTactics';
-import Noticia8 from './pages/Noticia8';
-import Noticia9 from './pages/Noticia9';
 import LtaSulPage from './pages/LtaSulPage';
 import CircuitoPage from './pages/CircuitoPage';
 import Contato from './components/Contato';
+import Noticia from './pages/Noticias/Noticia';
+import Noticia2 from './pages/Noticias/Noticia2'
+import Noticia3 from './pages/Noticias/Noticia3'
+import Noticia4 from './pages/Noticias/Noticia4'
+import Noticia5 from './pages/Noticias/Noticia5'
+import Noticia6 from './pages/Noticias/Noticia6'
+import Noticia7 from './pages/Noticias/Noticia7'
+import Noticia8 from './pages/Noticias/Noticia8'
+import Noticia9 from './pages/Noticias/Noticia9'
+import Noticia10 from './pages/Noticias/Noticia10';
+import Noticia11 from './pages/Noticias/Noticia11';
 
 export default function App() {
   return (
@@ -35,6 +37,8 @@ export default function App() {
          <Route path="/noticia/7" element={<Noticia7 />} />
          <Route path="/noticia/8" element={<Noticia8 />} />
          <Route path="/noticia/9" element={<Noticia9 />} />
+         <Route path="/noticia/10" element={<Noticia10 />} />
+         <Route path="/noticia/11" element={<Noticia11 />} />
          <Route path="/watchparties" element={<WatchParties />} />
          <Route path="/matilhatactics" element={<MatilhaTactics />} />
          <Route path="/ltasul" element={<LtaSulPage/>} />

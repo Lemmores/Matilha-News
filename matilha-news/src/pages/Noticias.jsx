@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const noticiasExemplo = [
+  { id: 11, imagem: "/news11.jpg", titulo: "RED Canids anuncia reforços para o CS2 com foco no presencial da Odyssey Cup e no Major", categoria: "CS2" },
+  { id: 10, imagem: "/news10.jpg", titulo: "RED Canids vence TBK Esports por 2 a 1 e segue invicta no Challengers Brazil 2025", categoria: "VALORANT" },
   { id: 9, imagem: "/foto9.jpg", titulo: "RED encara a TBK Esports pelo Challengers Brazil nesta quarta (04)", categoria: "VALORANT" },
   { id: 7, imagem: "/news7.jpg", titulo: "RED Canids Kalunga vence a VKS e está na final do Circuito Desafiante!", categoria: "CIRCUITO DESAFIANTE" },
   { id: 8, imagem: "/news8.jpg", titulo: "Donos da RED prometem reformulação após queda na LTA SUL", categoria: "LTA SUL" },
