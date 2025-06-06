@@ -1,7 +1,7 @@
 .header {
   background-color: #b90000;
   color: white;
-  padding: 1rem 1rem;
+  padding: 0.25rem 0.5rem; /* Reduzido */
 }
 
 /* TOP SECTION: logo + nav */
@@ -11,7 +11,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   position: relative;
-  z-index: 1001; /* garante que o topo esteja acima do menu mobile */
+  z-index: 1001;
 }
 
 .menu-toggle {
@@ -21,10 +21,9 @@
   font-size: 2rem;
   cursor: pointer;
   display: none;
-  z-index: 1002; /* acima de tudo, inclusive do menu mobile */
+  z-index: 1002;
   position: relative;
 }
-
 
 .logo img {
   max-height: 70px;
@@ -34,7 +33,7 @@
 /* MENU DESKTOP */
 .nav-desktop {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem; /* Reduzido */
   align-items: center;
 }
 
@@ -47,8 +46,8 @@
   color: white;
   text-decoration: none;
   font-weight: normal;
-  font-size: 1rem;
-  padding: 0.5rem;
+  font-size: 0.95rem; /* Reduzido */
+  padding: 0.3rem 0.4rem; /* Reduzido */
   background: none;
   border: none;
   cursor: pointer;
@@ -75,10 +74,10 @@
 }
 
 .dropdown a {
-  padding: 0.4rem 1rem;
+  padding: 0.3rem 0.8rem; /* Reduzido */
   color: white;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* Reduzido */
   font-weight: normal;
   white-space: nowrap;
 }
@@ -88,7 +87,6 @@
   align-items: center;
   gap: 0.4rem;
 }
-
 
 .dropdown a:hover {
   background-color: #a00000;
@@ -106,7 +104,7 @@
   color: white;
   font-size: 2rem;
   cursor: pointer;
-  display: none; /* default: esconde, aparece no mobile */
+  display: none;
 }
 
 .nav-mobile {
@@ -123,11 +121,10 @@
   height: 100vh;
   width: 60%;
   padding: 2rem 1rem;
-  z-index: 1000; /* abaixo do botão de toggle */
+  z-index: 1000;
   align-items: flex-start;
   justify-content: flex-start;
 }
-
 
 .nav-mobile .nav-item {
   margin-bottom: 1rem;

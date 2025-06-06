@@ -3,6 +3,21 @@ import "./Agenda.css";
 export default function AgendaCircuito() {
   const partidas = [
    
+     {
+      data: "09/06/2025",
+      hora: "17:00",
+      timeA: {
+        nome: "RED Canids Academy",
+        logo: "/logos/redacademy.png"
+      },
+      timeB: {
+        nome: "Vivo Keyd Stars",
+        logo: "/logos/vks.png"
+      },
+      campeonato: "CIRCUITO DESAFIANTE"
+     
+    },
+
     {
       data: "02/06/2025",
       hora: "17:00",

@@ -93,9 +93,9 @@ const CircuitoPage = () => {
       <section className="tabela-img">
         <h2 className="circuito-section-title">Tabela Circuito Desafiante</h2>
         <img
-          src="/tabelacircuito.jpg"
+          src="/tabelacircuito2.jpg"
           alt="Tabela do Circuito Desafiante"
-          onClick={() => setImagemAberta("/tabelacircuito.jpg")}
+          onClick={() => setImagemAberta("/tabelacircuito2.jpg")}
           style={{ cursor: 'pointer' }}
         />
       </section>

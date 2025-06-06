@@ -9,10 +9,10 @@ export default function FeaturedNews() {
   const mainNews = { id: 7, img: "/news7.jpg", title: "RED Canids Kalunga vence a VKS e está na final do Circuito Desafiante!", tag: "CIRCUITO DESAFIANTE" };
 
   const sideNews = [
+    { id: 12, img: "/news12.jpg", title: "uZent, suporte da RED Academy, alcança o Top 1 da SoloQ brasileira! ", tag: "CIRCUITO DESAFIANTE" },
     { id: 11, img: "/news11.jpg", title: "RED Canids anuncia reforços para o CS2! ", tag: "CS2" },
     { id: 8, img: "/news8.jpg", title: "Donos da RED prometem reformulação após queda na LTA SUL", tag: "LTA SUL" },
     { id: 10, img: "/news10.jpg", title: "RED vence TBK por 2 a 1 e segue invicta no Challengers Brazil 2025", tag: "VALORANT" },
-    { id: 3, img: "/news3.jpg", title: "RED lança vídeo dos bastidores do Academy", tag: "CIRCUITO DESAFIANTE" },
     { id: 4, img: "/news4.jpg", title: "Red Academy enfrenta Pain Academy na final da Série A da Gamers Club", tag: "CS2" },
     { id: 6, img: "/news6.jpg", title: "RED Canids Kalunga é eliminada pela Vivo Keyd Stars na LTA Sul 2025", tag: "LTA SUL" },
   ];

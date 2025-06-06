@@ -19,6 +19,7 @@ import Noticia8 from './pages/Noticias/Noticia8'
 import Noticia9 from './pages/Noticias/Noticia9'
 import Noticia10 from './pages/Noticias/Noticia10';
 import Noticia11 from './pages/Noticias/Noticia11';
+import Noticia12 from './pages/Noticias/Noticia12';
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
          <Route path="/noticia/9" element={<Noticia9 />} />
          <Route path="/noticia/10" element={<Noticia10 />} />
          <Route path="/noticia/11" element={<Noticia11 />} />
+          <Route path="/noticia/12" element={<Noticia12 />} />
          <Route path="/watchparties" element={<WatchParties />} />
          <Route path="/matilhatactics" element={<MatilhaTactics />} />
          <Route path="/ltasul" element={<LtaSulPage/>} />

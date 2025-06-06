@@ -4,7 +4,7 @@ export default function Agenda() {
   const partidas = [
    
     {
-      data: "02/06",
+      data: "09/06",
       hora: "17:00",
       timeA: {
         nome: "RED Canids Academy",
@@ -18,20 +18,6 @@ export default function Agenda() {
      
     },
 
-    {
-      data: "04/06",
-      hora: "17:00",
-      timeA: {
-        nome: "RED Canids",
-        logo: "/logos/red-logo.png"
-      },
-      timeB: {
-        nome: "TBK E-sports",
-        logo: "/logos/tbk.png"
-      },
-      campeonato: "CHALLENGERS BRAZIL"
-     
-    },
   ];
 
   return (
