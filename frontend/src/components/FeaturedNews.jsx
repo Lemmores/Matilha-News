@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./FeaturedNews.css";
 import { Link } from "react-router-dom";
-
-// Importações do Swiper
 import "swiper/css";
 
 export default function FeaturedNews() {
-  const mainNews = { id: 7, img: "/news7.jpg", title: "RED Canids Kalunga vence a VKS e está na final do Circuito Desafiante!", tag: "CIRCUITO DESAFIANTE" };
-
-  const sideNews = [
-    { id: 12, img: "/news12.jpg", title: "uZent, suporte da RED Academy, alcança o Top 1 da SoloQ brasileira! ", tag: "CIRCUITO DESAFIANTE" },
-    { id: 11, img: "/news11.jpg", title: "RED Canids anuncia reforços para o CS2! ", tag: "CS2" },
-    { id: 8, img: "/news8.jpg", title: "Donos da RED prometem reformulação após queda na LTA SUL", tag: "LTA SUL" },
-    { id: 10, img: "/news10.jpg", title: "RED vence TBK por 2 a 1 e segue invicta no Challengers Brazil 2025", tag: "VALORANT" },
-    { id: 4, img: "/news4.jpg", title: "Red Academy enfrenta Pain Academy na final da Série A da Gamers Club", tag: "CS2" },
-    { id: 6, img: "/news6.jpg", title: "RED Canids Kalunga é eliminada pela Vivo Keyd Stars na LTA Sul 2025", tag: "LTA SUL" },
-  ];
-
+  const [noticias, setNoticias] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const fetchNoticias = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/noticias");
+        const data = await response.json();
+        setNoticias(data.reverse()); // mostra mais recentes primeiro
+      } catch (error) {
+        console.error("Erro ao carregar notícias:", error);
+      }
+    };
+
+    fetchNoticias();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -25,47 +27,51 @@ export default function FeaturedNews() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  if (noticias.length === 0) {
+    return <p style={{ color: "white", textAlign: "center" }}>Carregando notícias...</p>;
+  }
+
+  const mainNews = noticias[0];
+  const sideNews = noticias.slice(1, 6); // até 5 laterais
+
   return (
     <section className="featured-news">
       <div className="featured-news-layout">
-        {/* Desktop: Notícia principal */}
         {!isMobile && (
           <div className="main-news">
-            <Link to={`/noticia/${mainNews.id}`}>
-              <img src={mainNews.img} alt="Notícia Principal" />
-              <span className="news-tag">{mainNews.tag}</span> {/* TAG fora da legenda */}
+            <Link to={`/noticia/${mainNews._id}`}>
+              <img src={`http://localhost:5000${mainNews.imagem}`} alt="Notícia Principal" />
+              <span className="news-tag">{mainNews.categoria || "NOTÍCIA"}</span>
               <div className="main-news-caption">
-                <h3>{mainNews.title}</h3>
+                <h3>{mainNews.titulo}</h3>
               </div>
             </Link>
           </div>
         )}
 
-        {/* Desktop: Grid de notícias laterais */}
         {!isMobile ? (
           <div className="side-news-grid">
-            {sideNews.map(({ id, img, title, tag }) => (
-              <div key={id} className="news-card">
-                <Link to={`/noticia/${id}`}>
-                  <img src={img} alt={`Notícia ${id}`} />
-                  <span className="news-tag">{tag}</span>
+            {sideNews.map(({ _id, imagem, titulo, categoria }) => (
+              <div key={_id} className="news-card">
+                <Link to={`/noticia/${_id}`}>
+                  <img src={`http://localhost:5000${imagem}`} alt={`Notícia`} />
+                  <span className="news-tag">{categoria || "NOTÍCIA"}</span>
                   <div className="news-caption">
-                    <h3>{title}</h3>
+                    <h3>{titulo}</h3>
                   </div>
                 </Link>
               </div>
             ))}
           </div>
         ) : (
-          // Mobile: Todas as notícias empilhadas (inclusive a principal)
           <div className="side-news-list">
-            {[mainNews, ...sideNews].map(({ id, img, title, tag }) => (
-              <div key={id} className="news-card">
-                <Link to={`/noticia/${id}`}>
-                  <img src={img} alt={`Notícia ${id}`} />
+            {[mainNews, ...sideNews].map(({ _id, imagem, titulo, categoria }) => (
+              <div key={_id} className="news-card">
+                <Link to={`/noticia/${_id}`}>
+                  <img src={`http://localhost:5000${imagem}`} alt={`Notícia`} />
                   <div className="news-caption">
-                    <span className="news-tag">{tag}</span>
-                    <h3>{title}</h3>
+                    <span className="news-tag">{categoria || "NOTÍCIA"}</span>
+                    <h3>{titulo}</h3>
                   </div>
                 </Link>
               </div>

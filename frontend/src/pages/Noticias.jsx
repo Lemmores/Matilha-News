@@ -7,7 +7,7 @@ export default function Noticias() {
   const [filtro, setFiltro] = useState('TUDO');
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/noticias') // ajuste a URL se for necessário
+    fetch('http://localhost:5000/api/noticias') // ajuste a URL se for necessário
       .then(res => res.json())
       .then(data => setNoticias(data))
       .catch(err => console.error('Erro ao carregar notícias:', err));

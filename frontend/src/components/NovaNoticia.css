@@ -21,7 +21,8 @@
 }
 
 .nova-noticia-form input,
-.nova-noticia-form textarea {
+.nova-noticia-form textarea,
+.nova-noticia-form select {
   padding: 12px;
   border: 1px solid #555;
   border-radius: 6px;

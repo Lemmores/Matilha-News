@@ -1,6 +1,6 @@
 .noticia {
   padding: 2rem;
-  color: #ffffff; /* Texto branco */
+  color: #ffffff;
   background-color: #121212;
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
@@ -22,20 +22,22 @@
 .noticia-img {
   width: 100%;
   height: auto;
+  max-height: 500px;
+  object-fit: cover;
   border-radius: 10px;
   margin-bottom: 1.5rem;
+  display: block;
 }
 
-/* Ajuste principal para o texto da notícia */
 .noticia-conteudo {
-  text-align: justify;      /* Justifica o texto para alinhamento das margens */
+  text-align: justify;
   font-size: 1.1rem;
-  color: #ddd;              /* Tom um pouco mais claro que o branco para melhor leitura */
-  word-wrap: break-word;    /* Evita que palavras longas estoure o container */
+  color: #ddd;
+  word-wrap: break-word;
 }
 
 .noticia-conteudo p {
-  margin-bottom: 1.2rem;    /* Espaçamento entre parágrafos um pouco maior */
+  margin-bottom: 1.2rem;
 }
 
 .noticia-autor {
@@ -44,4 +46,10 @@
   color: #ccc;
   font-size: 0.95rem;
   text-align: right;
+}
+
+.noticia-video {
+  margin: 2rem 0;
+  border-radius: 10px;
+  overflow: hidden;
 }
