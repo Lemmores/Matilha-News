@@ -32,7 +32,7 @@ export default function FeaturedNews() {
   }
 
   const mainNews = noticias[0];
-  const sideNews = noticias.slice(1, 6); // até 5 laterais
+  const sideNews = noticias.slice(1, 7); // até 5 laterais
 
   return (
     <section className="featured-news">

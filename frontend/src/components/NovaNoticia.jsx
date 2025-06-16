@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './NovaNoticia.css';
 
 const NovaNoticia = () => {
@@ -9,10 +9,11 @@ const NovaNoticia = () => {
     conteudo: '',
     autor: '',
     categoria: '',
-    videoUrl: '', 
+    videoUrl: '',
   });
 
   const [mensagem, setMensagem] = useState('');
+  const inputFileRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,7 +52,7 @@ const NovaNoticia = () => {
         textoCompleto: formData.conteudo.split('\n').filter(Boolean),
         autor: formData.autor,
         categoria: formData.categoria,
-        videoUrl: formData.videoUrl, 
+        videoUrl: formData.videoUrl,
       };
 
       const response = await fetch('http://localhost:5000/api/noticias', {
@@ -69,8 +70,11 @@ const NovaNoticia = () => {
           conteudo: '',
           autor: '',
           categoria: '',
-          videoUrl: '', 
+          videoUrl: '',
         });
+        if (inputFileRef.current) {
+          inputFileRef.current.value = ''; // limpa o input file
+        }
       } else {
         setMensagem('Erro ao enviar notícia.');
       }
@@ -84,9 +88,29 @@ const NovaNoticia = () => {
     <div className="nova-noticia nova-noticia-container">
       <h2>Adicionar Nova Notícia</h2>
       <form onSubmit={handleSubmit} className="nova-noticia-form">
-        <input type="text" name="titulo" placeholder="Título da notícia" value={formData.titulo} onChange={handleChange} required />
-        <input type="date" name="data" placeholder="Data" value={formData.data} onChange={handleChange} required />
-        <input type="file" name="imagem" accept="image/*" onChange={handleImageUpload} />
+        <input
+          type="text"
+          name="titulo"
+          placeholder="Título da notícia"
+          value={formData.titulo}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="date"
+          name="data"
+          placeholder="Data"
+          value={formData.data}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="file"
+          name="imagem"
+          accept="image/*"
+          onChange={handleImageUpload}
+          ref={inputFileRef}
+        />
         <textarea
           name="conteudo"
           placeholder="Conteúdo da notícia (separe os parágrafos com quebras de linha)"
@@ -95,9 +119,19 @@ const NovaNoticia = () => {
           required
           rows={10}
         ></textarea>
-        <input type="text" name="autor" placeholder="Autor" value={formData.autor} onChange={handleChange} />
-        
-        <select name="categoria" value={formData.categoria} onChange={handleChange} required>
+        <input
+          type="text"
+          name="autor"
+          placeholder="Autor"
+          value={formData.autor}
+          onChange={handleChange}
+        />
+        <select
+          name="categoria"
+          value={formData.categoria}
+          onChange={handleChange}
+          required
+        >
           <option value="">Selecione uma categoria</option>
           <option value="LTA SUL">LTA SUL</option>
           <option value="CIRCUITO DESAFIANTE">CIRCUITO DESAFIANTE</option>

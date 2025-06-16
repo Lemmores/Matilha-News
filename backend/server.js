@@ -31,3 +31,6 @@ app.use('/upload', uploadRoutes);
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+
+const authRoutes = require("./routes/auth");
+app.use("/api/auth", authRoutes);

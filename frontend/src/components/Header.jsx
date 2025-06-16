@@ -1,10 +1,27 @@
 import './Header.css';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
   const [dropdownAberto, setDropdownAberto] = useState(null);
+  const [adminLogado, setAdminLogado] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const verificarLogin = () => {
+      const token = localStorage.getItem("token");
+      setAdminLogado(!!token);
+    };
+
+    verificarLogin();
+
+    window.addEventListener("adminLogado", verificarLogin);
+
+    return () => {
+      window.removeEventListener("adminLogado", verificarLogin);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setMenuAberto(!menuAberto);
@@ -13,6 +30,15 @@ export default function Header() {
 
   const toggleDropdown = (nome) => {
     setDropdownAberto(dropdownAberto === nome ? null : nome);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setAdminLogado(false);
+
+    window.dispatchEvent(new Event("adminLogado"));
+
+    navigate("/");
   };
 
   const DropdownButton = ({ label, id }) => (
@@ -69,6 +95,30 @@ export default function Header() {
           <div className="nav-item">
             <Link to="/contato">Contato</Link>
           </div>
+
+          {!adminLogado && (
+            <div className="nav-item">
+              <Link to="/login">Login</Link>
+            </div>
+          )}
+
+          {adminLogado && (
+            <>
+              <div className="nav-item">
+                {/* Dropdown do Painel Administrativo */}
+                <DropdownButton label="Painel Administrativo" id="painel-admin" />
+                {dropdownAberto === 'painel-admin' && (
+                  <div className="dropdown">
+                    <Link to="/nova-noticia">Nova Notícia</Link>
+                    <Link to="/painel">Gerenciar Notícia</Link>
+                  </div>
+                )}
+              </div>
+              <div className="nav-item">
+                <button className="dropdown-toggle" onClick={handleLogout}>Sair</button>
+              </div>
+            </>
+          )}
         </nav>
       </div>
 
@@ -100,14 +150,38 @@ export default function Header() {
           <DropdownButton label="Torneios da Matilha" id="torneios-mobile" />
           {dropdownAberto === 'torneios-mobile' && (
             <div className="dropdown">
-                <Link to="/matilhatactics">MATILHA TACTICS</Link>
-                <Link to="#">RED CANUDOS 2025</Link>
+              <Link to="/matilhatactics">MATILHA TACTICS</Link>
+              <Link to="#">RED CANUDOS 2025</Link>
             </div>
           )}
         </div>
         <div className="nav-item">
           <Link to="/contato">Contato</Link>
         </div>
+
+        {!adminLogado && (
+          <div className="nav-item">
+            <Link to="/login">Login</Link>
+          </div>
+        )}
+
+        {adminLogado && (
+          <>
+            <div className="nav-item">
+              {/* Dropdown do Painel Administrativo Mobile */}
+              <DropdownButton label="Painel Administrativo" id="painel-admin-mobile" />
+              {dropdownAberto === 'painel-admin-mobile' && (
+                <div className="dropdown">
+                  <Link to="/nova-noticia">Nova Notícia</Link>
+                  <Link to="/painel">Gerenciar Notícia</Link>
+                </div>
+              )}
+            </div>
+            <div className="nav-item">
+              <button className="dropdown-toggle" onClick={handleLogout}>Sair</button>
+            </div>
+          </>
+        )}
       </nav>
     </header>
   );

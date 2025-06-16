@@ -7,7 +7,7 @@ export default function Noticias() {
   const [filtro, setFiltro] = useState('TUDO');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/noticias') // ajuste a URL se for necessário
+    fetch('http://localhost:5000/api/noticias')
       .then(res => res.json())
       .then(data => setNoticias(data))
       .catch(err => console.error('Erro ao carregar notícias:', err));
@@ -37,8 +37,15 @@ export default function Noticias() {
 
       <div className="lista-noticias">
         {noticiasFiltradas.map(noticia => (
-          <Link key={noticia.id} to={`/noticia/${noticia.id}`} className="card-noticia">
-            <img src={noticia.imagem} alt={noticia.titulo} />
+          <Link
+            key={noticia._id}
+            to={`/noticia/${noticia._id}`}
+            className="card-noticia"
+          >
+            <img
+              src={`http://localhost:5000${noticia.imagem}`}
+              alt={noticia.titulo}
+            />
             <h3>{noticia.titulo}</h3>
             <p className="categoria">{noticia.categoria}</p>
           </Link>

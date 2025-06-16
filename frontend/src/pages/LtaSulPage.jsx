@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AgendaLTA from '../components/AgendaLTA';
 import './LtaSulPage.css';
@@ -11,21 +11,26 @@ const jogadores = [
   { nome: 'Frosty', img: '/jogadores/frosty.jpg' },
 ];
 
-const noticiasExemplo = [
-  { id: 9, imagem: "/foto9.jpg", titulo: "RED encara a TBK Esports pelo Challengers Brazil nesta quarta (04)", categoria: "VALORANT" },
-  { id: 7, imagem: "/news7.jpg", titulo: "RED Canids Kalunga vence a VKS e está na final do Circuito Desafiante!", categoria: "CIRCUITO DESAFIANTE" },
-  { id: 8, imagem: "/news8.jpg", titulo: "Donos da RED prometem reformulação após queda na LTA SUL", categoria: "LTA SUL" },
-  { id: 6, imagem: "/news6.jpg", titulo: "RED Canids Kalunga é eliminada pela Vivo Keyd Stars na LTA Sul 2025", categoria: "LTA SUL" },
-  { id: 1, titulo: 'RED Canids enfrentará a Vivo Keyd Stars valendo a vida na LTA SUL!', categoria: 'LTA SUL', imagem: '/news1.jpg' },
-  { id: 2, imagem: "/news2.jpg", titulo: "RED enfrenta a Vivo Keyd Stars na final da upper", categoria: "CIRCUITO DESAFIANTE" },
-  { id: 3, titulo: 'RED Canids Kalunga lança vídeo divertido mostrando os bastidores da preparação do Academy para a final da Upper no Circuito Desafiante', categoria: 'CIRCUITO DESAFIANTE', imagem: '/news3.jpg' },
-  { id: 4, titulo: 'RED Canids Academy enfrenta paiN Gaming Academy valendo vaga na final da Série A da Gamers Club', categoria: 'CS2', imagem: '/news4.jpg' },
-  { id: 5, imagem: "/news5.jpg", titulo: "RED estreia com vitória pra cima do atual campeão!", categoria: "VALORANT" },
-];
-
 const LtaSulPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
-  const noticiasLtaSul = noticiasExemplo.filter(n => n.categoria === "LTA SUL");
+  const [noticiasLtaSul, setNoticiasLtaSul] = useState([]);
+
+  useEffect(() => {
+    const fetchNoticias = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/noticias');
+        const data = await res.json();
+
+        // Filtra só as notícias da LTA SUL
+        const ltaSulNoticias = data.filter(n => n.categoria === 'LTA SUL');
+        setNoticiasLtaSul(ltaSulNoticias);
+      } catch (error) {
+        console.error('Erro ao carregar notícias da LTA SUL:', error);
+      }
+    };
+
+    fetchNoticias();
+  }, []);
 
   return (
     <div className="pagina-lta">
@@ -77,8 +82,8 @@ const LtaSulPage = () => {
         <h2 className="lta-section-title">Últimas Notícias da RED na LTA SUL</h2>
         <div className="noticia-list">
           {noticiasLtaSul.map(noticia => (
-            <Link key={noticia.id} to={`/noticia/${noticia.id}`} className="card-noticia">
-              <img src={noticia.imagem} alt={noticia.titulo} />
+            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
+              <img src={`http://localhost:5000${noticia.imagem}`} alt={noticia.titulo} />
               <h3>{noticia.titulo}</h3>
               <p className="categoria">{noticia.categoria}</p>
             </Link>
@@ -89,7 +94,7 @@ const LtaSulPage = () => {
       {/* Agenda com componente */}
       <AgendaLTA />
 
-      {/* Tabela (com clique para abrir modal) */}
+      {/* Tabela */}
       <section className="tabela-img">
         <h2 className="lta-section-title">Tabela LTA SUL</h2>
         <img
