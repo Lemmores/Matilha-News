@@ -63,8 +63,12 @@ export default function PainelAdmin() {
               alt={noticia.titulo}
             />
             <h3>{noticia.titulo}</h3>
-            <p className="categoria">{noticia.categoria}</p>
-            <button onClick={() => deletarNoticia(noticia._id)}>Deletar</button>
+            <div className="botoes-acoes">
+              <button className="botao-editar" onClick={() => navigate(`/editar-noticia/${noticia._id}`)}>Editar</button>
+              <button className="botao-deletar" onClick={() => deletarNoticia(noticia._id)}>Deletar</button>
+            </div>
+
+
           </div>
         ))}
       </div>

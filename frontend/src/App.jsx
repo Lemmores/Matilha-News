@@ -12,6 +12,7 @@ import NovaNoticia from './components/NovaNoticia';
 import NoticiaDetalhada from './pages/Noticias/NoticiaDetalhada';
 import Login from './pages/Login';
 import PainelAdmin from './pages/PainelAdmin';
+import EditarNoticia from './components/EditarNoticia';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
          <Route path="/noticia/:id" element={<NoticiaDetalhada />} />
          <Route path="/noticias" element={<Noticias />} />
         <Route path="/nova-noticia" element={<NovaNoticia />} />
+        <Route path="/editar-noticia/:id" element={<EditarNoticia />} />
 
 
         
