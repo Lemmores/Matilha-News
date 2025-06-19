@@ -5,7 +5,7 @@
 }
 
 .pagina-noticias h1 {
-  font-size: 2.5rem; /* Aumentado de 2rem para 2.5rem */
+  font-size: 2.5rem;
   margin-bottom: 1.5rem;
   color: #ffffff;
   text-align: center;
@@ -47,36 +47,4 @@
   gap: 1.5rem;
 }
 
-/* Card de notícia */
-.card-noticia {
-  background-color: white;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  text-decoration: none;
-  color: black;
-  transition: transform 0.2s ease;
-}
 
-.card-noticia:hover {
-  transform: scale(1.02);
-}
-
-.card-noticia img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.card-noticia h3 {
-  font-size: 1rem;
-  padding: 0.75rem 1rem 0.25rem;
-  text-align: justify;
- 
-}
-
-.card-noticia .categoria {
-  font-size: 0.8rem;
-  padding: 0 1rem 1rem;
-  color: #b90000;
-}

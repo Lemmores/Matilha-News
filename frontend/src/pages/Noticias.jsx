@@ -46,8 +46,11 @@ export default function Noticias() {
               src={`http://localhost:5000${noticia.imagem}`}
               alt={noticia.titulo}
             />
-            <h3>{noticia.titulo}</h3>
-            <p className="categoria">{noticia.categoria}</p>
+          <p className="categoria">{noticia.categoria}</p>
+<h3>{noticia.titulo}</h3>
+<p className="conteudo">{noticia.conteudo}</p>
+
+            
           </Link>
         ))}
       </div>

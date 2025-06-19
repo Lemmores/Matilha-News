@@ -4,11 +4,36 @@ import Agendacircuito from '../components/AgendaCircuito';
 import './CircuitoPage.css';
 
 const jogadores = [
-  { nome: 'zynts', img: '/jogadores/zynts.jpg' },
-  { nome: 'DOOM', img: '/jogadores/doom.jpg' },
-  { nome: 'Kaze', img: '/jogadores/kaze.jpg' },
-  { nome: 'Rabelo', img: '/jogadores/rabelo.jpg' },
-  { nome: 'uZent', img: '/jogadores/uzent.jpg' },
+  {
+    nome: 'zynts',
+    img: '/jogadores/zynts.jpg',
+    twitter: 'https://twitter.com/zyntsLOL',
+    instagram: 'https://instagram.com/zyntsLOL',
+  },
+  {
+    nome: 'DOOM',
+    img: '/jogadores/doom.jpg',
+    twitter: 'https://twitter.com/doomLOL',
+    instagram: 'https://instagram.com/doomLOL',
+  },
+  {
+    nome: 'Kaze',
+    img: '/jogadores/kaze.jpg',
+    twitter: 'https://twitter.com/kazeLOL',
+    instagram: 'https://instagram.com/kazeLOL',
+  },
+  {
+    nome: 'Rabelo',
+    img: '/jogadores/rabelo.jpg',
+    twitter: 'https://twitter.com/rabeloLOL',
+    instagram: 'https://instagram.com/rabeloLOL',
+  },
+  {
+    nome: 'uZent',
+    img: '/jogadores/uzent.jpg',
+    twitter: 'https://twitter.com/uzentLOL',
+    instagram: 'https://instagram.com/uzentLOL',
+  },
 ];
 
 const CircuitoPage = () => {
@@ -47,6 +72,28 @@ const CircuitoPage = () => {
                 onClick={() => setImagemAberta(jogador.img)}
               />
               <span>{jogador.nome}</span>
+              <div className="social-buttons">
+                {jogador.twitter && (
+                  <a
+                    href={jogador.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                  >
+                    <img src="/icons/x.png" alt="Twitter" />
+                  </a>
+                )}
+                {jogador.instagram && (
+                  <a
+                    href={jogador.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                  >
+                    <img src="/icons/instagram.png" alt="Instagram" />
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
@@ -83,8 +130,8 @@ const CircuitoPage = () => {
           {noticiasCircuito.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
               <img src={`http://localhost:5000${noticia.imagem}`} alt={noticia.titulo} />
-              <h3>{noticia.titulo}</h3>
               <p className="categoria">{noticia.categoria}</p>
+              <h3>{noticia.titulo}</h3>
             </Link>
           ))}
         </div>
