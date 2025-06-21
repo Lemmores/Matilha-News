@@ -1,7 +1,7 @@
-const express = require("express");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const Admin = require("../models/Admin");
+import express from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import Admin from "../models/Admin.js";
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       { id: admin._id, username: admin.username },
-      "segredo_super_secreto", // você pode depois mover isso para uma variável de ambiente
+      "segredo_super_secreto", // ideal mover para variável de ambiente
       { expiresIn: "1d" }
     );
 
@@ -36,4 +36,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

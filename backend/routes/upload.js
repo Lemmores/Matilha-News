@@ -1,7 +1,13 @@
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 const router = express.Router();
+
+// Corrige __dirname no ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuração do Multer
 const storage = multer.diskStorage({
@@ -15,7 +21,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 // Rota para upload de imagem
 router.post('/', upload.single('imagem'), (req, res) => {
@@ -28,4 +34,4 @@ router.post('/', upload.single('imagem'), (req, res) => {
   res.status(200).json({ imageUrl });
 });
 
-module.exports = router;
+export default router;

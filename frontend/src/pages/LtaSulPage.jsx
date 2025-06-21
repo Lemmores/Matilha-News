@@ -13,26 +13,26 @@ const jogadores = [
   {
     nome: 'Aegis',
     img: '/jogadores/aegis.jpg',
-    twitter: 'https://twitter.com/AegisLOL',
-    instagram: 'https://instagram.com/AegisLOL',
+    twitter: 'https://x.com/Aegislol1',
+    instagram: 'https://www.instagram.com/gabriel.aegis1/',
   },
   {
     nome: 'Grevthar',
     img: '/jogadores/grevthar.jpg',
-    twitter: 'https://twitter.com/GrevtharLOL',
-    instagram: 'https://instagram.com/GrevtharLOL',
+    twitter: 'https://x.com/Grevthar',
+    instagram: 'https://www.instagram.com/grevthar/',
   },
   {
     nome: 'Brance',
     img: '/jogadores/brance.jpg',
-    twitter: 'https://twitter.com/BranceLOL',
-    instagram: 'https://instagram.com/BranceLOL',
+    twitter: 'https://x.com/brancelol01',
+    instagram: 'https://www.instagram.com/brance_oficial/',
   },
   {
     nome: 'Frosty',
     img: '/jogadores/frosty.jpg',
-    twitter: 'https://twitter.com/FrostyLOL',
-    instagram: 'https://instagram.com/FrostyLOL',
+    twitter: 'https://x.com/frostylolx',
+    instagram: 'https://www.instagram.com/lolfrosty1/',
   },
 ];
 
@@ -134,7 +134,7 @@ const LtaSulPage = () => {
       </section>
 
       <AgendaLTA />
-
+{/* 
       <section className="tabela-img">
         <h2 className="lta-section-title">Tabela LTA SUL</h2>
         <img
@@ -143,7 +143,7 @@ const LtaSulPage = () => {
           onClick={() => setImagemAberta("/tabelalta.jpeg")}
           style={{ cursor: 'pointer' }}
         />
-      </section>
+      </section> */}
     </div>
   );
 };

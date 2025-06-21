@@ -88,7 +88,7 @@ const EditarNoticia = () => {
 
       if (response.ok) {
         setMensagem('Notícia atualizada com sucesso!');
-        setTimeout(() => navigate('/painel'), 1500);
+        setTimeout(() => navigate('/gerenciar-noticia'), 1500);
       } else {
         setMensagem('Erro ao atualizar notícia.');
       }

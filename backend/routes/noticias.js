@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const Noticia = require("../models/Noticia");
-const mongoose = require("mongoose");
+import express from "express";
+import Noticia from "../models/Noticia.js";
+import mongoose from "mongoose";
+import autenticarAdmin from "../middlewares/auth.js";
 
-const autenticarAdmin = require("../middlewares/auth");
+const router = express.Router();
 
 // Buscar todas as notícias (rota pública)
 router.get("/", async (req, res) => {
@@ -93,4 +93,4 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

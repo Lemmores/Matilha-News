@@ -8,31 +8,31 @@ const jogadores = [
     nome: 'zynts',
     img: '/jogadores/zynts.jpg',
     twitter: 'https://twitter.com/zyntsLOL',
-    instagram: 'https://instagram.com/zyntsLOL',
+    instagram: 'https://www.instagram.com/matheuszynts1/',
   },
   {
     nome: 'DOOM',
     img: '/jogadores/doom.jpg',
-    twitter: 'https://twitter.com/doomLOL',
-    instagram: 'https://instagram.com/doomLOL',
+    twitter: 'https://x.com/DoomLol11',
+    instagram: 'https://www.instagram.com/curse_lol1/',
   },
   {
     nome: 'Kaze',
     img: '/jogadores/kaze.jpg',
-    twitter: 'https://twitter.com/kazeLOL',
-    instagram: 'https://instagram.com/kazeLOL',
+    twitter: 'https://x.com/1Kazelol',
+    instagram: 'https://www.instagram.com/kaze.g_/',
   },
   {
     nome: 'Rabelo',
     img: '/jogadores/rabelo.jpg',
-    twitter: 'https://twitter.com/rabeloLOL',
-    instagram: 'https://instagram.com/rabeloLOL',
+    twitter: 'https://x.com/rabeloxv',
+    instagram: 'https://www.instagram.com/rabelokoo/',
   },
   {
     nome: 'uZent',
     img: '/jogadores/uzent.jpg',
-    twitter: 'https://twitter.com/uzentLOL',
-    instagram: 'https://instagram.com/uzentLOL',
+    twitter: 'https://x.com/uzentLOL',
+    instagram: 'https://www.instagram.com/matheus_uzent/',
   },
 ];
 
@@ -140,7 +140,7 @@ const CircuitoPage = () => {
       {/* Agenda com componente */}
       <Agendacircuito />
 
-      {/* Tabela */}
+      {/* Tabela
       <section className="tabela-img">
         <h2 className="circuito-section-title">Tabela Circuito Desafiante</h2>
         <img
@@ -149,7 +149,7 @@ const CircuitoPage = () => {
           onClick={() => setImagemAberta("/tabelacircuito2.jpg")}
           style={{ cursor: 'pointer' }}
         />
-      </section>
+      </section> */}
     </div>
   );
 };

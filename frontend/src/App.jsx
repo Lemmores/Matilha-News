@@ -11,8 +11,11 @@ import Contato from './components/Contato';
 import NovaNoticia from './components/NovaNoticia';
 import NoticiaDetalhada from './pages/Noticias/NoticiaDetalhada';
 import Login from './pages/Login';
-import PainelAdmin from './pages/PainelAdmin';
+import GerenciarNoticia from './pages/GerenciarNoticia';
 import EditarNoticia from './components/EditarNoticia';
+import NovaWatchParty from './components/NovaWatchParty';
+import GerenciarWatchParties from './pages/GerenciarWatchParties';
+import EditarWatchParty from './components/EditarWatchParty';
 
 export default function App() {
   return (
@@ -20,9 +23,9 @@ export default function App() {
       <Header />
       
       <Routes>
-        <Route path="/" element={<Home />} />
-           <Route path="/painel" element={<PainelAdmin />} />
-          <Route path="/login" element={<Login />} />
+         <Route path="/" element={<Home />} />
+         <Route path="/gerenciar-noticia" element={<GerenciarNoticia />} />
+         <Route path="/login" element={<Login />} />
          <Route path="/watchparties" element={<WatchParties />} />
          <Route path="/matilhatactics" element={<MatilhaTactics />} />
          <Route path="/ltasul" element={<LtaSulPage/>} />
@@ -30,8 +33,12 @@ export default function App() {
          <Route path="/contato" element={<Contato />} />
          <Route path="/noticia/:id" element={<NoticiaDetalhada />} />
          <Route path="/noticias" element={<Noticias />} />
-        <Route path="/nova-noticia" element={<NovaNoticia />} />
-        <Route path="/editar-noticia/:id" element={<EditarNoticia />} />
+         <Route path="/nova-noticia" element={<NovaNoticia />} />
+         <Route path="/editar-noticia/:id" element={<EditarNoticia />} />
+         <Route path="/nova-watchparty" element={<NovaWatchParty />} />
+         <Route path="/gerenciar-wp" element={<GerenciarWatchParties />} />
+         <Route path="/editar-watchparty/:id" element={<EditarWatchParty />} />
+    
 
 
         

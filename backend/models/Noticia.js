@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const NoticiaSchema = new mongoose.Schema({
   titulo: String,
@@ -11,4 +11,6 @@ const NoticiaSchema = new mongoose.Schema({
   videoUrl: String
 });
 
-module.exports = mongoose.model('Noticia', NoticiaSchema);
+const Noticia = mongoose.model('Noticia', NoticiaSchema);
+
+export default Noticia;

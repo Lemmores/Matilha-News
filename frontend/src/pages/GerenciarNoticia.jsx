@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./PainelAdmin.css";
+import "./GerenciarNoticia.css";
 
-export default function PainelAdmin() {
+export default function GerenciarNoticia() {
   const [noticias, setNoticias] = useState([]);
   const [filtro, setFiltro] = useState("TUDO");
   const navigate = useNavigate();

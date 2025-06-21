@@ -110,7 +110,9 @@ export default function Header() {
                 {dropdownAberto === 'painel-admin' && (
                   <div className="dropdown">
                     <Link to="/nova-noticia">Nova Notícia</Link>
-                    <Link to="/painel">Gerenciar Notícia</Link>
+                    <Link to="/gerenciar-noticia">Gerenciar Notícia</Link>
+                    <Link to="/nova-watchparty">Nova Watch Party</Link>
+                    <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
                   </div>
                 )}
               </div>
@@ -173,7 +175,8 @@ export default function Header() {
               {dropdownAberto === 'painel-admin-mobile' && (
                 <div className="dropdown">
                   <Link to="/nova-noticia">Nova Notícia</Link>
-                  <Link to="/painel">Gerenciar Notícia</Link>
+                  <Link to="/gerenciar-noticia">Gerenciar Notícia</Link>
+                  <Link to="/nova-watchparty">Nova Watch Party</Link>
                 </div>
               )}
             </div>
