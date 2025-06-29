@@ -27,7 +27,7 @@ export default function Login() {
         // 🔔 Dispara evento para que o Header saiba que o admin está logado
         window.dispatchEvent(new Event("adminLogado"));
 
-        navigate("/painel");
+        navigate("/gerenciar-noticia");
       } else {
         setErro(data.error || "Erro ao fazer login.");
       }
