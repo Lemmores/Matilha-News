@@ -8,6 +8,11 @@ const router = express.Router();
 // Buscar todas as notícias (rota pública)
 router.get("/", async (req, res) => {
   try {
+    // Logs de depuração: banco e coleção usados
+    console.log("📌 Verificando conexão com MongoDB:");
+    console.log("Banco:", Noticia.db.name);
+    console.log("Coleção:", Noticia.collection.name);
+
     const noticias = await Noticia.find();
     res.json(noticias);
   } catch (err) {
