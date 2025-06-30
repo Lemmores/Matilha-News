@@ -1,9 +1,11 @@
 // criarAdmin.js
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const Admin = require("./models/Admin");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import Admin from "./models/Admin.js"; // repare no `.js` no final!
 
-mongoose.connect("mongodb://localhost:27017/matilhanews");
+const MONGO_URI = "mongodb+srv://admin:Matilha123@cluster0.ru0ydbc.mongodb.net/matilhanews?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose.connect(MONGO_URI);
 
 async function criarAdmin() {
   const username = "Lemores";
@@ -13,7 +15,7 @@ async function criarAdmin() {
 
   const admin = new Admin({ username, password: senhaHash });
   await admin.save();
-  console.log("Administrador criado com sucesso!");
+  console.log("✅ Administrador criado com sucesso!");
 
   mongoose.connection.close();
 }
