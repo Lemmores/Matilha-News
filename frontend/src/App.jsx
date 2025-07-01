@@ -9,7 +9,7 @@ import LtaSulPage from './pages/LtaSulPage';
 import CircuitoPage from './pages/CircuitoPage';
 import Contato from './components/Contato';
 import NovaNoticia from './components/NovaNoticia';
-import NoticiaDetalhada from './pages/Noticias/NoticiaDetalhada';
+import NoticiaDetalhada from './pages/NoticiaDetalhada';
 import Login from './pages/Login';
 import GerenciarNoticia from './pages/GerenciarNoticia';
 import EditarNoticia from './components/EditarNoticia';
