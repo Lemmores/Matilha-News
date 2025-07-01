@@ -6,10 +6,12 @@ export default function NoticiaDetalhada() {
   const { id } = useParams();
   const [noticia, setNoticia] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   useEffect(() => {
     const fetchNoticia = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/noticias/${id}`);
+        const response = await fetch(`${API_URL}/noticias/${id}`);
         const data = await response.json();
         setNoticia(data);
       } catch (error) {
@@ -24,7 +26,6 @@ export default function NoticiaDetalhada() {
     return <p style={{ color: "white", textAlign: "center" }}>Carregando notícia...</p>;
   }
 
-  // Função para converter link do YouTube em link embed
   const getYoutubeEmbedUrl = (url) => {
     if (!url) return null;
 
@@ -48,7 +49,7 @@ export default function NoticiaDetalhada() {
 
       <img
         className="noticia-img"
-        src={`http://localhost:5000${noticia.imagem}`}
+        src={`${API_URL}${noticia.imagem}`}
         alt={noticia.titulo}
       />
 
@@ -60,7 +61,6 @@ export default function NoticiaDetalhada() {
           : <p>{noticia.textoCompleto}</p>}
       </div>
 
-      {/* Vídeo do YouTube */}
       {embedUrl && (
         <div className="noticia-video">
           <iframe
