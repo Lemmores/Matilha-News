@@ -11,7 +11,7 @@ export default function NoticiaDetalhada() {
   useEffect(() => {
     const fetchNoticia = async () => {
       try {
-        const response = await fetch(`${API_URL}/noticias/${id}`);
+        const response = await fetch(`${API_URL}api/noticias/${id}`);
         const data = await response.json();
         setNoticia(data);
       } catch (error) {
