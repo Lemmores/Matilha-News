@@ -9,7 +9,7 @@ export default function Noticias() {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {
-    fetch(`${API_URL}/noticias`)
+    fetch(`${API_URL}/api/noticias`)
       .then(res => res.json())
       .then(data => {
         // Ordena por data (mais recentes primeiro)
