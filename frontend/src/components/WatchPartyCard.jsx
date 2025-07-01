@@ -1,9 +1,15 @@
 import './WatchParties.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export default function WatchPartyCard({ evento }) {
   return (
     <div className="watch-card">
-      <img src={`http://localhost:5000${evento.imagem}`} alt={evento.titulo} className="watch-img" />
+      <img
+        src={`${API_URL}${evento.imagem}`}
+        alt={evento.titulo}
+        className="watch-img"
+      />
       <div className="watch-info">
         <h2>{evento.titulo}</h2>
         <p><strong>Data:</strong> {evento.data}</p>

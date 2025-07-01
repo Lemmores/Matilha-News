@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import API_URL from "../config"; // 👈 importando o valor da URL
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -13,7 +14,7 @@ export default function Login() {
     setErro("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -23,10 +24,7 @@ export default function Login() {
 
       if (res.ok) {
         localStorage.setItem("token", data.token);
-
-        // 🔔 Dispara evento para que o Header saiba que o admin está logado
         window.dispatchEvent(new Event("adminLogado"));
-
         navigate("/gerenciar-noticia");
       } else {
         setErro(data.error || "Erro ao fazer login.");

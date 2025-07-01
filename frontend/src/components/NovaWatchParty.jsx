@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
-import "./NovaWatchParty.css"; 
+import "./NovaWatchParty.css";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function NovaWatchParty() {
   const [formData, setFormData] = useState({
@@ -14,13 +16,11 @@ export default function NovaWatchParty() {
   const [mensagem, setMensagem] = useState("");
   const inputFileRef = useRef(null);
 
-  // Atualiza o estado do form em qualquer input exceto o file
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Upload da imagem para backend
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -29,7 +29,7 @@ export default function NovaWatchParty() {
     formDataImg.append("imagem", file);
 
     try {
-      const response = await fetch("http://localhost:5000/upload", {
+      const response = await fetch(`${API_URL}/upload`, {
         method: "POST",
         body: formDataImg,
       });
@@ -48,31 +48,25 @@ export default function NovaWatchParty() {
     }
   };
 
-  // Envia o formulário para o backend
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validação simples
-    if (!formData.titulo || !formData.data || !formData.local || !formData.imagem || !formData.grupo) {
+    if (
+      !formData.titulo ||
+      !formData.data ||
+      !formData.local ||
+      !formData.imagem ||
+      !formData.grupo
+    ) {
       setMensagem("Preencha todos os campos obrigatórios.");
       return;
     }
 
-    // Monta o objeto para enviar
-    const novaWatchParty = {
-      titulo: formData.titulo,
-      data: formData.data,
-      local: formData.local,
-      imagem: formData.imagem,
-      grupo: formData.grupo,
-      linkDetalhes: formData.linkDetalhes,
-    };
-
     try {
-      const response = await fetch("http://localhost:5000/api/watchparties", {
+      const response = await fetch(`${API_URL}/api/watchparties`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(novaWatchParty),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -86,7 +80,7 @@ export default function NovaWatchParty() {
           linkDetalhes: "",
         });
         if (inputFileRef.current) {
-          inputFileRef.current.value = ""; // limpa input file
+          inputFileRef.current.value = "";
         }
       } else {
         setMensagem("Erro ao criar Watch Party.");

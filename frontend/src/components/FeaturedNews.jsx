@@ -3,6 +3,8 @@ import "./FeaturedNews.css";
 import { Link } from "react-router-dom";
 import "swiper/css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 export default function FeaturedNews() {
   const [noticias, setNoticias] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -10,9 +12,13 @@ export default function FeaturedNews() {
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/noticias");
+        const response = await fetch(`${API_URL}/api/noticias`);
         const data = await response.json();
-        setNoticias(data.reverse()); // mostra mais recentes primeiro
+
+        // Ordena por data (mais recentes primeiro)
+        const ordenadasPorData = data.sort((a, b) => new Date(b.data) - new Date(a.data));
+
+        setNoticias(ordenadasPorData);
       } catch (error) {
         console.error("Erro ao carregar notícias:", error);
       }
@@ -32,7 +38,7 @@ export default function FeaturedNews() {
   }
 
   const mainNews = noticias[0];
-  const sideNews = noticias.slice(1, 7); // até 5 laterais
+  const sideNews = noticias.slice(1, 7); // até 6 laterais
 
   return (
     <section className="featured-news">
@@ -40,7 +46,7 @@ export default function FeaturedNews() {
         {!isMobile && (
           <div className="main-news">
             <Link to={`/noticia/${mainNews._id}`}>
-              <img src={`http://localhost:5000${mainNews.imagem}`} alt="Notícia Principal" />
+              <img src={`${API_URL}${mainNews.imagem}`} alt="Notícia Principal" />
               <span className="news-tag">{mainNews.categoria || "NOTÍCIA"}</span>
               <div className="main-news-caption">
                 <h3>{mainNews.titulo}</h3>
@@ -54,7 +60,7 @@ export default function FeaturedNews() {
             {sideNews.map(({ _id, imagem, titulo, categoria }) => (
               <div key={_id} className="news-card">
                 <Link to={`/noticia/${_id}`}>
-                  <img src={`http://localhost:5000${imagem}`} alt={`Notícia`} />
+                  <img src={`${API_URL}${imagem}`} alt="Notícia" />
                   <span className="news-tag">{categoria || "NOTÍCIA"}</span>
                   <div className="news-caption">
                     <h3>{titulo}</h3>
@@ -68,7 +74,7 @@ export default function FeaturedNews() {
             {[mainNews, ...sideNews].map(({ _id, imagem, titulo, categoria }) => (
               <div key={_id} className="news-card">
                 <Link to={`/noticia/${_id}`}>
-                  <img src={`http://localhost:5000${imagem}`} alt={`Notícia`} />
+                  <img src={`${API_URL}${imagem}`} alt="Notícia" />
                   <div className="news-caption">
                     <span className="news-tag">{categoria || "NOTÍCIA"}</span>
                     <h3>{titulo}</h3>

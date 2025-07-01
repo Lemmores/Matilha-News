@@ -40,12 +40,13 @@ const CircuitoPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasCircuito, setNoticiasCircuito] = useState([]);
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/noticias');
+        const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
-
         const circuitoNoticias = data.filter(n => n.categoria === 'CIRCUITO DESAFIANTE');
         setNoticiasCircuito(circuitoNoticias);
       } catch (error) {
@@ -54,7 +55,7 @@ const CircuitoPage = () => {
     };
 
     fetchNoticias();
-  }, []);
+  }, [API_URL]);
 
   return (
     <div className="pagina-circuito">
@@ -129,7 +130,7 @@ const CircuitoPage = () => {
         <div className="noticia-list">
           {noticiasCircuito.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <img src={`http://localhost:5000${noticia.imagem}`} alt={noticia.titulo} />
+               <img src={`${API_URL}${noticia.imagem}`} alt={noticia.titulo} />
               <p className="categoria">{noticia.categoria}</p>
               <h3>{noticia.titulo}</h3>
             </Link>

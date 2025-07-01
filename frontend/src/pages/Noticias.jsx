@@ -6,12 +6,18 @@ export default function Noticias() {
   const [noticias, setNoticias] = useState([]);
   const [filtro, setFiltro] = useState('TUDO');
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   useEffect(() => {
-    fetch('http://localhost:5000/api/noticias')
+    fetch(`${API_URL}/api/noticias`)
       .then(res => res.json())
-      .then(data => setNoticias(data))
+      .then(data => {
+        // Ordena por data (mais recentes primeiro)
+        const ordenadas = data.sort((a, b) => new Date(b.data) - new Date(a.data));
+        setNoticias(ordenadas);
+      })
       .catch(err => console.error('Erro ao carregar notícias:', err));
-  }, []);
+  }, [API_URL]);
 
   const filtros = ['TUDO', 'LTA SUL', 'CIRCUITO DESAFIANTE', 'CS2', 'VALORANT', 'EXTRAS'];
 
@@ -43,14 +49,12 @@ export default function Noticias() {
             className="card-noticia"
           >
             <img
-              src={`http://localhost:5000${noticia.imagem}`}
+              src={`${API_URL}${noticia.imagem}`}
               alt={noticia.titulo}
             />
-          <p className="categoria">{noticia.categoria}</p>
-<h3>{noticia.titulo}</h3>
-<p className="conteudo">{noticia.conteudo}</p>
-
-            
+            <p className="categoria">{noticia.categoria}</p>
+            <h3>{noticia.titulo}</h3>
+            <p className="conteudo">{noticia.conteudo}</p>
           </Link>
         ))}
       </div>

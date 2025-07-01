@@ -7,22 +7,24 @@ export default function GerenciarWatchParties() {
   const [watchParties, setWatchParties] = useState([]);
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return navigate("/login");
 
     axios
-      .get("http://localhost:5000/api/watchparties")
+      .get(`${API_URL}/api/watchparties`)
       .then((res) => setWatchParties(res.data))
       .catch((err) => console.error(err));
-  }, [navigate]);
+  }, [navigate, API_URL]);
 
   const deletarWatchParty = async (id) => {
     const token = localStorage.getItem("token");
     if (!window.confirm("Tem certeza que deseja deletar essa Watch Party?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/watchparties/${id}`, {
+      await axios.delete(`${API_URL}/api/watchparties/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWatchParties(watchParties.filter((wp) => wp._id !== id));
@@ -40,7 +42,7 @@ export default function GerenciarWatchParties() {
         {watchParties.map((evento) => (
           <div key={evento._id} className="card-watchparty-admin">
             <img
-              src={`http://localhost:5000${evento.imagem}`}
+              src={`${API_URL}${evento.imagem}`}
               alt={evento.titulo}
             />
             <h3>{evento.titulo}</h3>

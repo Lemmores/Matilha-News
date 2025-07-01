@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './NovaNoticia.css';
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const EditarNoticia = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const EditarNoticia = () => {
   useEffect(() => {
     const fetchNoticia = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/noticias/${id}`);
+        const res = await fetch(`${API_URL}/api/noticias/${id}`);
         const data = await res.json();
         setFormData({
           titulo: data.titulo,
@@ -51,7 +53,7 @@ const EditarNoticia = () => {
     formDataImg.append('imagem', file);
 
     try {
-      const response = await fetch('http://localhost:5000/upload', {
+      const response = await fetch(`${API_URL}/upload`, {
         method: 'POST',
         body: formDataImg,
       });
@@ -80,7 +82,7 @@ const EditarNoticia = () => {
         videoUrl: formData.videoUrl,
       };
 
-      const response = await fetch(`http://localhost:5000/api/noticias/${id}`, {
+      const response = await fetch(`${API_URL}/api/noticias/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(noticiaAtualizada),
@@ -126,7 +128,7 @@ const EditarNoticia = () => {
         />
         {formData.imagem && (
           <img
-            src={`http://localhost:5000/${formData.imagem}`}
+            src={`${API_URL}/${formData.imagem}`}
             alt="Imagem atual"
             style={{ maxHeight: '150px', marginBottom: '1rem' }}
           />

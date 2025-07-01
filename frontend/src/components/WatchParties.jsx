@@ -7,16 +7,16 @@ export default function WatchParties() {
   const [filtro, setFiltro] = useState('TUDO');
   const [eventos, setEventos] = useState([]);
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/watchparties')
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+  useEffect(() => {
+    axios.get(`${API_URL}/api/watchparties`)
       .then(res => {
         console.log('Resposta da API:', res.data);
-        // Se precisar ajustar o caminho do array, altere aqui
         setEventos(res.data);
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [API_URL]);
 
   const hoje = new Date();
 
@@ -58,7 +58,12 @@ export default function WatchParties() {
 
       <div className="grupo-info">
         <p>Entre nos grupos de WhatsApp da sua região para ficar por dentro das próximas Watch Parties!</p>
-        <a className="grupo-link" href="https://chat.whatsapp.com/GRUPOGERAL" target="_blank" rel="noreferrer">
+        <a
+          className="grupo-link"
+          href="https://chat.whatsapp.com/GRUPOGERAL"
+          target="_blank"
+          rel="noreferrer"
+        >
           👉 Grupo Geral da Matilha
         </a>
       </div>

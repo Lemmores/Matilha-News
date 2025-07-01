@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './NovaWatchParty.css';
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const EditarWatchParty = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const EditarWatchParty = () => {
   useEffect(() => {
     const fetchWatchParty = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/watchparties/${id}`);
+        const res = await fetch(`${API_URL}/api/watchparties/${id}`);
         const data = await res.json();
         console.log("Dados recebidos da Watch Party:", data);
 
@@ -52,7 +54,7 @@ const EditarWatchParty = () => {
     formDataImg.append('imagem', file);
 
     try {
-      const response = await fetch('http://localhost:5000/upload', {
+      const response = await fetch(`${API_URL}/upload`, {
         method: 'POST',
         body: formDataImg,
       });
@@ -81,7 +83,7 @@ const EditarWatchParty = () => {
         linkDetalhes: formData.linkDetalhes,
       };
 
-      const response = await fetch(`http://localhost:5000/api/watchparties/${id}`, {
+      const response = await fetch(`${API_URL}/api/watchparties/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(eventoAtualizado),
@@ -140,7 +142,7 @@ const EditarWatchParty = () => {
 
         {formData.imagem && (
           <img
-            src={`http://localhost:5000${formData.imagem}`}
+            src={`${API_URL}${formData.imagem}`}
             alt="Imagem atual"
             style={{ maxHeight: '150px', marginBottom: '1rem' }}
           />

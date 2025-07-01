@@ -9,23 +9,24 @@ export default function GerenciarNoticia() {
   const navigate = useNavigate();
 
   const categorias = ["TUDO", "LTA SUL", "CIRCUITO DESAFIANTE", "CS2", "VALORANT", "EXTRAS"];
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return navigate("/login");
 
     axios
-      .get("http://localhost:5000/api/noticias")
+      .get(`${API_URL}/api/noticias`)
       .then((res) => setNoticias(res.data))
       .catch((err) => console.error(err));
-  }, [navigate]);
+  }, [navigate, API_URL]);
 
   const deletarNoticia = async (id) => {
     const token = localStorage.getItem("token");
     if (!window.confirm("Tem certeza que deseja deletar essa notícia?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/noticias/${id}`, {
+      await axios.delete(`${API_URL}/api/noticias/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNoticias(noticias.filter((n) => n._id !== id));
@@ -41,7 +42,6 @@ export default function GerenciarNoticia() {
   return (
     <div className="pagina-painel">
       <h1>Painel Administrativo</h1>
-
 
       <div className="filtros">
         {categorias.map((cat) => (
@@ -59,16 +59,24 @@ export default function GerenciarNoticia() {
         {noticiasFiltradas.map((noticia) => (
           <div key={noticia._id} className="card-noticia-admin">
             <img
-              src={`http://localhost:5000${noticia.imagem}`}
+              src={`${API_URL}${noticia.imagem}`}
               alt={noticia.titulo}
             />
             <h3>{noticia.titulo}</h3>
             <div className="botoes-acoes">
-              <button className="botao-editar" onClick={() => navigate(`/editar-noticia/${noticia._id}`)}>Editar</button>
-              <button className="botao-deletar" onClick={() => deletarNoticia(noticia._id)}>Deletar</button>
+              <button
+                className="botao-editar"
+                onClick={() => navigate(`/editar-noticia/${noticia._id}`)}
+              >
+                Editar
+              </button>
+              <button
+                className="botao-deletar"
+                onClick={() => deletarNoticia(noticia._id)}
+              >
+                Deletar
+              </button>
             </div>
-
-
           </div>
         ))}
       </div>

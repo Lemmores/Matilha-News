@@ -40,10 +40,12 @@ const LtaSulPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasLtaSul, setNoticiasLtaSul] = useState([]);
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/noticias');
+        const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
         const ltaSulNoticias = data.filter(n => n.categoria === 'LTA SUL');
         setNoticiasLtaSul(ltaSulNoticias);
@@ -53,7 +55,7 @@ const LtaSulPage = () => {
     };
 
     fetchNoticias();
-  }, []);
+  }, [API_URL]);
 
   return (
     <div className="pagina-lta">
@@ -72,22 +74,12 @@ const LtaSulPage = () => {
               <span>{jogador.nome}</span>
               <div className="social-buttons">
                 {jogador.twitter && (
-                  <a
-                    href={jogador.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-btn"
-                  >
+                  <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-btn">
                     <img src="/icons/x.png" alt="Twitter" />
                   </a>
                 )}
                 {jogador.instagram && (
-                  <a
-                    href={jogador.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-btn"
-                  >
+                  <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-btn">
                     <img src="/icons/instagram.png" alt="Instagram" />
                   </a>
                 )}
@@ -124,26 +116,15 @@ const LtaSulPage = () => {
         <div className="noticia-list">
           {noticiasLtaSul.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <img src={`http://localhost:5000${noticia.imagem}`} alt={noticia.titulo} />
+              <img src={`${API_URL}${noticia.imagem}`} alt={noticia.titulo} />
               <p className="categoria">{noticia.categoria}</p>
               <h3>{noticia.titulo}</h3>
-              
             </Link>
           ))}
         </div>
       </section>
 
       <AgendaLTA />
-{/* 
-      <section className="tabela-img">
-        <h2 className="lta-section-title">Tabela LTA SUL</h2>
-        <img
-          src="/tabelalta.jpeg"
-          alt="Tabela da LTA SUL"
-          onClick={() => setImagemAberta("/tabelalta.jpeg")}
-          style={{ cursor: 'pointer' }}
-        />
-      </section> */}
     </div>
   );
 };

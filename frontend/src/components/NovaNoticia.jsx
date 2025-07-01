@@ -1,18 +1,20 @@
-import React, { useState, useRef } from 'react';
-import './NovaNoticia.css';
+import React, { useState, useRef } from "react";
+import "./NovaNoticia.css";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const NovaNoticia = () => {
   const [formData, setFormData] = useState({
-    titulo: '',
-    data: '',
+    titulo: "",
+    data: "",
     imagem: null,
-    conteudo: '',
-    autor: '',
-    categoria: '',
-    videoUrl: '',
+    conteudo: "",
+    autor: "",
+    categoria: "",
+    videoUrl: "",
   });
 
-  const [mensagem, setMensagem] = useState('');
+  const [mensagem, setMensagem] = useState("");
   const inputFileRef = useRef(null);
 
   const handleChange = (e) => {
@@ -22,65 +24,71 @@ const NovaNoticia = () => {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
     const formDataImg = new FormData();
-    formDataImg.append('imagem', file);
+    formDataImg.append("imagem", file);
 
     try {
-      const response = await fetch('http://localhost:5000/upload', {
-        method: 'POST',
+      const response = await fetch(`${API_URL}/upload`, {
+        method: "POST",
         body: formDataImg,
       });
 
       const data = await response.json();
+
       if (data.imageUrl) {
         setFormData((prev) => ({ ...prev, imagem: data.imageUrl }));
-        setMensagem('Imagem enviada com sucesso!');
+        setMensagem("Imagem enviada com sucesso!");
+      } else {
+        setMensagem("Erro ao enviar imagem.");
       }
     } catch (error) {
-      console.error('Erro ao fazer upload da imagem:', error);
-      setMensagem('Erro ao enviar imagem.');
+      console.error("Erro ao fazer upload da imagem:", error);
+      setMensagem("Erro ao enviar imagem.");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const noticiaFormatada = {
         titulo: formData.titulo,
         data: new Date(formData.data).toISOString(),
         imagem: formData.imagem,
-        textoCompleto: formData.conteudo.split('\n').filter(Boolean),
+        textoCompleto: formData.conteudo.split("\n").filter(Boolean),
         autor: formData.autor,
         categoria: formData.categoria,
         videoUrl: formData.videoUrl,
       };
 
-      const response = await fetch('http://localhost:5000/api/noticias', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch(`${API_URL}/api/noticias`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(noticiaFormatada),
       });
 
       if (response.ok) {
-        setMensagem('Notícia enviada com sucesso!');
+        setMensagem("Notícia enviada com sucesso!");
         setFormData({
-          titulo: '',
-          data: '',
+          titulo: "",
+          data: "",
           imagem: null,
-          conteudo: '',
-          autor: '',
-          categoria: '',
-          videoUrl: '',
+          conteudo: "",
+          autor: "",
+          categoria: "",
+          videoUrl: "",
         });
         if (inputFileRef.current) {
-          inputFileRef.current.value = ''; // limpa o input file
+          inputFileRef.current.value = "";
         }
       } else {
-        setMensagem('Erro ao enviar notícia.');
+        setMensagem("Erro ao enviar notícia.");
       }
     } catch (error) {
       console.error(error);
-      setMensagem('Erro de conexão ou upload da imagem.');
+      setMensagem("Erro de conexão ou upload da imagem.");
     }
   };
 
@@ -140,7 +148,6 @@ const NovaNoticia = () => {
           <option value="EXTRAS">EXTRAS</option>
         </select>
 
-        {/* 🔥 Campo para link de vídeo */}
         <input
           type="text"
           name="videoUrl"
