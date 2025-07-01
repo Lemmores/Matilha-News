@@ -22,4 +22,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Rota de teste para verificar se auth está funcionando
+router.get('/test', (req, res) => {
+  res.json({ message: 'Rota /api/auth funcionando!' });
+});
+
 export default router;
