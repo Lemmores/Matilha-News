@@ -23,6 +23,18 @@ export default function Header() {
     };
   }, []);
 
+  // Fecha menu mobile quando a tela volta pro desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setMenuAberto(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const toggleMenu = () => {
     setMenuAberto(!menuAberto);
     setDropdownAberto(null);
@@ -35,9 +47,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setAdminLogado(false);
-
     window.dispatchEvent(new Event("adminLogado"));
-
     navigate("/");
   };
 
@@ -105,7 +115,6 @@ export default function Header() {
           {adminLogado && (
             <>
               <div className="nav-item">
-                {/* Dropdown do Painel Administrativo */}
                 <DropdownButton label="Painel Administrativo" id="painel-admin" />
                 {dropdownAberto === 'painel-admin' && (
                   <div className="dropdown">
@@ -129,34 +138,32 @@ export default function Header() {
         <div className="nav-item">
           <Link to="/noticias">Notícias</Link>
         </div>
-        <div className="nav-item">
-          <DropdownButton label="Campeonatos" id="campeonatos-mobile" />
-          {dropdownAberto === 'campeonatos-mobile' && (
-            <div className="dropdown">
-              <Link to="/ltasul">LTA SUL</Link>
-              <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
-              <Link to="#">CS2</Link>
-              <Link to="#">VALORANT</Link>
-            </div>
-          )}
-        </div>
-        <div className="nav-item">
-          <DropdownButton label="Eventos" id="eventos-mobile" />
-          {dropdownAberto === 'eventos-mobile' && (
-            <div className="dropdown">
-              <Link to="/watchparties">WATCH PARTIES</Link>
-            </div>
-          )}
-        </div>
-        <div className="nav-item">
-          <DropdownButton label="Torneios da Matilha" id="torneios-mobile" />
-          {dropdownAberto === 'torneios-mobile' && (
-            <div className="dropdown">
-              <Link to="/matilhatactics">MATILHA TACTICS</Link>
-              <Link to="#">RED CANUDOS 2025</Link>
-            </div>
-          )}
-        </div>
+
+        <details className="nav-item">
+          <summary>Campeonatos</summary>
+          <div className="dropdown">
+            <Link to="/ltasul">LTA SUL</Link>
+            <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
+            <Link to="#">CS2</Link>
+            <Link to="#">VALORANT</Link>
+          </div>
+        </details>
+
+        <details className="nav-item">
+          <summary>Eventos</summary>
+          <div className="dropdown">
+            <Link to="/watchparties">WATCH PARTIES</Link>
+          </div>
+        </details>
+
+        <details className="nav-item">
+          <summary>Torneios da Matilha</summary>
+          <div className="dropdown">
+            <Link to="/matilhatactics">MATILHA TACTICS</Link>
+            <Link to="#">RED CANUDOS 2025</Link>
+          </div>
+        </details>
+
         <div className="nav-item">
           <Link to="/contato">Contato</Link>
         </div>
@@ -169,17 +176,15 @@ export default function Header() {
 
         {adminLogado && (
           <>
-            <div className="nav-item">
-              {/* Dropdown do Painel Administrativo Mobile */}
-              <DropdownButton label="Painel Administrativo" id="painel-admin-mobile" />
-              {dropdownAberto === 'painel-admin-mobile' && (
-                <div className="dropdown">
-                  <Link to="/nova-noticia">Nova Notícia</Link>
-                  <Link to="/gerenciar-noticia">Gerenciar Notícia</Link>
-                  <Link to="/nova-watchparty">Nova Watch Party</Link>
-                </div>
-              )}
-            </div>
+            <details className="nav-item">
+              <summary>Painel Administrativo</summary>
+              <div className="dropdown">
+                <Link to="/nova-noticia">Nova Notícia</Link>
+                <Link to="/gerenciar-noticia">Gerenciar Notícia</Link>
+                <Link to="/nova-watchparty">Nova Watch Party</Link>
+                <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
+              </div>
+            </details>
             <div className="nav-item">
               <button className="dropdown-toggle" onClick={handleLogout}>Sair</button>
             </div>

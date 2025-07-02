@@ -99,13 +99,17 @@
 
 /* MENU MOBILE */
 .menu-toggle {
+  position: fixed; /* em vez de absolute */
+  top: 1rem;
+  right: 1rem;
   background: none;
   border: none;
   color: white;
   font-size: 2rem;
   cursor: pointer;
-  display: none;
+  z-index: 2000; /* acima de tudo */
 }
+
 
 .nav-mobile {
   display: none;
@@ -120,7 +124,7 @@
   background-color: #8a0000;
   height: 100vh;
   width: 60%;
-  padding: 2rem 1rem;
+  padding: 4.5rem 1rem 2rem 1rem;
   z-index: 1000;
   align-items: flex-start;
   justify-content: flex-start;
@@ -170,4 +174,48 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+.nav-mobile summary {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: white;
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+}
+
+
+.nav-mobile details {
+  width: 100%;
+}
+
+.nav-mobile summary::marker {
+  display: none;
+}
+
+.nav-mobile details[open] > summary {
+  background-color: #920000;
+}
+
+.nav-mobile summary::after {
+  content: '▼';
+  font-size: 0.9rem;
+  margin-left: 0.3rem; /* controla a distância da setinha para o texto */
+  transition: transform 0.2s ease;
+}
+
+.nav-mobile details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+
+
+.nav-mobile details[open] summary::after {
+  transform: rotate(180deg); /* vira a seta pra cima quando aberto */
 }
