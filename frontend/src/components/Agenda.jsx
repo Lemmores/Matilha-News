@@ -48,13 +48,15 @@ export default function Agenda({ partidas }) {
       <div className="jogos">
         {jogos.length === 0 && <p>Sem partidas nos próximos 14 dias.</p>}
         {jogos.map((jogo, index) => {
-          const timeA_nome = jogo?.timeA?.nome || "RED Canids";
-          const timeA_logo = jogo?.timeA?.logo || "/logos/red-logo.png";
+  console.log("JOGO:", jogo); // 👈 ADICIONE ISSO AQUI
 
-          const timeB_nome = jogo?.timeB?.nome || "Adversário";
-          const timeB_logo = jogo?.timeB?.logo
-            ? `${API_URL}${jogo.timeB.logo}`
-            : "/logos/default.png";
+  const timeA_nome = jogo?.timeA?.nome || "RED Canids";
+  const timeA_logo = jogo?.timeA?.logo || "/logos/red-logo.png";
+
+  const timeB_nome = jogo?.timeB?.nome || "Adversário";
+  const timeB_logo = jogo?.timeB?.logo
+    ? `${API_URL}${jogo.timeB.logo}`
+    : "/logos/default.png";
 
           return (
             <div className="jogo-card" key={index}>
