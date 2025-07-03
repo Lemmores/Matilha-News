@@ -1,11 +1,10 @@
 import express from 'express';
 import Agenda from '../models/Agenda.js';
-import authMiddleware from '../middleware/authMiddleware.js'; // Se ainda não existir, posso criar
 
 const router = express.Router();
 
 // Criar nova partida
-router.post('/', authMiddleware, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const nova = new Agenda(req.body);
     await nova.save();
@@ -25,8 +24,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Deletar partida
-router.delete('/:id', authMiddleware, async (req, res) => {
+// Deletar uma partida
+router.delete('/:id', async (req, res) => {
   try {
     await Agenda.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Partida deletada com sucesso!' });
@@ -35,8 +34,8 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Editar partida
-router.put('/:id', authMiddleware, async (req, res) => {
+// Editar uma partida
+router.put('/:id', async (req, res) => {
   try {
     const atualizada = await Agenda.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).json(atualizada);
