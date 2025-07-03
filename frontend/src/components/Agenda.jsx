@@ -1,24 +1,24 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./Agenda.css";
 
-export default function Agenda() {
-  const partidas = [
-   
-    {
-      data: "09/06",
-      hora: "17:00",
-      timeA: {
-        nome: "RED Canids Academy",
-        logo: "/logos/redacademy.png"
-      },
-      timeB: {
-        nome: "Vivo Keyd Stars Academy",
-        logo: "/logos/vks.png"
-      },
-      campeonato: "CIRCUITO DESAFIANTE"
-     
-    },
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-  ];
+export default function Agenda() {
+  const [partidas, setPartidas] = useState([]);
+
+  useEffect(() => {
+    const carregarPartidas = async () => {
+      try {
+        const resposta = await axios.get(`${API_URL}/api/agenda`);
+        setPartidas(resposta.data);
+      } catch (error) {
+        console.error("Erro ao carregar partidas:", error);
+      }
+    };
+
+    carregarPartidas();
+  }, []);
 
   return (
     <section className="agenda">
