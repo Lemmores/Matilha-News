@@ -18,6 +18,39 @@ export default function NovaAgenda() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const verificarImagemExiste = (url) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+    });
+  };
+
+  const handleNomeAdversarioChange = async (e) => {
+    const nome = e.target.value;
+    const logoSalva = localStorage.getItem(`logo_${nome}`);
+
+    let logoFinal = "";
+
+    if (logoSalva) {
+      const urlCompleta = `${API_URL}${logoSalva}`;
+      const existe = await verificarImagemExiste(urlCompleta);
+
+      if (existe) {
+        logoFinal = logoSalva;
+      } else {
+        localStorage.removeItem(`logo_${nome}`); // limpa logo quebrada
+      }
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      adversario_nome: nome,
+      adversario_logo: logoFinal,
+    }));
+  };
+
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -39,17 +72,6 @@ export default function NovaAgenda() {
       console.error("Erro ao fazer upload da imagem:", err);
       alert("Erro ao fazer upload da imagem.");
     }
-  };
-
-  const handleNomeAdversarioChange = (e) => {
-    const nome = e.target.value;
-    const logoSalva = localStorage.getItem(`logo_${nome}`);
-
-    setForm((prev) => ({
-      ...prev,
-      adversario_nome: nome,
-      adversario_logo: logoSalva || "",
-    }));
   };
 
   const handleSubmit = async (e) => {
