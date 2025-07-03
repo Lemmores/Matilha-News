@@ -123,6 +123,7 @@ export default function Header() {
                     <Link to="/nova-watchparty">Nova Watch Party</Link>
                     <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
                     <Link to="/nova-agenda">Nova Agenda</Link>
+                    <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
                   </div>
                 )}
               </div>
@@ -185,6 +186,7 @@ export default function Header() {
                 <Link to="/nova-watchparty">Nova Watch Party</Link>
                 <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
                 <Link to="/nova-agenda">Nova Agenda</Link>
+                <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
               </div>
             </details>
             <div className="nav-item">

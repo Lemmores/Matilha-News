@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AgendaLTA from '../components/AgendaLTA';
+import Agenda from '../components/Agenda';
 import './LtaSulPage.css';
 
 const jogadores = [
@@ -39,10 +39,12 @@ const jogadores = [
 const LtaSulPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasLtaSul, setNoticiasLtaSul] = useState([]);
+  const [agendaLtaSul, setAgendaLtaSul] = useState([]);
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
+    // Busca notícias filtrando categoria LTA SUL
     const fetchNoticias = async () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
@@ -54,7 +56,20 @@ const LtaSulPage = () => {
       }
     };
 
+    // Busca agenda e filtra só confrontos LTA SUL
+    const fetchAgenda = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/agenda`);
+        const data = await res.json();
+        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'LTA SUL');
+        setAgendaLtaSul(agendaFiltrada);
+      } catch (error) {
+        console.error('Erro ao carregar agenda da LTA SUL:', error);
+      }
+    };
+
     fetchNoticias();
+    fetchAgenda();
   }, [API_URL]);
 
   return (
@@ -124,7 +139,10 @@ const LtaSulPage = () => {
         </div>
       </section>
 
-      <AgendaLTA />
+      <section>
+        
+        <Agenda partidas={agendaLtaSul} />
+      </section>
     </div>
   );
 };

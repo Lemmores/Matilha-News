@@ -2,23 +2,23 @@ import { useState } from "react";
 import axios from "axios";
 import "./NovaAgenda.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 export default function NovaAgenda() {
   const [form, setForm] = useState({
     data: "",
     hora: "",
     campeonato: "",
     local: "",
-    timeA_nome: "",
-    timeA_logo: "",
-    timeB_nome: "",
-    timeB_logo: "",
+    adversario_nome: "",
+    adversario_logo: "",
   });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = async (e, time) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -26,16 +26,30 @@ export default function NovaAgenda() {
     formData.append("imagem", file);
 
     try {
-      const res = await axios.post("/api/upload", formData);
-      const logoUrl = res.data.url; // depende da sua resposta do backend
+      const res = await axios.post(`${API_URL}/upload`, formData);
+      const logoUrl = res.data.imageUrl;
+
+      localStorage.setItem(`logo_${form.adversario_nome}`, logoUrl);
+
       setForm((prev) => ({
         ...prev,
-        [time]: logoUrl,
+        adversario_logo: logoUrl,
       }));
     } catch (err) {
       console.error("Erro ao fazer upload da imagem:", err);
       alert("Erro ao fazer upload da imagem.");
     }
+  };
+
+  const handleNomeAdversarioChange = (e) => {
+    const nome = e.target.value;
+    const logoSalva = localStorage.getItem(`logo_${nome}`);
+
+    setForm((prev) => ({
+      ...prev,
+      adversario_nome: nome,
+      adversario_logo: logoSalva || "",
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -47,27 +61,25 @@ export default function NovaAgenda() {
       campeonato: form.campeonato,
       local: form.local,
       timeA: {
-        nome: form.timeA_nome,
-        logo: form.timeA_logo,
+        nome: "RED Canids",
+        logo: "/logos/red-logo.png",
       },
       timeB: {
-        nome: form.timeB_nome,
-        logo: form.timeB_logo,
+        nome: form.adversario_nome,
+        logo: form.adversario_logo,
       },
     };
 
     try {
-      await axios.post("/api/agenda", novaAgenda);
+      await axios.post(`${API_URL}/api/agenda`, novaAgenda);
       alert("Partida cadastrada com sucesso!");
       setForm({
         data: "",
         hora: "",
         campeonato: "",
         local: "",
-        timeA_nome: "",
-        timeA_logo: "",
-        timeB_nome: "",
-        timeB_logo: "",
+        adversario_nome: "",
+        adversario_logo: "",
       });
     } catch (err) {
       console.error("Erro ao cadastrar agenda:", err);
@@ -93,13 +105,20 @@ export default function NovaAgenda() {
           placeholder="Hora (ex: 18:00)"
           required
         />
-        <input
+
+        <select
           name="campeonato"
           value={form.campeonato}
           onChange={handleChange}
-          placeholder="Campeonato"
           required
-        />
+        >
+          <option value="">Selecione o campeonato</option>
+          <option value="LTA SUL">LTA SUL</option>
+          <option value="CIRCUITO DESAFIANTE">CIRCUITO DESAFIANTE</option>
+          <option value="CS2">CS2</option>
+          <option value="VALORANT">VALORANT</option>
+        </select>
+
         <input
           name="local"
           value={form.local}
@@ -107,46 +126,28 @@ export default function NovaAgenda() {
           placeholder="Local (opcional)"
         />
 
-        <h4>Time A</h4>
+        <h4>Time Adversário</h4>
         <input
-          name="timeA_nome"
-          value={form.timeA_nome}
-          onChange={handleChange}
-          placeholder="Nome do Time A"
+          name="adversario_nome"
+          value={form.adversario_nome}
+          onChange={handleNomeAdversarioChange}
+          placeholder="Nome do Time Adversário"
           required
         />
-        <input
-          type="file"
-          onChange={(e) => handleFileChange(e, "timeA_logo")}
-          accept="image/*"
-          required
-        />
-        {form.timeA_logo && (
-          <img
-            src={form.timeA_logo}
-            alt="Prévia logo Time A"
-            style={{ maxHeight: "50px", marginTop: "0.5rem" }}
+
+        {!form.adversario_logo && (
+          <input
+            type="file"
+            onChange={handleFileChange}
+            accept="image/*"
+            required
           />
         )}
 
-        <h4>Time B</h4>
-        <input
-          name="timeB_nome"
-          value={form.timeB_nome}
-          onChange={handleChange}
-          placeholder="Nome do Time B"
-          required
-        />
-        <input
-          type="file"
-          onChange={(e) => handleFileChange(e, "timeB_logo")}
-          accept="image/*"
-          required
-        />
-        {form.timeB_logo && (
+        {form.adversario_logo && (
           <img
-            src={form.timeB_logo}
-            alt="Prévia logo Time B"
+            src={`${API_URL}${form.adversario_logo}`}
+            alt="Logo do adversário"
             style={{ maxHeight: "50px", marginTop: "0.5rem" }}
           />
         )}

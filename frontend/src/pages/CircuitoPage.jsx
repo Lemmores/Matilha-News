@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Agendacircuito from '../components/AgendaCircuito';
+import Agenda from '../components/Agenda';  // Importa o componente genérico Agenda
 import './CircuitoPage.css';
 
 const jogadores = [
@@ -39,10 +39,12 @@ const jogadores = [
 const CircuitoPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasCircuito, setNoticiasCircuito] = useState([]);
+  const [agendaCircuito, setAgendaCircuito] = useState([]);
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-  
+
   useEffect(() => {
+    // Busca notícias filtrando categoria CIRCUITO DESAFIANTE
     const fetchNoticias = async () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
@@ -54,7 +56,20 @@ const CircuitoPage = () => {
       }
     };
 
+    // Busca agenda e filtra só partidas do CIRCUITO DESAFIANTE
+    const fetchAgenda = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/agenda`);
+        const data = await res.json();
+        const agendaFiltrada = data.filter(partida => partida.campeonato === 'CIRCUITO DESAFIANTE');
+        setAgendaCircuito(agendaFiltrada);
+      } catch (error) {
+        console.error('Erro ao carregar agenda do Circuito Desafiante:', error);
+      }
+    };
+
     fetchNoticias();
+    fetchAgenda();
   }, [API_URL]);
 
   return (
@@ -130,7 +145,7 @@ const CircuitoPage = () => {
         <div className="noticia-list">
           {noticiasCircuito.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-               <img src={`${API_URL}${noticia.imagem}`} alt={noticia.titulo} />
+              <img src={`${API_URL}${noticia.imagem}`} alt={noticia.titulo} />
               <p className="categoria">{noticia.categoria}</p>
               <h3>{noticia.titulo}</h3>
             </Link>
@@ -138,10 +153,14 @@ const CircuitoPage = () => {
         </div>
       </section>
 
-      {/* Agenda com componente */}
-      <Agendacircuito />
+      {/* Agenda do Circuito Desafiante com componente genérico */}
+      <section>
+    
+        <Agenda partidas={agendaCircuito} />
+      </section>
 
-      {/* Tabela
+      {/* Tabela (comentada, pode ativar se quiser) */}
+      {/*
       <section className="tabela-img">
         <h2 className="circuito-section-title">Tabela Circuito Desafiante</h2>
         <img
@@ -150,7 +169,8 @@ const CircuitoPage = () => {
           onClick={() => setImagemAberta("/tabelacircuito2.jpg")}
           style={{ cursor: 'pointer' }}
         />
-      </section> */}
+      </section>
+      */}
     </div>
   );
 };

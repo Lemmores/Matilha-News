@@ -1,9 +1,11 @@
 import express from 'express';
 import Agenda from '../models/Agenda.js';
+import authMiddleware from '../middleware/authMiddleware.js'; // Se ainda não existir, posso criar
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+// Criar nova partida
+router.post('/', authMiddleware, async (req, res) => {
   try {
     const nova = new Agenda(req.body);
     await nova.save();
@@ -13,12 +15,33 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Obter todas as partidas
 router.get('/', async (req, res) => {
   try {
     const partidas = await Agenda.find().sort({ data: 1 });
     res.json(partidas);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// Deletar partida
+router.delete('/:id', authMiddleware, async (req, res) => {
+  try {
+    await Agenda.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Partida deletada com sucesso!' });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao deletar a partida.' });
+  }
+});
+
+// Editar partida
+router.put('/:id', authMiddleware, async (req, res) => {
+  try {
+    const atualizada = await Agenda.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(atualizada);
+  } catch (err) {
+    res.status(400).json({ error: 'Erro ao editar a partida.' });
   }
 });
 

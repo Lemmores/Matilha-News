@@ -17,6 +17,7 @@ import NovaWatchParty from './components/NovaWatchParty';
 import GerenciarWatchParties from './pages/GerenciarWatchParties';
 import EditarWatchParty from './components/EditarWatchParty';
 import NovaAgenda from './components/NovaAgenda';
+import GerenciarAgenda from './pages/GerenciarAgenda';
 export default function App() {
   return (
     <Router>
@@ -39,7 +40,7 @@ export default function App() {
          <Route path="/gerenciar-wp" element={<GerenciarWatchParties />} />
          <Route path="/editar-watchparty/:id" element={<EditarWatchParty />} />
          <Route path="/nova-agenda" element={<NovaAgenda />} />
-
+         <Route path="/gerenciar-agenda" element={<GerenciarAgenda />} />
     
 
 
