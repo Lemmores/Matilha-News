@@ -124,7 +124,7 @@
   background-color: #8a0000;
   height: 100vh;
   width: 60%;
-  padding: 4.5rem 1rem 2rem 1rem;
+  padding: 5.5rem 1rem 2rem 1rem;
   z-index: 1000;
   align-items: flex-start;
   justify-content: flex-start;
@@ -218,4 +218,21 @@ a:hover {
 
 .nav-mobile details[open] summary::after {
   transform: rotate(180deg); /* vira a seta pra cima quando aberto */
+}
+
+/* Garante área de clique boa no menu mobile */
+.nav-mobile .link-mobile {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: white;
+  text-align: left;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.nav-mobile .nav-item {
+  position: relative;
+  z-index: 1;
 }

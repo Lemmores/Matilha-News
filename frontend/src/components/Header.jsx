@@ -15,15 +15,11 @@ export default function Header() {
     };
 
     verificarLogin();
-
     window.addEventListener("adminLogado", verificarLogin);
 
-    return () => {
-      window.removeEventListener("adminLogado", verificarLogin);
-    };
+    return () => window.removeEventListener("adminLogado", verificarLogin);
   }, []);
 
-  // Fecha menu mobile quando a tela volta pro desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
@@ -138,7 +134,13 @@ export default function Header() {
       {/* Menu Mobile */}
       <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`}>
         <div className="nav-item">
-          <Link to="/noticias">Notícias</Link>
+          <Link
+            to="/noticias"
+            className="link-mobile"
+            onClick={() => setMenuAberto(false)}
+          >
+            Notícias
+          </Link>
         </div>
 
         <details className="nav-item">
@@ -167,12 +169,12 @@ export default function Header() {
         </details>
 
         <div className="nav-item">
-          <Link to="/contato">Contato</Link>
+          <Link to="/contato" className="link-mobile">Contato</Link>
         </div>
 
         {!adminLogado && (
           <div className="nav-item">
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="link-mobile">Login</Link>
           </div>
         )}
 
