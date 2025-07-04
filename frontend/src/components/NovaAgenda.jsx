@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import "./NovaAgenda.css";
 
@@ -14,41 +14,10 @@ export default function NovaAgenda() {
     adversario_logo: "",
   });
 
+  const inputFileRef = useRef(null);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const verificarImagemExiste = (url) => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-      img.src = url;
-    });
-  };
-
-  const handleNomeAdversarioChange = async (e) => {
-    const nome = e.target.value;
-    const logoSalva = localStorage.getItem(`logo_${nome}`);
-
-    let logoFinal = "";
-
-    if (logoSalva) {
-      const urlCompleta = `${API_URL}${logoSalva}`;
-      const existe = await verificarImagemExiste(urlCompleta);
-
-      if (existe) {
-        logoFinal = logoSalva;
-      } else {
-        localStorage.removeItem(`logo_${nome}`); // limpa logo quebrada
-      }
-    }
-
-    setForm((prev) => ({
-      ...prev,
-      adversario_nome: nome,
-      adversario_logo: logoFinal,
-    }));
   };
 
   const handleFileChange = async (e) => {
@@ -62,16 +31,39 @@ export default function NovaAgenda() {
       const res = await axios.post(`${API_URL}/upload`, formData);
       const logoUrl = res.data.imageUrl;
 
-      localStorage.setItem(`logo_${form.adversario_nome}`, logoUrl);
-
       setForm((prev) => ({
         ...prev,
         adversario_logo: logoUrl,
       }));
+
+      // Armazena a imagem associada ao nome do time no localStorage
+      localStorage.setItem(`logo_${form.adversario_nome}`, logoUrl);
     } catch (err) {
       console.error("Erro ao fazer upload da imagem:", err);
       alert("Erro ao fazer upload da imagem.");
     }
+  };
+
+  const handleNomeAdversarioChange = async (e) => {
+    const nome = e.target.value;
+    const logoSalva = localStorage.getItem(`logo_${nome}`);
+
+    // Testa se a imagem realmente existe no servidor
+    let logoValida = "";
+    if (logoSalva) {
+      try {
+        await axios.get(`${API_URL}${logoSalva}`);
+        logoValida = logoSalva;
+      } catch {
+        localStorage.removeItem(`logo_${nome}`);
+      }
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      adversario_nome: nome,
+      adversario_logo: logoValida,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -103,6 +95,9 @@ export default function NovaAgenda() {
         adversario_nome: "",
         adversario_logo: "",
       });
+      if (inputFileRef.current) {
+        inputFileRef.current.value = "";
+      }
     } catch (err) {
       console.error("Erro ao cadastrar agenda:", err);
       alert("Erro ao cadastrar agenda.");
@@ -162,6 +157,7 @@ export default function NovaAgenda() {
             type="file"
             onChange={handleFileChange}
             accept="image/*"
+            ref={inputFileRef}
             required
           />
         )}
