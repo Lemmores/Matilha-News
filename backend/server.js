@@ -4,12 +4,13 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import fs from 'fs'; // 👈 adicionado
 
 import noticiasRoutes from './routes/noticias.js';
 import uploadRoutes from './routes/upload.js';
 import authRoutes from './routes/auth.js';
 import watchPartiesRoutes from './routes/watchparties.js';
-import agendaRoutes from './routes/agenda.js'; // ✅ movido para cima
+import agendaRoutes from './routes/agenda.js';
 
 dotenv.config();
 
@@ -17,6 +18,12 @@ const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// ✅ Garante que a pasta de uploads exista
+const uploadPath = path.join(__dirname, 'public/uploads');
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+}
 
 const PORT = process.env.PORT || 5000;
 const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/matilhanews';
@@ -29,18 +36,16 @@ mongoose.connect(mongoUri)
 app.use(cors());
 app.use(express.json());
 
-// ✅ Servir arquivos da pasta "uploads" como estáticos
+// Servir imagens da pasta uploads
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
-
-// Pasta pública (se estiver usando)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rotas da API
+// Rotas
 app.use('/api/noticias', noticiasRoutes);
 app.use('/upload', uploadRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/watchparties', watchPartiesRoutes);
-app.use('/api/agenda', agendaRoutes); // ✅ já está correto
+app.use('/api/agenda', agendaRoutes);
 
 // Inicializa o servidor
 app.listen(PORT, () => {
