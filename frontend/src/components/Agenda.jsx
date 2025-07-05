@@ -41,7 +41,7 @@ export default function Agenda({ partidas }) {
         {jogos.length === 0 && <p>Sem partidas nos próximos 30 dias.</p>}
         {jogos.map((jogo, index) => {
           const timeA_nome = jogo?.timeA?.nome || "RED Canids";
-          const timeA_logo = jogo?.timeA?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/red-logo.png";
+          const timeA_logo = jogo?.timeA?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1751759483/matilha-news/rpd4oc76tptnj3jqnt8f.png";
 
           const timeB_nome = jogo?.timeB?.nome || "Adversário";
           const timeB_logo = jogo?.timeB?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
