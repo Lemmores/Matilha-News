@@ -64,7 +64,7 @@ export default function NovaAgenda() {
       local: form.local,
       timeA: {
         nome: "RED Canids",
-        logo: RED_LOGO_URL,
+        logo: "https://res.cloudinary.com/matilha-news/image/upload/v1751759483/matilha-news/rpd4oc76tptnj3jqnt8f.png",
       },
       timeB: {
         nome: form.adversario_nome,
