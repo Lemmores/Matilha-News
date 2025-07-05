@@ -3,6 +3,7 @@ import axios from "axios";
 import "./NovaAgenda.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const RED_LOGO_URL = "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/red-logo.png"; // substitua pela URL da RED no seu Cloudinary
 
 export default function NovaAgenda() {
   const [form, setForm] = useState({
@@ -36,7 +37,6 @@ export default function NovaAgenda() {
         adversario_logo: logoUrl,
       }));
 
-      // Armazena no localStorage a URL completa da Cloudinary
       localStorage.setItem(`logo_${form.adversario_nome}`, logoUrl);
     } catch (err) {
       console.error("Erro ao fazer upload da imagem:", err);
@@ -44,25 +44,13 @@ export default function NovaAgenda() {
     }
   };
 
-  const handleNomeAdversarioChange = async (e) => {
+  const handleNomeAdversarioChange = (e) => {
     const nome = e.target.value;
     const logoSalva = localStorage.getItem(`logo_${nome}`);
-
-    let logoValida = "";
-
-    if (logoSalva) {
-      try {
-        await axios.get(logoSalva); // testa diretamente a URL do Cloudinary
-        logoValida = logoSalva;
-      } catch {
-        localStorage.removeItem(`logo_${nome}`);
-      }
-    }
-
     setForm((prev) => ({
       ...prev,
       adversario_nome: nome,
-      adversario_logo: logoValida,
+      adversario_logo: logoSalva || "",
     }));
   };
 
@@ -76,7 +64,7 @@ export default function NovaAgenda() {
       local: form.local,
       timeA: {
         nome: "RED Canids",
-        logo: "/logos/red-logo.png",
+        logo: RED_LOGO_URL,
       },
       timeB: {
         nome: form.adversario_nome,
@@ -108,27 +96,10 @@ export default function NovaAgenda() {
     <div className="nova-agenda">
       <h2>Nova Partida</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          name="data"
-          value={form.data}
-          onChange={handleChange}
-          placeholder="Data (ex: 09/07)"
-          required
-        />
-        <input
-          name="hora"
-          value={form.hora}
-          onChange={handleChange}
-          placeholder="Hora (ex: 18:00)"
-          required
-        />
+        <input name="data" value={form.data} onChange={handleChange} placeholder="Data (ex: 09/07)" required />
+        <input name="hora" value={form.hora} onChange={handleChange} placeholder="Hora (ex: 18:00)" required />
 
-        <select
-          name="campeonato"
-          value={form.campeonato}
-          onChange={handleChange}
-          required
-        >
+        <select name="campeonato" value={form.campeonato} onChange={handleChange} required>
           <option value="">Selecione o campeonato</option>
           <option value="LTA SUL">LTA SUL</option>
           <option value="CIRCUITO DESAFIANTE">CIRCUITO DESAFIANTE</option>
@@ -136,12 +107,7 @@ export default function NovaAgenda() {
           <option value="VALORANT">VALORANT</option>
         </select>
 
-        <input
-          name="local"
-          value={form.local}
-          onChange={handleChange}
-          placeholder="Local (opcional)"
-        />
+        <input name="local" value={form.local} onChange={handleChange} placeholder="Local (opcional)" />
 
         <h4>Time Adversário</h4>
         <input
@@ -153,19 +119,13 @@ export default function NovaAgenda() {
         />
 
         {!form.adversario_logo && (
-          <input
-            type="file"
-            onChange={handleFileChange}
-            accept="image/*"
-            ref={inputFileRef}
-            required
-          />
+          <input type="file" onChange={handleFileChange} accept="image/*" ref={inputFileRef} required />
         )}
 
         {form.adversario_logo && (
           <img
             key={form.adversario_nome}
-            src={form.adversario_logo} // ✅ Usa diretamente a URL do Cloudinary
+            src={form.adversario_logo}
             alt="Logo do adversário"
             style={{ maxHeight: "50px", marginTop: "0.5rem" }}
           />

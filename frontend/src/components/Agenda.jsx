@@ -2,46 +2,37 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Agenda.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
 export default function Agenda({ partidas }) {
   const [jogos, setJogos] = useState([]);
 
   useEffect(() => {
-    if (!partidas) {
-      const carregarPartidas = async () => {
+    const carregar = async () => {
+      if (!partidas) {
         try {
-          const resposta = await axios.get(`${API_URL}/api/agenda`);
+          const resposta = await axios.get(`${import.meta.env.VITE_API_URL}/api/agenda`);
           const jogosFiltrados = filtrarProximos30Dias(resposta.data);
           setJogos(jogosFiltrados);
-        } catch (error) {
-          console.error("Erro ao carregar partidas:", error);
+        } catch (err) {
+          console.error("Erro ao carregar partidas:", err);
         }
-      };
-      carregarPartidas();
-    } else {
-      const jogosFiltrados = filtrarProximos30Dias(partidas);
-      setJogos(jogosFiltrados);
-    }
+      } else {
+        const jogosFiltrados = filtrarProximos30Dias(partidas);
+        setJogos(jogosFiltrados);
+      }
+    };
+    carregar();
   }, [partidas]);
 
   function filtrarProximos30Dias(lista) {
     const hoje = new Date();
     const dataLimite = new Date();
     dataLimite.setDate(hoje.getDate() + 30);
-
     return lista.filter(jogo => {
       const [dia, mes, ano] = jogo.data.split("/").map(Number);
       const dataJogo = new Date(ano, mes - 1, dia);
       return dataJogo >= hoje && dataJogo <= dataLimite;
     });
   }
-
-  // Utilitário para lidar com URLs de logo
-  const tratarLogo = (logo) => {
-    if (!logo) return "/logos/default.png";
-    return logo.startsWith("http") ? logo : `${API_URL}${logo}`;
-  };
 
   return (
     <section className="agenda">
@@ -50,12 +41,10 @@ export default function Agenda({ partidas }) {
         {jogos.length === 0 && <p>Sem partidas nos próximos 30 dias.</p>}
         {jogos.map((jogo, index) => {
           const timeA_nome = jogo?.timeA?.nome || "RED Canids";
-          const timeA_logo = tratarLogo(jogo?.timeA?.logo || "/logos/red-logo.png");
+          const timeA_logo = jogo?.timeA?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/red-logo.png";
 
           const timeB_nome = jogo?.timeB?.nome || "Adversário";
-          const timeB_logo = tratarLogo(jogo?.timeB?.logo);
-
-          console.log("LOGO DO TIME B:", timeB_logo);
+          const timeB_logo = jogo?.timeB?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
 
           return (
             <div className="jogo-card" key={index}>
