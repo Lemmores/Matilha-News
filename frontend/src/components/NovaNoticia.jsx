@@ -52,6 +52,13 @@ const NovaNoticia = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token"); // pega o token salvo no localStorage
+
+    if (!token) {
+      setMensagem("Você precisa estar logado para enviar uma notícia.");
+      return;
+    }
+
     try {
       const noticiaFormatada = {
         titulo: formData.titulo,
@@ -65,7 +72,10 @@ const NovaNoticia = () => {
 
       const response = await fetch(`${API_URL}/api/noticias`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // envia o token no header
+        },
         body: JSON.stringify(noticiaFormatada),
       });
 
@@ -84,7 +94,8 @@ const NovaNoticia = () => {
           inputFileRef.current.value = "";
         }
       } else {
-        setMensagem("Erro ao enviar notícia.");
+        const errData = await response.json();
+        setMensagem(errData.error || "Erro ao enviar notícia.");
       }
     } catch (error) {
       console.error(error);

@@ -36,7 +36,7 @@ export default function NovaAgenda() {
         adversario_logo: logoUrl,
       }));
 
-      // Armazena a imagem associada ao nome do time no localStorage
+      // Armazena no localStorage a URL completa da Cloudinary
       localStorage.setItem(`logo_${form.adversario_nome}`, logoUrl);
     } catch (err) {
       console.error("Erro ao fazer upload da imagem:", err);
@@ -48,11 +48,11 @@ export default function NovaAgenda() {
     const nome = e.target.value;
     const logoSalva = localStorage.getItem(`logo_${nome}`);
 
-    // Testa se a imagem realmente existe no servidor
     let logoValida = "";
+
     if (logoSalva) {
       try {
-        await axios.get(`${API_URL}${logoSalva}`);
+        await axios.get(logoSalva); // testa diretamente a URL do Cloudinary
         logoValida = logoSalva;
       } catch {
         localStorage.removeItem(`logo_${nome}`);
@@ -164,7 +164,8 @@ export default function NovaAgenda() {
 
         {form.adversario_logo && (
           <img
-            src={`${API_URL}${form.adversario_logo}`}
+            key={form.adversario_nome}
+            src={form.adversario_logo} // ✅ Usa diretamente a URL do Cloudinary
             alt="Logo do adversário"
             style={{ maxHeight: "50px", marginTop: "0.5rem" }}
           />

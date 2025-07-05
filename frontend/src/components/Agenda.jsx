@@ -9,12 +9,10 @@ export default function Agenda({ partidas }) {
 
   useEffect(() => {
     if (!partidas) {
-      // Se não recebeu partidas por prop, busca tudo e filtra
       const carregarPartidas = async () => {
         try {
           const resposta = await axios.get(`${API_URL}/api/agenda`);
-          // Filtra os próximos 14 dias
-          const jogosFiltrados = filtrarProximos14Dias(resposta.data);
+          const jogosFiltrados = filtrarProximos30Dias(resposta.data);
           setJogos(jogosFiltrados);
         } catch (error) {
           console.error("Erro ao carregar partidas:", error);
@@ -22,41 +20,42 @@ export default function Agenda({ partidas }) {
       };
       carregarPartidas();
     } else {
-      // Se recebeu partidas, já filtra antes de setar
-      const jogosFiltrados = filtrarProximos14Dias(partidas);
+      const jogosFiltrados = filtrarProximos30Dias(partidas);
       setJogos(jogosFiltrados);
     }
   }, [partidas]);
 
-  function filtrarProximos14Dias(lista) {
-  const hoje = new Date();
-  const dataLimite = new Date();
-  dataLimite.setDate(hoje.getDate() + 30);
+  function filtrarProximos30Dias(lista) {
+    const hoje = new Date();
+    const dataLimite = new Date();
+    dataLimite.setDate(hoje.getDate() + 30);
 
-  return lista.filter(jogo => {
-    // Converte "20/07/2025" em Date válido
-    const [dia, mes, ano] = jogo.data.split("/").map(Number);
-    const dataJogo = new Date(ano, mes - 1, dia); // mês começa em 0
+    return lista.filter(jogo => {
+      const [dia, mes, ano] = jogo.data.split("/").map(Number);
+      const dataJogo = new Date(ano, mes - 1, dia);
+      return dataJogo >= hoje && dataJogo <= dataLimite;
+    });
+  }
 
-    return dataJogo >= hoje && dataJogo <= dataLimite;
-  });
-}
+  // Utilitário para lidar com URLs de logo
+  const tratarLogo = (logo) => {
+    if (!logo) return "/logos/default.png";
+    return logo.startsWith("http") ? logo : `${API_URL}${logo}`;
+  };
 
   return (
     <section className="agenda">
       <h2>Agenda de Jogos</h2>
       <div className="jogos">
-        {jogos.length === 0 && <p>Sem partidas nos próximos 14 dias.</p>}
+        {jogos.length === 0 && <p>Sem partidas nos próximos 30 dias.</p>}
         {jogos.map((jogo, index) => {
-  console.log("JOGO:", jogo); // 👈 ADICIONE ISSO AQUI
+          const timeA_nome = jogo?.timeA?.nome || "RED Canids";
+          const timeA_logo = tratarLogo(jogo?.timeA?.logo || "/logos/red-logo.png");
 
-  const timeA_nome = jogo?.timeA?.nome || "RED Canids";
-  const timeA_logo = jogo?.timeA?.logo || "/logos/red-logo.png";
+          const timeB_nome = jogo?.timeB?.nome || "Adversário";
+          const timeB_logo = tratarLogo(jogo?.timeB?.logo);
 
-  const timeB_nome = jogo?.timeB?.nome || "Adversário";
-  const timeB_logo = jogo?.timeB?.logo
-    ? `${API_URL}${jogo.timeB.logo}`
-    : "/logos/default.png";
+          console.log("LOGO DO TIME B:", timeB_logo);
 
           return (
             <div className="jogo-card" key={index}>
