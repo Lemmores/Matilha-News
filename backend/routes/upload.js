@@ -18,7 +18,6 @@ const upload = multer({ storage });
 router.post('/', upload.single('imagem'), async (req, res) => {
   try {
     console.log("📦 Requisição recebida no /upload");
-    console.log("📝 Arquivo recebido:", req.file);
 
     if (!req.file || !req.file.path) {
       console.error("❌ Nenhum arquivo recebido ou sem path:", req.file);
@@ -26,12 +25,14 @@ router.post('/', upload.single('imagem'), async (req, res) => {
     }
 
     console.log("✅ Upload bem-sucedido:", req.file.path);
-    return res.status(200).json({ imageUrl: req.file.path });
+    res.status(200).json({ imageUrl: req.file.path });
   } catch (error) {
-    console.error("❌ ERRO COMPLETO no upload da imagem:", error);
-    // Envie a mensagem do erro detalhado para facilitar o debug
-    return res.status(500).json({ error: error.message || 'Erro interno ao enviar imagem para o Cloudinary.' });
+    console.error("❌ Erro completo ao enviar imagem para Cloudinary:");
+    console.error(error); // Isso mostrará a stack trace
+    console.error("🔎 Detalhes:", error.message);
+    res.status(500).json({ error: 'Erro interno ao enviar imagem para o Cloudinary.' });
   }
 });
+
 
 export default router;
