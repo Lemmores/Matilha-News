@@ -15,7 +15,9 @@ export default function FeaturedNews() {
         const response = await fetch(`${API_URL}/api/noticias`);
         const data = await response.json();
 
+        // Ordena por data (mais recentes primeiro)
         const ordenadasPorData = data.sort((a, b) => new Date(b.data) - new Date(a.data));
+
         setNoticias(ordenadasPorData);
       } catch (error) {
         console.error("Erro ao carregar notícias:", error);
@@ -36,7 +38,7 @@ export default function FeaturedNews() {
   }
 
   const mainNews = noticias[0];
-  const sideNews = noticias.slice(1, 7);
+  const sideNews = noticias.slice(1, 7); // até 6 laterais
 
   return (
     <section className="featured-news">
