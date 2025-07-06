@@ -87,8 +87,8 @@ export default function NovaAgenda() {
         campeonato: "",
         local: "",
       });
-      fileRefA.current.value = "";
-      fileRefB.current.value = "";
+      if (fileRefA.current) fileRefA.current.value = "";
+      if (fileRefB.current) fileRefB.current.value = "";
     } catch (err) {
       console.error("Erro ao cadastrar agenda:", err);
       alert("Erro ao cadastrar agenda.");

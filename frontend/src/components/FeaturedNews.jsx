@@ -15,9 +15,7 @@ export default function FeaturedNews() {
         const response = await fetch(`${API_URL}/api/noticias`);
         const data = await response.json();
 
-        // Ordena por data (mais recentes primeiro)
         const ordenadasPorData = data.sort((a, b) => new Date(b.data) - new Date(a.data));
-
         setNoticias(ordenadasPorData);
       } catch (error) {
         console.error("Erro ao carregar notícias:", error);
@@ -38,7 +36,7 @@ export default function FeaturedNews() {
   }
 
   const mainNews = noticias[0];
-  const sideNews = noticias.slice(1, 7); // até 6 laterais
+  const sideNews = noticias.slice(1, 7);
 
   return (
     <section className="featured-news">
@@ -46,7 +44,7 @@ export default function FeaturedNews() {
         {!isMobile && (
           <div className="main-news">
             <Link to={`/noticia/${mainNews._id}`}>
-              <img src={`${API_URL}${mainNews.imagem}`} alt="Notícia Principal" />
+              <img src={mainNews.imagem} alt="Notícia Principal" />
               <span className="news-tag">{mainNews.categoria || "NOTÍCIA"}</span>
               <div className="main-news-caption">
                 <h3>{mainNews.titulo}</h3>
@@ -60,7 +58,7 @@ export default function FeaturedNews() {
             {sideNews.map(({ _id, imagem, titulo, categoria }) => (
               <div key={_id} className="news-card">
                 <Link to={`/noticia/${_id}`}>
-                  <img src={`${API_URL}${imagem}`} alt="Notícia" />
+                  <img src={imagem} alt="Notícia" />
                   <span className="news-tag">{categoria || "NOTÍCIA"}</span>
                   <div className="news-caption">
                     <h3>{titulo}</h3>
@@ -74,7 +72,7 @@ export default function FeaturedNews() {
             {[mainNews, ...sideNews].map(({ _id, imagem, titulo, categoria }) => (
               <div key={_id} className="news-card">
                 <Link to={`/noticia/${_id}`}>
-                  <img src={`${API_URL}${imagem}`} alt="Notícia" />
+                  <img src={imagem} alt="Notícia" />
                   <div className="news-caption">
                     <span className="news-tag">{categoria || "NOTÍCIA"}</span>
                     <h3>{titulo}</h3>
