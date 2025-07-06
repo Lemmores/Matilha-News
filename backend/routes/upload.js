@@ -20,11 +20,8 @@ try {
   console.error("❌ Falha ao configurar CloudinaryStorage:", e);
 }
 
-// Multer com storage configurado
-const upload = multer({
-  storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
-});
+const upload = multer({ storage }); // Sem 'limits'
+
 
 router.post('/', async (req, res) => {
   console.log("📦 Rota /upload acessada");
