@@ -20,12 +20,15 @@ const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 5000;
 const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/matilhanews';
 
-// Conecta ao MongoDB
-mongoose.connect(mongoUri)
-  .then(() => console.log('Conectado ao MongoDB'))
-  .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
+// ✅ Configuração CORS para aceitar requisições do frontend publicado
+const corsOptions = {
+  origin: ['https://matilha-news.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
-app.use(cors());
+// Middleware para parsear JSON
 app.use(express.json());
 
 // Rotas da API
@@ -35,8 +38,8 @@ app.use('/api/watchparties', watchPartiesRoutes);
 app.use('/api/agenda', agendaRoutes);
 app.use('/upload', uploadRoutes);
 
-// Caso precise servir algum arquivo estático, defina aqui
-// Exemplo para frontend estático: app.use(express.static(path.join(__dirname, 'public')));
+// Caso precise servir arquivos estáticos:
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
