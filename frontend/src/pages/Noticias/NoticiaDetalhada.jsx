@@ -28,7 +28,6 @@ export default function NoticiaDetalhada() {
 
   const getYoutubeEmbedUrl = (url) => {
     if (!url) return null;
-
     const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/;
     const match = url.match(regex);
     return match ? `https://www.youtube.com/embed/${match[1]}` : null;
@@ -47,11 +46,13 @@ export default function NoticiaDetalhada() {
         })}
       </p>
 
-      <img
-        className="noticia-img"
-        src={`${API_URL}${noticia.imagem}`}
-        alt={noticia.titulo}
-      />
+      {noticia.imagem && (
+        <img
+          className="noticia-img"
+          src={noticia.imagem} // ✅ Agora usa a URL diretamente
+          alt={noticia.titulo}
+        />
+      )}
 
       <div className="noticia-conteudo">
         {Array.isArray(noticia.textoCompleto)
