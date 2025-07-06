@@ -26,15 +26,6 @@ export default function NoticiaDetalhada() {
     return <p style={{ color: "white", textAlign: "center" }}>Carregando notícia...</p>;
   }
 
-  const getYoutubeEmbedUrl = (url) => {
-    if (!url) return null;
-    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/;
-    const match = url.match(regex);
-    return match ? `https://www.youtube.com/embed/${match[1]}` : null;
-  };
-
-  const embedUrl = getYoutubeEmbedUrl(noticia.videoUrl);
-
   return (
     <main className="noticia">
       <h1 className="noticia-titulo">{noticia.titulo}</h1>
@@ -49,7 +40,7 @@ export default function NoticiaDetalhada() {
       {noticia.imagem && (
         <img
           className="noticia-img"
-          src={noticia.imagem} // ✅ Agora usa a URL diretamente
+          src={noticia.imagem}
           alt={noticia.titulo}
         />
       )}
@@ -62,12 +53,12 @@ export default function NoticiaDetalhada() {
           : <p>{noticia.textoCompleto}</p>}
       </div>
 
-      {embedUrl && (
+      {noticia.videoUrl && (
         <div className="noticia-video">
           <iframe
             width="100%"
             height="400"
-            src={embedUrl}
+            src={noticia.videoUrl}
             title="Vídeo relacionado à notícia"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
