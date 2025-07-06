@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Agenda.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 export default function Agenda({ partidas }) {
   const [jogos, setJogos] = useState([]);
 
@@ -9,7 +11,7 @@ export default function Agenda({ partidas }) {
     const carregar = async () => {
       if (!partidas) {
         try {
-          const resposta = await axios.get(`${import.meta.env.VITE_API_URL}/api/agenda`);
+          const resposta = await axios.get(`${API_URL}/api/agenda`);
           const jogosFiltrados = filtrarProximos30Dias(resposta.data);
           setJogos(jogosFiltrados);
         } catch (err) {
@@ -27,7 +29,7 @@ export default function Agenda({ partidas }) {
     const hoje = new Date();
     const dataLimite = new Date();
     dataLimite.setDate(hoje.getDate() + 30);
-    return lista.filter(jogo => {
+    return lista.filter((jogo) => {
       const [dia, mes, ano] = jogo.data.split("/").map(Number);
       const dataJogo = new Date(ano, mes - 1, dia);
       return dataJogo >= hoje && dataJogo <= dataLimite;
@@ -40,10 +42,10 @@ export default function Agenda({ partidas }) {
       <div className="jogos">
         {jogos.length === 0 && <p>Sem partidas nos próximos 30 dias.</p>}
         {jogos.map((jogo, index) => {
-          const timeA_nome = jogo?.timeA?.nome || "RED Canids";
-          const timeA_logo = jogo?.timeA?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1751759483/matilha-news/rpd4oc76tptnj3jqnt8f.png";
+          const timeA_nome = jogo?.timeA?.nome || "Time A";
+          const timeA_logo = jogo?.timeA?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
 
-          const timeB_nome = jogo?.timeB?.nome || "Adversário";
+          const timeB_nome = jogo?.timeB?.nome || "Time B";
           const timeB_logo = jogo?.timeB?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
 
           return (

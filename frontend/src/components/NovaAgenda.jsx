@@ -3,72 +3,74 @@ import axios from "axios";
 import "./NovaAgenda.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const RED_LOGO_URL = "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/red-logo.png"; // substitua pela URL da RED no seu Cloudinary
 
 export default function NovaAgenda() {
   const [form, setForm] = useState({
+    timeA_nome: "",
+    timeA_logo: "",
+    timeB_nome: "",
+    timeB_logo: "",
     data: "",
     hora: "",
     campeonato: "",
     local: "",
-    adversario_nome: "",
-    adversario_logo: "",
   });
 
-  const inputFileRef = useRef(null);
+  const fileRefA = useRef(null);
+  const fileRefB = useRef(null);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
+  const uploadImagem = async (file) => {
     const formData = new FormData();
     formData.append("imagem", file);
 
-    try {
-      const res = await axios.post(`${API_URL}/upload`, formData);
-      const logoUrl = res.data.imageUrl;
+    const res = await axios.post(`${API_URL}/upload`, formData);
+    return res.data.imageUrl;
+  };
 
+  const handleFileChange = async (e, time) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const imageUrl = await uploadImagem(file);
       setForm((prev) => ({
         ...prev,
-        adversario_logo: logoUrl,
+        [`${time}_logo`]: imageUrl,
       }));
-
-      localStorage.setItem(`logo_${form.adversario_nome}`, logoUrl);
+      localStorage.setItem(`logo_${form[`${time}_nome`]}`, imageUrl);
     } catch (err) {
       console.error("Erro ao fazer upload da imagem:", err);
-      alert("Erro ao fazer upload da imagem.");
+      alert("Erro ao fazer upload.");
     }
   };
 
-  const handleNomeAdversarioChange = (e) => {
+  const handleNomeChange = (e, time) => {
     const nome = e.target.value;
     const logoSalva = localStorage.getItem(`logo_${nome}`);
     setForm((prev) => ({
       ...prev,
-      adversario_nome: nome,
-      adversario_logo: logoSalva || "",
+      [`${time}_nome`]: nome,
+      [`${time}_logo`]: logoSalva || "",
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const novaAgenda = {
       data: form.data,
       hora: form.hora,
       campeonato: form.campeonato,
       local: form.local,
       timeA: {
-        nome: "RED Canids",
-        logo: "https://res.cloudinary.com/matilha-news/image/upload/v1751759483/matilha-news/rpd4oc76tptnj3jqnt8f.png",
+        nome: form.timeA_nome,
+        logo: form.timeA_logo,
       },
       timeB: {
-        nome: form.adversario_nome,
-        logo: form.adversario_logo,
+        nome: form.timeB_nome,
+        logo: form.timeB_logo,
       },
     };
 
@@ -76,16 +78,17 @@ export default function NovaAgenda() {
       await axios.post(`${API_URL}/api/agenda`, novaAgenda);
       alert("Partida cadastrada com sucesso!");
       setForm({
+        timeA_nome: "",
+        timeA_logo: "",
+        timeB_nome: "",
+        timeB_logo: "",
         data: "",
         hora: "",
         campeonato: "",
         local: "",
-        adversario_nome: "",
-        adversario_logo: "",
       });
-      if (inputFileRef.current) {
-        inputFileRef.current.value = "";
-      }
+      fileRefA.current.value = "";
+      fileRefB.current.value = "";
     } catch (err) {
       console.error("Erro ao cadastrar agenda:", err);
       alert("Erro ao cadastrar agenda.");
@@ -98,7 +101,6 @@ export default function NovaAgenda() {
       <form onSubmit={handleSubmit}>
         <input name="data" value={form.data} onChange={handleChange} placeholder="Data (ex: 09/07)" required />
         <input name="hora" value={form.hora} onChange={handleChange} placeholder="Hora (ex: 18:00)" required />
-
         <select name="campeonato" value={form.campeonato} onChange={handleChange} required>
           <option value="">Selecione o campeonato</option>
           <option value="LTA SUL">LTA SUL</option>
@@ -106,29 +108,36 @@ export default function NovaAgenda() {
           <option value="CS2">CS2</option>
           <option value="VALORANT">VALORANT</option>
         </select>
-
         <input name="local" value={form.local} onChange={handleChange} placeholder="Local (opcional)" />
 
-        <h4>Time Adversário</h4>
+        <h4>Time A</h4>
         <input
-          name="adversario_nome"
-          value={form.adversario_nome}
-          onChange={handleNomeAdversarioChange}
-          placeholder="Nome do Time Adversário"
+          name="timeA_nome"
+          value={form.timeA_nome}
+          onChange={(e) => handleNomeChange(e, "timeA")}
+          placeholder="Nome do Time A"
           required
         />
-
-        {!form.adversario_logo && (
-          <input type="file" onChange={handleFileChange} accept="image/*" ref={inputFileRef} required />
+        {!form.timeA_logo && (
+          <input type="file" onChange={(e) => handleFileChange(e, "timeA")} accept="image/*" ref={fileRefA} required />
+        )}
+        {form.timeA_logo && (
+          <img src={form.timeA_logo} alt="Logo Time A" style={{ maxHeight: "50px", marginTop: "5px" }} />
         )}
 
-        {form.adversario_logo && (
-          <img
-            key={form.adversario_nome}
-            src={form.adversario_logo}
-            alt="Logo do adversário"
-            style={{ maxHeight: "50px", marginTop: "0.5rem" }}
-          />
+        <h4>Time B</h4>
+        <input
+          name="timeB_nome"
+          value={form.timeB_nome}
+          onChange={(e) => handleNomeChange(e, "timeB")}
+          placeholder="Nome do Time B"
+          required
+        />
+        {!form.timeB_logo && (
+          <input type="file" onChange={(e) => handleFileChange(e, "timeB")} accept="image/*" ref={fileRefB} required />
+        )}
+        {form.timeB_logo && (
+          <img src={form.timeB_logo} alt="Logo Time B" style={{ maxHeight: "50px", marginTop: "5px" }} />
         )}
 
         <button type="submit">Cadastrar Partida</button>
