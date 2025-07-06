@@ -29,14 +29,17 @@ router.post('/', upload.single('imagem'), async (req, res) => {
     res.status(200).json({ imageUrl: req.file.path });
   } catch (error) {
     console.error("❌ Erro ao enviar imagem para Cloudinary:");
-console.error("Mensagem:", error.message);
-if (error.response?.data) {
-  console.error("Resposta do Cloudinary:", error.response.data);
-}
-console.error("Stack:", error.stack);
+    console.error("Mensagem:", error.message);
 
+    // Caso o erro tenha resposta do Cloudinary (via Axios)
+    if (error.response) {
+      console.error("📛 Status:", error.response.status);
+      console.error("📄 Dados da resposta do Cloudinary:", error.response.data);
+    }
+
+    console.error("📌 Stack completa:", error.stack);
+    res.status(500).json({ error: 'Erro interno ao enviar imagem para o Cloudinary.' });
   }
 });
-
 
 export default router;
