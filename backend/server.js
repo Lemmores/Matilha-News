@@ -44,3 +44,4 @@ app.use('/upload', uploadRoutes);
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+console.log("MONGO_URI:", process.env.MONGO_URI);
