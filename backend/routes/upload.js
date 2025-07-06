@@ -28,9 +28,13 @@ router.post('/', upload.single('imagem'), async (req, res) => {
     console.log("✅ Upload bem-sucedido:", req.file.path);
     res.status(200).json({ imageUrl: req.file.path });
   } catch (error) {
-    console.error("❌ Erro completo ao enviar imagem para Cloudinary:");
-    console.error(error); // Isso mostrará erro de autenticação, payload, etc.
-    res.status(500).json({ error: 'Erro interno ao enviar imagem para o Cloudinary.' });
+    console.error("❌ Erro ao enviar imagem para Cloudinary:");
+console.error("Mensagem:", error.message);
+if (error.response?.data) {
+  console.error("Resposta do Cloudinary:", error.response.data);
+}
+console.error("Stack:", error.stack);
+
   }
 });
 
