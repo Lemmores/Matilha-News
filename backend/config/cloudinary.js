@@ -1,15 +1,18 @@
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 
-// Carrega variáveis de ambiente do .env
 dotenv.config();
+console.log("🔍 Cloudinary envs:", {
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+});
 
-// Configura o Cloudinary com as variáveis do .env
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, // ex: 'matilha-news'
-  api_key: process.env.CLOUDINARY_API_KEY,       // ex: '185685797741558'
-  api_secret: process.env.CLOUDINARY_API_SECRET, // ex: 'u_fMOonn5ljLpq0y1GuPPHBYLCo'
-  secure: true, // Garante URLs HTTPS
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
 });
 
 export default cloudinary;
