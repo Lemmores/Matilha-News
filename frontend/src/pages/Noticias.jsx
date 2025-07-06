@@ -49,7 +49,7 @@ export default function Noticias() {
             className="card-noticia"
           >
             <img
-              src={`${API_URL}${noticia.imagem}`}
+              src={noticia.imagem} // ✅ REMOVIDO o prefixo API_URL
               alt={noticia.titulo}
             />
             <p className="categoria">{noticia.categoria}</p>

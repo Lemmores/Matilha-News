@@ -59,7 +59,7 @@ export default function GerenciarNoticia() {
         {noticiasFiltradas.map((noticia) => (
           <div key={noticia._id} className="card-noticia-admin">
             <img
-              src={`${API_URL}${noticia.imagem}`}
+              src={noticia.imagem} // <- removido o `${API_URL}` aqui
               alt={noticia.titulo}
             />
             <h3>{noticia.titulo}</h3>
