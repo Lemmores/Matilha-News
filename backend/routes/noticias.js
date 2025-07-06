@@ -8,9 +8,10 @@ const router = express.Router();
 // Buscar todas as notícias (rota pública)
 router.get("/", async (req, res) => {
   try {
-    console.log("📌 Verificando conexão com MongoDB:");
-    console.log("Banco:", mongoose.connection.db.databaseName);
-    console.log("Coleção:", Noticia.collection.name);
+    // Comentados para evitar erros se db não estiver pronto
+    // console.log("📌 Verificando conexão com MongoDB:");
+    // console.log("Banco:", Noticia.db.name);
+    // console.log("Coleção:", Noticia.collection.name);
 
     const noticias = await Noticia.find();
     res.json(noticias);

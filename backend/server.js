@@ -41,7 +41,16 @@ app.use('/upload', uploadRoutes);
 // Caso precise servir arquivos estáticos:
 // app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+// **Conecta ao MongoDB e só depois sobe o servidor**
+mongoose.connect(mongoUri)
+  .then(() => {
+    console.log('✅ Conectado ao MongoDB');
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor rodando na porta ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('❌ Erro ao conectar ao MongoDB:', err);
+  });
+
 console.log("MONGO_URI:", process.env.MONGO_URI);
