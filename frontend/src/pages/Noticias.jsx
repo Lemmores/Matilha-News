@@ -12,7 +12,6 @@ export default function Noticias() {
     fetch(`${API_URL}/api/noticias`)
       .then(res => res.json())
       .then(data => {
-        // Ordena por data (mais recentes primeiro)
         const ordenadas = data.sort((a, b) => new Date(b.data) - new Date(a.data));
         setNoticias(ordenadas);
       })
@@ -49,7 +48,7 @@ export default function Noticias() {
             className="card-noticia"
           >
             <img
-              src={noticia.imagem} // ✅ REMOVIDO o prefixo API_URL
+              src={noticia.imagem}
               alt={noticia.titulo}
             />
             <p className="categoria">{noticia.categoria}</p>
