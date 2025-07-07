@@ -1,15 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./NovaAgenda.css";
+import "./NovaAgenda.css"; // aproveita o mesmo CSS
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function EditarAgenda() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const fileRefA = useRef(null);
-  const fileRefB = useRef(null);
 
   const [form, setForm] = useState({
     timeA_nome: "",
@@ -22,11 +20,16 @@ export default function EditarAgenda() {
     local: "",
   });
 
+  const fileRefA = useRef(null);
+  const fileRefB = useRef(null);
+
+  // Busca os dados da partida
   useEffect(() => {
-    const fetchPartida = async () => {
+    const buscarPartida = async () => {
       try {
         const res = await axios.get(`${API_URL}/api/agenda/${id}`);
         const partida = res.data;
+
         setForm({
           timeA_nome: partida.timeA.nome,
           timeA_logo: partida.timeA.logo,
@@ -39,9 +42,11 @@ export default function EditarAgenda() {
         });
       } catch (err) {
         console.error("Erro ao buscar partida:", err);
+        alert("Erro ao carregar dados da partida.");
       }
     };
-    fetchPartida();
+
+    if (id) buscarPartida();
   }, [id]);
 
   const handleChange = (e) => {
@@ -77,7 +82,7 @@ export default function EditarAgenda() {
     setForm((prev) => ({
       ...prev,
       [`${time}_nome`]: nome,
-      [`${time}_logo`]: logoSalva || "",
+      [`${time}_logo`]: logoSalva || prev[`${time}_logo`],
     }));
   };
 
@@ -131,9 +136,7 @@ export default function EditarAgenda() {
           placeholder="Nome do Time A"
           required
         />
-        {!form.timeA_logo && (
-          <input type="file" onChange={(e) => handleFileChange(e, "timeA")} accept="image/*" ref={fileRefA} />
-        )}
+        <input type="file" onChange={(e) => handleFileChange(e, "timeA")} accept="image/*" ref={fileRefA} />
         {form.timeA_logo && (
           <img src={form.timeA_logo} alt="Logo Time A" style={{ maxHeight: "50px", marginTop: "5px" }} />
         )}
@@ -146,14 +149,12 @@ export default function EditarAgenda() {
           placeholder="Nome do Time B"
           required
         />
-        {!form.timeB_logo && (
-          <input type="file" onChange={(e) => handleFileChange(e, "timeB")} accept="image/*" ref={fileRefB} />
-        )}
+        <input type="file" onChange={(e) => handleFileChange(e, "timeB")} accept="image/*" ref={fileRefB} />
         {form.timeB_logo && (
           <img src={form.timeB_logo} alt="Logo Time B" style={{ maxHeight: "50px", marginTop: "5px" }} />
         )}
 
-        <button type="submit">Atualizar Partida</button>
+        <button type="submit">Salvar Alterações</button>
       </form>
     </div>
   );
