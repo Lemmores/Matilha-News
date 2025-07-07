@@ -71,7 +71,7 @@ export default function GerenciarAgenda() {
               </div>
               <span className="versus">vs</span>
               <div className="time">
-                <img src={`${API_URL}${partida.timeB.logo}`} alt={partida.timeB.nome} />
+                <img src={partida.timeB.logo} alt={partida.timeB.nome} />
                 <span>{partida.timeB.nome}</span>
               </div>
             </div>
