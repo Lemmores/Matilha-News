@@ -27,7 +27,7 @@ const EditarNoticia = () => {
         const data = await res.json();
         setFormData({
           titulo: data.titulo,
-          data: new Date(data.data).toISOString().split('T')[0], // formato yyyy-MM-dd
+          data: new Date(data.data).toISOString().split('T')[0],
           imagem: data.imagem,
           conteudo: data.textoCompleto?.join('\n') || '',
           autor: data.autor,
@@ -128,7 +128,7 @@ const EditarNoticia = () => {
         />
         {formData.imagem && (
           <img
-            src={`${API_URL}/${formData.imagem}`}
+            src={formData.imagem}
             alt="Imagem atual"
             style={{ maxHeight: '150px', marginBottom: '1rem' }}
           />
