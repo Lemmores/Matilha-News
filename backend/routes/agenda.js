@@ -37,10 +37,13 @@ router.delete('/:id', async (req, res) => {
 // Editar uma partida
 router.put('/:id', async (req, res) => {
   try {
-    const atualizada = await Agenda.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.status(200).json(atualizada);
+    const agendaAtualizada = await Agenda.findByIdAndUpdate(
+    req.params.id, 
+    req.body, 
+    { new: true });
+    res.json(agendaAtualizada);
   } catch (err) {
-    res.status(400).json({ error: 'Erro ao editar a partida.' });
+    res.status(400).json({ error: 'Erro ao atualizar a partida.' });
   }
 });
 
