@@ -24,6 +24,19 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Obter uma partida específica pelo ID
+router.get('/:id', async (req, res) => {
+  try {
+    const partida = await Agenda.findById(req.params.id);
+    if (!partida) {
+      return res.status(404).json({ error: 'Partida não encontrada' });
+    }
+    res.json(partida);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar a partida.' });
+  }
+});
+
 // Deletar uma partida
 router.delete('/:id', async (req, res) => {
   try {
@@ -38,9 +51,10 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const agendaAtualizada = await Agenda.findByIdAndUpdate(
-    req.params.id, 
-    req.body, 
-    { new: true });
+      req.params.id,
+      req.body,
+      { new: true }
+    );
     res.json(agendaAtualizada);
   } catch (err) {
     res.status(400).json({ error: 'Erro ao atualizar a partida.' });
