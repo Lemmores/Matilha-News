@@ -1,24 +1,26 @@
-import React, { useState, useRef } from "react";
-import "./NovaWatchParty.css";
+// NovaWatchParty.jsx
+import React, { useRef, useState } from 'react';
+import './NovaWatchParty.css';
+import { useNavigate } from 'react-router-dom';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-export default function NovaWatchParty() {
-  const [formData, setFormData] = useState({
-    titulo: "",
-    data: "",
-    local: "",
-    imagem: null,
-    grupo: "",
-    linkDetalhes: "",
-  });
-
-  const [mensagem, setMensagem] = useState("");
+const NovaWatchParty = () => {
+  const navigate = useNavigate();
   const inputFileRef = useRef(null);
+  const [mensagem, setMensagem] = useState('');
+  const [formData, setFormData] = useState({
+    titulo: '',
+    data: '',
+    local: '',
+    imagem: null,
+    grupo: '',
+    linkDetalhes: '',
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleImageUpload = async (e) => {
@@ -26,75 +28,60 @@ export default function NovaWatchParty() {
     if (!file) return;
 
     const formDataImg = new FormData();
-    formDataImg.append("imagem", file);
+    formDataImg.append('imagem', file);
 
     try {
       const response = await fetch(`${API_URL}/upload`, {
-        method: "POST",
+        method: 'POST',
         body: formDataImg,
       });
 
       const data = await response.json();
-
       if (data.imageUrl) {
-        setFormData((prev) => ({ ...prev, imagem: data.imageUrl }));
-        setMensagem("Imagem enviada com sucesso!");
-      } else {
-        setMensagem("Erro ao enviar imagem.");
+        setFormData(prev => ({ ...prev, imagem: data.imageUrl }));
+        setMensagem('Imagem enviada com sucesso!');
       }
     } catch (error) {
-      console.error("Erro no upload da imagem:", error);
-      setMensagem("Erro ao enviar imagem.");
+      console.error('Erro ao enviar imagem:', error);
+      setMensagem('Erro ao enviar imagem.');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !formData.titulo ||
-      !formData.data ||
-      !formData.local ||
-      !formData.imagem ||
-      !formData.grupo
-    ) {
-      setMensagem("Preencha todos os campos obrigatórios.");
-      return;
-    }
-
     try {
+      const novaWP = {
+        titulo: formData.titulo,
+        data: formData.data,
+        local: formData.local,
+        imagem: formData.imagem,
+        grupo: formData.grupo,
+        linkDetalhes: formData.linkDetalhes,
+      };
+
       const response = await fetch(`${API_URL}/api/watchparties`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(novaWP),
       });
 
       if (response.ok) {
-        setMensagem("Watch Party criada com sucesso!");
-        setFormData({
-          titulo: "",
-          data: "",
-          local: "",
-          imagem: null,
-          grupo: "",
-          linkDetalhes: "",
-        });
-        if (inputFileRef.current) {
-          inputFileRef.current.value = "";
-        }
+        setMensagem('Watch Party criada com sucesso!');
+        setTimeout(() => navigate('/gerenciar-wp'), 1500);
       } else {
-        setMensagem("Erro ao criar Watch Party.");
+        setMensagem('Erro ao criar Watch Party.');
       }
     } catch (error) {
-      console.error(error);
-      setMensagem("Erro de conexão com o servidor.");
+      console.error('Erro ao criar:', error);
+      setMensagem('Erro de conexão com o servidor.');
     }
   };
 
   return (
-    <div className="nova-watchparty">
+    <div className="nova-noticia nova-noticia-container">
       <h2>Nova Watch Party</h2>
-      <form onSubmit={handleSubmit} className="nova-watchparty-form">
+      <form onSubmit={handleSubmit} className="nova-noticia-form">
         <input
           type="text"
           name="titulo"
@@ -103,7 +90,6 @@ export default function NovaWatchParty() {
           onChange={handleChange}
           required
         />
-
         <input
           type="text"
           name="data"
@@ -112,7 +98,6 @@ export default function NovaWatchParty() {
           onChange={handleChange}
           required
         />
-
         <input
           type="text"
           name="local"
@@ -121,16 +106,16 @@ export default function NovaWatchParty() {
           onChange={handleChange}
           required
         />
-
         <input
           type="file"
           name="imagem"
           accept="image/*"
           onChange={handleImageUpload}
           ref={inputFileRef}
-          required
         />
-
+        {formData.imagem && (
+          <img src={formData.imagem} alt="Preview" style={{ maxHeight: '150px', marginBottom: '1rem' }} />
+        )}
         <input
           type="url"
           name="grupo"
@@ -139,7 +124,6 @@ export default function NovaWatchParty() {
           onChange={handleChange}
           required
         />
-
         <input
           type="url"
           name="linkDetalhes"
@@ -147,10 +131,11 @@ export default function NovaWatchParty() {
           value={formData.linkDetalhes}
           onChange={handleChange}
         />
-
-        <button type="submit">Criar Watch Party</button>
+        <button type="submit">Cadastrar Watch Party</button>
       </form>
       {mensagem && <p>{mensagem}</p>}
     </div>
   );
-}
+};
+
+export default NovaWatchParty;

@@ -140,13 +140,14 @@ const EditarWatchParty = () => {
           ref={inputFileRef}
         />
 
-        {formData.imagem && (
-          <img
-            src={`${API_URL}${formData.imagem}`}
-            alt="Imagem atual"
-            style={{ maxHeight: '150px', marginBottom: '1rem' }}
-          />
-        )}
+          {formData.imagem && (
+            <img
+              src={formData.imagem}
+              alt="Imagem atual"
+              style={{ maxHeight: '150px', marginBottom: '1rem' }}
+            />
+          )}
+
 
         <input
           type="url"
