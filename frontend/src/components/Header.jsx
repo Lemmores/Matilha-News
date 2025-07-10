@@ -94,7 +94,7 @@ export default function Header() {
             {dropdownAberto === 'torneios' && (
               <div className="dropdown">
                 <Link to="/matilhatactics">MATILHA TACTICS</Link>
-                <Link to="#">RED CANUDOS 2025</Link>
+                {/* <Link to="#">RED CANUDOS 2025</Link> */}
               </div>
             )}
           </div>
@@ -164,7 +164,7 @@ export default function Header() {
           <summary>Torneios da Matilha</summary>
           <div className="dropdown">
             <Link to="/matilhatactics">MATILHA TACTICS</Link>
-            <Link to="#">RED CANUDOS 2025</Link>
+            {/* <Link to="#">RED CANUDOS 2025</Link> */}
           </div>
         </details>
 
