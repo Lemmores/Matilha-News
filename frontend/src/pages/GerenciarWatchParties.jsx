@@ -41,15 +41,27 @@ export default function GerenciarWatchParties() {
       <div className="lista-watchparties-admin">
         {watchParties.map((evento) => (
           <div key={evento._id} className="card-watchparty-admin">
-            <img
-              src={`${API_URL}${evento.imagem}`}
-              alt={evento.titulo}
-            />
+            {evento.imagem && (
+              <img
+                src={evento.imagem}
+                alt={evento.titulo}
+              />
+            )}
             <h3>{evento.titulo}</h3>
             <p className="watchparty-info">{evento.data} - {evento.local}</p>
             <div className="botoes-acoes">
-              <button className="botao-editar" onClick={() => navigate(`/editar-watchparty/${evento._id}`)}>Editar</button>
-              <button className="botao-deletar" onClick={() => deletarWatchParty(evento._id)}>Deletar</button>
+              <button
+                className="botao-editar"
+                onClick={() => navigate(`/editar-watchparty/${evento._id}`)}
+              >
+                Editar
+              </button>
+              <button
+                className="botao-deletar"
+                onClick={() => deletarWatchParty(evento._id)}
+              >
+                Deletar
+              </button>
             </div>
           </div>
         ))}
