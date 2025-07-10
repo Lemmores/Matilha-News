@@ -5,7 +5,7 @@ import './CircuitoPage.css';
 
 const jogadores = [
   {
-    nome: 'zynts',
+    nome: 'ZYNTS',
     img: '/jogadores/zynts.jpg',
     twitter: 'https://twitter.com/zyntsLOL',
     instagram: 'https://www.instagram.com/matheuszynts1/',
@@ -17,19 +17,19 @@ const jogadores = [
     instagram: 'https://www.instagram.com/curse_lol1/',
   },
   {
-    nome: 'Kaze',
+    nome: 'KAZE',
     img: '/jogadores/kaze.jpg',
     twitter: 'https://x.com/1Kazelol',
     instagram: 'https://www.instagram.com/kaze.g_/',
   },
   {
-    nome: 'Rabelo',
+    nome: 'RABELO',
     img: '/jogadores/rabelo.jpg',
     twitter: 'https://x.com/rabeloxv',
     instagram: 'https://www.instagram.com/rabelokoo/',
   },
   {
-    nome: 'uZent',
+    nome: 'UZENT',
     img: '/jogadores/uzent.jpg',
     twitter: 'https://x.com/uzentLOL',
     instagram: 'https://www.instagram.com/matheus_uzent/',

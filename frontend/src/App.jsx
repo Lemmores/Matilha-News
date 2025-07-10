@@ -19,6 +19,8 @@ import EditarWatchParty from './components/EditarWatchParty';
 import NovaAgenda from './components/NovaAgenda';
 import GerenciarAgenda from './pages/GerenciarAgenda';
 import EditarAgenda from './components/EditarAgenda';
+import CSPage from './pages/CSPage';
+
 export default function App() {
   return (
     <Router>
@@ -43,7 +45,7 @@ export default function App() {
          <Route path="/nova-agenda" element={<NovaAgenda />} />
          <Route path="/gerenciar-agenda" element={<GerenciarAgenda />} />
          <Route path="/editar-agenda/:id" element={<EditarAgenda />} />
-    
+         <Route path="/cs2" element={<CSPage/>} />
 
 
         
