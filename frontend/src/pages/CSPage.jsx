@@ -112,12 +112,12 @@ const CSPage = () => {
         <h2 className="cs-section-title">Últimos Confrontos</h2>
         <div className="video-list">
           <iframe
-            src="https://www.youtube.com/embed/N428VJVA1JI?si=_WVQ4p99Md8znk0p"
+            src="https://www.youtube.com/embed/GyTJwQaEMtM?si=kJqIuRsojsqkyQyU"
             title="Confronto 1"
             allowFullScreen
           ></iframe>
           <iframe
-            src="https://www.youtube.com/embed/JueCMvwKBEQ?si=F-RZVfEQrxG7BAID"
+            src="https://www.youtube.com/embed/iOR7ci0Ugek?si=retKuyEsXj4bfn4P"
             title="Confronto 2"
             allowFullScreen
           ></iframe>
