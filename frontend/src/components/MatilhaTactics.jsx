@@ -21,9 +21,9 @@ export default function MatilhaTactics() {
       />
 
       <p className="descricao">
-        O <strong>Matilha Tactics</strong>  é um torneio emocionante de Team Fight Tactics (TFT), exclusivo para os torcedores apaixonados da RED CANIDS! Com um limite de 32 competidores, essa é a sua chance de mostrar toda a sua habilidade e estratégia para se tornar o melhor competidor da matilha.
+        O <strong>Matilha Tactics</strong>  é um torneio emocionante de Team Fight Tactics (TFT), exclusivo para os torcedores apaixonados da RED CANIDS! Com uma premiação bastante especial para o campeão, essa é a sua chance de mostrar toda a sua habilidade e estratégia para se tornar o melhor competidor da matilha.
 
-Quer entrar nessa disputa acirrada e provar que você é o verdadeiro mestre do TFT? Então, inscreva-se aqui e prepare-se para batalhas intensas e muita diversão.
+Quer entrar nessa disputa acirrada e provar que você é o verdadeiro mestre do TFT desse Set? Então, inscreva-se aqui e prepare-se para batalhas intensas e muita diversão.
       </p>
 
       <h3>Faça aqui a sua inscrição!</h3>
