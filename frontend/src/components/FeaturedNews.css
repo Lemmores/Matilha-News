@@ -4,7 +4,7 @@
   padding: 2rem;
   background-color: #121212;
   color: white;
-  height: 570px; /* ↓ diminuído de 600px */
+  height: 520px; /* ↓ ajustado */
   align-items: stretch;
   box-sizing: border-box;
 }
