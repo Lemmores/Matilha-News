@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Agenda from '../components/Agenda';  // Importa o componente genérico Agenda
+import Agenda from '../components/Agenda';
 import './CircuitoPage.css';
 
 const jogadores = [
@@ -44,7 +44,6 @@ const CircuitoPage = () => {
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
-    // Busca notícias filtrando categoria CIRCUITO DESAFIANTE
     const fetchNoticias = async () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
@@ -56,7 +55,6 @@ const CircuitoPage = () => {
       }
     };
 
-    // Busca agenda e filtra só partidas do CIRCUITO DESAFIANTE
     const fetchAgenda = async () => {
       try {
         const res = await fetch(`${API_URL}/api/agenda`);
@@ -145,7 +143,7 @@ const CircuitoPage = () => {
         <div className="noticia-list">
           {noticiasCircuito.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <img src={`${API_URL}${noticia.imagem}`} alt={noticia.titulo} />
+              <img src={noticia.imagem} alt={noticia.titulo} />
               <p className="categoria">{noticia.categoria}</p>
               <h3>{noticia.titulo}</h3>
             </Link>
@@ -153,24 +151,10 @@ const CircuitoPage = () => {
         </div>
       </section>
 
-      {/* Agenda do Circuito Desafiante com componente genérico */}
+      {/* Agenda do Circuito Desafiante */}
       <section>
-    
         <Agenda partidas={agendaCircuito} />
       </section>
-
-      {/* Tabela (comentada, pode ativar se quiser) */}
-      {/*
-      <section className="tabela-img">
-        <h2 className="circuito-section-title">Tabela Circuito Desafiante</h2>
-        <img
-          src="/tabelacircuito2.jpg"
-          alt="Tabela do Circuito Desafiante"
-          onClick={() => setImagemAberta("/tabelacircuito2.jpg")}
-          style={{ cursor: 'pointer' }}
-        />
-      </section>
-      */}
     </div>
   );
 };

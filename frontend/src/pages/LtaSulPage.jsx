@@ -44,7 +44,6 @@ const LtaSulPage = () => {
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
-    // Busca notícias filtrando categoria LTA SUL
     const fetchNoticias = async () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
@@ -56,7 +55,6 @@ const LtaSulPage = () => {
       }
     };
 
-    // Busca agenda e filtra só confrontos LTA SUL
     const fetchAgenda = async () => {
       try {
         const res = await fetch(`${API_URL}/api/agenda`);
@@ -131,7 +129,7 @@ const LtaSulPage = () => {
         <div className="noticia-list">
           {noticiasLtaSul.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <img src={`${API_URL}${noticia.imagem}`} alt={noticia.titulo} />
+              <img src={noticia.imagem} alt={noticia.titulo} />
               <p className="categoria">{noticia.categoria}</p>
               <h3>{noticia.titulo}</h3>
             </Link>
@@ -140,7 +138,6 @@ const LtaSulPage = () => {
       </section>
 
       <section>
-        
         <Agenda partidas={agendaLtaSul} />
       </section>
     </div>
