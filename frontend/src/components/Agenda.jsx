@@ -25,16 +25,19 @@ export default function Agenda({ partidas }) {
     carregar();
   }, [partidas]);
 
-  function filtrarProximos30Dias(lista) {
-    const hoje = new Date();
+    function filtrarProximos30Dias(lista) {
+    const ontem = new Date();
+    ontem.setDate(ontem.getDate() - 1);
     const dataLimite = new Date();
-    dataLimite.setDate(hoje.getDate() + 30);
+    dataLimite.setDate(ontem.getDate() + 30);
+    
     return lista.filter((jogo) => {
       const [dia, mes, ano] = jogo.data.split("/").map(Number);
       const dataJogo = new Date(ano, mes - 1, dia);
-      return dataJogo >= hoje && dataJogo <= dataLimite;
+      return dataJogo >= ontem && dataJogo <= dataLimite;
     });
   }
+
 
   return (
     <section className="agenda">
