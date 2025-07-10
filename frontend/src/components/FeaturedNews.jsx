@@ -38,7 +38,7 @@ export default function FeaturedNews() {
   }
 
   const mainNews = noticias[0];
-  const sideNews = noticias.slice(1, 10); 
+  const sideNews = noticias.slice(1, 7); 
 
   return (
     <section className="featured-news">
