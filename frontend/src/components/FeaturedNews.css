@@ -77,11 +77,13 @@
 .side-news-grid {
   flex: 1.5;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  gap: 0.8rem; /* menor espaço */
+  grid-template-columns: repeat(3, 1fr); /* ← 3 colunas */
+  grid-template-rows: repeat(3, 1fr);    /* ← 3 linhas */
+  gap: 0.6rem;
   height: 100%;
 }
+
+
 
 .news-card {
   position: relative;
