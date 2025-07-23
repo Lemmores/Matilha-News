@@ -11,22 +11,22 @@ const jogadores = [
     instagram: 'https://www.instagram.com/matheuszynts1/',
   },
   {
-    nome: 'DOOM',
+    nome: 'NERO',
     img: '/jogadores/doom.jpg',
-    twitter: 'https://x.com/DoomLol11',
-    instagram: 'https://www.instagram.com/curse_lol1/',
+    twitter: 'https://x.com/nerothefik',
+    instagram: 'https://www.instagram.com/nerothefik/',
   },
   {
-    nome: 'KAZE',
-    img: '/jogadores/kaze.jpg',
-    twitter: 'https://x.com/1Kazelol',
-    instagram: 'https://www.instagram.com/kaze.g_/',
+    nome: 'MAGO',
+    img: '/jogadores/mago.jpg',
+    twitter: 'https://x.com/jeanmag0',
+    instagram: 'https://www.instagram.com/jeanmagolol/',
   },
   {
-    nome: 'RABELO',
+    nome: 'KOJIMA',
     img: '/jogadores/rabelo.jpg',
-    twitter: 'https://x.com/rabeloxv',
-    instagram: 'https://www.instagram.com/rabelokoo/',
+    twitter: 'https://x.com/kojimalol1',
+    instagram: 'https://www.instagram.com/caio__y/',
   },
   {
     nome: 'UZENT',
@@ -125,12 +125,12 @@ const CircuitoPage = () => {
         <h2 className="circuito-section-title">Últimos Confrontos</h2>
         <div className="video-list">
           <iframe 
-            src="https://www.youtube.com/embed/dL78jDWGVSA?si=OvbVjqJFHYUCqRej"
+            src="https://www.youtube.com/embed/lznTj-7coyc?si=jbSq8bN8fAOO0k20&amp;start=2307"
             title="Confronto 1"
             allowFullScreen
           ></iframe>
           <iframe 
-            src="https://www.youtube.com/embed/M-OiejvRbLY?si=sV0VTlvEd7HIClC-" 
+            src="https://www.youtube.com/embed/bbeiB4ZU9WI?si=YxiuIEH50X66CKpm&amp;start=10895" 
             title="Confronto 2"
             allowFullScreen
           ></iframe>

@@ -12,24 +12,24 @@ export default function Agenda({ partidas }) {
       if (!partidas) {
         try {
           const resposta = await axios.get(`${API_URL}/api/agenda`);
-          const jogosFiltrados = filtrarProximos30Dias(resposta.data);
+          const jogosFiltrados = filtrarProximos15Dias(resposta.data);
           setJogos(jogosFiltrados);
         } catch (err) {
           console.error("Erro ao carregar partidas:", err);
         }
       } else {
-        const jogosFiltrados = filtrarProximos30Dias(partidas);
+        const jogosFiltrados = filtrarProximos15Dias(partidas);
         setJogos(jogosFiltrados);
       }
     };
     carregar();
   }, [partidas]);
 
-    function filtrarProximos30Dias(lista) {
+    function filtrarProximos15Dias(lista) {
     const ontem = new Date();
     ontem.setDate(ontem.getDate() - 1);
     const dataLimite = new Date();
-    dataLimite.setDate(ontem.getDate() + 30);
+    dataLimite.setDate(ontem.getDate() + 15);
     
     return lista.filter((jogo) => {
       const [dia, mes, ano] = jogo.data.split("/").map(Number);
@@ -43,7 +43,7 @@ export default function Agenda({ partidas }) {
     <section className="agenda">
       <h2>Agenda de Jogos</h2>
       <div className="jogos">
-        {jogos.length === 0 && <p>Sem partidas nos próximos 30 dias.</p>}
+        {jogos.length === 0 && <p>Sem partidas nos próximos 15 dias.</p>}
         {jogos.map((jogo, index) => {
           const timeA_nome = jogo?.timeA?.nome || "Time A";
           const timeA_logo = jogo?.timeA?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
