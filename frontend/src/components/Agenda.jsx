@@ -29,7 +29,7 @@ export default function Agenda({ partidas }) {
     const ontem = new Date();
     ontem.setDate(ontem.getDate() - 1);
     const dataLimite = new Date();
-    dataLimite.setDate(ontem.getDate() + 7);
+    dataLimite.setDate(ontem.getDate() + 4);
     
     return lista.filter((jogo) => {
       const [dia, mes, ano] = jogo.data.split("/").map(Number);
