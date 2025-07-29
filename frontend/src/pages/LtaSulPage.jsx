@@ -6,31 +6,31 @@ import './LtaSulPage.css';
 const jogadores = [
   {
     nome: 'FNB',
-    img: '/jogadores/fnb.jpg',
+    img: '/jogadores/fnb.png',
     twitter: 'https://twitter.com/fNbLOL',
     instagram: 'https://instagram.com/fNbLOL',
   },
   {
     nome: 'DOOM',
-    img: '/jogadores/doom.jpg',
+    img: '/jogadores/Doom.png',
     twitter: 'https://x.com/DoomLol11',
     instagram: 'https://www.instagram.com/curse_lol1/',
   },
   {
     nome: 'KAZE',
-    img: '/jogadores/kaze.jpg',
+    img: '/jogadores/Kaze.png',
     twitter: 'https://x.com/1Kazelol',
     instagram: 'https://www.instagram.com/kaze.g_/',
   },
   {
      nome: 'RABELO',
-    img: '/jogadores/rabelo.jpg',
+    img: '/jogadores/Rabelo.png',
     twitter: 'https://x.com/rabeloxv',
     instagram: 'https://www.instagram.com/rabelokoo/',
   },
   {
     nome: 'FROSTY',
-    img: '/jogadores/frosty.jpg',
+    img: '/jogadores/Frosty.png',
     twitter: 'https://x.com/frostylolx',
     instagram: 'https://www.instagram.com/lolfrosty1/',
   },
