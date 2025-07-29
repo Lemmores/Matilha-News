@@ -12,7 +12,7 @@ const jogadores = [
   },
   {
     nome: 'NERO',
-    img: '/jogadores/doom.jpg',
+    img: '/jogadores/Nero.jpg',
     twitter: 'https://x.com/nerothefik',
     instagram: 'https://www.instagram.com/nerothefik/',
   },
@@ -24,7 +24,7 @@ const jogadores = [
   },
   {
     nome: 'KOJIMA',
-    img: '/jogadores/rabelo.jpg',
+    img: '/jogadores/Kojima.jpg',
     twitter: 'https://x.com/kojimalol1',
     instagram: 'https://www.instagram.com/caio__y/',
   },
