@@ -72,21 +72,20 @@
   cursor: pointer;
 }
 
+.social-btn img[alt="Instagram"] {
+  transform: scale(0.85); /* ou 0.8 */
+}
+
+.social-btn img[alt="Twitter"] {
+  transform: scale(1.25); /* ou 1.0 */
+}
+
 .social-btn img:hover {
   transform: scale(1.2);
   filter: none;
   opacity: 1;
 }
 
-/* Mantém o tamanho do Instagram no hover */
-.social-btn img[alt="Instagram"]:hover {
-  transform: scale(0.85);
-}
-
-/* Opcional: também fixar o Twitter caso queira um valor estático */
-.social-btn img[alt="Twitter"]:hover {
-  transform: scale(1.25);
-}
 
 /* Modal */
 .modal {
