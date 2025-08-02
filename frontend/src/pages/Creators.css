@@ -1,104 +1,51 @@
+/* Página Creators */
 .pagina-creators {
   padding: 2rem 1rem;
   max-width: 1200px;
   margin: 0 auto;
   color: white;
-  text-align: center;
 }
 
 .pagina-creators h1 {
   font-size: 2.5rem;
+  text-align: center;
   margin-bottom: 2rem;
   color: #d60000;
 }
 
-.creators-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
+/* Grid dos Creators */
+.jogadores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   justify-content: center;
 }
 
-/* Card de cada creator */
-.creator-card {
-  background: #1a1a1a;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.25);
+.jogador {
+  text-align: center;
+  max-width: 180px;
+  cursor: pointer;
+}
+
+.jogador img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
   transition: transform 0.2s ease;
 }
 
-.creator-card:hover {
+.jogador img:hover {
   transform: scale(1.05);
 }
 
-.creator-card img {
-  width: 100%;
-  height: 450px;
-  object-fit: cover;
-  border-radius: 12px;
-  cursor: pointer;
-  margin-bottom: 12px;
-}
-
-.creator-card span {
+.jogador span {
   display: block;
-  font-size: 1.4rem;
-  color: #fff;
-  margin-bottom: 10px;
-  font-weight: 500;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Redes Sociais */
-.social-buttons {
   margin-top: 0.5rem;
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-}
-
-.social-btn {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* Estilo base dos ícones */
-.social-btn img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition: filter 0.3s ease, opacity 0.3s ease;
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-/* Corrigir escala do Instagram manualmente */
-.social-btn img[alt="Instagram"] {
-  transform: scale(0.85);
-}
-
-/* Corrigir escala do Twitter manualmente */
-.social-btn img[alt="Twitter"],
-.social-btn img[alt="X"] {
-  transform: scale(1.15);
-}
-
-/* Desativa hover no Instagram */
-.social-btn img[alt="Instagram"]:hover {
-  transform: scale(0.85) !important;
-  filter: none !important;
-  opacity: 0.6 !important;
-}
-
-/* Hover nos demais ícones */
-.social-btn img:hover {
-  filter: none;
-  opacity: 1;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
 }
 
 /* Modal */
@@ -108,33 +55,64 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(15, 15, 15, 0.9);
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
-  justify-content: center;
   align-items: center;
-  cursor: zoom-out;
-  z-index: 999;
+  justify-content: center;
+  z-index: 9999;
 }
 
 .modal img {
   max-width: 90%;
   max-height: 90%;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+/* Social Buttons */
+.social-buttons {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.social-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.social-btn img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.social-btn img:hover {
+  filter: none;
+  opacity: 1;
+}
+
+.social-btn img[alt="Twitter"] {
+  width: 22px;
+  height: 22px;
 }
 
 /* Responsivo */
 @media (max-width: 768px) {
-  .creator-card img {
-    height: 380px;
+  .jogador {
+    max-width: 100%;
   }
 
-  .creator-card span {
-    font-size: 1.2rem;
-  }
-
-  .social-btn {
-    width: 32px;
-    height: 32px;
+  .jogador img {
+    height: 200px;
   }
 }

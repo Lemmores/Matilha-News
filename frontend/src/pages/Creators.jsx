@@ -30,39 +30,41 @@ export default function Creators() {
     <div className="pagina-creators">
       <h1>Creators da Matilha</h1>
 
-      <section className="creators-grid">
-        {creators.map((creator, idx) => (
-          <div key={idx} className="creator-card">
-            <img
-              src={creator.img}
-              alt={creator.nome}
-              onClick={() => setImagemAberta(creator.img)}
-            />
-            <span>{creator.nome}</span>
-            <div className="social-buttons">
-              {creator.twitter && (
-                <a
-                  href={creator.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-btn"
-                >
-                  <img src="/icons/x.png" alt="Twitter" />
-                </a>
-              )}
-              {creator.instagram && (
-                <a
-                  href={creator.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-btn"
-                >
-                  <img src="/icons/instagram.png" alt="Instagram" />
-                </a>
-              )}
+      <section>
+        <div className="jogadores">
+          {creators.map((creator, idx) => (
+            <div key={idx} className="jogador">
+              <img
+                src={creator.img}
+                alt={creator.nome}
+                onClick={() => setImagemAberta(creator.img)}
+              />
+              <span>{creator.nome}</span>
+              <div className="social-buttons">
+                {creator.twitter && (
+                  <a
+                    href={creator.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                  >
+                    <img src="/icons/x.png" alt="Twitter" />
+                  </a>
+                )}
+                {creator.instagram && (
+                  <a
+                    href={creator.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                  >
+                    <img src="/icons/instagram.png" alt="Instagram" />
+                  </a>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
 
       {imagemAberta && (
