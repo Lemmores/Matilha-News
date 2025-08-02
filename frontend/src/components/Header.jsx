@@ -71,6 +71,7 @@ export default function Header() {
             <Link to="/noticias">Notícias</Link>
           </div>
 
+        
           <div className="nav-item">
             <DropdownButton label="Campeonatos" id="campeonatos" />
             {dropdownAberto === 'campeonatos' && (
@@ -83,7 +84,7 @@ export default function Header() {
             )}
           </div>
 
-          <div className="nav-item">
+           <div className="nav-item">
             <Link to="/creators">Creators</Link>
           </div>
 
@@ -95,7 +96,6 @@ export default function Header() {
               </div>
             )}
           </div>
-
           <div className="nav-item">
             <DropdownButton label="Torneios da Matilha" id="torneios" />
             {dropdownAberto === 'torneios' && (
@@ -105,7 +105,6 @@ export default function Header() {
               </div>
             )}
           </div>
-
           <div className="nav-item">
             <Link to="/contato">Contato</Link>
           </div>
@@ -161,7 +160,7 @@ export default function Header() {
           </div>
         </details>
 
-        <div className="nav-item">
+         <div className="nav-item">
           <Link to="/creators" className="link-mobile">Creators</Link>
         </div>
 
