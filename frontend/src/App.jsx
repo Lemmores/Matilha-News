@@ -20,6 +20,7 @@ import NovaAgenda from './components/NovaAgenda';
 import GerenciarAgenda from './pages/GerenciarAgenda';
 import EditarAgenda from './components/EditarAgenda';
 import CSPage from './pages/CSPage';
+import Creators from './pages/Creators';
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
          <Route path="/gerenciar-agenda" element={<GerenciarAgenda />} />
          <Route path="/editar-agenda/:id" element={<EditarAgenda />} />
          <Route path="/cs2" element={<CSPage/>} />
+         <Route path="/creators" element={<Creators />} />
 
 
         
