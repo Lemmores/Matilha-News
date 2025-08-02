@@ -73,6 +73,7 @@
 }
 
 .social-btn img:hover {
+  transform: scale(1.2);
   filter: none;
   opacity: 1;
 }
@@ -86,7 +87,6 @@
 .social-btn img[alt="Twitter"]:hover {
   transform: scale(1.25);
 }
-
 
 /* Modal */
 .modal {
