@@ -72,8 +72,8 @@
   cursor: pointer;
 }
 
-.social-btn img[alt="Instagram"] {
-  transform: scale(0.85); /* ou 0.8 */
+.social-btn img[alt="Instagram"]:hover {
+  transform: scale(0.85) !important;
 }
 
 .social-btn img[alt="Twitter"] {
