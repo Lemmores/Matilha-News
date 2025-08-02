@@ -77,7 +77,7 @@
 }
 
 .social-btn img[alt="Twitter"] {
-  transform: scale(1.45); /* ou 1.0 */
+  transform: scale(1.25); /* ou 1.0 */
 }
 
 .social-btn img:hover {
