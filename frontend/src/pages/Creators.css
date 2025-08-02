@@ -51,14 +51,13 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+  padding-bottom: 4px; /* dá um pequeno respiro abaixo */
 }
 
 .social-btn img {
   width: 28px;
   height: 28px;
   transition: transform 0.2s;
-  display: block;
-  padding: 2px;
 }
 
 .social-btn:hover img {
