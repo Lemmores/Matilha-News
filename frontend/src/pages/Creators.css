@@ -1,23 +1,25 @@
 .pagina-creators {
-  padding: 40px 20px;
-  max-width: 1300px;
+  padding: 2rem 1rem;
+  max-width: 1200px;
   margin: 0 auto;
+  color: white;
   text-align: center;
 }
 
 .pagina-creators h1 {
-  font-size: 3rem;
-  margin-bottom: 40px;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
   color: #d60000;
 }
 
 .creators-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
   justify-content: center;
 }
 
+/* Card de cada creator */
 .creator-card {
   background: #1a1a1a;
   border-radius: 16px;
@@ -45,13 +47,15 @@
   color: #fff;
   margin-bottom: 10px;
   font-weight: 500;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Redes Sociais */
 .social-buttons {
   margin-top: 0.5rem;
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .social-btn {
@@ -63,29 +67,39 @@
   overflow: hidden;
 }
 
+/* Estilo base dos ícones */
 .social-btn img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: transform 0.2s ease, filter 0.3s ease, opacity 0.3s ease;
+  transition: filter 0.3s ease, opacity 0.3s ease;
   opacity: 0.6;
   cursor: pointer;
 }
 
+/* Corrigir escala do Instagram manualmente */
+.social-btn img[alt="Instagram"] {
+  transform: scale(0.85);
+}
+
+/* Corrigir escala do Twitter manualmente */
+.social-btn img[alt="Twitter"],
+.social-btn img[alt="X"] {
+  transform: scale(1.15);
+}
+
+/* Desativa hover no Instagram */
 .social-btn img[alt="Instagram"]:hover {
-  transform: scale(0.75) !important;
+  transform: scale(0.85) !important;
+  filter: none !important;
+  opacity: 0.6 !important;
 }
 
-.social-btn img[alt="Twitter"] {
-  transform: scale(1.25)  !important; /* ou 1.0 */
-}
-
+/* Hover nos demais ícones */
 .social-btn img:hover {
-  transform: scale(1.2);
   filter: none;
   opacity: 1;
 }
-
 
 /* Modal */
 .modal {
@@ -107,4 +121,20 @@
   max-height: 90%;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .creator-card img {
+    height: 380px;
+  }
+
+  .creator-card span {
+    font-size: 1.2rem;
+  }
+
+  .social-btn {
+    width: 32px;
+    height: 32px;
+  }
 }
