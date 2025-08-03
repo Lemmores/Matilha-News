@@ -74,14 +74,14 @@
 }
 
 .social-btn {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  background-color: transparent;
   border-radius: 50%;
+  background-color: transparent;
+  /* Remova overflow */
 }
 
 .social-btn img {
@@ -91,6 +91,7 @@
   opacity: 0.6;
   transition: filter 0.3s ease, opacity 0.3s ease;
   cursor: pointer;
+  /* Garante que o ícone respeite a área */
 }
 
 .social-btn img:hover {
@@ -102,6 +103,7 @@
   width: 22px;
   height: 22px;
 }
+
 
 /* Modal */
 .modal {
