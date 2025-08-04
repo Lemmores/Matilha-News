@@ -14,11 +14,47 @@ const creators = [
     twitter: 'https://x.com/Ismalakoi',
     instagram: 'https://www.instagram.com/ismalakoi1/',
   },
+
   {
     nome: 'PEU',
     img: '/creators/Peu.jpg',
     twitter: 'https://x.com/peuzinholol',
     instagram: 'https://www.instagram.com/peuzinholol/',
+  },
+
+  {
+    nome: 'DYEN',
+    img: '/creators/Dyen.jpg',
+    twitter: 'https://x.com/DyenffnyM',
+    instagram: 'https://www.instagram.com/dyenffnym/',
+  },
+
+   {
+    nome: 'IASSER',
+    img: '/creators/Iasser.jpg',
+    twitter: 'https://x.com/iasserzinlol',
+    instagram: 'https://www.instagram.com/iasserzinlol/',
+  },
+
+  {
+    nome: 'AMMY',
+    img: '/creators/Ammy.jpg',
+    twitter: 'https://x.com/ammyzitta',
+    instagram: 'https://www.instagram.com/ammyzitta/',
+  },
+
+  {
+    nome: 'ISAC',
+    img: '/creators/Isac.jpg',
+    twitter: 'https://x.com/isac_lemus',
+    instagram: 'https://www.instagram.com/isac.lemus/',
+  },
+
+  {
+    nome: 'JOÃO DIAS',
+    img: '/creators/João Dias.jpg',
+    twitter: 'https://x.com/jdiasss_',
+    instagram: 'https://www.instagram.com/jdiasss_/',
   },
   // adicione mais creators conforme quiser
 ];
