@@ -248,11 +248,11 @@ a:hover {
     z-index: 1000;
   }
 
-  .nav-mobile.ativo {
-    padding-top: 5.5rem; /* espaço pro header fixo */
+  .header {
+    padding-top: 6rem; /* aumenta pra empurrar o conteúdo e evitar corte */
   }
 
-  .header {
-    padding-top: 5.5rem; /* evita que o conteúdo fique atrás do header */
+  .nav-mobile.ativo {
+    padding-top: 6rem;
   }
 }
