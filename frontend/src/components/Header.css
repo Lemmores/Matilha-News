@@ -1,9 +1,10 @@
 .header {
   background-color: #b90000;
   color: white;
-  padding: 0.25rem 0.5rem;
   margin-bottom: 0;
+  padding: 0; /* zera o padding */
 }
+
 
 /* TOP SECTION: logo + nav */
 .header-top {
@@ -157,8 +158,8 @@
 
 /* RESPONSIVO */
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
+  body {
+    padding-top: 7rem !important;
   }
 
   .nav-desktop {
