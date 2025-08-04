@@ -175,25 +175,21 @@
     z-index: 1000;
   }
 
-  .header {
-    padding-top: 7rem;
-    margin-bottom: 0;
-  }
-
   .nav-mobile.ativo {
     padding-top: 7rem;
   }
 
   body {
-    padding-top: 0 !important;
+    padding-top: 7rem !important;
   }
 
-  /* remove qualquer espaçamento acima do primeiro conteúdo */
   .header + * {
     margin-top: 0 !important;
   }
 
-  .pagina-home, .pagina-noticias, .main-container {
+  .pagina-home,
+  .pagina-noticias,
+  .main-container {
     margin-top: 0 !important;
   }
 }
