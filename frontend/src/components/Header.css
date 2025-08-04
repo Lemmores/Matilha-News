@@ -236,3 +236,23 @@ a:hover {
   position: relative;
   z-index: 1;
 }
+
+@media (max-width: 768px) {
+  .header-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #b90000;
+    padding: 0.25rem 0.5rem;
+    z-index: 1000;
+  }
+
+  .nav-mobile.ativo {
+    padding-top: 5.5rem; /* espaço pro header fixo */
+  }
+
+  .header {
+    padding-top: 5.5rem; /* evita que o conteúdo fique atrás do header */
+  }
+}

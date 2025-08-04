@@ -125,12 +125,12 @@ const CircuitoPage = () => {
         <h2 className="circuito-section-title">Últimos Confrontos</h2>
         <div className="video-list">
           <iframe 
-            src="https://www.youtube.com/embed/lznTj-7coyc?si=jbSq8bN8fAOO0k20&amp;start=2307"
+            src="https://www.youtube.com/embed/cfuNR7inXCM?si=775RPXbKviz_eOTA"
             title="Confronto 1"
             allowFullScreen
           ></iframe>
           <iframe 
-            src="https://www.youtube.com/embed/bbeiB4ZU9WI?si=YxiuIEH50X66CKpm&amp;start=10895" 
+            src="https://www.youtube.com/embed/V-dqcyVUmZQ?si=iSDCtSC_Agd658z6" 
             title="Confronto 2"
             allowFullScreen
           ></iframe>
