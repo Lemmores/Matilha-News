@@ -256,3 +256,8 @@ a:hover {
     padding-top: 7rem;
   }
 }
+@media (max-width: 768px) {
+  body {
+    padding-top: 6rem !important;
+  }
+}
