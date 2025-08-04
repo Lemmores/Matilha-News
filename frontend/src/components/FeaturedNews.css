@@ -128,10 +128,11 @@
 /* MOBILE */
 @media (max-width: 768px) {
   .featured-news {
-    flex-direction: column;
-    height: auto;
-    padding: 1rem;
-  }
+  flex-direction: column;
+  height: auto;
+  padding: 0 1rem 1rem 1rem; /* remove padding-top */
+  margin-top: 7rem; /* empurra o conteúdo abaixo do header fixo */
+}
 
   .featured-news-layout {
     flex-direction: column;
