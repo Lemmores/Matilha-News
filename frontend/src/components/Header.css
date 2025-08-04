@@ -108,7 +108,7 @@
   color: white;
   font-size: 2rem;
   cursor: pointer;
-  z-index: 5000; /* ← Aumente aqui */
+  z-index: 9999; /* acima de todo o resto */
 }
 
 

@@ -61,9 +61,6 @@ export default function Header() {
             <img src="/logo2.png" alt="Logo Matilha News" />
           </Link>
         </div>
-        <button className="menu-toggle" onClick={toggleMenu}>
-          &#9776;
-        </button>
 
         {/* Menu Desktop */}
         <nav className="nav-desktop">
@@ -71,7 +68,6 @@ export default function Header() {
             <Link to="/noticias">Notícias</Link>
           </div>
 
-        
           <div className="nav-item">
             <DropdownButton label="Campeonatos" id="campeonatos" />
             {dropdownAberto === 'campeonatos' && (
@@ -79,12 +75,11 @@ export default function Header() {
                 <Link to="/ltasul">LTA SUL</Link>
                 <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
                 <Link to="/cs2">CS2</Link>
-                {/* <Link to="#">VALORANT</Link> */}
               </div>
             )}
           </div>
 
-           <div className="nav-item">
+          <div className="nav-item">
             <Link to="/creators">Creators</Link>
           </div>
 
@@ -96,15 +91,16 @@ export default function Header() {
               </div>
             )}
           </div>
+
           <div className="nav-item">
             <DropdownButton label="Torneios da Matilha" id="torneios" />
             {dropdownAberto === 'torneios' && (
               <div className="dropdown">
                 <Link to="/matilhatactics">MATILHA TACTICS</Link>
-                {/* <Link to="#">RED CANUDOS 2025</Link> */}
               </div>
             )}
           </div>
+
           <div className="nav-item">
             <Link to="/contato">Contato</Link>
           </div>
@@ -138,16 +134,15 @@ export default function Header() {
         </nav>
       </div>
 
+      {/* Botão do menu mobile fora da header-top */}
+      <button className="menu-toggle" onClick={toggleMenu}>
+        &#9776;
+      </button>
+
       {/* Menu Mobile */}
       <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`}>
         <div className="nav-item">
-          <Link
-            to="/noticias"
-            className="link-mobile"
-            onClick={() => setMenuAberto(false)}
-          >
-            Notícias
-          </Link>
+          <Link to="/noticias" className="link-mobile" onClick={() => setMenuAberto(false)}>Notícias</Link>
         </div>
 
         <details className="nav-item">
@@ -156,11 +151,10 @@ export default function Header() {
             <Link to="/ltasul">LTA SUL</Link>
             <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
             <Link to="/cs2">CS2</Link>
-            {/* <Link to="#">VALORANT</Link> */}
           </div>
         </details>
 
-         <div className="nav-item">
+        <div className="nav-item">
           <Link to="/creators" className="link-mobile">Creators</Link>
         </div>
 
@@ -175,7 +169,6 @@ export default function Header() {
           <summary>Torneios da Matilha</summary>
           <div className="dropdown">
             <Link to="/matilhatactics">MATILHA TACTICS</Link>
-            {/* <Link to="#">RED CANUDOS 2025</Link> */}
           </div>
         </details>
 
