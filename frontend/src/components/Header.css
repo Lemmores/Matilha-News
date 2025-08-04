@@ -158,6 +158,9 @@
 
 /* RESPONSIVO */
 @media (max-width: 768px) {
+   .menu-toggle {
+    display: block;
+  }
   body {
     padding-top: 7rem !important;
   }
