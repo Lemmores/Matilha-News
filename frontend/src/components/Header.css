@@ -249,10 +249,10 @@ a:hover {
   }
 
   .header {
-    padding-top: 6rem; /* aumenta pra empurrar o conteúdo e evitar corte */
+    padding-top: 7rem; /* aumenta pra empurrar o conteúdo e evitar corte */
   }
 
   .nav-mobile.ativo {
-    padding-top: 6rem;
+    padding-top: 7rem;
   }
 }
