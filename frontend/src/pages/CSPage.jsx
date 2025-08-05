@@ -5,10 +5,10 @@ import './CSPage.css';
 
 const jogadores = [
   {
-    nome: 'COLDZERA',
-    img: '/jogadores/coldzera.jpg',
-    twitter: 'https://x.com/coldzera',
-    instagram: 'https://www.instagram.com/coldzera',
+    nome: 'HISTORY',
+    img: '/jogadores/history.jpg',
+    twitter: 'https://x.com/historyfps',
+    instagram: 'https://www.instagram.com/historycsgo/',
   },
   {
     nome: 'DROP',
@@ -108,33 +108,46 @@ const CSPage = () => {
         </div>
       )}
 
-      <section>
-        <h2 className="cs-section-title">Últimos Confrontos</h2>
-        <div className="video-list">
-          <iframe
-            src="https://www.youtube.com/embed/9DlwxXS-S3A?si=EgSB0mlM_-hPmNZf"
-            title="Confronto 1"
-            allowFullScreen
-          ></iframe>
-          <iframe
-            src="https://www.youtube.com/embed/GyTJwQaEMtM?si=kJqIuRsojsqkyQyU"
-            title="Confronto 2"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </section>
+           <section>
+  <h2 className="lta-section-title">Últimos Confrontos</h2>
+  <div className="video-list">
+    {agendaLtaSul
+  .filter(partida => partida.linkTransmissao)
+  .sort((a, b) => new Date(b.data) - new Date(a.data))
+  .slice(0, 2)
+  .map((partida, index) => {
+    const link = partida.linkTransmissao.replace("watch?v=", "embed/");
+    return (
+      <iframe
+        key={index}
+        src={link}
+        title={`Confronto ${index + 1}`}
+        allowFullScreen
+      ></iframe>
+    );
+  })}
+  </div>
+</section>
 
-      <section>
-        <h2 className="cs-section-title">Últimas Notícias da RED no CS2</h2>
-        <div className="noticia-list">
-          {noticiasCS.map(noticia => (
-            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <img src={noticia.imagem} alt={noticia.titulo} />
-              <p className="categoria">{noticia.categoria}</p>
-              <h3>{noticia.titulo}</h3>
-            </Link>
-          ))}
-        </div>
+        <section>
+              <h2 className="cs-section-title">Últimas Notícias da RED no CS2</h2>
+              <div className="noticia-list">
+                {noticiasExibidas.map(noticia => (
+                  <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
+                    <img src={noticia.imagem} alt={noticia.titulo} />
+                    <p className="categoria">{noticia.categoria}</p>
+                    <h3>{noticia.titulo}</h3>
+                  </Link>
+                ))}
+              </div>
+              {totalPaginas > 1 && (
+                <div className="paginacao-noticias">
+                  <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
+                  <span>Página {paginaAtual} de {totalPaginas}</span>
+                  <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
+                </div>
+              )}
+   
       </section>
 
       <section>
