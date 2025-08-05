@@ -132,7 +132,7 @@ const CSPage = () => {
         <section>
               <h2 className="cs-section-title">Últimas Notícias da RED no CS2</h2>
               <div className="noticia-list">
-                {noticiasExibidas.map(noticia => (
+                {noticiasCS.map(noticia => (
                   <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
                     <img src={noticia.imagem} alt={noticia.titulo} />
                     <p className="categoria">{noticia.categoria}</p>
