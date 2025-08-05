@@ -5,6 +5,10 @@ const agendaSchema = new mongoose.Schema({
   hora: String,
   campeonato: String,
   local: String,
+  linkTransmissao: { // novo campo opcional
+    type: String,
+    required: false,
+  },
   timeA: {
     nome: String,
     logo: String

@@ -14,6 +14,7 @@ export default function NovaAgenda() {
     hora: "",
     campeonato: "",
     local: "",
+    linkTransmissao: "", // novo campo
   });
 
   const fileRefA = useRef(null);
@@ -64,6 +65,7 @@ export default function NovaAgenda() {
       hora: form.hora,
       campeonato: form.campeonato,
       local: form.local,
+      linkTransmissao: form.linkTransmissao, // novo campo enviado
       timeA: {
         nome: form.timeA_nome,
         logo: form.timeA_logo,
@@ -86,6 +88,7 @@ export default function NovaAgenda() {
         hora: "",
         campeonato: "",
         local: "",
+        linkTransmissao: "", // resetando o campo também
       });
       if (fileRefA.current) fileRefA.current.value = "";
       if (fileRefB.current) fileRefB.current.value = "";
@@ -109,6 +112,12 @@ export default function NovaAgenda() {
           <option value="VALORANT">VALORANT</option>
         </select>
         <input name="local" value={form.local} onChange={handleChange} placeholder="Local (opcional)" />
+        <input
+          name="linkTransmissao"
+          value={form.linkTransmissao}
+          onChange={handleChange}
+          placeholder="Link da transmissão (opcional)"
+        />
 
         <h4>Time A</h4>
         <input

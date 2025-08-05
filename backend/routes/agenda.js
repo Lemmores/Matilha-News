@@ -6,6 +6,7 @@ const router = express.Router();
 // Criar nova partida
 router.post('/', async (req, res) => {
   try {
+    // linkTransmissao pode estar presente no req.body (campo opcional)
     const nova = new Agenda(req.body);
     await nova.save();
     res.status(201).json(nova);

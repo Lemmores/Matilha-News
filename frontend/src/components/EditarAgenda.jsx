@@ -18,6 +18,7 @@ export default function EditarAgenda() {
     hora: "",
     campeonato: "",
     local: "",
+    linkTransmissao: "", // novo campo
   });
 
   const fileRefA = useRef(null);
@@ -39,6 +40,7 @@ export default function EditarAgenda() {
           hora: partida.hora,
           campeonato: partida.campeonato,
           local: partida.local || "",
+          linkTransmissao: partida.linkTransmissao || "", // novo campo
         });
       } catch (err) {
         console.error("Erro ao buscar partida:", err);
@@ -93,6 +95,7 @@ export default function EditarAgenda() {
       hora: form.hora,
       campeonato: form.campeonato,
       local: form.local,
+      linkTransmissao: form.linkTransmissao, // novo campo incluído
       timeA: {
         nome: form.timeA_nome,
         logo: form.timeA_logo,
@@ -127,6 +130,12 @@ export default function EditarAgenda() {
           <option value="VALORANT">VALORANT</option>
         </select>
         <input name="local" value={form.local} onChange={handleChange} placeholder="Local (opcional)" />
+        <input
+          name="linkTransmissao"
+          value={form.linkTransmissao}
+          onChange={handleChange}
+          placeholder="Link da transmissão (opcional)"
+        />
 
         <h4>Time A</h4>
         <input

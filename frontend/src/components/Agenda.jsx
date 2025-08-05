@@ -25,19 +25,18 @@ export default function Agenda({ partidas }) {
     carregar();
   }, [partidas]);
 
-    function filtrarProximos7Dias(lista) {
+  function filtrarProximos7Dias(lista) {
     const ontem = new Date();
     ontem.setDate(ontem.getDate() - 1);
     const dataLimite = new Date();
     dataLimite.setDate(ontem.getDate() + 4);
-    
+
     return lista.filter((jogo) => {
       const [dia, mes, ano] = jogo.data.split("/").map(Number);
       const dataJogo = new Date(ano, mes - 1, dia);
       return dataJogo >= ontem && dataJogo <= dataLimite;
     });
   }
-
 
   return (
     <section className="agenda">
@@ -51,7 +50,7 @@ export default function Agenda({ partidas }) {
           const timeB_nome = jogo?.timeB?.nome || "Time B";
           const timeB_logo = jogo?.timeB?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
 
-          return (
+          const cardContent = (
             <div className="jogo-card" key={index}>
               <div className="jogo-info">
                 <span className="data-hora">{jogo.data} - {jogo.hora}</span>
@@ -70,6 +69,21 @@ export default function Agenda({ partidas }) {
                 </div>
               </div>
             </div>
+          );
+
+          return jogo.linkTransmissao ? (
+            <a
+              href={jogo.linkTransmissao}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={index}
+              className="jogo-link"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              {cardContent}
+            </a>
+          ) : (
+            <div key={index}>{cardContent}</div>
           );
         })}
       </div>
