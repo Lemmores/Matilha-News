@@ -51,7 +51,10 @@ const CircuitoPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
-        const circuitoNoticias = data.filter(n => n.categoria === 'CIRCUITO DESAFIANTE');
+        const circuitoNoticias = data
+        .filter(n => n.categoria === 'CIRCUITO DESAFIANTE')
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // do mais recente para o mais antigo
+
         setNoticiasCircuito(circuitoNoticias);
       } catch (error) {
         console.error('Erro ao buscar notícias do Circuito Desafiante:', error);
