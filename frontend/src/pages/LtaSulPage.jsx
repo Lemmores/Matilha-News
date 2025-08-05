@@ -157,7 +157,7 @@ const LtaSulPage = () => {
           ))}
         </div>
         {totalPaginas > 1 && (
-          <div className="paginacao">
+          <div className="paginacao-noticias">
             <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
             <span>Página {paginaAtual} de {totalPaginas}</span>
             <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
