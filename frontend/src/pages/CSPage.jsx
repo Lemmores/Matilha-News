@@ -75,7 +75,7 @@ const CSPage = () => {
   
   const totalPaginas = Math.ceil(noticiasCS.length / noticiasPorPagina);
   const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
-  const noticiasExibidas = noticiasLtaSul.slice(indiceInicio, indiceInicio + noticiasPorPagina);
+  const noticiasExibidas = noticiasCS.slice(indiceInicio, indiceInicio + noticiasPorPagina);
 
   const irParaAnterior = () => {
     if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
