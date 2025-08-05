@@ -40,7 +40,9 @@ const CSPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasCS, setNoticiasCS] = useState([]);
   const [agendaCS, setAgendaCS] = useState([]);
-
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const noticiasPorPagina = 4;
+  
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
