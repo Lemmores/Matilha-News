@@ -52,8 +52,8 @@ const CircuitoPage = () => {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
         const circuitoNoticias = data
-        .filter(n => n.categoria === 'CIRCUITO DESAFIANTE')
-        .sort((a, b) => new Date(b.data) - new Date(a.data));
+          .filter(n => n.categoria === 'CIRCUITO DESAFIANTE')
+          .sort((a, b) => new Date(b.data) - new Date(a.data));
 
         setNoticiasCircuito(circuitoNoticias);
       } catch (error) {
@@ -147,16 +147,21 @@ const CircuitoPage = () => {
       <section>
         <h2 className="circuito-section-title">Últimos Confrontos</h2>
         <div className="video-list">
-          <iframe 
-            src="https://www.youtube.com/embed/cfuNR7inXCM?si=775RPXbKviz_eOTA"
-            title="Confronto 1"
-            allowFullScreen
-          ></iframe>
-          <iframe 
-            src="https://www.youtube.com/embed/V-dqcyVUmZQ?si=iSDCtSC_Agd658z6" 
-            title="Confronto 2"
-            allowFullScreen
-          ></iframe>
+          {agendaCircuito
+            .filter(partida => partida.linkTransmissao)
+            .sort((a, b) => new Date(b.data) - new Date(a.data))
+            .slice(0, 2)
+            .map((partida, index) => {
+              const link = partida.linkTransmissao.replace("watch?v=", "embed/");
+              return (
+                <iframe
+                  key={index}
+                  src={link}
+                  title={`Confronto ${index + 1}`}
+                  allowFullScreen
+                ></iframe>
+              );
+            })}
         </div>
       </section>
 
