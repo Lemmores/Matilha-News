@@ -42,7 +42,7 @@ const CSPage = () => {
   const [agendaCS, setAgendaCS] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
   const noticiasPorPagina = 4;
-  
+
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
@@ -50,7 +50,9 @@ const CSPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
-        const CSNoticias = data.filter(n => n.categoria === 'CS2');
+        const CSNoticias = data
+          .filter(n => n.categoria === 'CS2')
+          .sort((a, b) => new Date(b.data) - new Date(a.data));
         setNoticiasCS(CSNoticias);
       } catch (error) {
         console.error('Erro ao carregar notícias de CS2:', error);
@@ -61,7 +63,9 @@ const CSPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/agenda`);
         const data = await res.json();
-        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'CS2');
+        const agendaFiltrada = data
+          .filter(confronto => confronto.campeonato === 'CS2')
+          .sort((a, b) => new Date(b.data) - new Date(a.data));
         setAgendaCS(agendaFiltrada);
       } catch (error) {
         console.error('Erro ao carregar agenda de CS2:', error);
@@ -72,7 +76,6 @@ const CSPage = () => {
     fetchAgenda();
   }, [API_URL]);
 
-  
   const totalPaginas = Math.ceil(noticiasCS.length / noticiasPorPagina);
   const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
   const noticiasExibidas = noticiasCS.slice(indiceInicio, indiceInicio + noticiasPorPagina);
@@ -85,13 +88,13 @@ const CSPage = () => {
     if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
   };
 
-
   return (
     <div className="pagina-cs">
       <h1>RED Canids no CS2</h1>
 
+      {/* Line-up */}
       <section>
-        <h2 className="lta-section-title">Line-up</h2>
+        <h2 className="cs-section-title">Line-up</h2>
         <div className="jogadores">
           {jogadores.map((jogador, idx) => (
             <div key={idx} className="jogador">
@@ -118,54 +121,57 @@ const CSPage = () => {
         </div>
       </section>
 
+      {/* Modal da imagem ampliada */}
       {imagemAberta && (
         <div className="modal" onClick={() => setImagemAberta(null)}>
           <img src={imagemAberta} alt="Imagem ampliada" />
         </div>
       )}
 
-           <section>
-  <h2 className="lta-section-title">Últimos Confrontos</h2>
-  <div className="video-list">
-    {agendaCS
-  .filter(partida => partida.linkTransmissao)
-  .sort((a, b) => new Date(b.data) - new Date(a.data))
-  .slice(0, 2)
-  .map((partida, index) => {
-    const link = partida.linkTransmissao.replace("watch?v=", "embed/");
-    return (
-      <iframe
-        key={index}
-        src={link}
-        title={`Confronto ${index + 1}`}
-        allowFullScreen
-      ></iframe>
-    );
-  })}
-  </div>
-</section>
-
-        <section>
-              <h2 className="cs-section-title">Últimas Notícias da RED no CS2</h2>
-              <div className="noticia-list">
-                {noticiasExibidas.map(noticia => (
-                  <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-                    <img src={noticia.imagem} alt={noticia.titulo} />
-                    <p className="categoria">{noticia.categoria}</p>
-                    <h3>{noticia.titulo}</h3>
-                  </Link>
-                ))}
-              </div>
-              {totalPaginas > 1 && (
-                <div className="paginacao-noticias">
-                  <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-                  <span>Página {paginaAtual} de {totalPaginas}</span>
-                  <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
-                </div>
-              )}
-   
+      {/* Últimos confrontos com vídeos do YouTube */}
+      <section>
+        <h2 className="cs-section-title">Últimos Confrontos</h2>
+        <div className="video-list">
+          {agendaCS
+            .filter(partida => partida.linkTransmissao)
+            .sort((a, b) => new Date(b.data) - new Date(a.data))
+            .slice(0, 2)
+            .map((partida, index) => {
+              const link = partida.linkTransmissao.replace('watch?v=', 'embed/');
+              return (
+                <iframe
+                  key={index}
+                  src={link}
+                  title={`Confronto ${index + 1}`}
+                  allowFullScreen
+                ></iframe>
+              );
+            })}
+        </div>
       </section>
 
+      {/* Últimas Notícias */}
+      <section>
+        <h2 className="cs-section-title">Últimas Notícias da RED no CS2</h2>
+        <div className="noticia-list">
+          {noticiasExibidas.map(noticia => (
+            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
+              <img src={noticia.imagem} alt={noticia.titulo} />
+              <p className="categoria">{noticia.categoria}</p>
+              <h3>{noticia.titulo}</h3>
+            </Link>
+          ))}
+        </div>
+        {totalPaginas > 1 && (
+          <div className="paginacao-noticias">
+            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
+            <span>Página {paginaAtual} de {totalPaginas}</span>
+            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
+          </div>
+        )}
+      </section>
+
+      {/* Agenda */}
       <section>
         <Agenda partidas={agendaCS} />
       </section>
