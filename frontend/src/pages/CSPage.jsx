@@ -70,6 +70,20 @@ const CSPage = () => {
     fetchAgenda();
   }, [API_URL]);
 
+  
+  const totalPaginas = Math.ceil(noticiasCS.length / noticiasPorPagina);
+  const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
+  const noticiasExibidas = noticiasLtaSul.slice(indiceInicio, indiceInicio + noticiasPorPagina);
+
+  const irParaAnterior = () => {
+    if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
+  };
+
+  const irParaProxima = () => {
+    if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
+  };
+
+
   return (
     <div className="pagina-cs">
       <h1>RED Canids no CS2</h1>
@@ -132,7 +146,7 @@ const CSPage = () => {
         <section>
               <h2 className="cs-section-title">Últimas Notícias da RED no CS2</h2>
               <div className="noticia-list">
-                {noticiasCS.map(noticia => (
+                {noticiasExibidas.map(noticia => (
                   <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
                     <img src={noticia.imagem} alt={noticia.titulo} />
                     <p className="categoria">{noticia.categoria}</p>
