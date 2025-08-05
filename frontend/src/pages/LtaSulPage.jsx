@@ -23,7 +23,7 @@ const jogadores = [
     instagram: 'https://www.instagram.com/kaze.g_/',
   },
   {
-     nome: 'RABELO',
+    nome: 'RABELO',
     img: '/jogadores/Rabelo.jpg',
     twitter: 'https://x.com/rabeloxv',
     instagram: 'https://www.instagram.com/rabelokoo/',
@@ -40,6 +40,8 @@ const LtaSulPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasLtaSul, setNoticiasLtaSul] = useState([]);
   const [agendaLtaSul, setAgendaLtaSul] = useState([]);
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const noticiasPorPagina = 4;
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -48,7 +50,9 @@ const LtaSulPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
-        const ltaSulNoticias = data.filter(n => n.categoria === 'LTA SUL');
+        const ltaSulNoticias = data
+          .filter(n => n.categoria === 'LTA SUL')
+          .sort((a, b) => new Date(b.data) - new Date(a.data));
         setNoticiasLtaSul(ltaSulNoticias);
       } catch (error) {
         console.error('Erro ao carregar notícias da LTA SUL:', error);
@@ -69,6 +73,18 @@ const LtaSulPage = () => {
     fetchNoticias();
     fetchAgenda();
   }, [API_URL]);
+
+  const totalPaginas = Math.ceil(noticiasLtaSul.length / noticiasPorPagina);
+  const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
+  const noticiasExibidas = noticiasLtaSul.slice(indiceInicio, indiceInicio + noticiasPorPagina);
+
+  const irParaAnterior = () => {
+    if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
+  };
+
+  const irParaProxima = () => {
+    if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
+  };
 
   return (
     <div className="pagina-lta">
@@ -132,7 +148,7 @@ const LtaSulPage = () => {
       <section>
         <h2 className="lta-section-title">Últimas Notícias da RED na LTA SUL</h2>
         <div className="noticia-list">
-          {noticiasLtaSul.map(noticia => (
+          {noticiasExibidas.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
               <img src={noticia.imagem} alt={noticia.titulo} />
               <p className="categoria">{noticia.categoria}</p>
@@ -140,6 +156,13 @@ const LtaSulPage = () => {
             </Link>
           ))}
         </div>
+        {totalPaginas > 1 && (
+          <div className="paginacao">
+            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
+            <span>Página {paginaAtual} de {totalPaginas}</span>
+            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
+          </div>
+        )}
       </section>
 
       <section>

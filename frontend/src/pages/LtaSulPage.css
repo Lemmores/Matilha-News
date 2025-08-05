@@ -196,3 +196,32 @@
   width: 22px;  /* ou outro valor menor */
   height: 22px;
 }
+
+/* Paginação de Notícias */
+.paginacao-noticias {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.paginacao-noticias button {
+  background-color: #b90000;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.paginacao-noticias button:hover {
+  background-color: #8e0000;
+}
+
+.paginacao-noticias button:disabled {
+  background-color: #888;
+  cursor: default;
+}
