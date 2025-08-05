@@ -101,6 +101,35 @@
   gap: 1.5rem;
 }
 
+/* Paginação das notícias */
+.paginacao-noticias {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.paginacao-noticias button {
+  background-color: #b90000;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.paginacao-noticias button:hover:not(:disabled) {
+  background-color: #e60000;
+}
+
+.paginacao-noticias button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
 
 /* Agenda */
 .agenda ul {
@@ -195,4 +224,3 @@
   width: 22px;  /* ou outro valor menor */
   height: 22px;
 }
-

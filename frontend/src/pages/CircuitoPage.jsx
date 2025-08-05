@@ -41,6 +41,9 @@ const CircuitoPage = () => {
   const [noticiasCircuito, setNoticiasCircuito] = useState([]);
   const [agendaCircuito, setAgendaCircuito] = useState([]);
 
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const noticiasPorPagina = 4;
+
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
@@ -69,6 +72,23 @@ const CircuitoPage = () => {
     fetchNoticias();
     fetchAgenda();
   }, [API_URL]);
+
+  // calcular quais notícias mostrar na página atual
+  const indexUltimaNoticia = paginaAtual * noticiasPorPagina;
+  const indexPrimeiraNoticia = indexUltimaNoticia - noticiasPorPagina;
+  const noticiasPagina = noticiasCircuito.slice(indexPrimeiraNoticia, indexUltimaNoticia);
+
+  // total de páginas
+  const totalPaginas = Math.ceil(noticiasCircuito.length / noticiasPorPagina);
+
+  // funções para mudar página
+  const irParaProxima = () => {
+    if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
+  };
+
+  const irParaAnterior = () => {
+    if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
+  };
 
   return (
     <div className="pagina-circuito">
@@ -137,17 +157,28 @@ const CircuitoPage = () => {
         </div>
       </section>
 
-      {/* Notícias do Circuito */}
+      {/* Notícias do Circuito com paginação */}
       <section>
         <h2 className="circuito-section-title">Últimas Notícias da RED no Circuito Desafiante</h2>
         <div className="noticia-list">
-          {noticiasCircuito.map(noticia => (
+          {noticiasPagina.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
               <img src={noticia.imagem} alt={noticia.titulo} />
               <p className="categoria">{noticia.categoria}</p>
               <h3>{noticia.titulo}</h3>
             </Link>
           ))}
+        </div>
+
+        {/* Botões de navegação de página */}
+        <div className="paginacao-noticias">
+          <button onClick={irParaAnterior} disabled={paginaAtual === 1}>
+            Página Anterior
+          </button>
+          <span>Página {paginaAtual} de {totalPaginas}</span>
+          <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>
+            Próxima Página
+          </button>
         </div>
       </section>
 
