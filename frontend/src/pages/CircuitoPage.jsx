@@ -53,7 +53,7 @@ const CircuitoPage = () => {
         const data = await res.json();
         const circuitoNoticias = data
         .filter(n => n.categoria === 'CIRCUITO DESAFIANTE')
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // do mais recente para o mais antigo
+        .sort((a, b) => new Date(b.data) - new Date(a.data));
 
         setNoticiasCircuito(circuitoNoticias);
       } catch (error) {
