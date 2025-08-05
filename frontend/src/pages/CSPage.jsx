@@ -111,7 +111,7 @@ const CSPage = () => {
            <section>
   <h2 className="lta-section-title">Últimos Confrontos</h2>
   <div className="video-list">
-    {agendaLtaSul
+    {agendaCS
   .filter(partida => partida.linkTransmissao)
   .sort((a, b) => new Date(b.data) - new Date(a.data))
   .slice(0, 2)
