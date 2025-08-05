@@ -124,26 +124,24 @@ const LtaSulPage = () => {
         </div>
       )}
 
-      <section>
-        <h2 className="lta-section-title">Últimos Confrontos</h2>
-        <div className="video-list">
-          <iframe
-            src="https://www.youtube.com/embed/KGNF7I8G8Ok?si=gqz4FJBrSCgg6hQz"
-            title="Confronto 1"
-            allowFullScreen
-          ></iframe>
-          <iframe
-            src="https://www.youtube.com/embed/j2dh1gcE9Fo?si=VNXOX18xBe7gcSEY"
-            title="Confronto 2"
-            allowFullScreen
-          ></iframe>
-          <iframe
-            src="https://www.youtube.com/embed/qq_Avz1PeEI?si=gLY7rjJ83kMS2iCl"
-            title="Confronto 3"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </section>
+     <section>
+  <h2 className="lta-section-title">Últimos Confrontos</h2>
+  <div className="video-list">
+    {agendaLtaSul
+      .filter(partida => partida.linkTransmissao) // só com vídeo
+      .sort((a, b) => new Date(b.data) - new Date(a.data)) // mais recente primeiro
+      .slice(0, 2) // pega só 2
+      .map((partida, index) => (
+        <iframe
+          key={index}
+          src={partida.linkTransmissao}
+          title={`Confronto ${index + 1}`}
+          allowFullScreen
+        ></iframe>
+      ))}
+  </div>
+</section>
+
 
       <section>
         <h2 className="lta-section-title">Últimas Notícias da RED na LTA SUL</h2>
