@@ -123,8 +123,9 @@ export default function Header() {
                     <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
                     <Link to="/nova-agenda">Nova Agenda</Link>
                     <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
-                    <Link to="/novo-conteudo">Novo Conteúdo Creators</Link>
-                    <Link to="/gerenciar-conteudo">Gerenciar Conteúdo Creators</Link>
+                    <Link to="/novo-conteudo-creator">Novo Conteúdo Creators</Link>
+                    <Link to="/gerenciar-conteudos-creators">Gerenciar Conteúdos Creators</Link>
+
                   </div>
                 )}
               </div>
@@ -195,8 +196,9 @@ export default function Header() {
                 <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
                 <Link to="/nova-agenda">Nova Agenda</Link>
                 <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
-                <Link to="/novo-conteudo">Novo Conteúdo Creators</Link>
-                <Link to="/gerenciar-conteudo">Gerenciar Conteúdo Creators</Link>
+                <Link to="/novo-conteudo-creator">Novo Conteúdo Creators</Link>
+                <Link to="/gerenciar-conteudos-creators">Gerenciar Conteúdos Creators</Link>
+
               </div>
             </details>
             <div className="nav-item">
