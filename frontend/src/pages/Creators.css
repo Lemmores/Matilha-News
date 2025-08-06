@@ -13,7 +13,7 @@
   color: #d60000;
 }
 
-/* Grid dos Creators - fotos no topo */
+/* Grid dos Creators */
 .jogadores {
   display: flex;
   flex-wrap: wrap;
@@ -22,17 +22,18 @@
 }
 
 .jogador {
-  text-align: center;
-  max-width: 240px; /* antes era 180px */
+  max-width: 180px; /* ajustado para fotos proporcionais */
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .jogador img {
   width: 100%;
-  height: 320px;
+  height: auto;       /* mantém proporção da imagem */
+  max-height: 240px;  /* limita altura para evitar fotos gigantes */
   object-fit: cover;
   border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -111,95 +112,6 @@
   height: 22px;
 }
 
-/* NOVOS CONTEÚDOS - Seção de vídeos abaixo das fotos */
-
-/* Título da seção */
-.pagina-creators h2 {
-  font-size: 2rem;
-  margin: 3rem 0 1.5rem;
-  text-align: center;
-  color: #d60000;
-}
-
-/* Botões de filtro */
-.filtros {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.filtros button {
-  margin: 0 0.4rem 0.5rem 0.4rem;
-  padding: 0.5rem 1rem;
-  background: #b90000;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-}
-
-.filtros button:hover {
-  background-color: #ff0000;
-}
-
-.filtros button.ativo {
-  background-color: #ff3333;
-}
-
-/* Grid dos conteúdos */
-.lista-conteudos {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-}
-
-/* Card do conteúdo */
-.card-conteudo {
-  background-color: #222;
-  padding: 1rem;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 0 15px rgba(214, 0, 0, 0.4);
-  transition: box-shadow 0.3s ease;
-}
-
-.card-conteudo:hover {
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
-}
-
-.card-conteudo strong {
-  display: block;
-  margin-bottom: 0.8rem;
-  color: #d60000;
-  font-size: 1.1rem;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Embed dos vídeos */
-.video-embed iframe {
-  width: 100%;
-  height: 480px;
-  border-radius: 12px;
-  border: none;
-  margin-bottom: 0.8rem;
-}
-
-/* Link para site original */
-.card-conteudo a {
-  color: #ddd;
-  text-decoration: underline;
-  font-size: 0.9rem;
-  font-family: 'Poppins', sans-serif;
-  transition: color 0.3s ease;
-}
-
-.card-conteudo a:hover {
-  color: #ff3333;
-}
-
 /* Responsivo */
 @media (max-width: 768px) {
   .jogador {
@@ -207,10 +119,6 @@
   }
 
   .jogador img {
-    height: 200px;
-  }
-
-  .video-embed iframe {
-    height: 320px;
+    max-height: 180px;
   }
 }
