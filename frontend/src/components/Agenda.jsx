@@ -26,17 +26,18 @@ export default function Agenda({ partidas }) {
   }, [partidas]);
 
   function filtrarProximos7Dias(lista) {
-    const ontem = new Date();
-    ontem.setDate(ontem.getDate() - 1);
-    const dataLimite = new Date();
-    dataLimite.setDate(ontem.getDate() + 4);
+  const hoje = new Date();
+  hoje.setHours(0, 0, 0, 0); // Zera hora
 
-    return lista.filter((jogo) => {
-      const [dia, mes, ano] = jogo.data.split("/").map(Number);
-      const dataJogo = new Date(ano, mes - 1, dia);
-      return dataJogo >= ontem && dataJogo <= dataLimite;
-    });
-  }
+  const dataLimite = new Date();
+  dataLimite.setDate(hoje.getDate() + 7); // 7 dias à frente
+
+  return lista.filter((jogo) => {
+    const [dia, mes, ano] = jogo.data.split("/").map(Number);
+    const dataJogo = new Date(ano, mes - 1, dia);
+    return dataJogo >= hoje && dataJogo <= dataLimite;
+  });
+}
 
   return (
     <section className="agenda">
