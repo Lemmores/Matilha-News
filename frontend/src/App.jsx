@@ -50,7 +50,7 @@ export default function App() {
          <Route path="/editar-agenda/:id" element={<EditarAgenda />} />
          <Route path="/cs2" element={<CSPage/>} />
          <Route path="/creators" element={<Creators />} />
-         <Route path="/novo-conteudo-creator" element={<NovoConteudoCreator />} />
+         <Route path="/novo-conteudo" element={<NovoConteudoCreator />} />
          <Route path="/gerenciar-conteudo" element={<GerenciarConteudosCreators />} />
         
       </Routes>
