@@ -21,6 +21,8 @@ import GerenciarAgenda from './pages/GerenciarAgenda';
 import EditarAgenda from './components/EditarAgenda';
 import CSPage from './pages/CSPage';
 import Creators from './pages/Creators';
+import NovoConteudoCreator from './components/NovoConteudoCreator';
+import GerenciarConteudosCreators from './pages/GerenciarConteudosCreators';
 
 export default function App() {
   return (
@@ -48,8 +50,8 @@ export default function App() {
          <Route path="/editar-agenda/:id" element={<EditarAgenda />} />
          <Route path="/cs2" element={<CSPage/>} />
          <Route path="/creators" element={<Creators />} />
-
-
+         <Route path="/novo-conteudo-creator" element={<NovoConteudoCreator />} />
+         <Route path="/gerenciar-conteudo" element={<GerenciarConteudosCreators />} />
         
       </Routes>
       
