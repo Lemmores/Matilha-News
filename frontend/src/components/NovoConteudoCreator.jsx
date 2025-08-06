@@ -1,67 +1,51 @@
-import React, { useState } from "react";
-import "./NovoConteudoCreator.css";
+import React, { useState } from 'react';
+import axios from 'axios';
+import './NovaNoticia.css';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-const NovoConteudoCreator = () => {
+const NovaConteudoCreator = () => {
   const [formData, setFormData] = useState({
-    creator: "",
-    tipo: "",
-    url: "",
+    creator: '',
+    tipo: '',
+    url: ''
   });
-
-  const [mensagem, setMensagem] = useState("");
+  const [mensagem, setMensagem] = useState('');
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      setMensagem("Você precisa estar logado para cadastrar conteúdo.");
-      return;
-    }
-
     try {
-      const response = await fetch(`${API_URL}/api/conteudos-creators`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setMensagem("Conteúdo enviado com sucesso!");
-        setFormData({ creator: "", tipo: "", url: "" });
-      } else {
-        const err = await response.json();
-        setMensagem(err.error || "Erro ao enviar conteúdo.");
-      }
+      await axios.post('https://matilha-api.onrender.com/api/conteudos-creators', formData);
+      setMensagem('Conteúdo salvo com sucesso!');
+      setFormData({ creator: '', tipo: '', url: '' });
     } catch (error) {
-      console.error("Erro ao cadastrar conteúdo:", error);
-      setMensagem("Erro de conexão.");
+      console.error('Erro ao salvar conteúdo:', error);
+      setMensagem('Erro ao salvar conteúdo. Verifique os campos.');
     }
   };
 
   return (
-    <div className="novo-conteudo-creator-container">
-      <h2>Adicionar Conteúdo de Creator</h2>
-      <form onSubmit={handleSubmit} className="novo-conteudo-creator-form">
-        <input
-          type="text"
+    <div className="nova-noticia-container">
+      <h2>Novo Conteúdo de Creator</h2>
+      <form onSubmit={handleSubmit} className="nova-noticia-form">
+        <select
           name="creator"
-          placeholder="Nome do Creator"
           value={formData.creator}
           onChange={handleChange}
           required
-        />
+        >
+          <option value="">Selecione o Creator</option>
+          <option value="MEDU">MEDU</option>
+          <option value="ISMALAKOI">ISMALAKOI</option>
+          <option value="PEU">PEU</option>
+          <option value="DYEN">DYEN</option>
+          <option value="IASSER">IASSER</option>
+          <option value="AMMY">AMMY</option>
+          <option value="ISAC">ISAC</option>
+          <option value="JOÃO DIAS">JOÃO DIAS</option>
+        </select>
 
         <select
           name="tipo"
@@ -69,27 +53,25 @@ const NovoConteudoCreator = () => {
           onChange={handleChange}
           required
         >
-          <option value="">Selecione o tipo de conteúdo</option>
-          <option value="Reels">Reels</option>
-          <option value="TikTok">TikTok</option>
-          <option value="Shorts">Shorts</option>
-          <option value="Outro">Outro</option>
+          <option value="">Selecione o Tipo</option>
+          <option value="reel">Reel</option>
+          <option value="tiktok">TikTok</option>
         </select>
 
         <input
           type="text"
           name="url"
-          placeholder="URL do conteúdo (Reels, TikTok etc)"
+          placeholder="URL do vídeo (Reels ou TikTok)"
           value={formData.url}
           onChange={handleChange}
           required
         />
 
-        <button type="submit">Cadastrar Conteúdo</button>
+        <button type="submit">Salvar Conteúdo</button>
+        {mensagem && <div className="mensagem">{mensagem}</div>}
       </form>
-      {mensagem && <p className="mensagem">{mensagem}</p>}
     </div>
   );
 };
 
-export default NovoConteudoCreator;
+export default NovaConteudoCreator;
