@@ -1,43 +1,58 @@
-.novo-conteudo-creator {
-  max-width: 600px;
-  margin: auto;
-  padding: 2rem;
-  background: #fff;
+.novo-conteudo-creator-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 24px;
   border-radius: 12px;
+  background-color: #1c1c1c;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
 }
 
-.formulario-creator {
+.novo-conteudo-creator-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #d91f27;
+}
+
+.novo-conteudo-creator-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 }
 
-.formulario-creator label {
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
+.novo-conteudo-creator-form input,
+.novo-conteudo-creator-form textarea,
+.novo-conteudo-creator-form select {
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #2a2a2a;
+  color: white;
 }
 
-.formulario-creator input,
-.formulario-creator select {
-  padding: 0.5rem;
-  font-size: 1rem;
+.novo-conteudo-creator-form textarea {
+  resize: vertical;
+  min-height: 150px;
 }
 
-.lista-conteudos {
-  margin-top: 1rem;
-  list-style: none;
-  padding: 0;
-}
-
-.lista-conteudos li {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin-bottom: 1rem;
+.novo-conteudo-creator-form button {
+  padding: 12px;
+  background-color: #d91f27;
+  color: white;
+  border: none;
   border-radius: 8px;
-  background: #f9f9f9;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.botoes-acoes button {
-  margin-right: 0.5rem;
+.novo-conteudo-creator-form button:hover {
+  background-color: #b31920;
+}
+
+.mensagem {
+  margin-top: 16px;
+  text-align: center;
+  font-weight: bold;
 }
