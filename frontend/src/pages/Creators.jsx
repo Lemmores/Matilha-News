@@ -63,7 +63,6 @@ export default function Creators() {
     fetch(`${API_URL}/api/conteudos-creators`)
       .then(res => res.json())
       .then(data => {
-        // Ordenar do mais novo para o mais antigo
         const ordenados = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setConteudos(ordenados);
       })
@@ -71,10 +70,15 @@ export default function Creators() {
   }, [API_URL]);
 
   const nomesCreators = ['TUDO', ...creators.map(c => c.nome)];
-
   const conteudosFiltrados = filtro === 'TUDO'
     ? conteudos
     : conteudos.filter(c => c.creator === filtro);
+
+  // 🔧 Função para corrigir embed do Instagram
+  const ajustarUrlReel = (url) => {
+    const limpo = url.replace(/\/$/, ''); // remove barra final se tiver
+    return `${limpo}/embed`;
+  };
 
   return (
     <div className="pagina-creators">
@@ -145,7 +149,7 @@ export default function Creators() {
             <div key={conteudo._id} className="card-conteudo">
               {conteudo.tipo === 'reel' && (
                 <iframe
-                  src={conteudo.url}
+                  src={ajustarUrlReel(conteudo.url)}
                   title={`Conteúdo de ${conteudo.creator}`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
