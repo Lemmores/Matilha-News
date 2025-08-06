@@ -10,7 +10,7 @@ import noticiasRoutes from './routes/noticias.js';
 import authRoutes from './routes/auth.js';
 import watchPartiesRoutes from './routes/watchparties.js';
 import agendaRoutes from './routes/agenda.js';
-import conteudosCreatorsRoutes from './routes/conteudosCreators.js'; // ✅ NOVA ROTA
+import conteudosCreatorsRoutes from './routes/conteudocreator.js'
 
 dotenv.config();
 
