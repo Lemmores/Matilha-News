@@ -1,175 +1,95 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import "./NovoConteudoCreator.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const creatorsNomes = [
-  "MEDU",
-  "ISMALAKOI",
-  "PEU",
-  "DYEN",
-  "IASSER",
-  "AMMY",
-  "ISAC",
-  "JOÃO DIAS",
-];
+const NovoConteudoCreator = () => {
+  const [formData, setFormData] = useState({
+    creator: "",
+    tipo: "",
+    url: "",
+  });
 
-export default function NovoConteudoCreator() {
-  const [creator, setCreator] = useState("");
-  const [tipo, setTipo] = useState("tiktok");
-  const [url, setUrl] = useState("");
-  const [conteudos, setConteudos] = useState([]);
-  const [editandoId, setEditandoId] = useState(null);
-  const navigate = useNavigate();
+  const [mensagem, setMensagem] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return navigate("/login");
-
-    fetchConteudos(token);
-  }, [navigate]);
-
-  const fetchConteudos = async (token) => {
-    try {
-      const res = await axios.get(`${API_URL}/api/conteudos-creators`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setConteudos(res.data);
-    } catch (err) {
-      console.error("Erro ao buscar conteúdos:", err);
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!creator || !tipo || !url) {
-      alert("Preencha todos os campos");
-      return;
-    }
-
     const token = localStorage.getItem("token");
+
     if (!token) {
-      alert("Você precisa estar logado para adicionar conteúdo.");
-      navigate("/login");
+      setMensagem("Você precisa estar logado para cadastrar conteúdo.");
       return;
     }
-
-    const novoConteudo = { creator, tipo, url };
 
     try {
-      if (editandoId) {
-        await axios.put(`${API_URL}/api/conteudos-creators/${editandoId}`, novoConteudo, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setConteudos((prev) =>
-          prev.map((c) => (c._id === editandoId ? { ...c, ...novoConteudo } : c))
-        );
-        setEditandoId(null);
-      } else {
-        const res = await axios.post(`${API_URL}/api/conteudos-creators`, novoConteudo, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setConteudos((prev) => [...prev, res.data]);
-      }
-
-      setCreator("");
-      setTipo("tiktok");
-      setUrl("");
-    } catch (err) {
-      console.error("Erro ao salvar conteúdo:", err);
-      alert("Erro ao salvar conteúdo");
-    }
-  };
-
-  const handleEditar = (conteudo) => {
-    setCreator(conteudo.creator);
-    setTipo(conteudo.tipo);
-    setUrl(conteudo.url);
-    setEditandoId(conteudo._id);
-  };
-
-  const handleDeletar = async (id) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Você precisa estar logado para deletar conteúdo.");
-      navigate("/login");
-      return;
-    }
-
-    if (!window.confirm("Tem certeza que deseja deletar?")) return;
-
-    try {
-      await axios.delete(`${API_URL}/api/conteudos-creators/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await fetch(`${API_URL}/api/conteudos-creators`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
       });
-      setConteudos((prev) => prev.filter((c) => c._id !== id));
-    } catch (err) {
-      console.error("Erro ao deletar conteúdo:", err);
-      alert("Erro ao deletar conteúdo");
+
+      if (response.ok) {
+        setMensagem("Conteúdo enviado com sucesso!");
+        setFormData({ creator: "", tipo: "", url: "" });
+      } else {
+        const err = await response.json();
+        setMensagem(err.error || "Erro ao enviar conteúdo.");
+      }
+    } catch (error) {
+      console.error("Erro ao cadastrar conteúdo:", error);
+      setMensagem("Erro de conexão.");
     }
   };
 
   return (
-    <div className="novo-conteudo-creator">
-      <h2>{editandoId ? "Editar Conteúdo" : "Novo Conteúdo de Creator"}</h2>
+    <div className="novo-conteudo-creator-container">
+      <h2>Adicionar Conteúdo de Creator</h2>
+      <form onSubmit={handleSubmit} className="novo-conteudo-creator-form">
+        <input
+          type="text"
+          name="creator"
+          placeholder="Nome do Creator"
+          value={formData.creator}
+          onChange={handleChange}
+          required
+        />
 
-      <form onSubmit={handleSubmit} className="formulario-creator">
-        <label>
-          Creator:
-          <select value={creator} onChange={(e) => setCreator(e.target.value)} required>
-            <option value="">Selecione</option>
-            {creatorsNomes.map((nome) => (
-              <option key={nome} value={nome}>
-                {nome}
-              </option>
-            ))}
-          </select>
-        </label>
+        <select
+          name="tipo"
+          value={formData.tipo}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Selecione o tipo de conteúdo</option>
+          <option value="Reels">Reels</option>
+          <option value="TikTok">TikTok</option>
+          <option value="Shorts">Shorts</option>
+          <option value="Outro">Outro</option>
+        </select>
 
-        <label>
-          Tipo:
-          <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
-            <option value="tiktok">TikTok</option>
-            <option value="reel">Instagram Reel</option>
-          </select>
-        </label>
+        <input
+          type="text"
+          name="url"
+          placeholder="URL do conteúdo (Reels, TikTok etc)"
+          value={formData.url}
+          onChange={handleChange}
+          required
+        />
 
-        <label>
-          URL:
-          <input
-            type="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://..."
-            required
-          />
-        </label>
-
-        <button type="submit">{editandoId ? "Salvar Edição" : "Adicionar Conteúdo"}</button>
+        <button type="submit">Cadastrar Conteúdo</button>
       </form>
-
-      <hr />
-
-      <h3>Conteúdos Cadastrados</h3>
-      {conteudos.length === 0 ? (
-        <p>Nenhum conteúdo cadastrado ainda.</p>
-      ) : (
-        <ul className="lista-conteudos">
-          {conteudos.map((c) => (
-            <li key={c._id}>
-              <strong>{c.creator}</strong> — {c.tipo} <br />
-              <small>{c.url}</small>
-              <div className="botoes-acoes">
-                <button onClick={() => handleEditar(c)}>Editar</button>
-                <button onClick={() => handleDeletar(c._id)}>Deletar</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      {mensagem && <p className="mensagem">{mensagem}</p>}
     </div>
   );
-}
+};
+
+export default NovoConteudoCreator;
