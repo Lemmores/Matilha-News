@@ -122,50 +122,41 @@ export default function Creators() {
           <img src={imagemAberta} alt="Imagem ampliada" />
         </div>
       )}
+      
+ {/* Filtros para conteúdo por creator */}
+      <h2>Novos Conteúdos</h2>
+      <div className="filtros">
+        <button
+          className={filtro === 'TUDO' ? 'ativo' : ''}
+          onClick={() => setFiltro('TUDO')}
+        >
+          TUDO
+        </button>
+        {creators.map((creator) => (
+          <button
+            key={creator.nome}
+            className={filtro === creator.nome ? 'ativo' : ''}
+            onClick={() => setFiltro(creator.nome)}
+          >
+            {creator.nome}
+          </button>
+        ))}
+      </div>
 
-      {/* NOVOS CONTEÚDOS */}
-      <section className="novos-conteudos-section">
-        <h2>Novos Conteúdos</h2>
+      {/* Lista de conteúdos filtrados */}
+      <div className="lista-conteudos">
+        {conteudosFiltrados.length === 0 && <p>Nenhum conteúdo para exibir.</p>}
 
-        <div className="filtros-creators">
-          {nomesCreators.map((nome) => (
-            <button
-              key={nome}
-              className={filtro === nome ? 'ativo' : ''}
-              onClick={() => setFiltro(nome)}
-            >
-              {nome}
-            </button>
-          ))}
-        </div>
-
-        <div className="lista-conteudos">
-          {conteudosFiltrados.length === 0 && <p>Nenhum conteúdo para mostrar.</p>}
-          {conteudosFiltrados.map((conteudo) => (
-            <div key={conteudo._id} className="card-conteudo">
-              {conteudo.tipo === 'reel' && (
-                <iframe
-                  src={conteudo.url}
-                  title={`Conteúdo de ${conteudo.creator}`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  loading="lazy"
-                ></iframe>
-              )}
-              {conteudo.tipo === 'tiktok' && (
-                <iframe
-                  src={conteudo.url}
-                  title={`Conteúdo de ${conteudo.creator}`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  loading="lazy"
-                ></iframe>
-              )}
-              <div className="info">{conteudo.creator}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+        {conteudosFiltrados.map((conteudo) => (
+          <div key={conteudo._id} className="card-conteudo">
+            <strong>{conteudo.creator}</strong>
+            <div className="video-embed">{renderVideoEmbed(conteudo)}</div>
+            <a href={conteudo.url} target="_blank" rel="noopener noreferrer">
+              Ver no site original
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
