@@ -10,6 +10,7 @@ import noticiasRoutes from './routes/noticias.js';
 import authRoutes from './routes/auth.js';
 import watchPartiesRoutes from './routes/watchparties.js';
 import agendaRoutes from './routes/agenda.js';
+import conteudosCreatorsRoutes from './routes/conteudosCreators.js'; // ✅ NOVA ROTA
 
 dotenv.config();
 
@@ -57,6 +58,7 @@ app.use('/api/noticias', noticiasRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/watchparties', watchPartiesRoutes);
 app.use('/api/agenda', agendaRoutes);
+app.use('/api/conteudos-creators', conteudosCreatorsRoutes); // ✅ NOVA ROTA ADICIONADA
 
 // Iniciar o servidor
 app.listen(PORT, () => {

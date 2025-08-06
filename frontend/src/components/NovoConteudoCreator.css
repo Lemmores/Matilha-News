@@ -1,0 +1,43 @@
+.novo-conteudo-creator {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.formulario-creator {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formulario-creator label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.formulario-creator input,
+.formulario-creator select {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.lista-conteudos {
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.lista-conteudos li {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.botoes-acoes button {
+  margin-right: 0.5rem;
+}
