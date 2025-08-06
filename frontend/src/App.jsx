@@ -24,6 +24,7 @@ import Creators from './pages/Creators';
 import NovoConteudoCreator from './components/NovoConteudoCreator';
 import GerenciarConteudosCreators from './pages/GerenciarConteudosCreators';
 
+
 export default function App() {
   return (
     <Router>
@@ -51,7 +52,7 @@ export default function App() {
          <Route path="/cs2" element={<CSPage/>} />
          <Route path="/creators" element={<Creators />} />
          <Route path="/novo-conteudo" element={<NovoConteudoCreator />} />
-         <Route path="/gerenciar-conteudo" element={<GerenciarConteudosCreators />} />
+         <Route path="/gerenciar-conteudo" element={<GerenciarConteudosCreators/>} />
         
       </Routes>
       
