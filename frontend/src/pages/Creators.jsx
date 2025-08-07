@@ -74,7 +74,6 @@ export default function Creators() {
     ? conteudos
     : conteudos.filter(c => c.creator === filtro);
 
-  // 🔧 Função para corrigir embed do Instagram
   const ajustarUrlReel = (url) => {
     const limpo = url.replace(/\/$/, ''); // remove barra final se tiver
     return `${limpo}/embed`;
@@ -154,6 +153,13 @@ export default function Creators() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   loading="lazy"
+                  style={{
+                    width: '100%',
+                    height: '600px',
+                    border: 'none',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                  }}
                 ></iframe>
               )}
               {conteudo.tipo === 'tiktok' && (
@@ -163,6 +169,13 @@ export default function Creators() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   loading="lazy"
+                  style={{
+                    width: '100%',
+                    height: '600px',
+                    border: 'none',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                  }}
                 ></iframe>
               )}
               <div className="info">{conteudo.creator}</div>

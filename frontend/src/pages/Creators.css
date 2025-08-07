@@ -122,7 +122,6 @@
   }
 }
 
-
 /* NOVOS CONTEÚDOS (Posts de reels, tiktoks, etc) */
 
 .novos-conteudos-section {
@@ -173,7 +172,7 @@
 /* Grid dos conteúdos */
 .lista-conteudos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;
   justify-items: center;
 }
@@ -184,7 +183,7 @@
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(214, 0, 0, 0.5);
   width: 100%;
-  max-width: 350px;
+  max-width: 500px; /* maior que antes */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -193,11 +192,13 @@
 .card-conteudo iframe,
 .card-conteudo video {
   width: 100%;
-  height: 200px;
+  height: 600px; /* maior altura pra reels */
   border: none;
   border-radius: 10px 10px 0 0;
+  overflow: hidden;
 }
 
+/* Informações abaixo do conteúdo */
 .card-conteudo .info {
   padding: 0.8rem 1rem;
   color: white;
@@ -209,5 +210,10 @@
 @media (max-width: 768px) {
   .lista-conteudos {
     grid-template-columns: 1fr;
+  }
+
+  .card-conteudo iframe,
+  .card-conteudo video {
+    height: 400px; /* menor em telas pequenas */
   }
 }
