@@ -50,6 +50,13 @@ const creators = [
     twitter: 'https://x.com/jdiasss_',
     instagram: 'https://www.instagram.com/jdiasss_/',
   },
+
+   {
+    nome: 'IONIAN',
+    img: '/creators/Ionian.jpg',
+    twitter: 'https://x.com/ionianzin',
+    instagram: 'https://www.instagram.com/ionianzin/',
+  },
 ];
 
 export default function Creators() {
