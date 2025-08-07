@@ -147,38 +147,27 @@ export default function Creators() {
           {conteudosFiltrados.map((conteudo) => (
             <div key={conteudo._id} className="card-conteudo">
               {conteudo.tipo === 'reel' && (
-                <iframe
-                  src={ajustarUrlReel(conteudo.url)}
-                  title={`Conteúdo de ${conteudo.creator}`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  loading="lazy"
-                  style={{
-                    width: '100%',
-                    height: '600px',
-                    border: 'none',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                  }}
-                ></iframe>
-              )}
-              {conteudo.tipo === 'tiktok' && (
-                <iframe
-                  src={conteudo.url}
-                  title={`Conteúdo de ${conteudo.creator}`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  loading="lazy"
-                  style={{
-                    width: '100%',
-                    height: '320px', // igual à altura das fotos dos creators
-                    border: 'none',
-                    borderRadius: '10px 10px 0 0',
-                    overflow: 'hidden',
-                    scrolling: 'no',
-                  }}
-                ></iframe>
-              )}
+  <iframe
+    src={ajustarUrlReel(conteudo.url)}
+    title={`Conteúdo de ${conteudo.creator}`}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowFullScreen
+    loading="lazy"
+    className="iframe-conteudo reel"
+  ></iframe>
+)}
+{conteudo.tipo === 'tiktok' && (
+  <iframe
+    src={conteudo.url}
+    title={`Conteúdo de ${conteudo.creator}`}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    loading="lazy"
+    className="iframe-conteudo tiktok"
+  ></iframe>
+)}
+
+              
               <div className="info">{conteudo.creator}</div>
             </div>
           ))}

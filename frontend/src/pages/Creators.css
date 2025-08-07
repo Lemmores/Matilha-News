@@ -206,6 +206,24 @@
   font-weight: 500;
 }
 
+.iframe-conteudo {
+  width: 100%;
+  border: none;
+  overflow: hidden;
+  display: block;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Ajuste individual de altura para cada tipo */
+.iframe-conteudo.reel {
+  height: 500px; /* Reduzido para evitar rolagem */
+}
+
+.iframe-conteudo.tiktok {
+  height: 320px;
+}
+
+
 @media (max-width: 768px) {
   .lista-conteudos {
     grid-template-columns: 1fr;
