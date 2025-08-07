@@ -44,6 +44,7 @@ const NovaConteudoCreator = () => {
           <option value="IASSER">IASSER</option>
           <option value="AMMY">AMMY</option>
           <option value="ISAC">ISAC</option>
+          <option value="IONIAN">IONIAN</option>
           <option value="JOÃO DIAS">JOÃO DIAS</option>
         </select>
 
@@ -55,7 +56,6 @@ const NovaConteudoCreator = () => {
         >
           <option value="">Selecione o Tipo</option>
           <option value="reel">Reel</option>
-          <option value="tiktok">TikTok</option>
         </select>
 
         <input
