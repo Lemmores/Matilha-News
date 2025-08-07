@@ -171,10 +171,11 @@ export default function Creators() {
                   loading="lazy"
                   style={{
                     width: '100%',
-                    height: '600px',
+                    height: '320px', // igual à altura das fotos dos creators
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '10px 10px 0 0',
                     overflow: 'hidden',
+                    scrolling: 'no',
                   }}
                 ></iframe>
               )}
