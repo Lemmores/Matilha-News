@@ -38,6 +38,14 @@ const creators = [
     twitter: 'https://x.com/ammyzitta',
     instagram: 'https://www.instagram.com/ammyzitta/',
   },
+
+   {
+    nome: 'DERSIN',
+    img: '/creators/Dersin.jpg',
+    twitter: 'https://x.com/dersin2k',
+    instagram: 'https://www.instagram.com/dersin2k',
+  },
+
   {
     nome: 'ISAC',
     img: '/creators/Isac.jpg',
