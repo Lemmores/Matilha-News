@@ -14,7 +14,7 @@ const jogadores = [
     nome: 'DROP',
     img: '/jogadores/drop.jpg',
     twitter: 'https://x.com/dropcs__',
-    instagram: 'https://www.instagram.com/dropcsgo_',
+    instagram: 'https://www.instagram.com/dropcsgo_/',
   },
   {
     nome: 'KAUEZ',
@@ -88,6 +88,21 @@ const CSPage = () => {
     if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
   };
 
+  // Função para padronizar qualquer link do YouTube para formato embed
+  const formatarLinkYoutube = (url) => {
+    if (!url) return null;
+
+    // Suporta watch?v=, youtu.be/ e youtube.com/live/
+    const regex = /(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+
+    return null;
+  };
+
   return (
     <div className="pagina-cs">
       <h1>RED Canids no CS2</h1>
@@ -137,11 +152,12 @@ const CSPage = () => {
             .sort((a, b) => new Date(b.data) - new Date(a.data))
             .slice(0, 2)
             .map((partida, index) => {
-              const link = partida.linkTransmissao.replace('watch?v=', 'embed/');
+              const linkEmbed = formatarLinkYoutube(partida.linkTransmissao);
+              if (!linkEmbed) return null;
               return (
                 <iframe
                   key={index}
-                  src={link}
+                  src={linkEmbed}
                   title={`Confronto ${index + 1}`}
                   allowFullScreen
                 ></iframe>
