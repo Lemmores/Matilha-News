@@ -22,7 +22,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth >= 768) { // corrigido para >=
         setMenuAberto(false);
       }
     };
@@ -31,7 +31,8 @@ export default function Header() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const toggleMenu = () => {
+  const toggleMenu = (e) => {
+    e.stopPropagation(); // evita que clique feche imediatamente
     setMenuAberto(!menuAberto);
     setDropdownAberto(null);
   };
@@ -125,7 +126,6 @@ export default function Header() {
                     <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
                     <Link to="/novo-conteudo">Novo Conteúdo Creators</Link>
                     <Link to="/gerenciar-conteudo">Gerenciar Conteúdos Creators</Link>
-
                   </div>
                 )}
               </div>
@@ -137,13 +137,13 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Botão do menu mobile fora da header-top */}
+      {/* Botão do menu mobile */}
       <button className="menu-toggle" onClick={toggleMenu}>
         &#9776;
       </button>
 
       {/* Menu Mobile */}
-      <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`}>
+      <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`} onClick={(e) => e.stopPropagation()}>
         <div className="nav-item">
           <Link to="/noticias" className="link-mobile" onClick={() => setMenuAberto(false)}>Notícias</Link>
         </div>
@@ -198,7 +198,6 @@ export default function Header() {
                 <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
                 <Link to="/novo-conteudo">Novo Conteúdo Creators</Link>
                 <Link to="/gerenciar-conteudo">Gerenciar Conteúdos Creators</Link>
-
               </div>
             </details>
             <div className="nav-item">
