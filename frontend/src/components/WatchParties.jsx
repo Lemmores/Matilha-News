@@ -20,11 +20,16 @@ export default function WatchParties() {
 
   const hoje = new Date();
 
+  // Função para converter data DD/MM/AAAA em objeto Date
+  const converterData = (dataStr) => {
+    const [dia, mes, ano] = dataStr.split('/');
+    return new Date(`${ano}-${mes}-${dia}`);
+  };
+
   // Proteção para garantir que eventos é array antes do filter
-  const eventosFiltrados = Array.isArray(eventos)
+  let eventosFiltrados = Array.isArray(eventos)
     ? eventos.filter((evento) => {
-        const partesData = evento.data.split('/');
-        const dataEvento = new Date(`${partesData[2]}-${partesData[1]}-${partesData[0]}`);
+        const dataEvento = converterData(evento.data);
         if (filtro === 'TUDO') return true;
         if (filtro === 'NOVAS') return dataEvento >= hoje;
         if (filtro === 'EXPIRADAS') return dataEvento < hoje;
@@ -32,7 +37,20 @@ export default function WatchParties() {
       })
     : [];
 
-  const filtros = ['TUDO', 'NOVAS', 'EXPIRADAS'];
+  // Ordenações específicas
+  if (filtro === 'TUDO') {
+    // Mais recente → mais antigo
+    eventosFiltrados.sort((a, b) => converterData(b.data) - converterData(a.data));
+  } else if (filtro === 'NOVAS') {
+    // Mais próximo → mais distante no futuro
+    eventosFiltrados.sort((a, b) => converterData(a.data) - converterData(b.data));
+  } else if (filtro === 'EXPIRADAS') {
+    // Mais recente expirado → mais antigo
+    eventosFiltrados.sort((a, b) => converterData(b.data) - converterData(a.data));
+  }
+
+  // Ordem dos filtros
+  const filtros = ['NOVAS', 'EXPIRADAS', 'TUDO'];
 
   return (
     <div className="watch-parties">
