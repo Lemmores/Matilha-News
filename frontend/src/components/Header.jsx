@@ -15,7 +15,6 @@ export default function Header() {
 
   const navigate = useNavigate();
 
-  // Verifica login
   useEffect(() => {
     const verificarLogin = () => {
       const token = localStorage.getItem("token");
@@ -26,43 +25,25 @@ export default function Header() {
     return () => window.removeEventListener("adminLogado", verificarLogin);
   }, []);
 
-  // Fecha menu em resize para desktop
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setMenuAberto(false);
-      }
+      if (window.innerWidth >= 768) setMenuAberto(false);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Fecha menu se clicar fora
-  useEffect(() => {
-    const handleClickFora = () => {
-      if (menuAberto) setMenuAberto(false);
-      setMobileDropdowns({
-        campeonatos: false,
-        eventos: false,
-        torneios: false,
-        painelAdmin: false,
-      });
-    };
-    document.addEventListener('click', handleClickFora);
-    return () => document.removeEventListener('click', handleClickFora);
-  }, [menuAberto]);
-
   const toggleMenu = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // evita disparar eventos globais
     setMenuAberto(!menuAberto);
-    setDropdownAberto(null);
   };
 
   const toggleDropdownDesktop = (nome) => {
     setDropdownAberto(dropdownAberto === nome ? null : nome);
   };
 
-  const toggleDropdownMobile = (nome) => {
+  const toggleDropdownMobile = (nome, e) => {
+    e.stopPropagation(); // evita fechar menu
     setMobileDropdowns(prev => ({ ...prev, [nome]: !prev[nome] }));
   };
 
@@ -173,9 +154,11 @@ export default function Header() {
           <Link to="/noticias" className="link-mobile" onClick={() => setMenuAberto(false)}>Notícias</Link>
         </div>
 
-        {/* Campeonatos */}
         <div className="nav-item">
-          <button className="dropdown-toggle" onClick={() => toggleDropdownMobile('campeonatos')}>
+          <button
+            className="dropdown-toggle"
+            onClick={(e) => toggleDropdownMobile('campeonatos', e)}
+          >
             Campeonatos {mobileDropdowns.campeonatos ? '▲' : '▼'}
           </button>
           {mobileDropdowns.campeonatos && (
@@ -191,9 +174,11 @@ export default function Header() {
           <Link to="/creators" className="link-mobile" onClick={() => setMenuAberto(false)}>Creators</Link>
         </div>
 
-        {/* Eventos */}
         <div className="nav-item">
-          <button className="dropdown-toggle" onClick={() => toggleDropdownMobile('eventos')}>
+          <button
+            className="dropdown-toggle"
+            onClick={(e) => toggleDropdownMobile('eventos', e)}
+          >
             Eventos {mobileDropdowns.eventos ? '▲' : '▼'}
           </button>
           {mobileDropdowns.eventos && (
@@ -203,9 +188,11 @@ export default function Header() {
           )}
         </div>
 
-        {/* Torneios */}
         <div className="nav-item">
-          <button className="dropdown-toggle" onClick={() => toggleDropdownMobile('torneios')}>
+          <button
+            className="dropdown-toggle"
+            onClick={(e) => toggleDropdownMobile('torneios', e)}
+          >
             Torneios da Matilha {mobileDropdowns.torneios ? '▲' : '▼'}
           </button>
           {mobileDropdowns.torneios && (
@@ -227,9 +214,11 @@ export default function Header() {
 
         {adminLogado && (
           <>
-            {/* Painel Administrativo */}
             <div className="nav-item">
-              <button className="dropdown-toggle" onClick={() => toggleDropdownMobile('painelAdmin')}>
+              <button
+                className="dropdown-toggle"
+                onClick={(e) => toggleDropdownMobile('painelAdmin', e)}
+              >
                 Painel Administrativo {mobileDropdowns.painelAdmin ? '▲' : '▼'}
               </button>
               {mobileDropdowns.painelAdmin && (
