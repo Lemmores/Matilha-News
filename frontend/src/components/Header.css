@@ -155,8 +155,8 @@
   padding-left: 1.5rem;
 }
 
-/* RESPONSIVO - agora até 1024px usa menu mobile */
-@media (max-width: 1024px) {
+/* RESPONSIVO - agora até 1280px usa menu mobile */
+@media (max-width: 1280px) {
   .menu-toggle {
     display: block;
   }
