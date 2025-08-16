@@ -170,7 +170,7 @@
     top: 0;
     left: 0;
     right: 0;
-    background-color: transparent; /* tirou o vermelho */
+    background-color: #b90000; /* tirou o vermelho */
   }
 
   .nav-mobile.ativo {
@@ -181,9 +181,12 @@
     padding-top: 7rem !important;
   }
 
-  .header + * {
-    margin-top: 0 !important;
+  
+  .header {
+    background-color: transparent !important;
+    padding: 0 !important;
   }
+
 
   .pagina-home,
   .pagina-noticias,
