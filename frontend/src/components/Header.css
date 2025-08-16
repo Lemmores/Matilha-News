@@ -59,7 +59,7 @@
   text-decoration: underline;
 }
 
-/* DROPDOWN DESKTOP */
+/* DROPDOWN */
 .dropdown {
   position: absolute;
   top: 100%;
@@ -93,9 +93,21 @@
   background-color: #a00000;
 }
 
-.nav-item.dropdown-aberto .dropdown {
-  display: flex;
+/* --- Dropdown só aparece no hover em devices com mouse --- */
+@media (hover: hover) and (pointer: fine) {
+  .nav-item:hover .dropdown,
+  .nav-item:focus-within .dropdown {
+    display: flex;
+  }
 }
+
+/* --- Desativa o hover em touchscreens (tablets/celulares) --- */
+@media (hover: none) and (pointer: coarse) {
+  .nav-item:hover .dropdown {
+    display: none !important;
+  }
+}
+
 /* MENU MOBILE */
 .menu-toggle {
   position: fixed;
@@ -126,7 +138,6 @@
   z-index: 1000;
   align-items: flex-start;
   justify-content: flex-start;
-  overflow-y: auto; /* garante scroll se ultrapassar */
 }
 
 .nav-mobile .nav-item {
@@ -142,23 +153,16 @@
   text-align: left;
 }
 
-/* DROPDOWN MOBILE */
 .nav-mobile .dropdown {
   position: static;
   background-color: #a00000;
   box-shadow: none;
   padding-left: 1rem;
   margin-top: 0.3rem;
-  display: none;
-  flex-direction: column;
 }
 
 .nav-mobile .dropdown a {
   padding-left: 1.5rem;
-}
-
-.nav-mobile .nav-item.open .dropdown {
-  display: flex;
 }
 
 /* RESPONSIVO - agora até 1280px usa menu mobile */
@@ -210,7 +214,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* MENU MOBILE - details e summary */
+/* MENU MOBILE - detalhes e summary */
 .nav-mobile summary {
   font-size: 1rem;
   padding: 0.75rem 1rem;

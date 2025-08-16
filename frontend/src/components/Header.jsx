@@ -47,107 +47,149 @@ export default function Header() {
     navigate("/");
   };
 
-  const Dropdown = ({ label, id, children }) => (
-    <div className={`dropdown ${dropdownAberto === id ? 'open' : ''}`}>
-      <button className="dropdown-toggle" onClick={() => toggleDropdown(id)}>
-        {label} {dropdownAberto === id ? '▲' : '▼'}
-      </button>
-      <div className="dropdown-content">{children}</div>
-    </div>
+  const DropdownButton = ({ label, id }) => (
+    <button className="dropdown-toggle" onClick={() => toggleDropdown(id)}>
+      {label} {dropdownAberto === id ? '▲' : '▼'}
+    </button>
   );
 
   return (
-    <header>
-      <div className="logo">
-        <Link to="/">
-          <img src="/logo2.png" alt="Logo Matilha News" />
-        </Link>
+    <header className="header">
+      <div className="header-top">
+        <div className="logo">
+          <Link to="/">
+            <img src="/logo2.png" alt="Logo Matilha News" />
+          </Link>
+        </div>
+
+        {/* Menu Desktop */}
+        <nav className="nav-desktop">
+          <div className="nav-item">
+            <Link to="/noticias">Notícias</Link>
+          </div>
+
+          <div className="nav-item">
+            <DropdownButton label="Campeonatos" id="campeonatos" />
+            {dropdownAberto === 'campeonatos' && (
+              <div className="dropdown">
+                <Link to="/ltasul">LTA SUL</Link>
+                <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
+                <Link to="/cs2">CS2</Link>
+              </div>
+            )}
+          </div>
+
+          <div className="nav-item">
+            <Link to="/creators">Creators</Link>
+          </div>
+
+          <div className="nav-item">
+            <DropdownButton label="Eventos" id="eventos" />
+            {dropdownAberto === 'eventos' && (
+              <div className="dropdown">
+                <Link to="/watchparties">WATCH PARTIES</Link>
+              </div>
+            )}
+          </div>
+
+          <div className="nav-item">
+            <DropdownButton label="Torneios da Matilha" id="torneios" />
+            {dropdownAberto === 'torneios' && (
+              <div className="dropdown">
+                <Link to="/matilhatactics">MATILHA TACTICS</Link>
+              </div>
+            )}
+          </div>
+
+          <div className="nav-item">
+            <Link to="/contato">Contato</Link>
+          </div>
+
+          {!adminLogado && (
+            <div className="nav-item">
+              <Link to="/login">Login</Link>
+            </div>
+          )}
+
+          {adminLogado && (
+            <>
+              <div className="nav-item">
+                <DropdownButton label="Painel Administrativo" id="painel-admin" />
+                {dropdownAberto === 'painel-admin' && (
+                  <div className="dropdown">
+                    <Link to="/nova-noticia">Nova Notícia</Link>
+                    <Link to="/gerenciar-noticia">Gerenciar Notícia</Link>
+                    <Link to="/nova-watchparty">Nova Watch Party</Link>
+                    <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
+                    <Link to="/nova-agenda">Nova Agenda</Link>
+                    <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
+                    <Link to="/novo-conteudo">Novo Conteúdo Creators</Link>
+                    <Link to="/gerenciar-conteudo">Gerenciar Conteúdos Creators</Link>
+
+                  </div>
+                )}
+              </div>
+              <div className="nav-item">
+                <button className="dropdown-toggle" onClick={handleLogout}>Sair</button>
+              </div>
+            </>
+          )}
+        </nav>
       </div>
 
-      {/* Menu Desktop */}
-      <nav className="nav-desktop">
-        <Link to="/noticias">Notícias</Link>
-
-        <Dropdown label="Campeonatos" id="campeonatos">
-          <Link to="/ltasul">LTA SUL</Link>
-          <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
-          <Link to="/cs2">CS2</Link>
-        </Dropdown>
-
-        <Link to="/creators">Creators</Link>
-
-        <Dropdown label="Eventos" id="eventos">
-          <Link to="/watchparties">WATCH PARTIES</Link>
-        </Dropdown>
-
-        <Dropdown label="Torneios da Matilha" id="torneios">
-          <Link to="/matilhatactics">MATILHA TACTICS</Link>
-        </Dropdown>
-
-        <Link to="/contato">Contato</Link>
-
-        {!adminLogado && <Link to="/login">Login</Link>}
-
-        {adminLogado && (
-          <>
-            <Dropdown label="Painel Administrativo" id="painel-admin">
-              <Link to="/nova-noticia">Nova Notícia</Link>
-              <Link to="/gerenciar-noticia">Gerenciar Notícia</Link>
-              <Link to="/nova-watchparty">Nova Watch Party</Link>
-              <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
-              <Link to="/nova-agenda">Nova Agenda</Link>
-              <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
-              <Link to="/novo-conteudo">Novo Conteúdo Creators</Link>
-              <Link to="/gerenciar-conteudo">Gerenciar Conteúdos Creators</Link>
-            </Dropdown>
-            <button className="dropdown-toggle" onClick={handleLogout}>Sair</button>
-          </>
-        )}
-      </nav>
-
-      {/* Botão do menu mobile */}
+      {/* Botão do menu mobile fora da header-top */}
       <button className="menu-toggle" onClick={toggleMenu}>
         &#9776;
       </button>
 
       {/* Menu Mobile */}
-      <nav className={`nav-mobile ${menuAberto ? 'active' : ''}`}>
-        <Link to="/noticias" onClick={() => setMenuAberto(false)}>Notícias</Link>
+      <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`}>
+        <div className="nav-item">
+          <Link to="/noticias" className="link-mobile" onClick={() => setMenuAberto(false)}>Notícias</Link>
+        </div>
 
-        <details>
+        <details className="nav-item">
           <summary>Campeonatos</summary>
-          <div className="dropdown-content">
+          <div className="dropdown">
             <Link to="/ltasul">LTA SUL</Link>
             <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
             <Link to="/cs2">CS2</Link>
           </div>
         </details>
 
-        <Link to="/creators" onClick={() => setMenuAberto(false)}>Creators</Link>
+        <div className="nav-item">
+          <Link to="/creators" className="link-mobile">Creators</Link>
+        </div>
 
-        <details>
+        <details className="nav-item">
           <summary>Eventos</summary>
-          <div className="dropdown-content">
+          <div className="dropdown">
             <Link to="/watchparties">WATCH PARTIES</Link>
           </div>
         </details>
 
-        <details>
+        <details className="nav-item">
           <summary>Torneios da Matilha</summary>
-          <div className="dropdown-content">
+          <div className="dropdown">
             <Link to="/matilhatactics">MATILHA TACTICS</Link>
           </div>
         </details>
 
-        <Link to="/contato" onClick={() => setMenuAberto(false)}>Contato</Link>
+        <div className="nav-item">
+          <Link to="/contato" className="link-mobile">Contato</Link>
+        </div>
 
-        {!adminLogado && <Link to="/login">Login</Link>}
+        {!adminLogado && (
+          <div className="nav-item">
+            <Link to="/login" className="link-mobile">Login</Link>
+          </div>
+        )}
 
         {adminLogado && (
           <>
-            <details>
+            <details className="nav-item">
               <summary>Painel Administrativo</summary>
-              <div className="dropdown-content">
+              <div className="dropdown">
                 <Link to="/nova-noticia">Nova Notícia</Link>
                 <Link to="/gerenciar-noticia">Gerenciar Notícia</Link>
                 <Link to="/nova-watchparty">Nova Watch Party</Link>
@@ -156,9 +198,12 @@ export default function Header() {
                 <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
                 <Link to="/novo-conteudo">Novo Conteúdo Creators</Link>
                 <Link to="/gerenciar-conteudo">Gerenciar Conteúdos Creators</Link>
+
               </div>
             </details>
-            <button className="dropdown-toggle" onClick={handleLogout}>Sair</button>
+            <div className="nav-item">
+              <button className="dropdown-toggle" onClick={handleLogout}>Sair</button>
+            </div>
           </>
         )}
       </nav>
