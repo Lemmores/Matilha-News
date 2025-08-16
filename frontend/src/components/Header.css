@@ -165,14 +165,12 @@
     display: none !important;
   }
 
-  .header-top {
+   .header-top {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background-color: #b90000;
-    padding: 0.25rem 0.5rem;
-    z-index: 1000;
+    background-color: transparent; /* tirou o vermelho */
   }
 
   .nav-mobile.ativo {
