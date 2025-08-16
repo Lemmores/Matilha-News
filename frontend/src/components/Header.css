@@ -93,19 +93,9 @@
   background-color: #a00000;
 }
 
-/* --- Dropdown só aparece no hover em devices com mouse --- */
-@media (hover: hover) and (pointer: fine) {
-  .nav-item:hover .dropdown,
-  .nav-item:focus-within .dropdown {
-    display: flex;
-  }
-}
-
-/* --- Desativa o hover em touchscreens (tablets/celulares) --- */
-@media (hover: none) and (pointer: coarse) {
-  .nav-item:hover .dropdown {
-    display: none !important;
-  }
+.nav-item:hover .dropdown,
+.nav-item:focus-within .dropdown {
+  display: flex;
 }
 
 /* MENU MOBILE */
