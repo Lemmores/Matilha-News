@@ -1,261 +1,165 @@
+/* HEADER BASE */
 .header {
   background-color: #b90000;
   color: white;
-  padding: 0.25rem 0.5rem;
-  margin-bottom: 0;
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: background 0.3s ease;
 }
 
-/* TOP SECTION: logo + nav */
+/* FLEX CONTAINER */
 .header-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1001;
 }
 
-.menu-toggle {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  display: none;
-  z-index: 1002;
-  position: relative;
-}
-
+/* LOGO */
 .logo img {
   max-height: 70px;
-  width: auto;
 }
 
-/* MENU DESKTOP */
-.nav-desktop {
+/* MENU */
+.nav {
   display: flex;
   gap: 1rem;
   align-items: center;
+  flex-wrap: wrap;
+  transition: all 0.3s ease;
 }
 
-.nav-item {
-  position: relative;
-}
-
-.nav-item > a,
-.dropdown-toggle {
+.nav a, .nav summary {
   color: white;
   text-decoration: none;
-  font-weight: normal;
-  font-size: 0.95rem;
-  padding: 0.3rem 0.4rem;
-  background: none;
-  border: none;
   cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.nav-item > a:hover,
-.dropdown-toggle:hover {
+.nav a:hover, .nav summary:hover {
   text-decoration: underline;
 }
 
-/* DROPDOWN */
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
+/* DROPDOWN COM ANIMAÇÃO */
+details {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+details summary {
+  list-style: none;
+}
+
+details[open] > a {
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+details > a {
+  display: block;
+  padding-left: 1rem;
   background-color: #8a0000;
-  padding: 0.3rem 0;
-  display: none;
-  flex-direction: column;
+  margin: 0.1rem 0;
   border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  z-index: 10;
-  min-width: 160px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
 }
 
-.dropdown a {
-  padding: 0.3rem 0.8rem;
-  color: white;
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: normal;
-  white-space: nowrap;
-}
-
-.dropdown-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.dropdown a:hover {
+details > a:hover {
   background-color: #a00000;
-}
-
-.nav-item:hover .dropdown,
-.nav-item:focus-within .dropdown {
-  display: flex;
 }
 
 /* MENU MOBILE */
 .menu-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
+  display: none;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  cursor: pointer;
   background: none;
   border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  z-index: 9999; /* acima de todo o resto */
 }
 
-.nav-mobile {
-  display: none;
-}
-
-.nav-mobile.ativo {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 0;
-  right: 0;
-  background-color: #8a0000;
-  height: 100vh;
-  width: 60%;
-  padding: 7rem 1rem 2rem 1rem;
-  z-index: 1000;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.nav-mobile .nav-item {
-  margin-bottom: 1rem;
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
   width: 100%;
+  height: 4px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-.nav-mobile .nav-item a,
-.nav-mobile .dropdown-toggle {
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  width: 100%;
-  text-align: left;
+.hamburger::before {
+  top: -12px;
 }
 
-.nav-mobile .dropdown {
-  position: static;
-  background-color: #a00000;
-  box-shadow: none;
-  padding-left: 1rem;
-  margin-top: 0.3rem;
+.hamburger::after {
+  top: 12px;
 }
 
-.nav-mobile .dropdown a {
-  padding-left: 1.5rem;
+.menu-toggle.ativo .hamburger {
+  background: transparent;
 }
 
-/* RESPONSIVO - agora até 1280px usa menu mobile */
-@media (max-width: 1280px) {
+.menu-toggle.ativo .hamburger::before {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.menu-toggle.ativo .hamburger::after {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
   .menu-toggle {
     display: block;
   }
 
-  .nav-desktop {
-    display: none !important;
-  }
-
-   .header-top {
+  .nav {
     position: fixed;
     top: 0;
-    left: 0;
+    right: -100%;
+    width: 70%;
+    height: 100%;
+    flex-direction: column;
+    background-color: #8a0000;
+    padding: 5rem 1rem 2rem 1rem;
+    gap: 1rem;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+  }
+
+  .nav.ativo {
     right: 0;
-    background-color: #b90000; /* tirou o vermelho */
   }
 
-  .nav-mobile.ativo {
-    padding-top: 7rem;
-  }
-
-  body {
-    padding-top: 7rem !important;
-  }
-
-  
-  .header {
-    background-color: transparent !important;
-    padding: 0 !important;
-  }
-
-
-  .pagina-home,
-  .pagina-noticias,
-  .main-container {
-    margin-top: 0 !important;
+  details[open] > a {
+    padding-left: 2rem;
   }
 }
 
-/* Estilos padrão de <a> */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* MENU MOBILE - detalhes e summary */
-.nav-mobile summary {
-  font-size: 1rem;
-  padding: 0.75rem 1rem;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  color: white;
+/* BOTÃO SAIR ADMIN */
+.sair {
   background: none;
   border: none;
-  outline: none;
-  display: flex;
-  align-items: center;
-}
-
-.nav-mobile details {
-  width: 100%;
-}
-
-.nav-mobile summary::marker {
-  display: none;
-}
-
-.nav-mobile details[open] > summary {
-  background-color: #920000;
-}
-
-.nav-mobile summary::after {
-  content: '▼';
-  font-size: 0.9rem;
-  margin-left: 0.3rem;
-  transition: transform 0.2s ease;
-}
-
-.nav-mobile details[open] summary::after {
-  transform: rotate(180deg);
-}
-
-/* Área de clique no menu mobile */
-.nav-mobile .link-mobile {
-  display: block;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
   color: white;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
   text-align: left;
-  line-height: 1.5;
-  box-sizing: border-box;
 }
 
-.nav-mobile .nav-item {
-  position: relative;
-  z-index: 1;
+.sair:hover {
+  text-decoration: underline;
 }
