@@ -126,12 +126,80 @@ export default function Header() {
         <button className="menu-toggle" onClick={toggleMenu}>
           &#9776;
         </button>
-
-        {/* Menu Mobile */}
-        <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`}>
-          {/* ...mesmo mobile que você já tem com <details> */}
-        </nav>
       </div>
+
+      {/* Menu Mobile: agora fora da header-top */}
+      <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`}>
+        <div className="nav-item">
+          <Link to="/noticias" className="link-mobile" onClick={() => setMenuAberto(false)}>Notícias</Link>
+        </div>
+
+        <div className="nav-item">
+          <DropdownButton label="Campeonatos" id="mobile-campeonatos" />
+          {dropdownAberto === 'mobile-campeonatos' && (
+            <div className="dropdown">
+              <Link to="/ltasul">LTA SUL</Link>
+              <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
+              <Link to="/cs2">CS2</Link>
+            </div>
+          )}
+        </div>
+
+        <div className="nav-item">
+          <Link to="/creators" className="link-mobile" onClick={() => setMenuAberto(false)}>Creators</Link>
+        </div>
+
+        <div className="nav-item">
+          <DropdownButton label="Eventos" id="mobile-eventos" />
+          {dropdownAberto === 'mobile-eventos' && (
+            <div className="dropdown">
+              <Link to="/watchparties">WATCH PARTIES</Link>
+            </div>
+          )}
+        </div>
+
+        <div className="nav-item">
+          <DropdownButton label="Torneios da Matilha" id="mobile-torneios" />
+          {dropdownAberto === 'mobile-torneios' && (
+            <div className="dropdown">
+              <Link to="/matilhatactics">MATILHA TACTICS</Link>
+            </div>
+          )}
+        </div>
+
+        <div className="nav-item">
+          <Link to="/contato" className="link-mobile" onClick={() => setMenuAberto(false)}>Contato</Link>
+        </div>
+
+        {!adminLogado && (
+          <div className="nav-item">
+            <Link to="/login" className="link-mobile" onClick={() => setMenuAberto(false)}>Login</Link>
+          </div>
+        )}
+
+        {adminLogado && (
+          <>
+            <div className="nav-item">
+              <DropdownButton label="Painel Administrativo" id="mobile-painel-admin" />
+              {dropdownAberto === 'mobile-painel-admin' && (
+                <div className="dropdown">
+                  <Link to="/nova-noticia">Nova Notícia</Link>
+                  <Link to="/gerenciar-noticia">Gerenciar Notícia</Link>
+                  <Link to="/nova-watchparty">Nova Watch Party</Link>
+                  <Link to="/gerenciar-wp">Gerenciar Watch Parties</Link>
+                  <Link to="/nova-agenda">Nova Agenda</Link>
+                  <Link to="/gerenciar-agenda">Gerenciar Agenda</Link>
+                  <Link to="/novo-conteudo">Novo Conteúdo Creators</Link>
+                  <Link to="/gerenciar-conteudo">Gerenciar Conteúdos Creators</Link>
+                </div>
+              )}
+            </div>
+            <div className="nav-item">
+              <button className="dropdown-toggle" onClick={handleLogout}>Sair</button>
+            </div>
+          </>
+        )}
+      </nav>
     </header>
   );
 }
