@@ -21,8 +21,9 @@
   width: auto;
 }
 
-/* BOTÃO MENU MOBILE */
+/* BOTÃO MENU MOBILE - padrão escondido */
 .menu-toggle {
+  display: none; /* só aparece no mobile */
   position: fixed;
   top: 1rem;
   right: 1rem;
@@ -31,7 +32,7 @@
   color: white;
   font-size: 2rem;
   cursor: pointer;
-  z-index: 10001; /* MUITO maior que o nav-mobile */
+  z-index: 10001; /* acima do menu mobile */
 }
 
 /* MENU DESKTOP */
@@ -93,7 +94,7 @@
   flex-direction: column;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  z-index: 9999; /* garante que fique acima de tudo */
+  z-index: 9999;
   min-width: 160px;
 }
 
@@ -119,7 +120,7 @@
   height: 100vh;
   width: 60%;
   padding: 7rem 1rem 2rem 1rem;
-  z-index: 10000; /* menor que o botão, para ele ficar por cima */
+  z-index: 10000; /* abaixo do botão */
   align-items: flex-start;
   justify-content: flex-start;
   overflow-y: auto;
@@ -164,6 +165,7 @@
 
 /* RESPONSIVO */
 @media (max-width: 1280px) {
+  /* mostrar botão somente no mobile */
   .menu-toggle {
     display: block;
   }
