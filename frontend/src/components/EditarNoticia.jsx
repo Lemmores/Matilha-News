@@ -159,6 +159,7 @@ const EditarNoticia = () => {
           <option value="CIRCUITO DESAFIANTE">CIRCUITO DESAFIANTE</option>
           <option value="VALORANT">VALORANT</option>
           <option value="CS2">CS2</option>
+          <option value="FREEFIRE">FREEFIRE</option>
           <option value="EXTRAS">EXTRAS</option>
         </select>
         <input
