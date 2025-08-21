@@ -3,6 +3,7 @@
   color: white;
   padding: 0.25rem 0.5rem;
   margin-bottom: 0;
+  z-index: 1000;
 }
 
 /* TOP SECTION: logo + nav */
@@ -15,6 +16,12 @@
   z-index: 1001;
 }
 
+.logo img {
+  max-height: 70px;
+  width: auto;
+}
+
+/* BOTÃO MENU MOBILE */
 .menu-toggle {
   background: none;
   border: none;
@@ -22,13 +29,10 @@
   font-size: 2rem;
   cursor: pointer;
   display: none;
-  z-index: 1002;
-  position: relative;
-}
-
-.logo img {
-  max-height: 70px;
-  width: auto;
+  z-index: 10000;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
 }
 
 /* MENU DESKTOP */
@@ -79,7 +83,7 @@
   transform: rotate(180deg);
 }
 
-/* Dropdown sempre em cima de outros elementos */
+/* DROPDOWN DESKTOP */
 .dropdown {
   position: absolute;
   top: 100%;
@@ -98,32 +102,16 @@
   padding: 0.3rem 0.8rem;
   color: white;
   text-decoration: none;
+  font-size: 0.85rem;
 }
 
 .dropdown a:hover {
   background-color: #a00000;
 }
 
-
 /* MENU MOBILE */
-.menu-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  z-index: 9999; /* acima de todo o resto */
-}
-
 .nav-mobile {
   display: none;
-}
-
-.nav-mobile.ativo {
-  display: flex;
   flex-direction: column;
   position: fixed;
   top: 0;
@@ -132,14 +120,23 @@
   height: 100vh;
   width: 60%;
   padding: 7rem 1rem 2rem 1rem;
-  z-index: 1000;
+  z-index: 9999;
   align-items: flex-start;
   justify-content: flex-start;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  transform: translateX(100%);
+}
+
+.nav-mobile.ativo {
+  transform: translateX(0);
+  display: flex;
 }
 
 .nav-mobile .nav-item {
   margin-bottom: 1rem;
   width: 100%;
+  position: relative;
 }
 
 .nav-mobile .nav-item a,
@@ -148,6 +145,9 @@
   padding: 0.5rem 1rem;
   width: 100%;
   text-align: left;
+  color: white;
+  background: none;
+  border: none;
 }
 
 .nav-mobile .dropdown {
@@ -156,13 +156,15 @@
   box-shadow: none;
   padding-left: 1rem;
   margin-top: 0.3rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-mobile .dropdown a {
   padding-left: 1.5rem;
 }
 
-/* RESPONSIVO - agora até 1280px usa menu mobile */
+/* RESPONSIVO */
 @media (max-width: 1280px) {
   .menu-toggle {
     display: block;
@@ -172,12 +174,12 @@
     display: none !important;
   }
 
-   .header-top {
+  .header-top {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background-color: #b90000; /* tirou o vermelho */
+    background-color: #b90000;
   }
 
   .nav-mobile.ativo {
@@ -188,12 +190,10 @@
     padding-top: 7rem !important;
   }
 
-  
   .header {
     background-color: transparent !important;
     padding: 0 !important;
   }
-
 
   .pagina-home,
   .pagina-noticias,
@@ -210,59 +210,4 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-/* MENU MOBILE - detalhes e summary */
-.nav-mobile summary {
-  font-size: 1rem;
-  padding: 0.75rem 1rem;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  color: white;
-  background: none;
-  border: none;
-  outline: none;
-  display: flex;
-  align-items: center;
-}
-
-.nav-mobile details {
-  width: 100%;
-}
-
-.nav-mobile summary::marker {
-  display: none;
-}
-
-.nav-mobile details[open] > summary {
-  background-color: #920000;
-}
-
-.nav-mobile summary::after {
-  content: '▼';
-  font-size: 0.9rem;
-  margin-left: 0.3rem;
-  transition: transform 0.2s ease;
-}
-
-.nav-mobile details[open] summary::after {
-  transform: rotate(180deg);
-}
-
-/* Área de clique no menu mobile */
-.nav-mobile .link-mobile {
-  display: block;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  color: white;
-  text-align: left;
-  line-height: 1.5;
-  box-sizing: border-box;
-}
-
-.nav-mobile .nav-item {
-  position: relative;
-  z-index: 1;
 }
