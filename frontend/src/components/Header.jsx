@@ -19,12 +19,12 @@ export default function Header() {
   }, []);
 
   const toggleMenu = () => {
-    setMenuAberto(!menuAberto);
-    setDropdownAberto(null);
+    setMenuAberto(prev => !prev); // alterna abrir/fechar
+    setDropdownAberto(null); // fecha dropdowns ao abrir/fechar menu
   };
 
   const toggleDropdown = (nome) => {
-    setDropdownAberto(dropdownAberto === nome ? null : nome);
+    setDropdownAberto(prev => (prev === nome ? null : nome));
   };
 
   const handleLogout = () => {
@@ -51,9 +51,7 @@ export default function Header() {
 
         {/* Menu Desktop */}
         <nav className="nav-desktop">
-          <div className="nav-item">
-            <Link to="/noticias">Notícias</Link>
-          </div>
+          <div className="nav-item"><Link to="/noticias">Notícias</Link></div>
 
           <div className="nav-item">
             <DropdownButton label="Campeonatos" id="campeonatos" />
@@ -66,9 +64,7 @@ export default function Header() {
             )}
           </div>
 
-          <div className="nav-item">
-            <Link to="/creators">Creators</Link>
-          </div>
+          <div className="nav-item"><Link to="/creators">Creators</Link></div>
 
           <div className="nav-item">
             <DropdownButton label="Eventos" id="eventos" />
@@ -88,14 +84,10 @@ export default function Header() {
             )}
           </div>
 
-          <div className="nav-item">
-            <Link to="/contato">Contato</Link>
-          </div>
+          <div className="nav-item"><Link to="/contato">Contato</Link></div>
 
           {!adminLogado && (
-            <div className="nav-item">
-              <Link to="/login">Login</Link>
-            </div>
+            <div className="nav-item"><Link to="/login">Login</Link></div>
           )}
 
           {adminLogado && (
@@ -124,15 +116,13 @@ export default function Header() {
 
         {/* Botão do menu mobile */}
         <button className="menu-toggle" onClick={toggleMenu}>
-          &#9776;
+          {menuAberto ? '✕' : '☰'}
         </button>
       </div>
 
-      {/* Menu Mobile: agora fora da header-top */}
+      {/* Menu Mobile */}
       <nav className={`nav-mobile ${menuAberto ? 'ativo' : ''}`}>
-        <div className="nav-item">
-          <Link to="/noticias" className="link-mobile" onClick={() => setMenuAberto(false)}>Notícias</Link>
-        </div>
+        <div className="nav-item"><Link to="/noticias" className="link-mobile" onClick={() => setMenuAberto(false)}>Notícias</Link></div>
 
         <div className="nav-item">
           <DropdownButton label="Campeonatos" id="mobile-campeonatos" />
@@ -145,9 +135,7 @@ export default function Header() {
           )}
         </div>
 
-        <div className="nav-item">
-          <Link to="/creators" className="link-mobile" onClick={() => setMenuAberto(false)}>Creators</Link>
-        </div>
+        <div className="nav-item"><Link to="/creators" className="link-mobile" onClick={() => setMenuAberto(false)}>Creators</Link></div>
 
         <div className="nav-item">
           <DropdownButton label="Eventos" id="mobile-eventos" />
@@ -167,14 +155,10 @@ export default function Header() {
           )}
         </div>
 
-        <div className="nav-item">
-          <Link to="/contato" className="link-mobile" onClick={() => setMenuAberto(false)}>Contato</Link>
-        </div>
+        <div className="nav-item"><Link to="/contato" className="link-mobile" onClick={() => setMenuAberto(false)}>Contato</Link></div>
 
         {!adminLogado && (
-          <div className="nav-item">
-            <Link to="/login" className="link-mobile" onClick={() => setMenuAberto(false)}>Login</Link>
-          </div>
+          <div className="nav-item"><Link to="/login" className="link-mobile" onClick={() => setMenuAberto(false)}>Login</Link></div>
         )}
 
         {adminLogado && (
