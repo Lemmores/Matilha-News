@@ -36,8 +36,13 @@ export default function GerenciarNoticia() {
     }
   };
 
-  const noticiasFiltradas =
-    filtro === "TUDO" ? noticias : noticias.filter((n) => n.categoria === filtro);
+const noticiasFiltradas =
+  filtro === "TUDO"
+    ? [...noticias].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    : noticias
+        .filter((n) => n.categoria === filtro)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
 
   return (
     <div className="pagina-painel">
