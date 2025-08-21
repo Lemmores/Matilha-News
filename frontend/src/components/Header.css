@@ -21,9 +21,8 @@
   width: auto;
 }
 
-/* BOTÃO MENU MOBILE - padrão escondido */
+/* BOTÃO MENU MOBILE */
 .menu-toggle {
-  display: none; /* só aparece no mobile */
   position: fixed;
   top: 1rem;
   right: 1rem;
@@ -32,7 +31,8 @@
   color: white;
   font-size: 2rem;
   cursor: pointer;
-  z-index: 10001; /* acima do menu mobile */
+  z-index: 20000; /* MUITO maior que o nav-mobile */
+  display: none; /* escondido por padrão, só aparece no mobile */
 }
 
 /* MENU DESKTOP */
@@ -111,7 +111,7 @@
 
 /* MENU MOBILE */
 .nav-mobile {
-  display: flex;
+  display: none;
   flex-direction: column;
   position: fixed;
   top: 0;
@@ -120,16 +120,17 @@
   height: 100vh;
   width: 60%;
   padding: 7rem 1rem 2rem 1rem;
-  z-index: 10000; /* abaixo do botão */
+  z-index: 1000; /* menor que o botão */
   align-items: flex-start;
   justify-content: flex-start;
   overflow-y: auto;
-  transform: translateX(100%);
   transition: transform 0.3s ease;
+  transform: translateX(100%);
 }
 
 .nav-mobile.ativo {
   transform: translateX(0);
+  display: flex;
 }
 
 .nav-mobile .nav-item {
@@ -165,7 +166,6 @@
 
 /* RESPONSIVO */
 @media (max-width: 1280px) {
-  /* mostrar botão somente no mobile */
   .menu-toggle {
     display: block;
   }
