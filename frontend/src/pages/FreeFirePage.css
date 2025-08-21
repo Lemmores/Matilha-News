@@ -1,0 +1,241 @@
+.pagina-freefire {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: white;
+}
+
+.pagina-freefire h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pagina-freefire section {
+  margin-bottom: 3rem;
+}
+
+.freefire-section-title {
+  font-size: 2rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+}
+
+.freefire-section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #b90000;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* Line-up dos Jogadores */
+.jogadores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.jogador {
+  text-align: center;
+  max-width: 180px;
+  cursor: pointer;
+}
+
+.jogador img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.jogador img:hover {
+  transform: scale(1.05);
+}
+
+.jogador span {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* Botões Sociais */
+.social-buttons {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.social-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.social-btn img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.2s ease, filter 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.social-btn img:hover {
+  transform: scale(1.2);
+  filter: none;
+  opacity: 1;
+}
+
+.social-btn img[alt="Twitter"] {
+  width: 22px;
+  height: 22px;
+}
+
+/* Modal da imagem ampliada */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+/* Vídeos */
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.video-list iframe {
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Notícias */
+.noticia-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card-noticia {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.card-noticia img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-noticia p.categoria {
+  color: #b90000;
+  font-size: 0.9rem;
+  margin: 0.5rem 1rem;
+  font-weight: bold;
+}
+
+.card-noticia h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 1rem 1rem;
+  color: white;
+}
+
+.card-noticia:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(185, 0, 0, 0.4);
+}
+
+/* Paginação de Notícias */
+.paginacao-noticias {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.paginacao-noticias button {
+  background-color: #b90000;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.paginacao-noticias button:hover {
+  background-color: #8e0000;
+}
+
+.paginacao-noticias button:disabled {
+  background-color: #888;
+  cursor: default;
+}
+
+/* Agenda */
+.agenda ul {
+  list-style: none;
+  padding: 0;
+}
+
+.agenda li {
+  background-color: #1e1e1e;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .jogador {
+    max-width: 100%;
+  }
+
+  .jogador img {
+    height: 200px;
+  }
+
+  .video-list iframe {
+    height: 200px;
+  }
+}

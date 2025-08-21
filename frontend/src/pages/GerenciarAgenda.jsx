@@ -8,7 +8,7 @@ export default function GerenciarAgenda() {
   const [filtro, setFiltro] = useState("TUDO");
   const navigate = useNavigate();
 
-  const campeonatos = ["TUDO", "LTA SUL", "CIRCUITO DESAFIANTE", "CS2", "VALORANT"];
+  const campeonatos = ["TUDO", "LTA SUL", "CIRCUITO DESAFIANTE", "CS2", "VALORANT", "FREEFIRE"];
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {

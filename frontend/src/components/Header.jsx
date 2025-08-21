@@ -60,6 +60,7 @@ export default function Header() {
                 <Link to="/ltasul">LTA SUL</Link>
                 <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
                 <Link to="/cs2">CS2</Link>
+                <Link to="/freefire">FREEFIRE</Link>
               </div>
             )}
           </div>
@@ -131,6 +132,7 @@ export default function Header() {
               <Link to="/ltasul">LTA SUL</Link>
               <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
               <Link to="/cs2">CS2</Link>
+              <Link to="/freefire">FREEFIRE</Link>
             </div>
           )}
         </div>

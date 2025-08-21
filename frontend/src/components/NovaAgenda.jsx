@@ -110,6 +110,7 @@ export default function NovaAgenda() {
           <option value="CIRCUITO DESAFIANTE">CIRCUITO DESAFIANTE</option>
           <option value="CS2">CS2</option>
           <option value="VALORANT">VALORANT</option>
+          <option value="FREEFIRE">FREEFIRE</option>
         </select>
         <input name="local" value={form.local} onChange={handleChange} placeholder="Local (opcional)" />
         <input

@@ -8,7 +8,7 @@ export default function GerenciarNoticia() {
   const [filtro, setFiltro] = useState("TUDO");
   const navigate = useNavigate();
 
-  const categorias = ["TUDO", "LTA SUL", "CIRCUITO DESAFIANTE", "CS2", "VALORANT", "EXTRAS"];
+  const categorias = ["TUDO", "LTA SUL", "CIRCUITO DESAFIANTE", "CS2", "VALORANT", "FREEFIRE", "EXTRAS"];
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {

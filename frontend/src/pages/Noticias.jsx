@@ -18,7 +18,7 @@ export default function Noticias() {
       .catch(err => console.error('Erro ao carregar notícias:', err));
   }, [API_URL]);
 
-  const filtros = ['TUDO', 'LTA SUL', 'CIRCUITO DESAFIANTE', 'CS2', 'VALORANT', 'EXTRAS'];
+  const filtros = ['TUDO', 'LTA SUL', 'CIRCUITO DESAFIANTE', 'CS2', 'VALORANT', 'FREEFIRE', 'EXTRAS'];
 
   const noticiasFiltradas = filtro === 'TUDO'
     ? noticias
