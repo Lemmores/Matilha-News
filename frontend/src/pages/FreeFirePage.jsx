@@ -34,6 +34,12 @@ const jogadores = [
     // twitter: 'https://x.com/frostylolx',
     // instagram: 'https://www.instagram.com/lolfrosty1/',
   },
+   {
+    nome: 'ERICK11',
+    img: '/jogadores/ERICK11.jpg',
+    // twitter: 'https://x.com/frostylolx',
+    // instagram: 'https://www.instagram.com/lolfrosty1/',
+  },
 ];
 
 const FreeFirePage = () => {
