@@ -108,15 +108,15 @@ const CircuitoPage = () => {
       <section>
         <h2 className="circuito-section-title">Últimos Confrontos</h2>
         <div className="video-list">
-          {agendaCircuito
-            .filter(p => p.linkTransmissao)
-            .sort((a, b) => new Date(b.data) - new Date(a.data))
-            .slice(0, 2)
-            .map((p, idx) => {
-              const src = formatEmbedLink(p.linkTransmissao);
-              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe> : null;
-            })}
-        </div>
+        {agendaCircuito
+          .filter(p => p.linkTransmissao)
+          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
+          .slice(0, 2)
+          .map((p, idx) => {
+            const src = formatEmbedLink(p.linkTransmissao);
+            return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe> : null;
+          })}
+      </div>
       </section>
 
       {/* Notícias */}
