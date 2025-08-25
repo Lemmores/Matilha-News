@@ -152,17 +152,33 @@ const CircuitoPage = () => {
   .sort((a, b) => new Date(b.data) - new Date(a.data))
   .slice(0, 2)
   .map((partida, index) => {
-    let link = partida.linkTransmissao;
+    let link = partida.linkTransmissao.trim();
+    let embedLink = "";
 
+    // Caso 1: link padrão (watch?v=)
     if (link.includes("watch?v=")) {
-      const videoId = link.split("watch?v=")[1].split("&")[0]; // pega só o ID
-      link = `https://www.youtube.com/embed/${videoId}`;
+      const videoId = link.split("watch?v=")[1].split("&")[0];
+      embedLink = `https://www.youtube.com/embed/${videoId}`;
+    }
+    // Caso 2: link encurtado (youtu.be)
+    else if (link.includes("youtu.be/")) {
+      const videoId = link.split("youtu.be/")[1].split("?")[0];
+      embedLink = `https://www.youtube.com/embed/${videoId}`;
+    }
+    // Caso 3: shorts
+    else if (link.includes("youtube.com/shorts/")) {
+      const videoId = link.split("shorts/")[1].split("?")[0];
+      embedLink = `https://www.youtube.com/embed/${videoId}`;
+    }
+    // Caso 4: já é embed
+    else if (link.includes("youtube.com/embed/")) {
+      embedLink = link;
     }
 
     return (
       <iframe
         key={index}
-        src={link}
+        src={embedLink}
         title={`Confronto ${index + 1}`}
         width="560"
         height="315"
@@ -172,6 +188,7 @@ const CircuitoPage = () => {
       ></iframe>
     );
   })}
+
 
         </div>
       </section>
