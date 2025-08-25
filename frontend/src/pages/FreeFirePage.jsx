@@ -8,37 +8,44 @@ const jogadores = [
     nome: 'IGUINMVP',
     img: '/jogadores/IGUINMVP.jpg',
     // twitter: 'https://twitter.com/fNbLOL',
-    // instagram: 'https://instagram.com/fNbLOL',
+    instagram: 'https://www.instagram.com/iguin.mvp/',
   },
   {
     nome: 'ITALO7',
     img: '/jogadores/ITALO7.jpg',
     // twitter: 'https://x.com/DoomLol11',
-    // instagram: 'https://www.instagram.com/curse_lol1/',
+     instagram: 'https://www.instagram.com/italosete7/',
   },
   {
     nome: 'ABREU',
     img: '/jogadores/ABREU.jpg',
     // twitter: 'https://x.com/1Kazelol',
-    // instagram: 'https://www.instagram.com/kaze.g_/',
+     instagram: 'https://www.instagram.com/abreu.coach/',
   },
   {
     nome: 'LUCASAWP',
     img: '/jogadores/LUCASAWP.jpg',
     // twitter: 'https://x.com/rabeloxv',
-    // instagram: 'https://www.instagram.com/rabelokoo/',
+     instagram: 'https://www.instagram.com/lucasawp7/',
   },
   {
     nome: 'ROJÃO',
     img: '/jogadores/ROJÃO.jpg',
     // twitter: 'https://x.com/frostylolx',
-    // instagram: 'https://www.instagram.com/lolfrosty1/',
+     instagram: 'https://www.instagram.com/rojaowq/',
   },
    {
     nome: 'ERICK11',
     img: '/jogadores/ERICK11.jpg',
     // twitter: 'https://x.com/frostylolx',
-    // instagram: 'https://www.instagram.com/lolfrosty1/',
+     instagram: 'https://www.instagram.com/erickonze/',
+  },
+
+  {
+    nome: 'KOGA012',
+    img: '/jogadores/KOGA012.jpg',
+    // twitter: 'https://x.com/frostylolx',
+    instagram: 'https://www.instagram.com/koguinha012/',
   },
 ];
 

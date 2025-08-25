@@ -148,20 +148,31 @@ const CircuitoPage = () => {
         <h2 className="circuito-section-title">Últimos Confrontos</h2>
         <div className="video-list">
           {agendaCircuito
-            .filter(partida => partida.linkTransmissao)
-            .sort((a, b) => new Date(b.data) - new Date(a.data))
-            .slice(0, 2)
-            .map((partida, index) => {
-              const link = partida.linkTransmissao.replace("watch?v=", "embed/");
-              return (
-                <iframe
-                  key={index}
-                  src={link}
-                  title={`Confronto ${index + 1}`}
-                  allowFullScreen
-                ></iframe>
-              );
-            })}
+  .filter(partida => partida.linkTransmissao)
+  .sort((a, b) => new Date(b.data) - new Date(a.data))
+  .slice(0, 2)
+  .map((partida, index) => {
+    let link = partida.linkTransmissao;
+
+    if (link.includes("watch?v=")) {
+      const videoId = link.split("watch?v=")[1].split("&")[0]; // pega só o ID
+      link = `https://www.youtube.com/embed/${videoId}`;
+    }
+
+    return (
+      <iframe
+        key={index}
+        src={link}
+        title={`Confronto ${index + 1}`}
+        width="560"
+        height="315"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+    );
+  })}
+
         </div>
       </section>
 
