@@ -49,32 +49,18 @@ const CircuitoPage = () => {
     fetchAgenda();
   }, [API_URL]);
 
+  // cálculo de notícias por página
+  const indexUltimaNoticia = paginaAtual * noticiasPorPagina;
+  const indexPrimeiraNoticia = indexUltimaNoticia - noticiasPorPagina;
+  const noticiasPagina = noticiasCircuito.slice(indexPrimeiraNoticia, indexUltimaNoticia);
   const totalPaginas = Math.ceil(noticiasCircuito.length / noticiasPorPagina);
-  const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
-  const noticiasExibidas = noticiasCircuito.slice(indiceInicio, indiceInicio + noticiasPorPagina);
 
-  const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
-  const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
+  const irParaProxima = () => {
+    if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
+  };
 
-  // Função para transformar qualquer link do YouTube em embed
-  const formatEmbedLink = (url) => {
-    if (!url) return '';
-    // live
-    if (url.includes('/live/')) {
-      const id = url.split('/live/')[1].split(/[?&]/)[0];
-      return `https://www.youtube.com/embed/${id}?autoplay=0`;
-    }
-    // watch?v=
-    if (url.includes('youtube.com/watch')) {
-      const id = new URL(url).searchParams.get('v');
-      return `https://www.youtube.com/embed/${id}?autoplay=0`;
-    }
-    // youtu.be
-    if (url.includes('youtu.be/')) {
-      const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
-      return `https://www.youtube.com/embed/${id}?autoplay=0`;
-    }
-    return '';
+  const irParaAnterior = () => {
+    if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
   };
 
   return (
@@ -85,13 +71,25 @@ const CircuitoPage = () => {
       <section>
         <h2 className="circuito-section-title">Line-up</h2>
         <div className="jogadores">
-          {jogadores.map((j, idx) => (
+          {jogadores.map((jogador, idx) => (
             <div key={idx} className="jogador">
-              <img src={j.img} alt={j.nome} onClick={() => setImagemAberta(j.img)} />
-              <span>{j.nome}</span>
+              <img
+                src={jogador.img}
+                alt={jogador.nome}
+                onClick={() => setImagemAberta(jogador.img)}
+              />
+              <span>{jogador.nome}</span>
               <div className="social-buttons">
-                {j.twitter && <a href={j.twitter} target="_blank" rel="noopener noreferrer" className="social-btn"><img src="/icons/x.png" alt="Twitter" /></a>}
-                {j.instagram && <a href={j.instagram} target="_blank" rel="noopener noreferrer" className="social-btn"><img src="/icons/instagram.png" alt="Instagram" /></a>}
+                {jogador.twitter && (
+                  <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-btn">
+                    <img src="/icons/x.png" alt="Twitter" />
+                  </a>
+                )}
+                {jogador.instagram && (
+                  <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-btn">
+                    <img src="/icons/instagram.png" alt="Instagram" />
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -104,40 +102,51 @@ const CircuitoPage = () => {
         </div>
       )}
 
-      {/* Últimos Confrontos */}
+      {/* Vídeos Recentes */}
       <section>
         <h2 className="circuito-section-title">Últimos Confrontos</h2>
         <div className="video-list">
-        {agendaCircuito
-          .filter(p => p.linkTransmissao)
-          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
-          .slice(0, 2)
-          .map((p, idx) => {
-            const src = formatEmbedLink(p.linkTransmissao);
-            return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe> : null;
-          })}
-      </div>
+          {agendaCircuito
+            .filter(partida => partida.linkTransmissao)
+            .sort((a, b) => {
+              // Ordena do mais recente para o mais antigo usando data e hora
+              const dateA = new Date(a.data + ' ' + (a.hora || '00:00'));
+              const dateB = new Date(b.data + ' ' + (b.hora || '00:00'));
+              return dateB - dateA;
+            })
+            .slice(0, 2)
+            .map((partida, index) => {
+              const link = partida.linkTransmissao.replace("watch?v=", "embed/");
+              return (
+                <iframe
+                  key={index}
+                  src={link}
+                  title={`Confronto ${index + 1}`}
+                  allowFullScreen
+                ></iframe>
+              );
+            })}
+        </div>
       </section>
 
       {/* Notícias */}
       <section>
         <h2 className="circuito-section-title">Últimas Notícias da RED no Circuito Desafiante</h2>
         <div className="noticia-list">
-          {noticiasExibidas.map(n => (
-            <Link key={n._id} to={`/noticia/${n._id}`} className="card-noticia">
-              <img src={n.imagem} alt={n.titulo} />
-              <p className="categoria">{n.categoria}</p>
-              <h3>{n.titulo}</h3>
+          {noticiasPagina.map(noticia => (
+            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
+              <img src={noticia.imagem} alt={noticia.titulo} />
+              <p className="categoria">{noticia.categoria}</p>
+              <h3>{noticia.titulo}</h3>
             </Link>
           ))}
         </div>
-        {totalPaginas > 1 && (
-          <div className="paginacao-noticias">
-            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-            <span>Página {paginaAtual} de {totalPaginas}</span>
-            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
-          </div>
-        )}
+
+        <div className="paginacao-noticias">
+          <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Página Anterior</button>
+          <span>Página {paginaAtual} de {totalPaginas}</span>
+          <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima Página</button>
+        </div>
       </section>
 
       {/* Agenda */}
