@@ -57,18 +57,24 @@ const CircuitoPage = () => {
   const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
   const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
 
-  // função simples de transformar link do YouTube em embed
+  // Função para transformar qualquer link do YouTube em embed válido
   const formatYouTubeLink = (link) => {
     if (!link) return "";
     link = link.trim();
+
+    let videoId = "";
+
     if (link.includes("watch?v=")) {
-      return link.replace("watch?v=", "embed/").split("&")[0];
+      videoId = link.split("watch?v=")[1].split("&")[0];
+    } else if (link.includes("youtu.be/")) {
+      videoId = link.split("youtu.be/")[1].split("?")[0];
+    } else if (link.includes("youtube.com/shorts/")) {
+      videoId = link.split("shorts/")[1].split("?")[0];
+    } else if (link.includes("youtube.com/embed/")) {
+      return link; // já é embed
     }
-    if (link.includes("youtu.be/")) {
-      const videoId = link.split("youtu.be/")[1].split("?")[0];
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
-    return link; // fallback
+
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
   };
 
   return (
@@ -114,18 +120,21 @@ const CircuitoPage = () => {
             .filter(partida => partida.linkTransmissao)
             .sort((a, b) => new Date(b.data) - new Date(a.data))
             .slice(0, 2)
-            .map((partida, index) => (
-              <iframe
-                key={index}
-                src={formatYouTubeLink(partida.linkTransmissao)}
-                title={`Confronto ${index + 1}`}
-                width="560"
-                height="315"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            ))}
+            .map((partida, index) => {
+              const embedLink = formatYouTubeLink(partida.linkTransmissao);
+              return embedLink ? (
+                <iframe
+                  key={index}
+                  src={embedLink}
+                  title={`Confronto ${index + 1}`}
+                  width="560"
+                  height="315"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              ) : null;
+            })}
         </div>
       </section>
 
