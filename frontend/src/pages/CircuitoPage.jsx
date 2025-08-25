@@ -4,11 +4,36 @@ import Agenda from '../components/Agenda';
 import './CircuitoPage.css';
 
 const jogadores = [
-  { nome: 'ZYNTS', img: '/jogadores/zynts.jpg', twitter: 'https://twitter.com/zyntsLOL', instagram: 'https://www.instagram.com/matheuszynts1/' },
-  { nome: 'NERO', img: '/jogadores/Nero.jpg', twitter: 'https://x.com/nerothefik', instagram: 'https://www.instagram.com/nerothefik/' },
-  { nome: 'MAGO', img: '/jogadores/mago.jpg', twitter: 'https://x.com/jeanmag0', instagram: 'https://www.instagram.com/jeanmagolol/' },
-  { nome: 'KOJIMA', img: '/jogadores/Kojima.jpg', twitter: 'https://x.com/kojimalol1', instagram: 'https://www.instagram.com/caio__y/' },
-  { nome: 'UZENT', img: '/jogadores/uzent.jpg', twitter: 'https://x.com/uzentLOL', instagram: 'https://www.instagram.com/matheus_uzent/' },
+  {
+    nome: 'ZYNTS',
+    img: '/jogadores/zynts.jpg',
+    twitter: 'https://twitter.com/zyntsLOL',
+    instagram: 'https://www.instagram.com/matheuszynts1/',
+  },
+  {
+    nome: 'NERO',
+    img: '/jogadores/Nero.jpg',
+    twitter: 'https://x.com/nerothefik',
+    instagram: 'https://www.instagram.com/nerothefik/',
+  },
+  {
+    nome: 'MAGO',
+    img: '/jogadores/mago.jpg',
+    twitter: 'https://x.com/jeanmag0',
+    instagram: 'https://www.instagram.com/jeanmagolol/',
+  },
+  {
+    nome: 'KOJIMA',
+    img: '/jogadores/Kojima.jpg',
+    twitter: 'https://x.com/kojimalol1',
+    instagram: 'https://www.instagram.com/caio__y/',
+  },
+  {
+    nome: 'UZENT',
+    img: '/jogadores/uzent.jpg',
+    twitter: 'https://x.com/uzentLOL',
+    instagram: 'https://www.instagram.com/matheus_uzent/',
+  },
 ];
 
 const CircuitoPage = () => {
@@ -49,45 +74,41 @@ const CircuitoPage = () => {
     fetchAgenda();
   }, [API_URL]);
 
+  // cálculo de notícias por página
   const indexUltimaNoticia = paginaAtual * noticiasPorPagina;
   const indexPrimeiraNoticia = indexUltimaNoticia - noticiasPorPagina;
   const noticiasPagina = noticiasCircuito.slice(indexPrimeiraNoticia, indexUltimaNoticia);
   const totalPaginas = Math.ceil(noticiasCircuito.length / noticiasPorPagina);
 
-  const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
-  const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
+  const irParaProxima = () => {
+    if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
+  };
 
-  // Função para transformar qualquer link do YouTube em embed válido
-  const formatYouTubeLink = (link) => {
+  const irParaAnterior = () => {
+    if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
+  };
+
+  // função simples de transformar link em embed (igual LtaSulPage)
+  const formatEmbedLink = (link) => {
     if (!link) return "";
-    link = link.trim();
-
-    let videoId = "";
-
-    if (link.includes("watch?v=")) {
-      videoId = link.split("watch?v=")[1].split("&")[0];
-    } else if (link.includes("youtu.be/")) {
-      videoId = link.split("youtu.be/")[1].split("?")[0];
-    } else if (link.includes("youtube.com/shorts/")) {
-      videoId = link.split("shorts/")[1].split("?")[0];
-    } else if (link.includes("youtube.com/embed/")) {
-      return link; // já é embed
-    }
-
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+    return link.replace("watch?v=", "embed/");
   };
 
   return (
     <div className="pagina-circuito">
       <h1>RED Canids no Circuito Desafiante</h1>
 
-      {/* Line-up dos Jogadores */}
+      {/* Line-up */}
       <section>
         <h2 className="circuito-section-title">Line-up</h2>
         <div className="jogadores">
           {jogadores.map((jogador, idx) => (
             <div key={idx} className="jogador">
-              <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
+              <img
+                src={jogador.img}
+                alt={jogador.nome}
+                onClick={() => setImagemAberta(jogador.img)}
+              />
               <span>{jogador.nome}</span>
               <div className="social-buttons">
                 {jogador.twitter && (
@@ -120,25 +141,22 @@ const CircuitoPage = () => {
             .filter(partida => partida.linkTransmissao)
             .sort((a, b) => new Date(b.data) - new Date(a.data))
             .slice(0, 2)
-            .map((partida, index) => {
-              const embedLink = formatYouTubeLink(partida.linkTransmissao);
-              return embedLink ? (
-                <iframe
-                  key={index}
-                  src={embedLink}
-                  title={`Confronto ${index + 1}`}
-                  width="560"
-                  height="315"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              ) : null;
-            })}
+            .map((partida, index) => (
+              <iframe
+                key={index}
+                src={formatEmbedLink(partida.linkTransmissao)}
+                title={`Confronto ${index + 1}`}
+                width="560"
+                height="315"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            ))}
         </div>
       </section>
 
-      {/* Notícias do Circuito com paginação */}
+      {/* Notícias */}
       <section>
         <h2 className="circuito-section-title">Últimas Notícias da RED no Circuito Desafiante</h2>
         <div className="noticia-list">
@@ -150,16 +168,15 @@ const CircuitoPage = () => {
             </Link>
           ))}
         </div>
-        {totalPaginas > 1 && (
-          <div className="paginacao-noticias">
-            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-            <span>Página {paginaAtual} de {totalPaginas}</span>
-            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
-          </div>
-        )}
+
+        <div className="paginacao-noticias">
+          <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Página Anterior</button>
+          <span>Página {paginaAtual} de {totalPaginas}</span>
+          <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima Página</button>
+        </div>
       </section>
 
-      {/* Agenda do Circuito */}
+      {/* Agenda */}
       <section>
         <Agenda partidas={agendaCircuito} />
       </section>
