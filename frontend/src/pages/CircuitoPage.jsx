@@ -36,6 +36,26 @@ const jogadores = [
   },
 ];
 
+// 🔹 Função para converter QUALQUER link do YouTube em embed válido
+function formatYouTubeLink(url) {
+  if (!url) return "";
+
+  let link = url.trim();
+  let videoId = "";
+
+  if (link.includes("watch?v=")) {
+    videoId = link.split("watch?v=")[1].split("&")[0];
+  } else if (link.includes("youtu.be/")) {
+    videoId = link.split("youtu.be/")[1].split("?")[0];
+  } else if (link.includes("youtube.com/shorts/")) {
+    videoId = link.split("shorts/")[1].split("?")[0];
+  } else if (link.includes("youtube.com/embed/")) {
+    return link;
+  }
+
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+}
+
 const CircuitoPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasCircuito, setNoticiasCircuito] = useState([]);
@@ -148,48 +168,28 @@ const CircuitoPage = () => {
         <h2 className="circuito-section-title">Últimos Confrontos</h2>
         <div className="video-list">
           {agendaCircuito
-  .filter(partida => partida.linkTransmissao)
-  .sort((a, b) => new Date(b.data) - new Date(a.data))
-  .slice(0, 2)
-  .map((partida, index) => {
-    let link = partida.linkTransmissao.trim();
-    let embedLink = "";
+            .filter(partida => partida.linkTransmissao)
+            .sort((a, b) => new Date(b.data) - new Date(a.data))
+            .slice(0, 2)
+            .map((partida, index) => {
+              const embedLink = formatYouTubeLink(partida.linkTransmissao);
+              console.log("🎥 Link embed final:", embedLink); // debug no console
 
-    // Caso 1: link padrão (watch?v=)
-    if (link.includes("watch?v=")) {
-      const videoId = link.split("watch?v=")[1].split("&")[0];
-      embedLink = `https://www.youtube.com/embed/${videoId}`;
-    }
-    // Caso 2: link encurtado (youtu.be)
-    else if (link.includes("youtu.be/")) {
-      const videoId = link.split("youtu.be/")[1].split("?")[0];
-      embedLink = `https://www.youtube.com/embed/${videoId}`;
-    }
-    // Caso 3: shorts
-    else if (link.includes("youtube.com/shorts/")) {
-      const videoId = link.split("shorts/")[1].split("?")[0];
-      embedLink = `https://www.youtube.com/embed/${videoId}`;
-    }
-    // Caso 4: já é embed
-    else if (link.includes("youtube.com/embed/")) {
-      embedLink = link;
-    }
-
-    return (
-      <iframe
-        key={index}
-        src={embedLink}
-        title={`Confronto ${index + 1}`}
-        width="560"
-        height="315"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
-    );
-  })}
-
-
+              return embedLink ? (
+                <iframe
+                  key={index}
+                  src={embedLink}
+                  title={`Confronto ${index + 1}`}
+                  width="560"
+                  height="315"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              ) : (
+                <p key={index}>⚠️ Vídeo não disponível</p>
+              );
+            })}
         </div>
       </section>
 
