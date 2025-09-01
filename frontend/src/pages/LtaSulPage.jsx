@@ -52,7 +52,14 @@ const LtaSulPage = () => {
         const data = await res.json();
         const ltaSulNoticias = data
           .filter(n => n.categoria === 'LTA SUL')
-          .sort((a, b) => new Date(b.data) - new Date(a.data));
+          .sort((a, b) => {
+            // Converte "DD/MM/YYYY" para "YYYY-MM-DD" antes de criar Date
+            const [diaA, mesA, anoA] = a.data.split('/');
+            const [diaB, mesB, anoB] = b.data.split('/');
+            const dateA = new Date(`${anoA}-${mesA}-${diaA}`).getTime();
+            const dateB = new Date(`${anoB}-${mesB}-${diaB}`).getTime();
+            return dateB - dateA;
+          });
         setNoticiasLtaSul(ltaSulNoticias);
       } catch (error) {
         console.error('Erro ao carregar notícias da LTA SUL:', error);
@@ -86,7 +93,7 @@ const LtaSulPage = () => {
     if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
   };
 
-    // Função para transformar qualquer link do YouTube em embed
+  // Função para transformar qualquer link do YouTube em embed
   const formatEmbedLink = (url) => {
     if (!url) return '';
     // live
@@ -145,23 +152,27 @@ const LtaSulPage = () => {
         </div>
       )}
 
-    
-  {/* Últimos Confrontos */}
+      {/* Últimos Confrontos */}
       <section>
         <h2 className="lta-section-title">Últimos Confrontos</h2>
         <div className="video-list">
-        {agendaLtaSul
-          .filter(p => p.linkTransmissao)
-          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
-          .slice(0, 2)
-          .map((p, idx) => {
-            console.log('Link do YouTube:', p.linkTransmissao); // 🔹 log para testar
-            const src = formatEmbedLink(p.linkTransmissao);
-            return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe> : null;
-          })}
-      </div>
+          {agendaLtaSul
+            .filter(p => p.linkTransmissao)
+            .sort((a, b) => {
+              const [diaA, mesA, anoA] = a.data.split('/');
+              const [diaB, mesB, anoB] = b.data.split('/');
+              const dateA = new Date(`${anoA}-${mesA}-${diaA}`).getTime();
+              const dateB = new Date(`${anoB}-${mesB}-${diaB}`).getTime();
+              return dateB - dateA;
+            })
+            .slice(0, 2)
+            .map((p, idx) => {
+              console.log('Link do YouTube:', p.linkTransmissao);
+              const src = formatEmbedLink(p.linkTransmissao);
+              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe> : null;
+            })}
+        </div>
       </section>
-
 
       <section>
         <h2 className="lta-section-title">Últimas Notícias da RED na LTA SUL</h2>
