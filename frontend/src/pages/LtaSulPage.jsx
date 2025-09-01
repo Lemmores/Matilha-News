@@ -106,7 +106,7 @@ const LtaSulPage = () => {
     }
     return '';
   };
-  
+
   return (
     <div className="pagina-lta">
       <h1>RED Canids na LTA SUL</h1>
@@ -155,6 +155,7 @@ const LtaSulPage = () => {
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
           .slice(0, 2)
           .map((p, idx) => {
+            console.log('Link do YouTube:', p.linkTransmissao); // 🔹 log para testar
             const src = formatEmbedLink(p.linkTransmissao);
             return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe> : null;
           })}
