@@ -129,7 +129,7 @@ const LtaSulPage = () => {
       <section>
         <h2 className="lta-section-title">Últimos Confrontos</h2>
         <div className="video-list">
-        {agendaCircuito
+        {agendaLtaSul
           .filter(p => p.linkTransmissao)
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())
           .slice(0, 2)
