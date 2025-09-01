@@ -86,6 +86,27 @@ const LtaSulPage = () => {
     if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
   };
 
+    // Função para transformar qualquer link do YouTube em embed
+  const formatEmbedLink = (url) => {
+    if (!url) return '';
+    // live
+    if (url.includes('/live/')) {
+      const id = url.split('/live/')[1].split(/[?&]/)[0];
+      return `https://www.youtube.com/embed/${id}?autoplay=0`;
+    }
+    // watch?v=
+    if (url.includes('youtube.com/watch')) {
+      const id = new URL(url).searchParams.get('v');
+      return `https://www.youtube.com/embed/${id}?autoplay=0`;
+    }
+    // youtu.be
+    if (url.includes('youtu.be/')) {
+      const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
+      return `https://www.youtube.com/embed/${id}?autoplay=0`;
+    }
+    return '';
+  };
+  
   return (
     <div className="pagina-lta">
       <h1>RED Canids na LTA SUL</h1>
