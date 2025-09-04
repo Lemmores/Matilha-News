@@ -67,19 +67,20 @@ const creators = [
   },
 
   {
-    nome: 'ANINHA',
-    img: '/creators/Aninha.jpg',
-    twitter: 'https://x.com/aninhamagica',
-    instagram: 'https://www.instagram.com/aninhamagica',
-  },
-
-  {
     nome: 'JM',
     img: '/creators/JM.jpg',
     twitter: 'https://x.com/JMdeck_',
     instagram: 'https://www.instagram.com/jmdeck_',
   },
 
+  {
+    nome: 'ANINHA',
+    img: '/creators/Aninha.jpg',
+    twitter: 'https://x.com/aninhamagica',
+    instagram: 'https://www.instagram.com/aninhamagica',
+  },
+
+  
 ];
 
 export default function Creators() {
