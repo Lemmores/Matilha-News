@@ -47,6 +47,8 @@ const NovaConteudoCreator = () => {
           <option value="IONIAN">IONIAN</option>
           <option value="JOÃO DIAS">JOÃO DIAS</option>
           <option value="DERSIN">DERSIN</option>
+          <option value="ANINHA">ANINHA</option>
+          <option value="JM">JM</option>
         </select>
 
         <select
