@@ -8,12 +8,7 @@ const creators = [
     twitter: 'https://x.com/medulol1',
     instagram: 'https://www.instagram.com/medulol1/',
   },
-  {
-    nome: 'ISMALAKOI',
-    img: '/creators/Ismalakoi.jpg',
-    twitter: 'https://x.com/Ismalakoi',
-    instagram: 'https://www.instagram.com/ismalakoi1/',
-  },
+ 
   {
     nome: 'PEU',
     img: '/creators/Peu.jpg',
