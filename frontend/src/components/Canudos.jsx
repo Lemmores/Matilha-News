@@ -28,16 +28,14 @@ export default function RedCanudos() {
         treinando pesado para brigar pelo título nesta edição histórica.
       </p>
 
-      <h3>Garanta sua vaga e participe dessa edição lendária!</h3>
+      <h3>Times confirmados dessa edição:</h3>
 
-      <div className="formulario-container">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLScDBcgqMeN_kBZrMNWp7YJNWCNQY6mZVpCmj6AgcRNLUwODnQ/viewform?usp=header"
-          title="Formulário de Inscrição"
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
-      </div>
+    <img
+    src='/Logos Canudos/amantes'
+    />
+
+    
+      
     </div>
   );
 }
