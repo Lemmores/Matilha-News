@@ -65,11 +65,10 @@ body.redcanudos-bg {
 }
 
 .logos-times {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 logos por linha */
+  gap: 2rem;
+  justify-items: center;
   margin-top: 2rem;
 }
 
@@ -77,43 +76,65 @@ body.redcanudos-bg {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: #111;
   padding: 1rem;
   border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 180px; /* fixa o tamanho do card para alinhar melhor */
 }
 
 .logo-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
 }
 
 .logo-time {
   width: 110px;
   height: 110px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: box-shadow 0.3s ease;
 }
 
 .logo-time:hover {
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
 }
 
-.logo-card p {
-  margin-top: 0.5rem;
+.nome-time {
+  margin-top: 0.6rem;
   color: #fff;
   font-weight: 600;
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  line-height: 1.2;
+  max-width: 160px;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
+  .logos-times {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .logos-times {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .logo-card {
+    width: 150px;
+  }
   .logo-time {
     width: 90px;
     height: 90px;
   }
+}
+
+@media (max-width: 480px) {
   .logos-times {
-    gap: 1rem;
+    grid-template-columns: repeat(1, 1fr);
   }
 }

@@ -11,19 +11,19 @@ export default function RedCanudos() {
 
   const times = [
     { nome: 'Amantes da Nissinha', logo: '/amantes.jpg' },
-    { nome: 'Artic', logo: '/artic.jpg' },
+    { nome: 'Artic Foxes', logo: '/artic.jpg' },
     { nome: 'Bigodes', logo: '/bigodes.jpg' },
-    { nome: 'Cabras', logo: '/cabras.jpg' },
-    { nome: 'Canabbis', logo: '/canabbis.jpg' },
-    { nome: 'Canalhas', logo: '/canalhas.jpg' },
-    { nome: 'Capangas', logo: '/capangas.jpg' },
+    { nome: 'RED Cabras', logo: '/cabras.jpg' },
+    { nome: 'RED Canabbis', logo: '/canabbis.jpg' },
+    { nome: 'RED Canalhas', logo: '/canalhas.jpg' },
+    { nome: 'Capangas do Marechal', logo: '/capangas.jpg' },
     { nome: 'Cuzão', logo: '/cuzão.jpg' },
     { nome: 'Cuzinho', logo: '/cuzinho.jpg' },
-    { nome: 'F4N', logo: '/f4n.jpg' },
+    { nome: 'Fefex e 4 namoradas', logo: '/f4n.jpg' },
     { nome: 'Foxtail', logo: '/foxtail.jpg' },
-    { nome: 'Masters', logo: '/masters.jpg' },
-    { nome: 'Minas', logo: '/minas.jpg' },
-    { nome: 'RED J', logo: '/redj.jpg' },
+    { nome: 'RED Masters', logo: '/masters.jpg' },
+    { nome: 'RED Minas', logo: '/minas.jpg' },
+    { nome: 'REDJ', logo: '/redj.jpg' },
     { nome: 'RED PE', logo: '/redpe.jpg' },
     { nome: 'Renegados', logo: '/renegados.jpg' },
   ];
@@ -52,7 +52,7 @@ export default function RedCanudos() {
         {times.map((time, index) => (
           <div key={index} className="logo-card">
             <img src={time.logo} alt={time.nome} className="logo-time" />
-            <p>{time.nome}</p>
+            <p className="nome-time">{time.nome}</p>
           </div>
         ))}
       </div>
