@@ -15,7 +15,7 @@ export default function RedCanudos() {
       <h1>RED Canudos</h1>
 
       <img
-        src="/bannerrcanudos.jpg"
+        src="/bannercanudos.jpg"
         alt="Banner do RED Canudos"
         className="banner-canudos"
       />
