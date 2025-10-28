@@ -1,0 +1,80 @@
+.red-canudos {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.red-canudos h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #ff2a2a; /* Vermelho mais vivo para destaque */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.red-canudos h3 {
+  color: #ffffff;
+  text-align: center;
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
+.banner-canudos {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+.descricao {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  color: #f5f5f5;
+  text-align: justify;
+}
+
+.formulario-container {
+  width: 100%;
+}
+
+.formulario-container iframe {
+  width: 100%;
+  height: 1600px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+}
+
+.botao-inscricao {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #d60000;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.botao-inscricao:hover {
+  background-color: #ff3c3c;
+  transform: scale(1.05);
+}
+
+body.redcanudos-bg {
+  background-color: #0a0a0a; /* Fundo mais escuro */
+  background-image: radial-gradient(circle at top, rgba(255, 0, 0, 0.2), transparent 70%);
+  color: #ffffff;
+}
+
+.red-canudos {
+  background-color: #111;
+  color: #ffffff;
+  border-radius: 10px;
+  padding-bottom: 3rem;
+}

@@ -81,6 +81,7 @@ export default function Header() {
             {dropdownAberto === 'torneios' && (
               <div className="dropdown">
                 <Link to="/matilhatactics">MATILHA TACTICS</Link>
+                 <Link to="/canudos">RED CANUDOS</Link>
               </div>
             )}
           </div>
@@ -153,7 +154,9 @@ export default function Header() {
           {dropdownAberto === 'mobile-torneios' && (
             <div className="dropdown">
               <Link to="/matilhatactics">MATILHA TACTICS</Link>
+              <Link to="/canudos">RED CANUDOS</Link>
             </div>
+            
           )}
         </div>
 

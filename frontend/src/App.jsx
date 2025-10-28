@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Noticias from './pages/Noticias';
 import WatchParties from './components/WatchParties';
 import MatilhaTactics from './components/MatilhaTactics';
+import RedCanudos from './components/Canudos';
 import LtaSulPage from './pages/LtaSulPage';
 import CircuitoPage from './pages/CircuitoPage';
 import Contato from './components/Contato';
@@ -37,6 +38,7 @@ export default function App() {
          <Route path="/login" element={<Login />} />
          <Route path="/watchparties" element={<WatchParties />} />
          <Route path="/matilhatactics" element={<MatilhaTactics />} />
+         <Route path="/canudos" element={<RedCanudos />} />
          <Route path="/ltasul" element={<LtaSulPage/>} />
          <Route path="/circuito" element={<CircuitoPage/>} />
          <Route path="/contato" element={<Contato />} />
