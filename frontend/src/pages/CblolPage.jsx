@@ -36,7 +36,7 @@ const jogadores = [
   },
 ];
 
-const LtaSulPage = () => {
+const CblolPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasLtaSul, setNoticiasLtaSul] = useState([]);
   const [agendaLtaSul, setAgendaLtaSul] = useState([]);
