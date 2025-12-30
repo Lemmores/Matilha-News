@@ -155,7 +155,7 @@ const EditarNoticia = () => {
           required
         >
           <option value="">Selecione uma categoria</option>
-          <option value="LTA SUL">LTA SUL</option>
+          <option value="CBLOL">CBLOL</option>
           <option value="CIRCUITO DESAFIANTE">CIRCUITO DESAFIANTE</option>
           <option value="VALORANT">VALORANT</option>
           <option value="CS2">CS2</option>

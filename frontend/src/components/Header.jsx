@@ -57,7 +57,7 @@ export default function Header() {
             <DropdownButton label="Campeonatos" id="campeonatos" />
             {dropdownAberto === 'campeonatos' && (
               <div className="dropdown">
-                <Link to="/ltasul">LTA SUL</Link>
+                <Link to="/cblol">CBLOL</Link>
                 <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
                 <Link to="/cs2">CS2</Link>
                 <Link to="/freefire">FREEFIRE</Link>
@@ -130,7 +130,7 @@ export default function Header() {
           <DropdownButton label="Campeonatos" id="mobile-campeonatos" />
           {dropdownAberto === 'mobile-campeonatos' && (
             <div className="dropdown">
-              <Link to="/ltasul">LTA SUL</Link>
+              <Link to="/cblol">CBLOL</Link>
               <Link to="/circuito">CIRCUITO DESAFIANTE</Link>
               <Link to="/cs2">CS2</Link>
               <Link to="/freefire">FREEFIRE</Link>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Agenda from '../components/Agenda';
-import './LtaSulPage.css';
+import './CblolPage.css';
 
 const jogadores = [
   {
@@ -51,7 +51,7 @@ const LtaSulPage = () => {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
         const ltaSulNoticias = data
-          .filter(n => n.categoria === 'LTA SUL')
+          .filter(n => n.categoria === 'CBLOL')
           .sort((a, b) => {
             // Converte "DD/MM/YYYY" para "YYYY-MM-DD" antes de criar Date
             const [diaA, mesA, anoA] = a.data.split('/');
@@ -62,7 +62,7 @@ const LtaSulPage = () => {
           });
         setNoticiasLtaSul(ltaSulNoticias);
       } catch (error) {
-        console.error('Erro ao carregar notícias da LTA SUL:', error);
+        console.error('Erro ao carregar notícias do CBLOL:', error);
       }
     };
 
@@ -70,10 +70,10 @@ const LtaSulPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/agenda`);
         const data = await res.json();
-        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'LTA SUL');
+        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'CBLOL');
         setAgendaLtaSul(agendaFiltrada);
       } catch (error) {
-        console.error('Erro ao carregar agenda da LTA SUL:', error);
+        console.error('Erro ao carregar agenda do CBLOL:', error);
       }
     };
 
@@ -116,7 +116,7 @@ const LtaSulPage = () => {
 
   return (
     <div className="pagina-lta">
-      <h1>RED Canids na LTA SUL</h1>
+      <h1>RED Canids no CBLOL</h1>
 
       <section>
         <h2 className="lta-section-title">Line-up</h2>
@@ -201,4 +201,4 @@ const LtaSulPage = () => {
   );
 };
 
-export default LtaSulPage;
+export default CblolPage;

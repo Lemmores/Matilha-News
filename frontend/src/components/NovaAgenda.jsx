@@ -106,7 +106,7 @@ export default function NovaAgenda() {
         <input name="hora" value={form.hora} onChange={handleChange} placeholder="Hora (ex: 18:00)" required />
         <select name="campeonato" value={form.campeonato} onChange={handleChange} required>
           <option value="">Selecione o campeonato</option>
-          <option value="LTA SUL">LTA SUL</option>
+          <option value="CBLOL">CBLOL</option>
           <option value="CIRCUITO DESAFIANTE">CIRCUITO DESAFIANTE</option>
           <option value="CS2">CS2</option>
           <option value="VALORANT">VALORANT</option>
