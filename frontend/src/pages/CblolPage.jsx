@@ -70,7 +70,7 @@ const CblolPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/agenda`);
         const data = await res.json();
-        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'CBLOL');
+        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'CBLOL', 'LTA SUL');
         setAgendaLtaSul(agendaFiltrada);
       } catch (error) {
         console.error('Erro ao carregar agenda da LTA SUL:', error);
