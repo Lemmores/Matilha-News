@@ -46,7 +46,7 @@ const noticiasFiltradas =
 
   return (
     <div className="pagina-painel">
-      <h1>Painel Administrativo</h1>
+      <h1>Gerenciar Notícias</h1>
 
       <div className="filtros">
         {categorias.map((cat) => (
