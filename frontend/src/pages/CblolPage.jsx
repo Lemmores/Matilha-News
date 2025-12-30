@@ -51,7 +51,7 @@ const CblolPage = () => {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
         const ltaSulNoticias = data
-          .filter(n => n.categoria === 'CBLOL')
+          .filter(n => n.categoria === 'LTA SUL')
           .sort((a, b) => {
             // Converte "DD/MM/YYYY" para "YYYY-MM-DD" antes de criar Date
             const [diaA, mesA, anoA] = a.data.split('/');
@@ -62,7 +62,7 @@ const CblolPage = () => {
           });
         setNoticiasLtaSul(ltaSulNoticias);
       } catch (error) {
-        console.error('Erro ao carregar notícias do CBLOL:', error);
+        console.error('Erro ao carregar notícias da LTA SUL:', error);
       }
     };
 
@@ -73,7 +73,7 @@ const CblolPage = () => {
         const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'CBLOL');
         setAgendaLtaSul(agendaFiltrada);
       } catch (error) {
-        console.error('Erro ao carregar agenda do CBLOL:', error);
+        console.error('Erro ao carregar agenda da LTA SUL:', error);
       }
     };
 
@@ -175,7 +175,7 @@ const CblolPage = () => {
       </section>
 
       <section>
-        <h2 className="lta-section-title">Últimas Notícias da RED na LTA SUL</h2>
+        <h2 className="lta-section-title">Últimas Notícias da RED no CBLOL</h2>
         <div className="noticia-list">
           {noticiasExibidas.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
