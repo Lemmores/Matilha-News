@@ -49,13 +49,14 @@ body.redcanudos-bg {
   width: 100%;
 }
 
-.glitch-title {
-  font-size: 4.5rem;
-  font-weight: 900;
+
+.info-title {
+  color: #d60000;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  letter-spacing: 5px;
-  text-shadow: 3px 3px 0px #d60000;
-  margin: 0;
 }
 
 .subtitle {

@@ -44,6 +44,7 @@ export default function RedCanudos() {
       <main className="container-content">
         <section className="info-box">
           <div className="decorator-line"></div>
+          <h2 className="info-title">CONQUISTE O CANUDOS!</h2>
           <p className="descricao-longa">
       O <strong>RED Canudos</strong> se consolidou não apenas como um campeonato, mas como uma verdadeira celebração da comunidade da Matilha.
     Consagrado como o torneio de <strong>League of Legends mais tradicional da nossa torcida</strong>, o evento representou um campo de prova

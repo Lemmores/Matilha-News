@@ -27,7 +27,7 @@ export default function MatilhaTactics() {
         {/* CAIXA DE INFORMAÇÃO EXPANDIDA */}
         <section className="info-box">
           <div className="decorator-line"></div>
-          <h2 className="info-title">O MESTRE DAS ESTRATÉGIAS</h2>
+          <h2 className="info-title">SEJA O MESTRE DO TFT DA MATILHA</h2>
           <div className="descricao-container">
             <p className="descricao-longa">
               O <strong>Matilha Tactics</strong> é o ápice da competição de <strong>Teamfight Tactics</strong> exclusiva para a comunidade da RED CANIDS. Aqui, a sorte é apenas um detalhe; o que realmente importa é a sua capacidade de adaptação, economia e posicionamento para dominar o lobby.
