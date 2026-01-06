@@ -1,67 +1,156 @@
-.matilha-tactics {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
-.matilha-tactics h1 {
-   font-size: 2.5rem; /* Aumentado de 2rem para 2.5rem */
-  margin-bottom: 1.5rem;
+/* Configurações de Fundo */
+body.matilha-bg {
+  background-color: #0a0a0a;
+  background-image: radial-gradient(circle at 50% -20%, #440000 0%, #0a0a0a 80%);
   color: #ffffff;
-  text-align: center; 
+  margin: 0;
+  font-family: 'Inter', sans-serif;
 }
 
-.matilha-tactics h3 {
-  color: #fffdfd;
-  text-align: center; 
+.tactics-wrapper {
+  width: 100%;
+  padding-bottom: 5rem;
+}
+
+/* Hero & Banner */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+}
+
+.banner-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .banner-tactics {
   width: 100%;
-  height: 300px; /* altura fixa menor */
-  object-fit: cover; /* para evitar distorção e cortar o excesso */
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
+  height: 100%;
+  object-fit: cover;
 }
 
-
-.descricao {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.formulario-container {
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  /* Removido: height: 100vh; */
+  height: 100%;
+  background: linear-gradient(0deg, #0a0a0a 0%, rgba(10, 10, 10, 0.4) 50%, transparent 100%);
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+}
+
+.glitch-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow: 3px 3px 0px #d60000;
+  margin: 0;
+}
+
+.subtitle {
+  color: #d60000;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Conteúdo Principal */
+.container-content {
+  max-width: 1000px;
+  margin: -60px auto 0;
+  position: relative;
+  padding: 0 1.5rem;
+}
+
+/* Caixa de Descrição */
+.info-box {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 3rem;
+  border-radius: 20px;
+  border-left: 6px solid #d60000;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  margin-bottom: 4rem;
+}
+
+.info-title {
+  color: #d60000;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.descricao-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.descricao-longa {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #e0e0e0;
+  text-align: justify;
+  margin: 0;
+}
+
+.decorator-line {
+  width: 50px;
+  height: 2px;
+  background: #d60000;
+  margin-bottom: 1rem;
+}
+
+/* Seção do Formulário */
+.registration-section {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.section-header p {
+  color: #888;
+  margin-bottom: 3rem;
+}
+
+.card-form {
+  background: #1a1a1a;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 1px solid #333;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  overflow: hidden;
 }
 
 .formulario-container iframe {
   width: 100%;
-  height: 1600px; /* Tente 1500-1800, dependendo do novo tamanho */
+  height: 1200px; /* Ajustado para o formulário aparecer melhor */
   border: none;
-}
-
-.botao-inscricao {
-  display: inline-block;
-  padding: 1rem 2rem;
-  background-color: #d60000;
-  color: white;
   border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 1.5rem;
-  transition: background-color 0.3s;
 }
 
-.botao-inscricao:hover {
-  background-color: #f8f8f8;
+/* Responsividade */
+@media (max-width: 768px) {
+  .glitch-title { font-size: 2.5rem; }
+  .hero-section { height: 350px; }
+  .info-box { padding: 2rem; }
+  .descricao-longa { text-align: left; }
 }
-body.matilha-bg {
-  background-color: #111; /* ou qualquer outra cor só para essa página */
-}
-
-
-.matilha-tactics {
-  background-color: #111; /* ou qualquer cor desejada */
-  color: #ffffff;
-}   
