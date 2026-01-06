@@ -17,7 +17,11 @@ export default function GerenciarNoticia() {
 
     axios
       .get(`${API_URL}/api/noticias`)
-      .then((res) => setNoticias(res.data))
+      .then((res) => {
+        // Ordenação global: já salva no estado as notícias da mais nova para a mais antiga
+        const ordenadas = res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setNoticias(ordenadas);
+      })
       .catch((err) => console.error(err));
   }, [navigate, API_URL]);
 
@@ -36,13 +40,10 @@ export default function GerenciarNoticia() {
     }
   };
 
-const noticiasFiltradas =
-  filtro === "TUDO"
-    ? [...noticias].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    : noticias
-        .filter((n) => n.categoria === filtro)
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
+  // Lógica de filtro simplificada (a ordenação já foi feita no useEffect)
+  const noticiasFiltradas = filtro === "TUDO" 
+    ? noticias 
+    : noticias.filter((n) => n.categoria === filtro);
 
   return (
     <div className="pagina-painel">
@@ -61,29 +62,30 @@ const noticiasFiltradas =
       </div>
 
       <div className="lista-noticias-admin">
-        {noticiasFiltradas.map((noticia) => (
-          <div key={noticia._id} className="card-noticia-admin">
-            <img
-              src={noticia.imagem} // ← usa direto a URL da imagem
-              alt={noticia.titulo}
-            />
-            <h3>{noticia.titulo}</h3>
-            <div className="botoes-acoes">
-              <button
-                className="botao-editar"
-                onClick={() => navigate(`/editar-noticia/${noticia._id}`)}
-              >
-                Editar
-              </button>
-              <button
-                className="botao-deletar"
-                onClick={() => deletarNoticia(noticia._id)}
-              >
-                Deletar
-              </button>
+        {noticiasFiltradas.length > 0 ? (
+          noticiasFiltradas.map((noticia) => (
+            <div key={noticia._id} className="card-noticia-admin">
+              <img src={noticia.imagem} alt={noticia.titulo} />
+              <h3>{noticia.titulo}</h3>
+              <div className="botoes-acoes">
+                <button
+                  className="botao-editar"
+                  onClick={() => navigate(`/editar-noticia/${noticia._id}`)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="botao-deletar"
+                  onClick={() => deletarNoticia(noticia._id)}
+                >
+                  Deletar
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>Nenhuma notícia encontrada para esta categoria.</p>
+        )}
       </div>
     </div>
   );
