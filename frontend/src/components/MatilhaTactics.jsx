@@ -18,7 +18,6 @@ export default function MatilhaTactics() {
           <div className="banner-overlay"></div>
           <div className="hero-content">
             <h1 className="glitch-title">MATILHA TACTICS</h1>
-            <p className="subtitle">Estratégia, Sorte e Domínio no Tabuleiro</p>
           </div>
         </div>
       </header>
