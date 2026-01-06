@@ -1,140 +1,182 @@
-.red-canudos {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+/* Background Global */
+body.redcanudos-bg {
+  background-color: #0a0a0a;
+  background-image: radial-gradient(circle at 50% -20%, #440000 0%, #0a0a0a 80%);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
 }
 
-.red-canudos h1 {
-    font-size: 2.5rem; /* Aumentado de 2rem para 2.5rem */
-  margin-bottom: 1.5rem;
-  color: #ffffff;
-  text-align: center; 
+.red-canudos-wrapper {
+  width: 100%;
+  padding-bottom: 5rem;
 }
 
-.red-canudos h3 {
-   color: #fffdfd;
-  text-align: center; 
+/* Hero & Banner */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+}
+
+.banner-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .banner-canudos {
-   width: 100%;
-  height: 300px; /* altura fixa menor */
-  object-fit: cover; /* para evitar distorção e cortar o excesso */
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.descricao {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, #0a0a0a 0%, rgba(10, 10, 10, 0.4) 50%, transparent 100%);
 }
 
-.formulario-container {
+.hero-content {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
   width: 100%;
 }
 
-.formulario-container iframe {
-   width: 100%;
-  height: 1600px; /* Tente 1500-1800, dependendo do novo tamanho */
-  border: none;
+.glitch-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow: 3px 3px 0px #d60000;
+  margin: 0;
 }
 
-.botao-inscricao {
-  display: inline-block;
-  padding: 1rem 2rem;
-  background-color: #d60000;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
+.subtitle {
+  color: #d60000;
   font-weight: bold;
-  margin-top: 1.5rem;
-  transition: background-color 0.3s, transform 0.2s;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-.botao-inscricao:hover {
-   background-color: #f8f8f8;
+/* Conteúdo */
+.container-content {
+  max-width: 1100px;
+  margin: -50px auto 0; /* Sobe o conteúdo sobre o banner */
+  position: relative;
+  padding: 0 1rem;
 }
 
-body.redcanudos-bg {
- background-color: #111; /* ou qualquer outra cor só para essa página */
+.info-box {
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 15px;
+  border-left: 5px solid #d60000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  margin-bottom: 4rem;
 }
 
-.red-canudos {
-  background-color: #111; /* ou qualquer cor desejada */
-  color: #ffffff;
-}
-
-.logos-times {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 logos por linha */
-  gap: 2rem;
-  justify-items: center;
-  margin-top: 2rem;
-}
-
-.logo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #111;
-  padding: 1rem;
-  border-radius: 10px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 180px; /* fixa o tamanho do card para alinhar melhor */
-}
-
-.logo-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
-}
-
-.logo-time {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 10px;
-  transition: box-shadow 0.3s ease;
-}
-
-.logo-time:hover {
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-}
-
-.nome-time {
-  margin-top: 0.6rem;
-  color: #fff;
-  font-weight: 600;
+.section-title {
   text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: #d60000;
+}
+
+/* Grid de Times - Estilo Card de Colecionador */
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.team-card {
+  perspective: 1000px;
+}
+
+.card-inner {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.team-card:hover .card-inner {
+  transform: translateY(-10px) rotateX(5deg);
+  border-color: #d60000;
+  box-shadow: 0 15px 40px rgba(214, 0, 0, 0.3);
+}
+
+.logo-wrapper {
+  width: 100%;
+  height: 180px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.team-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.team-card:hover .team-logo {
+  transform: scale(1.1);
+}
+
+.team-info {
+  padding: 1.2rem;
+  background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+  text-align: center;
+}
+
+.team-rank {
+  font-size: 0.75rem;
+  color: #d60000;
+  font-weight: 800;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.team-name {
+  font-weight: 700;
   font-size: 1rem;
-  line-height: 1.2;
-  max-width: 160px;
-  word-wrap: break-word;
-  white-space: normal;
+  margin: 0;
+  text-transform: uppercase;
 }
 
-@media (max-width: 1000px) {
-  .logos-times {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 700px) {
-  .logos-times {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  .logo-card {
-    width: 150px;
-  }
-  .logo-time {
-    width: 90px;
-    height: 90px;
-  }
+/* Responsividade */
+@media (max-width: 768px) {
+  .glitch-title { font-size: 2.5rem; }
+  .hero-section { height: 300px; }
+  .teams-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 480px) {
-  .logos-times {
-    grid-template-columns: repeat(1, 1fr);
-  }
+  .teams-grid { grid-template-columns: 1fr; }
 }
