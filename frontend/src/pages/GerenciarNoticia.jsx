@@ -19,12 +19,17 @@ export default function GerenciarNoticia() {
       try {
         const res = await axios.get(`${API_URL}/api/noticias`);
         
-        // ORDENAÇÃO: Garante que a data mais recente (maior timestamp) venha primeiro
-        const ordenadas = res.data.sort((a, b) => {
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        // Cópia do array para garantir a re-renderização
+        const dados = [...res.data];
+
+        // ORDENAÇÃO CORRIGIDA: Usando o campo 'data' que aparece no seu banco
+        dados.sort((a, b) => {
+          const dataB = new Date(b.data).getTime();
+          const dataA = new Date(a.data).getTime();
+          return dataB - dataA; // Mais recente primeiro
         });
 
-        setNoticias(ordenadas);
+        setNoticias(dados);
       } catch (err) {
         console.error("Erro ao carregar notícias:", err);
       }
@@ -41,7 +46,6 @@ export default function GerenciarNoticia() {
       await axios.delete(`${API_URL}/api/noticias/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      // Remove da lista mantendo a ordem atual
       setNoticias((prev) => prev.filter((n) => n._id !== id));
     } catch (err) {
       alert("Erro ao deletar a notícia.");
@@ -49,7 +53,7 @@ export default function GerenciarNoticia() {
     }
   };
 
-  // Filtra as notícias mantendo a ordenação que já foi feita no useEffect
+  // Filtra mantendo a ordem já estabelecida
   const noticiasFiltradas = filtro === "TUDO"
     ? noticias
     : noticias.filter((n) => n.categoria === filtro);
@@ -75,15 +79,14 @@ export default function GerenciarNoticia() {
           noticiasFiltradas.map((noticia) => (
             <div key={noticia._id} className="card-noticia-admin">
               <div className="container-imagem">
-                <img
-                  src={noticia.imagem}
-                  alt={noticia.titulo}
-                />
+                <img src={noticia.imagem} alt={noticia.titulo} />
               </div>
               <div className="info-noticia">
                 <h3>{noticia.titulo}</h3>
-                {/* Opcional: Exibir a data para conferência */}
-                <small>{new Date(noticia.createdAt).toLocaleDateString('pt-BR')}</small>
+                {/* Exibe a data formatada para você conferir a ordem */}
+                <span className="data-noticia">
+                  {new Date(noticia.data).toLocaleDateString('pt-BR')}
+                </span>
               </div>
               <div className="botoes-acoes">
                 <button
@@ -102,7 +105,7 @@ export default function GerenciarNoticia() {
             </div>
           ))
         ) : (
-          <p className="aviso-vazio">Nenhuma notícia encontrada para "{filtro}".</p>
+          <p className="aviso-vazio">Nenhuma notícia encontrada.</p>
         )}
       </div>
     </div>
