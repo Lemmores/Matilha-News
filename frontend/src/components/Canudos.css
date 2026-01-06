@@ -171,6 +171,27 @@ body.redcanudos-bg {
   text-transform: uppercase;
 }
 
+.descricao-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.descricao-longa {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #e0e0e0;
+  text-align: justify;
+  margin: 0;
+}
+
+.decorator-line {
+  width: 50px;
+  height: 2px;
+  background: #d60000;
+  margin-bottom: 1rem;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .glitch-title { font-size: 2.5rem; }

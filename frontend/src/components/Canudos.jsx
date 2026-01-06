@@ -45,31 +45,32 @@ export default function RedCanudos() {
         <section className="info-box">
           <div className="decorator-line"></div>
           <h2 className="info-title">CONQUISTE O CANUDOS!</h2>
-          <p className="descricao-longa">
-      O <strong>RED Canudos</strong> se consolidou não apenas como um campeonato, mas como uma verdadeira celebração da comunidade da Matilha.
-    Consagrado como o torneio de <strong>League of Legends mais tradicional da nossa torcida</strong>, o evento representou um campo de prova
-    onde lendas foram forjadas e rivalidades ganharam vida dentro do Summoner’s Rift.
+          <div className="descricao-container">
+  <p className="descricao-longa">
+    O <strong>RED Canudos</strong> se consolidou não apenas como um campeonato, mas como uma verdadeira celebração da comunidade da Matilha. 
+    Consagrado como o torneio de <strong>League of Legends mais tradicional da nossa torcida</strong>, o evento representa o campo de prova 
+    onde lendas são forjadas e rivalidades ganham vida dentro do Summoner’s Rift.
   </p>
 
-  <p>
-    Nesta edição histórica, o nível da competição foi elevado com um <strong>formato renovado e intenso</strong>, reunindo
-    <strong>16 equipes</strong> que disputaram cada objetivo e cada Nexus em busca do título de
-    <strong>verdadeiro Campeão da Matilha</strong>. As partidas foram marcadas por jogos emocionantes,
-    alto nível competitivo e confrontos que ficaram na memória da torcida.
+  <p className="descricao-longa">
+    Nesta edição histórica, o nível da competição foi elevado com um <strong>formato renovado e intenso</strong>, reunindo 
+    <strong> 16 equipes</strong> que disputaram cada objetivo e cada Nexus em busca do título de 
+    <strong> verdadeiro Campeão da Matilha</strong>. As partidas foram marcadas por jogos emocionantes, alto nível competitivo 
+    e confrontos que ficaram para sempre na memória.
   </p>
 
-  <p>
-    A experiência foi completa do início ao fim. Cada jogada decisiva contou com a análise e a emoção das
-    <strong>transmissões especiais realizadas pelos Creators da RED</strong>, aproximando ainda mais a comunidade do campeonato.
-    Além disso, a edição contou com <strong>premiação especial para o time campeão e para o MVP da grande final</strong>,
-    valorizando o desempenho individual e coletivo.
+  <p className="descricao-longa">
+    A experiência foi completa do início ao fim. Cada jogada decisiva contou com a análise e a emoção das 
+    <strong> transmissões especiais realizadas pelos Creators da RED</strong>, aproximando a comunidade. Além disso, a edição 
+    valorizou o talento individual e coletivo com uma <strong>premiação especial para o time campeão e para o MVP da grande final</strong>.
   </p>
 
-  <p>
-    Os times desta edição já foram formados e o campeão foi definido, mas a história do RED Canudos está longe de acabar.
-    <strong>Novas edições acontecerão</strong>, prometendo manter viva a essência competitiva e a paixão da Matilha.
-    Fiquem ligados para os próximos capítulos.
+  <p className="descricao-longa">
+    Os times desta edição já foram formados e o campeão definido, mas a história do RED Canudos está longe de acabar. 
+    <strong> Novas edições acontecerão</strong>, prometendo manter viva a essência competitiva e a paixão da Matilha. 
+    Fiquem ligados, pois os próximos capítulos prometem ser ainda mais lendários.
   </p>
+</div>
         </section>
 
         {/* SEÇÃO DOS TIMES */}
