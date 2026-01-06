@@ -15,14 +15,22 @@ export default function GerenciarNoticia() {
     const token = localStorage.getItem("token");
     if (!token) return navigate("/login");
 
-    axios
-      .get(`${API_URL}/api/noticias`)
-      .then((res) => {
-        // Ordenação global: já salva no estado as notícias da mais nova para a mais antiga
-        const ordenadas = res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const buscarNoticias = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/noticias`);
+        
+        // ORDENAÇÃO: Garante que a data mais recente (maior timestamp) venha primeiro
+        const ordenadas = res.data.sort((a, b) => {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
+
         setNoticias(ordenadas);
-      })
-      .catch((err) => console.error(err));
+      } catch (err) {
+        console.error("Erro ao carregar notícias:", err);
+      }
+    };
+
+    buscarNoticias();
   }, [navigate, API_URL]);
 
   const deletarNoticia = async (id) => {
@@ -33,16 +41,17 @@ export default function GerenciarNoticia() {
       await axios.delete(`${API_URL}/api/noticias/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setNoticias(noticias.filter((n) => n._id !== id));
+      // Remove da lista mantendo a ordem atual
+      setNoticias((prev) => prev.filter((n) => n._id !== id));
     } catch (err) {
       alert("Erro ao deletar a notícia.");
       console.error(err);
     }
   };
 
-  // Lógica de filtro simplificada (a ordenação já foi feita no useEffect)
-  const noticiasFiltradas = filtro === "TUDO" 
-    ? noticias 
+  // Filtra as notícias mantendo a ordenação que já foi feita no useEffect
+  const noticiasFiltradas = filtro === "TUDO"
+    ? noticias
     : noticias.filter((n) => n.categoria === filtro);
 
   return (
@@ -65,8 +74,17 @@ export default function GerenciarNoticia() {
         {noticiasFiltradas.length > 0 ? (
           noticiasFiltradas.map((noticia) => (
             <div key={noticia._id} className="card-noticia-admin">
-              <img src={noticia.imagem} alt={noticia.titulo} />
-              <h3>{noticia.titulo}</h3>
+              <div className="container-imagem">
+                <img
+                  src={noticia.imagem}
+                  alt={noticia.titulo}
+                />
+              </div>
+              <div className="info-noticia">
+                <h3>{noticia.titulo}</h3>
+                {/* Opcional: Exibir a data para conferência */}
+                <small>{new Date(noticia.createdAt).toLocaleDateString('pt-BR')}</small>
+              </div>
               <div className="botoes-acoes">
                 <button
                   className="botao-editar"
@@ -84,7 +102,7 @@ export default function GerenciarNoticia() {
             </div>
           ))
         ) : (
-          <p>Nenhuma notícia encontrada para esta categoria.</p>
+          <p className="aviso-vazio">Nenhuma notícia encontrada para "{filtro}".</p>
         )}
       </div>
     </div>
