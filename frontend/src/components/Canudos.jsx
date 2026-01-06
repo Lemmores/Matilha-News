@@ -37,7 +37,6 @@ export default function RedCanudos() {
           <div className="banner-overlay"></div>
           <div className="hero-content">
             <h1 className="glitch-title">RED CANUDOS</h1>
-            <p className="subtitle">O Legado da Matilha no Rift</p>
           </div>
         </div>
       </header>
