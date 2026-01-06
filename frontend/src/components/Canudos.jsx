@@ -44,11 +44,23 @@ export default function RedCanudos() {
       <main className="container-content">
         <section className="info-box">
           <div className="decorator-line"></div>
-          <p className="descricao">
-            O <strong>RED Canudos</strong> é o grande campeonato de <strong>League of Legends</strong> da Matilha! 
-            Tradicional e aguardado, o torneio reúne 16 equipes em uma batalha épica com transmissões exclusivas 
-            dos <strong>Creators da RED</strong>. Prepare-se para a edição histórica.
-          </p>
+          <p className="descricao-longa">
+      O <strong>RED Canudos</strong> não é apenas um campeonato; é a celebração máxima da comunidade 
+      da Matilha. Consagrado como o torneio de <strong>League of Legends</strong> mais tradicional 
+      da nossa torcida, ele representa o campo de prova onde lendas são forjadas e rivalidades 
+      ganham vida dentro do Summoner's Rift.
+    </p>
+    <p className="descricao-longa">
+      Nesta edição histórica, elevamos o nível da competição com um formato renovado e brutal, 
+      onde <strong>16 equipes</strong> lutarão por cada objetivo e cada Nexus para decidir 
+      quem merece conquistar o título de verdadeiro Campeão da Matilha. 
+    </p>
+    <p className="descricao-longa">
+      A experiência é completa: cada jogada decisiva conta com a análise e a emoção das 
+      transmissões especiais realizadas pelos <strong>Creators da RED</strong>. Além disso
+      há sempre uma premiação especial para o time campeão, e para o MVP da final! 
+      Os times dessa edição foram formados, mas fiquem ligados para as próximas edições!
+    </p>
         </section>
 
         {/* SEÇÃO DOS TIMES */}
