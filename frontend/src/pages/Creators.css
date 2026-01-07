@@ -1,4 +1,4 @@
-/* Creators.css - Versão Final Corrigida */
+/* Creators.css - Matilha News Premium Final */
 
 .pagina-creators {
   padding: 2rem 1rem;
@@ -18,9 +18,17 @@
   color: #d60000;
   text-transform: uppercase;
   font-weight: 900;
+  margin-bottom: 0.5rem;
 }
 
-/* GRID */
+.subtitle {
+  color: #888;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+/* --- GRID DE CREATORS --- */
 .jogadores-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -34,9 +42,19 @@
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #222;
-  position: relative; /* Importante para o posicionamento do overlay */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
 }
 
+.creator-card:hover {
+  transform: translateY(-8px);
+  border-color: #d60000;
+  box-shadow: 0 10px 25px rgba(214, 0, 0, 0.3);
+}
+
+/* --- CONTAINER DA IMAGEM --- */
 .image-container {
   width: 100%;
   height: 340px;
@@ -51,17 +69,26 @@
   transition: transform 0.6s ease;
 }
 
-/* FOOTER & INFO */
+.creator-card:hover .image-container img {
+  transform: scale(1.08);
+}
+
+/* --- INFO & FOOTER --- */
 .creator-footer {
   padding: 1.2rem;
   text-align: center;
   position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .creator-name {
   display: block;
   font-size: 1.3rem;
   font-weight: 800;
+  color: #fff;
   text-transform: uppercase;
 }
 
@@ -71,10 +98,10 @@
   font-weight: bold;
   letter-spacing: 2px;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-/* REDES SOCIAIS - Lógica PC */
+/* --- REDES SOCIAIS - LÓGICA PC (HOVER) --- */
 .social-overlay {
   display: flex;
   justify-content: center;
@@ -82,55 +109,169 @@
   transition: all 0.3s ease;
 }
 
-/* No PC, flutua sobre a imagem */
 @media (min-width: 1025px) {
   .social-overlay {
     position: absolute;
-    top: -60px; /* Sobe para cima da imagem */
+    /* Faz o ícone "subir" para dentro da foto no PC */
+    top: -55px; 
     left: 0;
     right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    padding: 20px 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    padding: 15px 0;
     opacity: 0;
     pointer-events: none;
+    transform: translateY(10px);
   }
 
   .creator-card:hover .social-overlay {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(-10px);
+    transform: translateY(0);
   }
+}
+
+.social-icon {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
 }
 
 .social-icon img {
-  width: 28px;
-  height: 28px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-/* AJUSTE MOBILE - Força visibilidade */
-@media (max-width: 1024px) {
-  .social-overlay {
-    position: static;
-    opacity: 1;
-    padding: 10px 0;
-  }
-
-  .image-container { height: 260px; }
-
-  .jogadores-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
+.social-icon:hover {
+  transform: scale(1.2);
 }
 
-/* FEED E RESTANTE (Mantenha igual ao anterior) */
+/* --- FEED DE CONTEÚDOS --- */
+.feed-section {
+  margin-top: 5rem;
+  border-top: 1px solid #222;
+  padding-top: 3rem;
+}
+
+.feed-section h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.4rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #888;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  background: #d60000;
+  color: white;
+  border-color: #d60000;
+}
+
 .feed-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
-.feed-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; }
-.iframe-media { width: 100%; border: none; display: block; }
+
+.feed-card {
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #222;
+}
+
+.iframe-media {
+  width: 100%;
+  border: none;
+  display: block;
+}
+
 .iframe-media.reel { height: 480px; }
 .iframe-media.tiktok { height: 550px; }
+
+/* --- AJUSTES MOBILE (TABLETS E CELULARES) --- */
+@media (max-width: 1024px) {
+  .social-overlay {
+    position: static; /* Ícones aparecem naturalmente abaixo do texto */
+    opacity: 1;
+    padding: 5px 0 10px 0;
+  }
+
+  .creator-footer {
+    padding: 1rem 0.5rem;
+  }
+
+  .jogadores-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .image-container {
+    height: 240px; /* Reduz altura para melhor visualização no celular */
+  }
+
+  .creator-name {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .jogadores-grid {
+    gap: 0.8rem;
+  }
+  .image-container { height: 200px; }
+}
+
+/* --- MODAL --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.modal-content img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  border: 2px solid #d60000;
+}
+
+.close-modal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: #d60000;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
