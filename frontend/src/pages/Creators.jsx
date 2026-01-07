@@ -58,9 +58,16 @@ export default function Creators() {
                 <img
                   src={creator.img}
                   alt={creator.nome}
-                  loading="lazy" // Otimização de carregamento
+                  loading="lazy" 
                   onClick={() => setImagemAberta(creator.img)}
                 />
+              </div>
+
+              <div className="creator-footer">
+                <span className="creator-name">{creator.nome}</span>
+                <span className="creator-role">CONTENT CREATOR</span>
+                
+                {/* Overlay movido para fora da imagem para funcionar no mobile */}
                 <div className="social-overlay">
                   {creator.twitter && (
                     <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
@@ -74,10 +81,6 @@ export default function Creators() {
                   )}
                 </div>
               </div>
-              <div className="creator-footer">
-                <span className="creator-name">{creator.nome}</span>
-                <span className="creator-role">CONTENT CREATOR</span>
-              </div>
             </div>
           ))}
         </div>
@@ -88,7 +91,7 @@ export default function Creators() {
         <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
           <div className="modal-content">
             <img src={imagemAberta} alt="Zoom" />
-            <button className="close-modal">X</button>
+            <button className="close-modal" onClick={() => setImagemAberta(null)}>X</button>
           </div>
         </div>
       )}
