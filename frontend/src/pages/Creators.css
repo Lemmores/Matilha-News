@@ -1,13 +1,11 @@
-/* Creators.css - Matilha News Premium
-  Layout Otimizado para Desktop (Hover) e Mobile (Estático)
-*/
+/* Creators.css - Matilha News Premium */
 
 .pagina-creators {
   padding: 2rem 1rem;
   max-width: 1200px;
   margin: 0 auto;
   color: white;
-  background-color: #0a0a0a;
+  background-color: #111;
 }
 
 .header-creators {
@@ -46,6 +44,8 @@
   overflow: hidden;
   border: 1px solid #222;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
 }
 
 .creator-card:hover {
@@ -61,7 +61,6 @@
   height: 340px;
   cursor: pointer;
   overflow: hidden;
-  background: #111;
 }
 
 .image-container img {
@@ -75,7 +74,7 @@
   transform: scale(1.08);
 }
 
-/* --- REDES SOCIAIS (DESKTOP) --- */
+/* --- REDES SOCIAIS (DESKTOP HOVER) --- */
 .social-overlay {
   position: absolute;
   bottom: 0;
@@ -84,10 +83,12 @@
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 1.2rem;
-  padding: 1.2rem;
+  padding: 1.5rem 1rem;
+  z-index: 10;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(10px);
   transition: all 0.3s ease;
 }
 
@@ -96,20 +97,27 @@
   transform: translateY(0);
 }
 
-.social-icon img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
+.social-icon {
+  display: flex !important;
+  width: 28px !important;
+  height: 28px !important;
   transition: transform 0.2s ease;
 }
 
-.social-icon:hover img {
+.social-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  /* Removido filtros para manter cores originais */
+}
+
+.social-icon:hover {
   transform: scale(1.2);
 }
 
 /* --- INFO DO CREATOR --- */
 .creator-footer {
-  padding: 1.2rem;
+  padding: 1.2rem 1.2rem 0.5rem 1.2rem;
   text-align: center;
 }
 
@@ -128,7 +136,7 @@
   letter-spacing: 2px;
 }
 
-/* --- FEED DE CONTEÚDOS --- */
+/* --- FEED E CONTEÚDOS --- */
 .feed-section {
   margin-top: 5rem;
   border-top: 1px solid #222;
@@ -140,7 +148,6 @@
   font-size: 2.2rem;
   margin-bottom: 2rem;
   text-transform: uppercase;
-  font-style: italic;
 }
 
 .filter-bar {
@@ -158,21 +165,13 @@
   color: #888;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.85rem;
   font-weight: 600;
-}
-
-.filter-btn:hover {
-  border-color: #d60000;
-  color: #fff;
 }
 
 .filter-btn.active {
   background: #d60000;
   color: white;
   border-color: #d60000;
-  box-shadow: 0 0 15px rgba(214, 0, 0, 0.4);
 }
 
 .feed-grid {
@@ -197,10 +196,35 @@
 .iframe-media.reel { height: 480px; }
 .iframe-media.tiktok { height: 550px; }
 
-.feed-info {
-  padding: 1rem;
-  text-align: center;
-  background: #151515;
+/* --- AJUSTES MOBILE --- */
+@media (max-width: 1024px) {
+  .social-overlay {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    background: #151515 !important;
+    padding: 0.5rem 0 1.2rem 0 !important;
+    margin-top: -5px;
+  }
+
+  .creator-footer {
+    padding-bottom: 0 !important;
+  }
+
+  .image-container {
+    height: 280px; /* Ajuste para não ficar longo demais no celular */
+  }
+}
+
+@media (max-width: 768px) {
+  .jogadores-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .image-container { height: 220px; }
+  
+  .creator-name { font-size: 1rem; }
 }
 
 /* --- MODAL --- */
@@ -219,58 +243,4 @@
   max-height: 85vh;
   border-radius: 8px;
   border: 2px solid #d60000;
-}
-
-.close-modal {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #d60000;
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* --- AJUSTES PARA MOBILE E TABLETS --- */
-@media (max-width: 1024px) {
-  /* No mobile, as redes sociais ficam visíveis abaixo do nome */
-  .social-overlay {
-    position: static;
-    opacity: 1;
-    transform: translateY(0);
-    background: transparent;
-    padding: 0 0 1.2rem 0;
-    margin-top: -0.5rem; /* Puxa para perto do nome */
-  }
-
-  .creator-card:hover {
-    transform: none; /* Evita tremedeira no toque */
-  }
-
-  .creator-card:hover .image-container img {
-    transform: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .jogadores-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .image-container {
-    height: 240px; /* Reduz altura da foto no mobile para caber mais na tela */
-  }
-
-  .creator-name {
-    font-size: 1.1rem;
-  }
-
-  .pagina-creators h1 {
-    font-size: 2.2rem;
-  }
 }
