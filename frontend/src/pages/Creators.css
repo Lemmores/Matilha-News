@@ -1,231 +1,125 @@
-/* Página Creators */
+/* Página Creators - Layout Base */
 .pagina-creators {
-  padding: 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  color: white;
+  padding: 4rem 1rem;
+  background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%);
+  min-height: 100vh;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
 .pagina-creators h1 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #d60000;
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to bottom, #ffffff, #d60000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Grid dos Creators */
+.subtitle {
+  color: #888;
+  letter-spacing: 2px;
+}
+
+/* Grid Modernizado */
 .jogadores {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2.5rem;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-.jogador {
-  text-align: center;
-  max-width: 240px; /* antes era 180px */
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.jogador-card {
+  position: relative;
+  background: #111;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid #333;
 }
 
-.jogador img {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 10px rgba(214, 0, 0, 0.2);
+.image-wrapper {
+  position: relative;
+  height: 350px;
+  overflow: hidden;
 }
 
-.jogador img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(214, 0, 0, 0.5);
-}
-
-.jogador span {
-  display: block;
-  margin-top: 0.75rem;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 0.5px;
-}
-
-/* Modal */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
+.image-wrapper img {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Overlay de Social que sobe no hover */
+.overlay-social {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to top, rgba(214, 0, 0, 0.9), transparent);
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.modal img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-}
-
-/* Social Buttons */
-.social-buttons {
-  margin-top: 0.4rem;
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.social-btn {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.social-btn img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  transition: filter 0.3s ease, opacity 0.3s ease;
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-.social-btn img:hover {
-  filter: none;
-  opacity: 1;
-}
-
-.social-btn img[alt="Twitter"] {
-  width: 22px;
-  height: 22px;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-  .jogador {
-    max-width: 100%;
-  }
-
-  .jogador img {
-    height: 200px;
-  }
-}
-
-/* NOVOS CONTEÚDOS (Posts de reels, tiktoks, etc) */
-.novos-conteudos-section {
-  margin-top: 3rem;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: white;
-}
-
-.novos-conteudos-section h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #d60000;
-  font-size: 2rem;
-}
-
-/* Filtros de creators (botões) */
-.filtros-creators {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  justify-content: center;
-  margin-bottom: 2rem;
-}
-
-.filtros-creators button {
-  padding: 0.5rem 1rem;
-  background-color: #eee;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: background-color 0.2s;
-  color: #333;
-}
-
-.filtros-creators button:hover {
-  background-color: #ddd;
-}
-
-.filtros-creators button.ativo {
-  background-color: #d60000;
-  color: white;
-}
-
-/* Grid dos conteúdos */
-.lista-conteudos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
-  justify-items: center;
+  transition: bottom 0.3s ease;
 }
 
-.card-conteudo {
-  background-color: #222;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(214, 0, 0, 0.5);
-  width: 100%;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.jogador-card:hover .overlay-social {
+  bottom: 0;
 }
 
-.card-conteudo iframe,
-.card-conteudo video {
-  width: 100%;
-  height: 320px;
-  border: none;
-  border-radius: 10px 10px 0 0;
-  overflow: hidden;
-  display: block;
+.jogador-card:hover .image-wrapper img {
+  transform: scale(1.1) rotate(2deg);
 }
 
-.card-conteudo .info {
-  padding: 0.8rem 1rem;
-  color: white;
+.jogador-card:hover {
+  transform: translateY(-10px);
+  border-color: #d60000;
+  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.3);
+}
+
+/* Info do Creator */
+.creator-info {
+  padding: 1.2rem;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  background: #111;
 }
 
-.iframe-conteudo {
-  width: 100%;
-  border: none;
-  overflow: hidden;
+.creator-name {
   display: block;
-  border-radius: 10px 10px 0 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
 }
 
-/* Ajuste individual de altura para cada tipo */
-.iframe-conteudo.reel {
-  height: 500px; /* Reduzido para evitar rolagem */
+.red-tag {
+  font-size: 0.7rem;
+  color: #d60000;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-top: 4px;
 }
 
-.iframe-conteudo.tiktok {
-  height: 320px;
+.social-icon img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
 }
 
-
+/* Responsividade */
 @media (max-width: 768px) {
-  .lista-conteudos {
-    grid-template-columns: 1fr;
+  .jogadores {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
   }
+  .image-wrapper { height: 240px; }
+  .pagina-creators h1 { font-size: 2.2rem; }
 }
