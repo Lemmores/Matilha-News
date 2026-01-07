@@ -5,8 +5,8 @@
 ## 🔥 Funcionalidades
 
 - 📰 Carrossel de notícias com visual moderno e dinâmico
-- 🏆 Página dedicada à LTA SUL, com jogadores, agenda e vídeos
-- 🎮 Filtro por modalidades: LTA SUL, Circuito Desafiante, CS2, Valorant e Creators
+- 🏆 Página dedicada à diversas modalidades, com jogadores, agenda e conteúdos
+- 🎮 Filtro por modalidades: CBLOL, Circuito Desafiante, CS2, Valorant e Creators
 - 📅 Agenda de próximos jogos e eventos da RED
 - 📷 Upload de imagens para notícias diretamente do painel
 - 📱 Layout responsivo e otimizado para mobile
@@ -73,4 +73,4 @@ Este projeto está licenciado sob a licença MIT.
 
 ---
 
-Feito com ❤️ pela torcida da **RED Canids Kalunga**.
+Feito com ❤️ para torcida da **RED Canids Kalunga**.
