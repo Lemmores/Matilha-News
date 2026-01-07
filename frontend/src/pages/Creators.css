@@ -1,125 +1,243 @@
-/* Página Creators - Layout Base */
+/* Creators.css - Visual Matilha News Premium */
+
 .pagina-creators {
-  padding: 4rem 1rem;
-  background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%);
-  min-height: 100vh;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: white;
+  background-color: #0a0a0a; /* Fundo bem escuro para destacar o vermelho */
 }
 
-.header-section {
+.header-creators {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .pagina-creators h1 {
-  font-size: 3.5rem;
-  text-transform: uppercase;
-  font-style: italic;
+  font-size: 3rem;
   margin-bottom: 0.5rem;
-  background: linear-gradient(to bottom, #ffffff, #d60000);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #d60000;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
 .subtitle {
   color: #888;
   letter-spacing: 2px;
+  font-size: 0.9rem;
 }
 
-/* Grid Modernizado */
-.jogadores {
+/* Grid de Creators */
+.jogadores-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2.5rem;
-  max-width: 1300px;
-  margin: 0 auto;
+  gap: 2rem;
+  justify-items: center;
 }
 
-.jogador-card {
-  position: relative;
-  background: #111;
-  border-radius: 20px;
+.creator-card {
+  width: 100%;
+  max-width: 260px;
+  background: #151515;
+  border-radius: 12px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid #333;
+  border: 1px solid #222;
+  transition: all 0.3s ease;
 }
 
-.image-wrapper {
+.creator-card:hover {
+  transform: translateY(-10px);
+  border-color: #d60000;
+  box-shadow: 0 10px 20px rgba(214, 0, 0, 0.2);
+}
+
+/* Container da Imagem e Social */
+.image-container {
   position: relative;
-  height: 350px;
+  width: 100%;
+  height: 320px;
+  cursor: pointer;
   overflow: hidden;
 }
 
-.image-wrapper img {
+.image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-/* Overlay de Social que sobe no hover */
-.overlay-social {
+.creator-card:hover .image-container img {
+  transform: scale(1.1);
+}
+
+.social-overlay {
   position: absolute;
-  bottom: -50px;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  height: 60px;
-  background: linear-gradient(to top, rgba(214, 0, 0, 0.9), transparent);
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  transition: bottom 0.3s ease;
+  gap: 1rem;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.jogador-card:hover .overlay-social {
-  bottom: 0;
-}
-
-.jogador-card:hover .image-wrapper img {
-  transform: scale(1.1) rotate(2deg);
-}
-
-.jogador-card:hover {
-  transform: translateY(-10px);
-  border-color: #d60000;
-  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.3);
-}
-
-/* Info do Creator */
-.creator-info {
-  padding: 1.2rem;
-  text-align: center;
-  background: #111;
-}
-
-.creator-name {
-  display: block;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #fff;
-  text-transform: uppercase;
-}
-
-.red-tag {
-  font-size: 0.7rem;
-  color: #d60000;
-  font-weight: bold;
-  letter-spacing: 3px;
-  margin-top: 4px;
+.creator-card:hover .social-overlay {
+  opacity: 1;
 }
 
 .social-icon img {
   width: 24px;
   height: 24px;
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1); /* Deixa os ícones brancos */
+  transition: transform 0.2s;
 }
 
-/* Responsividade */
+.social-icon:hover img {
+  transform: scale(1.2);
+}
+
+/* Rodapé do Card */
+.creator-footer {
+  padding: 1rem;
+  text-align: center;
+}
+
+.creator-name {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.creator-role {
+  font-size: 0.7rem;
+  color: #d60000;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Seção de Conteúdos (Feed) */
+.feed-section {
+  margin-top: 5rem;
+}
+
+.feed-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1.2rem;
+  background: #222;
+  border: 1px solid #333;
+  color: #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.filter-btn:hover {
+  background: #333;
+}
+
+.filter-btn.active {
+  background: #d60000;
+  color: white;
+  border-color: #d60000;
+}
+
+/* Feed Grid */
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.feed-card {
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #222;
+}
+
+.iframe-media {
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+.iframe-media.reel { height: 450px; }
+.iframe-media.tiktok { height: 500px; }
+
+.feed-info {
+  padding: 1rem;
+  text-align: center;
+}
+
+.feed-creator-tag {
+  color: #888;
+  font-weight: 600;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(214, 0, 0, 0.4);
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #d60000;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Mobile */
 @media (max-width: 768px) {
-  .jogadores {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  .jogadores-grid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-  .image-wrapper { height: 240px; }
-  .pagina-creators h1 { font-size: 2.2rem; }
+  
+  .creator-card { max-width: 100%; }
+  
+  .image-container { height: 220px; }
+  
+  .pagina-creators h1 { font-size: 2rem; }
 }
