@@ -1,11 +1,13 @@
-/* Creators.css - Visual Matilha News Premium */
+/* Creators.css - Matilha News Premium
+  Layout Otimizado para Desktop (Hover) e Mobile (Estático)
+*/
 
 .pagina-creators {
   padding: 2rem 1rem;
   max-width: 1200px;
   margin: 0 auto;
   color: white;
-  background-color: #111; /* Fundo bem escuro para destacar o vermelho */
+  background-color: #0a0a0a;
 }
 
 .header-creators {
@@ -26,145 +28,153 @@
   color: #888;
   letter-spacing: 2px;
   font-size: 0.9rem;
+  text-transform: uppercase;
 }
 
-/* Grid de Creators */
+/* --- GRID DE CREATORS --- */
 .jogadores-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 2rem;
   justify-items: center;
 }
 
 .creator-card {
   width: 100%;
-  max-width: 260px;
   background: #151515;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #222;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .creator-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   border-color: #d60000;
-  box-shadow: 0 10px 20px rgba(214, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(214, 0, 0, 0.3);
 }
 
-/* Container da Imagem e Social */
+/* --- CONTAINER DA IMAGEM --- */
 .image-container {
   position: relative;
   width: 100%;
-  height: 320px;
+  height: 340px;
   cursor: pointer;
   overflow: hidden;
+  background: #111;
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
 .creator-card:hover .image-container img {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
+/* --- REDES SOCIAIS (DESKTOP) --- */
 .social-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.9));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 1.2rem;
+  padding: 1.2rem;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
 }
 
 .creator-card:hover .social-overlay {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .social-icon img {
-  width: 28px; /* Aumentei um pouco para facilitar o clique */
-  height: 28px;
+  width: 26px;
+  height: 26px;
   object-fit: contain;
-  transition: transform 0.2s, opacity 0.2s;
-  opacity: 0.8; /* Fica levemente transparente para não brigar com a foto */
+  transition: transform 0.2s ease;
 }
 
 .social-icon:hover img {
   transform: scale(1.2);
-  opacity: 1; /* Brilha totalmente no hover */
 }
-/* Rodapé do Card */
+
+/* --- INFO DO CREATOR --- */
 .creator-footer {
-  padding: 1rem;
+  padding: 1.2rem;
   text-align: center;
 }
 
 .creator-name {
   display: block;
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 800;
   color: #fff;
+  text-transform: uppercase;
 }
 
 .creator-role {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: #d60000;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
-/* Seção de Conteúdos (Feed) */
+/* --- FEED DE CONTEÚDOS --- */
 .feed-section {
   margin-top: 5rem;
+  border-top: 1px solid #222;
+  padding-top: 3rem;
 }
 
 .feed-section h2 {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-bottom: 2rem;
-  color: #fff;
+  text-transform: uppercase;
+  font-style: italic;
 }
 
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .filter-btn {
-  padding: 0.5rem 1.2rem;
-  background: #222;
+  padding: 0.6rem 1.4rem;
+  background: #1a1a1a;
   border: 1px solid #333;
-  color: #ccc;
-  border-radius: 20px;
+  color: #888;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
   font-weight: 600;
 }
 
 .filter-btn:hover {
-  background: #333;
+  border-color: #d60000;
+  color: #fff;
 }
 
 .filter-btn.active {
   background: #d60000;
   color: white;
   border-color: #d60000;
+  box-shadow: 0 0 15px rgba(214, 0, 0, 0.4);
 }
 
-/* Feed Grid */
 .feed-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -184,20 +194,16 @@
   display: block;
 }
 
-.iframe-media.reel { height: 450px; }
-.iframe-media.tiktok { height: 500px; }
+.iframe-media.reel { height: 480px; }
+.iframe-media.tiktok { height: 550px; }
 
 .feed-info {
   padding: 1rem;
   text-align: center;
+  background: #151515;
 }
 
-.feed-creator-tag {
-  color: #888;
-  font-weight: 600;
-}
-
-/* Modal */
+/* --- MODAL --- */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -205,15 +211,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  padding: 20px;
+  z-index: 9999;
 }
 
 .modal-content img {
-  max-width: 100%;
-  max-height: 90vh;
+  max-width: 90vw;
+  max-height: 85vh;
   border-radius: 8px;
-  box-shadow: 0 0 30px rgba(214, 0, 0, 0.4);
+  border: 2px solid #d60000;
 }
 
 .close-modal {
@@ -223,22 +228,49 @@
   background: #d60000;
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
   font-weight: bold;
 }
 
-/* Mobile */
+/* --- AJUSTES PARA MOBILE E TABLETS --- */
+@media (max-width: 1024px) {
+  /* No mobile, as redes sociais ficam visíveis abaixo do nome */
+  .social-overlay {
+    position: static;
+    opacity: 1;
+    transform: translateY(0);
+    background: transparent;
+    padding: 0 0 1.2rem 0;
+    margin-top: -0.5rem; /* Puxa para perto do nome */
+  }
+
+  .creator-card:hover {
+    transform: none; /* Evita tremedeira no toque */
+  }
+
+  .creator-card:hover .image-container img {
+    transform: none;
+  }
+}
+
 @media (max-width: 768px) {
   .jogadores-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-  
-  .creator-card { max-width: 100%; }
-  
-  .image-container { height: 220px; }
-  
-  .pagina-creators h1 { font-size: 2rem; }
+
+  .image-container {
+    height: 240px; /* Reduz altura da foto no mobile para caber mais na tela */
+  }
+
+  .creator-name {
+    font-size: 1.1rem;
+  }
+
+  .pagina-creators h1 {
+    font-size: 2.2rem;
+  }
 }
