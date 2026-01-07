@@ -91,16 +91,17 @@
 }
 
 .social-icon img {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) invert(1); /* Deixa os ícones brancos */
-  transition: transform 0.2s;
+  width: 28px; /* Aumentei um pouco para facilitar o clique */
+  height: 28px;
+  object-fit: contain;
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0.8; /* Fica levemente transparente para não brigar com a foto */
 }
 
 .social-icon:hover img {
   transform: scale(1.2);
+  opacity: 1; /* Brilha totalmente no hover */
 }
-
 /* Rodapé do Card */
 .creator-footer {
   padding: 1rem;
