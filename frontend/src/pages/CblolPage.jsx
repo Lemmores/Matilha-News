@@ -70,7 +70,7 @@ const CblolPage = () => {
     <div className="pagina-cblol">
       <header className="header-cblol">
         <h1>RED Canids no CBLOL</h1>
-        <p className="subtitle">O TOPO DA CADEIA ALIMENTAR</p>
+        <p className="subtitle">LEAGUE OF LEGENDS</p>
       </header>
 
       {/* Line-up Estilo Creators */}
