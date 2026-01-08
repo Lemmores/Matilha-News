@@ -1,4 +1,4 @@
-/* CblolPage.css - Versão Definitiva Consolidada */
+/* CblolPage.css - Versão Final e Estável */
 
 .pagina-cblol {
   padding: 2rem 1rem;
@@ -47,17 +47,18 @@
   margin: 10px auto;
 }
 
-/* --- GRID 3x2 COM CENTRALIZAÇÃO (6 COLUNAS) --- */
+/* --- SOLUÇÃO DO GRID DE JOGADORES (3x2 CENTRALIZADO) --- */
 .jogadores-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 2rem;
-  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* CENTRALIZA OS CARDS AUTOMATICAMENTE */
+  gap: 25px;
+  max-width: 1000px; /* Garante que 4 cards não caibam na mesma linha */
   margin: 0 auto 4rem auto;
 }
 
 .player-card {
-  grid-column: span 2; /* 3 cards por linha (2+2+2 = 6) */
+  flex: 0 1 280px; /* Largura ideal para caberem 3 por linha no desktop */
   background: #151515;
   border-radius: 12px;
   overflow: hidden;
@@ -68,97 +69,71 @@
   flex-direction: column;
 }
 
-@media (min-width: 1025px) {
-  /* Centraliza o 4º e 5º card na linha de baixo */
-  .player-card:nth-child(4) { grid-column-start: 2; }
-  .player-card:nth-child(5) { grid-column-start: 4; }
-}
-
 .player-card:hover {
   transform: translateY(-10px);
   border-color: #d60000;
   box-shadow: 0 10px 30px rgba(214, 0, 0, 0.3);
 }
 
-/* --- IMAGENS --- */
+/* --- AJUSTE DA IMAGEM (SEM CORTES) --- */
 .image-container {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1; /* Quadrado ou 3/4, conforme sua preferência */
   overflow: hidden;
-  cursor: pointer;
-  background: #fff;
+  background: #fff; /* Fundo branco para bater com a foto */
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
-  transition: transform 0.6s ease;
+  /* 'contain' faz a imagem inteira aparecer sem cortes */
+  object-fit: contain; 
+  padding: 15px; /* Espaço para o jogador não encostar na borda */
 }
 
-.player-card:hover .image-container img {
-  transform: scale(1.05);
-}
-
-/* --- RODAPÉ DO CARD E REDES SOCIAIS --- */
+/* --- TEXTOS DO CARD --- */
 .player-footer {
   padding: 1.2rem 0.5rem;
   text-align: center;
-  position: relative;
+  background: #151515;
 }
 
 .player-name {
   display: block;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 800;
   text-transform: uppercase;
   color: #fff;
 }
 
 .player-role {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: #d60000;
   font-weight: bold;
   letter-spacing: 2px;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
-.social-overlay {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-@media (min-width: 1025px) {
-  .social-overlay {
-    position: absolute;
-    top: -50px;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9));
-    padding: 15px 0;
-    opacity: 0;
-    transition: all 0.3s ease;
-    pointer-events: none;
-  }
-  .player-card:hover .social-overlay {
-    opacity: 1;
-    top: -58px;
-    pointer-events: auto;
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1024px) {
+  .player-card {
+    flex: 0 1 30%; /* 3 por linha no tablet */
+    min-width: 200px;
   }
 }
 
-.social-icon img {
-  width: 24px;
-  height: 24px;
+@media (max-width: 768px) {
+  .player-card {
+    flex: 0 1 45%; /* 2 por linha no celular */
+    min-width: 140px;
+  }
 }
 
-/* --- VÍDEOS --- */
+/* --- VÍDEOS E NOTÍCIAS (MANTIDOS) --- */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 1.5rem;
   margin-bottom: 4rem;
 }
@@ -166,11 +141,10 @@
 .video-iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border: 2px solid #222;
   border-radius: 8px;
+  border: 1px solid #222;
 }
 
-/* --- NOTÍCIAS --- */
 .noticia-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -187,53 +161,15 @@
   transition: border-color 0.3s;
 }
 
-.card-noticia:hover { border-color: #d60000; }
-
-.news-img-container { height: 180px; overflow: hidden; }
-.news-img-container img { width: 100%; height: 100%; object-fit: cover; }
-.news-content { padding: 1.2rem; }
-.news-content h3 { font-size: 1.1rem; margin: 0.5rem 0; font-weight: 700; }
-.categoria { color: #d60000; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; }
-
-/* --- PAGINAÇÃO --- */
-.paginacao-noticias {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.paginacao-noticias button {
-  background: #d60000;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.paginacao-noticias button:disabled { background: #333; cursor: not-allowed; }
-
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 1024px) {
-  .jogadores-grid { grid-template-columns: repeat(3, 1fr); }
-  .player-card { grid-column: span 1 !important; }
-  .social-overlay { position: static; opacity: 1; padding-top: 5px; }
-}
-
-@media (max-width: 768px) {
-  .jogadores-grid { grid-template-columns: repeat(2, 1fr); }
-  .pagina-cblol h1 { font-size: 2.2rem; }
-  .video-grid { grid-template-columns: 1fr; }
+.card-noticia:hover {
+  border-color: #d60000;
 }
 
 /* --- MODAL --- */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.95);
+  background: rgba(0,0,0,0.9);
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -242,18 +178,7 @@
 
 .modal-content img {
   max-width: 90vw;
-  max-height: 80vh;
+  max-height: 85vh;
   border: 2px solid #d60000;
   border-radius: 8px;
-}
-
-.close-modal {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: #d60000;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  cursor: pointer;
 }
