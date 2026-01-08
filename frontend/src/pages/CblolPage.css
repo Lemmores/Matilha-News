@@ -1,4 +1,4 @@
-/* CblolPage.css - Versão Final Corrigida 3x2 */
+/* CblolPage.css - Versão Definitiva Consolidada */
 
 .pagina-cblol {
   padding: 2rem 1rem;
@@ -47,20 +47,17 @@
   margin: 10px auto;
 }
 
-/* --- SOLUÇÃO PARA O GRID CENTRALIZADO --- */
+/* --- GRID 3x2 COM CENTRALIZAÇÃO (6 COLUNAS) --- */
 .jogadores-grid {
-  display: flex !important; /* Força o uso de Flexbox */
-  flex-wrap: wrap !important;
-  justify-content: center !important; /* CENTRALIZA OS ITENS DE CADA LINHA */
-  gap: 20px !important;
-  /* IMPORTANTE: Este valor garante que caibam 3 cards, mas não 4 */
-  max-width: 880px !important; 
-  margin: 0 auto 4rem auto !important;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto 4rem auto;
 }
 
 .player-card {
-  /* Largura fixa para cada card no Desktop */
-  flex: 0 0 260px !important; 
+  grid-column: span 2; /* 3 cards por linha (2+2+2 = 6) */
   background: #151515;
   border-radius: 12px;
   overflow: hidden;
@@ -71,19 +68,25 @@
   flex-direction: column;
 }
 
+@media (min-width: 1025px) {
+  /* Centraliza o 4º e 5º card na linha de baixo */
+  .player-card:nth-child(4) { grid-column-start: 2; }
+  .player-card:nth-child(5) { grid-column-start: 4; }
+}
+
 .player-card:hover {
   transform: translateY(-10px);
   border-color: #d60000;
   box-shadow: 0 10px 30px rgba(214, 0, 0, 0.3);
 }
 
-/* --- TRATAMENTO DE IMAGEM --- */
+/* --- IMAGENS --- */
 .image-container {
   width: 100%;
-  aspect-ratio: 3 / 4; 
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   cursor: pointer;
-  background: #fff; 
+  background: #fff;
 }
 
 .image-container img {
@@ -94,7 +97,11 @@
   transition: transform 0.6s ease;
 }
 
-/* --- INFO E REDES SOCIAIS --- */
+.player-card:hover .image-container img {
+  transform: scale(1.05);
+}
+
+/* --- RODAPÉ DO CARD E REDES SOCIAIS --- */
 .player-footer {
   padding: 1.2rem 0.5rem;
   text-align: center;
@@ -143,28 +150,12 @@
   }
 }
 
-/* --- RESPONSIVIDADE (MOBILE/TABLET) --- */
-@media (max-width: 1024px) {
-  .jogadores-grid {
-    max-width: 100% !important;
-  }
-  .player-card {
-    flex: 0 1 30% !important; /* 3 colunas no tablet */
-  }
-  .social-overlay {
-    position: static;
-    opacity: 1;
-    padding-top: 5px;
-  }
+.social-icon img {
+  width: 24px;
+  height: 24px;
 }
 
-@media (max-width: 768px) {
-  .player-card {
-    flex: 0 1 45% !important; /* 2 colunas no celular */
-  }
-}
-
-/* --- VÍDEOS E NOTÍCIAS (MANTIDOS) --- */
+/* --- VÍDEOS --- */
 .video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -179,6 +170,7 @@
   border-radius: 8px;
 }
 
+/* --- NOTÍCIAS --- */
 .noticia-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -193,4 +185,75 @@
   text-decoration: none;
   color: inherit;
   transition: border-color 0.3s;
+}
+
+.card-noticia:hover { border-color: #d60000; }
+
+.news-img-container { height: 180px; overflow: hidden; }
+.news-img-container img { width: 100%; height: 100%; object-fit: cover; }
+.news-content { padding: 1.2rem; }
+.news-content h3 { font-size: 1.1rem; margin: 0.5rem 0; font-weight: 700; }
+.categoria { color: #d60000; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; }
+
+/* --- PAGINAÇÃO --- */
+.paginacao-noticias {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.paginacao-noticias button {
+  background: #d60000;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.paginacao-noticias button:disabled { background: #333; cursor: not-allowed; }
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1024px) {
+  .jogadores-grid { grid-template-columns: repeat(3, 1fr); }
+  .player-card { grid-column: span 1 !important; }
+  .social-overlay { position: static; opacity: 1; padding-top: 5px; }
+}
+
+@media (max-width: 768px) {
+  .jogadores-grid { grid-template-columns: repeat(2, 1fr); }
+  .pagina-cblol h1 { font-size: 2.2rem; }
+  .video-grid { grid-template-columns: 1fr; }
+}
+
+/* --- MODAL --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border: 2px solid #d60000;
+  border-radius: 8px;
+}
+
+.close-modal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: #d60000;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
 }
