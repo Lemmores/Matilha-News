@@ -1,4 +1,4 @@
-/* CblolPage.css - Layout Premium 3x2 */
+/* CblolPage.css - Layout Premium 3x2 Centralizado */
 
 .pagina-cblol {
   padding: 2rem 1rem;
@@ -47,19 +47,19 @@
   margin: 10px auto;
 }
 
-/* --- GRID DE JOGADORES (3 EM CIMA, 2 EMBAIXO NO PC) --- */
+/* --- LOGICA 3x2 CENTRALIZADO --- */
 .jogadores-grid {
-  display: grid;
-  /* Trava em 3 colunas de tamanho fixo para forçar a quebra 3x2 */
-  grid-template-columns: repeat(3, 240px); 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centraliza os jogadores da linha de baixo */
   gap: 2rem;
-  /* Centraliza as colunas e os itens da última linha */
-  justify-content: center; 
+  /* Largura máxima calculada para caber apenas 3 cards de 240px + gaps */
+  max-width: 850px; 
   margin: 0 auto 4rem auto;
 }
 
 .player-card {
-  width: 100%;
+  flex: 0 1 240px; /* Largura fixa para forçar a quebra no 4º jogador */
   background: #151515;
   border-radius: 12px;
   overflow: hidden;
@@ -82,14 +82,14 @@
   aspect-ratio: 3 / 4; 
   overflow: hidden;
   cursor: pointer;
-  background: #fff; 
+  background: #fff; /* Fundo branco para fotos de estúdio */
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top; /* Garante que o rosto apareça mesmo com corte */
+  object-position: top;
   transition: transform 0.6s ease;
 }
 
@@ -97,7 +97,7 @@
   transform: scale(1.05);
 }
 
-/* --- REDES SOCIAIS --- */
+/* --- INFO E REDES SOCIAIS --- */
 .player-footer {
   padding: 1.2rem 0.5rem;
   text-align: center;
@@ -144,11 +144,6 @@
     top: -58px;
     pointer-events: auto;
   }
-}
-
-.social-icon img {
-  width: 24px;
-  height: 24px;
 }
 
 /* --- VÍDEOS --- */
@@ -216,11 +211,14 @@
   text-transform: uppercase;
 }
 
-/* --- RESPONSIVIDADE (TABLET E MOBILE) --- */
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 1024px) {
   .jogadores-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 colunas fluidas */
-    gap: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .player-card {
+    flex: 0 1 30%;
   }
   
   .social-overlay {
@@ -231,8 +229,8 @@
 }
 
 @media (max-width: 768px) {
-  .jogadores-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas no celular */
+  .player-card {
+    flex: 0 1 45%; /* 2 cards por linha no celular */
   }
 
   .pagina-cblol h1 {
