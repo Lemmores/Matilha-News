@@ -1,4 +1,4 @@
-/* CblolPage.css - Layout Premium 3x2 Centralizado */
+/* CblolPage.css - Versão Final 3x2 Totalmente Centralizado */
 
 .pagina-cblol {
   padding: 2rem 1rem;
@@ -47,19 +47,21 @@
   margin: 10px auto;
 }
 
-/* --- LOGICA 3x2 CENTRALIZADO --- */
+/* --- LÓGICA FLEXBOX PARA CENTRALIZAÇÃO REAL --- */
 .jogadores-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centraliza os jogadores da linha de baixo */
+  justify-content: center; /* Isso centraliza as linhas individualmente */
   gap: 2rem;
-  /* Largura máxima calculada para caber apenas 3 cards de 240px + gaps */
-  max-width: 850px; 
   margin: 0 auto 4rem auto;
+  /* Removi o max-width rígido para o Flexbox calcular o centro livremente */
+  width: 100%; 
 }
 
 .player-card {
-  flex: 0 1 240px; /* Largura fixa para forçar a quebra no 4º jogador */
+  /* No PC, definimos um tamanho fixo. 
+     Se 3 cards + gaps passarem de 1200px (max da página), eles quebram sozinhos. */
+  flex: 0 0 260px; 
   background: #151515;
   border-radius: 12px;
   overflow: hidden;
@@ -68,6 +70,21 @@
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+}
+
+/* Forçamos a quebra após o 3º item apenas em telas grandes (Desktop) */
+@media (min-width: 1025px) {
+  .player-card:nth-child(4) {
+    /* Essa é a "mágica" para garantir que o 4º comece uma linha nova 
+       caso o navegador tente colocar todos na mesma linha */
+    /* margin-left: 0; */
+  }
+  
+  /* Se você quer EXATAMENTE 3 em cima e 2 embaixo no PC, 
+     ajustamos o container para não permitir 4 na mesma linha */
+  .jogadores-grid {
+    max-width: 900px; 
+  }
 }
 
 .player-card:hover {
@@ -82,7 +99,7 @@
   aspect-ratio: 3 / 4; 
   overflow: hidden;
   cursor: pointer;
-  background: #fff; /* Fundo branco para fotos de estúdio */
+  background: #fff; 
 }
 
 .image-container img {
@@ -97,7 +114,7 @@
   transform: scale(1.05);
 }
 
-/* --- INFO E REDES SOCIAIS --- */
+/* --- FOOTER E REDES SOCIAIS --- */
 .player-footer {
   padding: 1.2rem 0.5rem;
   text-align: center;
@@ -182,43 +199,15 @@
   border-color: #d60000;
 }
 
-.news-img-container {
-  height: 180px;
-  overflow: hidden;
-}
-
-.news-img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.news-content {
-  padding: 1.2rem;
-}
-
-.news-content h3 {
-  font-size: 1.1rem;
-  margin: 0.5rem 0;
-  line-height: 1.4;
-  font-weight: 700;
-}
-
-.categoria {
-  color: #d60000;
-  font-size: 0.75rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 1024px) {
   .jogadores-grid {
     max-width: 100%;
+    gap: 1.5rem;
   }
   
   .player-card {
-    flex: 0 1 30%;
+    flex: 0 1 30%; /* 3 colunas fluidas no tablet */
   }
   
   .social-overlay {
@@ -230,15 +219,17 @@
 
 @media (max-width: 768px) {
   .player-card {
-    flex: 0 1 45%; /* 2 cards por linha no celular */
+    flex: 0 1 45%; /* 2 colunas no celular */
   }
 
   .pagina-cblol h1 {
     font-size: 2.2rem;
   }
+}
 
-  .video-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 480px) {
+  .player-card {
+    flex: 0 1 100%; /* 1 coluna em telas muito pequenas */
   }
 }
 
