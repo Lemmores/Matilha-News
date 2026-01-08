@@ -25,12 +25,9 @@ const CblolPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
-        
-        // Filtra e ordena usando o formato de data do MongoDB
         const ltaSulNoticias = data
           .filter(n => n.categoria === 'CBLOL')
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-
         setNoticiasLtaSul(ltaSulNoticias);
       } catch (error) {
         console.error('Erro ao carregar notícias do CBLOL:', error);
@@ -41,12 +38,9 @@ const CblolPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/agenda`);
         const data = await res.json();
-        
-        // Ordena a agenda também da mais recente para a mais antiga
         const agendaFiltrada = data
           .filter(confronto => confronto.campeonato === 'CBLOL')
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-
         setAgendaLtaSul(agendaFiltrada);
       } catch (error) {
         console.error('Erro ao carregar agenda do CBLOL:', error);
@@ -66,43 +60,45 @@ const CblolPage = () => {
 
   const formatEmbedLink = (url) => {
     if (!url) return '';
-    if (url.includes('/live/')) {
-      const id = url.split('/live/')[1].split(/[?&]/)[0];
-      return `https://www.youtube.com/embed/${id}?autoplay=0`;
-    }
-    if (url.includes('youtube.com/watch')) {
-      const id = new URL(url).searchParams.get('v');
-      return `https://www.youtube.com/embed/${id}?autoplay=0`;
-    }
-    if (url.includes('youtu.be/')) {
-      const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
-      return `https://www.youtube.com/embed/${id}?autoplay=0`;
-    }
-    return '';
+    const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
+               url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
+               url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
+    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
   };
 
   return (
-    <div className="pagina-lta">
-      <h1>RED Canids no CBLOL</h1>
+    <div className="pagina-cblol">
+      <header className="header-cblol">
+        <h1>RED Canids no CBLOL</h1>
+        <p className="subtitle">O TOPO DA CADEIA ALIMENTAR</p>
+      </header>
 
-      <section>
-        <h2 className="lta-section-title">Line-up</h2>
-        <div className="jogadores">
+      {/* Line-up Estilo Creators */}
+      <section className="lineup-section">
+        <h2 className="section-title">Line-up Oficial</h2>
+        <div className="jogadores-grid">
           {jogadores.map((jogador, idx) => (
-            <div key={idx} className="jogador">
-              <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
-              <span>{jogador.nome}</span>
-              <div className="social-buttons">
-                {jogador.twitter && (
-                  <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <img src="/icons/x.png" alt="Twitter" />
-                  </a>
-                )}
-                {jogador.instagram && (
-                  <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <img src="/icons/instagram.png" alt="Instagram" />
-                  </a>
-                )}
+            <div key={idx} className="player-card">
+              <div className="image-container">
+                <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
+              </div>
+              
+              <div className="player-footer">
+                <span className="player-name">{jogador.nome}</span>
+                <span className="player-role">PRO PLAYER</span>
+                
+                <div className="social-overlay">
+                  {jogador.twitter && (
+                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
+                      <img src="/icons/x.png" alt="X" />
+                    </a>
+                  )}
+                  {jogador.instagram && (
+                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
+                      <img src="/icons/instagram.png" alt="Instagram" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
@@ -110,49 +106,55 @@ const CblolPage = () => {
       </section>
 
       {imagemAberta && (
-        <div className="modal" onClick={() => setImagemAberta(null)}>
-          <img src={imagemAberta} alt="Imagem ampliada" />
+        <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
+          <div className="modal-content">
+            <img src={imagemAberta} alt="Zoom" />
+            <button className="close-modal">X</button>
+          </div>
         </div>
       )}
 
-      <section>
-        <h2 className="lta-section-title">Últimos Confrontos</h2>
-        <div className="video-list">
+      {/* Vídeos e Confrontos */}
+      <section className="videos-section">
+        <h2 className="section-title">Últimos Confrontos</h2>
+        <div className="video-grid">
           {agendaLtaSul
             .filter(p => p.linkTransmissao)
             .slice(0, 2)
             .map((p, idx) => {
               const src = formatEmbedLink(p.linkTransmissao);
-              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe> : null;
+              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen className="video-iframe"></iframe> : null;
             })}
         </div>
       </section>
 
-      <section>
-        <h2 className="lta-section-title">Últimas Notícias da RED no CBLOL</h2>
+      {/* Notícias */}
+      <section className="news-section">
+        <h2 className="section-title">Notícias Relacionadas</h2>
         <div className="noticia-list">
           {noticiasExibidas.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <img src={noticia.imagem} alt={noticia.titulo} />
-              <p className="categoria">{noticia.categoria}</p>
-              <h3>{noticia.titulo}</h3>
-              {/* Data formatada para conferência */}
-              <small style={{color: '#ccc'}}>
-                {new Date(noticia.data).toLocaleDateString('pt-BR')}
-              </small>
+              <div className="news-img-container">
+                <img src={noticia.imagem} alt={noticia.titulo} />
+              </div>
+              <div className="news-content">
+                <p className="categoria">{noticia.categoria}</p>
+                <h3>{noticia.titulo}</h3>
+                <small>{new Date(noticia.data).toLocaleDateString('pt-BR')}</small>
+              </div>
             </Link>
           ))}
         </div>
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
             <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-            <span>Página {paginaAtual} de {totalPaginas}</span>
+            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
             <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
           </div>
         )}
       </section>
 
-      <section>
+      <section className="agenda-section">
         <Agenda partidas={agendaLtaSul} />
       </section>
     </div>
