@@ -6,7 +6,6 @@ import './FreeFirePage.css';
 const jogadores = [
   { nome: 'IGUINMVP', img: '/jogadores/IGUINMVP.jpg', instagram: 'https://www.instagram.com/iguin.mvp/' },
   { nome: 'ITALO7', img: '/jogadores/ITALO7.jpg', instagram: 'https://www.instagram.com/italosete7/' },
-  { nome: 'ABREU', img: '/jogadores/ABREU.jpg', instagram: 'https://www.instagram.com/abreu.coach/' },
   { nome: 'LUCASAWP', img: '/jogadores/LUCASAWP.jpg', instagram: 'https://www.instagram.com/lucasawp7/' },
   { nome: 'ROJÃO', img: '/jogadores/ROJÃO.jpg', instagram: 'https://www.instagram.com/rojaowq/' },
   { nome: 'ERICK11', img: '/jogadores/ERICK11.jpg', instagram: 'https://www.instagram.com/erickonze/' },
