@@ -1,4 +1,4 @@
-/* CSPage.css - Versão Final Padronizada */
+/* CSPage.css - Versão Final Padronizada e Corrigida para Mobile */
 
 .pagina-cs {
   padding: 2rem 1rem;
@@ -47,7 +47,7 @@
   margin: 10px auto;
 }
 
-/* --- GRID DE JOGADORES CENTRALIZADO (3 EM CIMA, 2 EMBAIXO) --- */
+/* --- GRID DE JOGADORES --- */
 .jogadores-grid {
   display: flex;
   flex-wrap: wrap;
@@ -59,12 +59,12 @@
 
 @media (min-width: 1025px) {
   .jogadores-grid {
-    max-width: 900px; /* Mantém o alinhamento 3x2 no desktop */
+    max-width: 900px;
   }
 }
 
 .player-card {
-  flex: 0 0 260px; 
+  flex: 0 0 260px; /* Largura base no Desktop */
   background: #151515;
   border-radius: 12px;
   overflow: hidden;
@@ -211,76 +211,33 @@
   line-height: 1.3;
 }
 
-.card-noticia:hover {
-  border-color: #d60000;
-  transform: translateY(-5px);
-}
-
-.paginacao-noticias {
-  margin-top: 2.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.paginacao-noticias button {
-  background-color: #d60000;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.paginacao-noticias button:disabled {
-  background-color: #333;
-  cursor: not-allowed;
-}
-
-/* --- MODAL --- */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content img {
-  max-width: 90vw;
-  max-height: 80vh;
-  border: 2px solid #d60000;
-  border-radius: 8px;
-}
-
-.close-modal {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: #d60000;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  cursor: pointer;
-}
-
-/* --- RESPONSIVIDADE --- */
+/* --- RESPONSIVIDADE (Ajustada para evitar cortes) --- */
 @media (max-width: 1024px) {
-  .player-card { flex: 0 1 30%; }
+  .player-card { flex: 0 0 280px; } /* Mantém um tamanho fixo para não esticar */
   .social-overlay { position: static; opacity: 1; padding: 5px 0; }
 }
 
 @media (max-width: 768px) {
-  .player-card { flex: 0 1 45%; }
+  .pagina-cs { padding: 1rem; }
   .pagina-cs h1 { font-size: 2.2rem; }
+  
+  .jogadores-grid {
+    gap: 1.5rem;
+    padding: 0 10px; /* Margem interna para o efeito de borda aparecer */
+  }
+
+  .player-card {
+    flex: 0 0 300px; /* Largura ideal para a maioria dos celulares */
+    max-width: 100%; 
+    margin: 0 auto;
+  }
+
   .video-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .player-card { flex: 0 1 100%; }
+  .player-card {
+    flex: 0 0 100%; /* Em telas muito pequenas, ocupa a largura total disponível */
+  }
+  .pagina-cs h1 { font-size: 1.8rem; }
 }
