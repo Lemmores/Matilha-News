@@ -1,4 +1,4 @@
-/* FreeFirePage.css - Estilo RED Canids Creators */
+/* FreeFirePage.css - Versão Final para 6 Jogadores */
 
 .pagina-freefire {
   padding: 2rem 1rem;
@@ -47,18 +47,18 @@
   margin: 10px auto;
 }
 
-/* --- GRID DE JOGADORES --- */
+/* --- GRID DE JOGADORES (3x2 no Desktop) --- */
 .jogadores-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
   margin: 0 auto 4rem auto;
-  width: 100%; 
+  max-width: 1000px; 
 }
 
 .player-card {
-  flex: 0 0 260px; 
+  flex: 0 0 280px; 
   background: #151515;
   border-radius: 12px;
   overflow: hidden;
@@ -80,14 +80,15 @@
   aspect-ratio: 3 / 4; 
   overflow: hidden;
   cursor: pointer;
-  background: #222; 
+  background: #222;
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
+  /* AJUSTE PARA NÃO CORTAR O ROSTO */
+  object-position: center 12%; 
   transition: transform 0.6s ease;
 }
 
@@ -98,24 +99,24 @@
 .player-footer {
   padding: 1.2rem 0.5rem;
   text-align: center;
-  position: relative;
+  background: #151515;
 }
 
 .player-name {
   display: block;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 800;
   text-transform: uppercase;
   color: #fff;
 }
 
 .player-role {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: #d60000;
   font-weight: bold;
   letter-spacing: 2px;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .social-overlay {
@@ -125,30 +126,39 @@
 }
 
 .social-icon img {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
-@media (min-width: 1025px) {
-  .social-overlay {
-    position: absolute;
-    top: -50px;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9));
-    padding: 15px 0;
-    opacity: 0;
-    transition: all 0.3s ease;
-    pointer-events: none;
+/* --- RESPONSIVIDADE MOBILE --- */
+@media (max-width: 768px) {
+  .jogadores-grid {
+    gap: 2.5rem;
+    padding: 0 15px;
   }
-  .player-card:hover .social-overlay {
-    opacity: 1;
-    top: -58px;
-    pointer-events: auto;
+
+  .player-card {
+    flex: 0 0 320px;
+    max-width: 100%;
+    margin: 0 auto;
   }
+
+  .image-container {
+    aspect-ratio: 1 / 1.1; 
+  }
+
+  .image-container img {
+    object-position: center 8%; 
+  }
+
+  .pagina-freefire h1 { font-size: 2.2rem; }
 }
 
-/* --- VÍDEOS --- */
+@media (max-width: 400px) {
+  .player-card { flex: 0 0 100%; }
+}
+
+/* --- VÍDEOS E NOTÍCIAS --- */
 .video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -163,7 +173,6 @@
   border-radius: 8px;
 }
 
-/* --- NOTÍCIAS --- */
 .noticia-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -180,27 +189,20 @@
   transition: all 0.3s ease;
 }
 
+.card-noticia:hover {
+  border-color: #d60000;
+  transform: translateY(-5px);
+}
+
 .news-img-container img {
   width: 100%;
   height: 180px;
   object-fit: cover;
 }
 
-.news-content {
-  padding: 1rem;
-}
+.news-content { padding: 1rem; }
 
-.categoria {
-  color: #d60000;
-  font-size: 0.75rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.card-noticia:hover {
-  border-color: #d60000;
-  transform: translateY(-5px);
-}
+.categoria { color: #d60000; font-weight: bold; font-size: 0.8rem; }
 
 .paginacao-noticias {
   margin-top: 2rem;
@@ -214,22 +216,18 @@
   background: #d60000;
   border: none;
   color: white;
-  padding: 0.5rem 1.2rem;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
 }
 
-.paginacao-noticias button:disabled {
-  background: #333;
-  cursor: not-allowed;
-}
+.paginacao-noticias button:disabled { background: #333; }
 
 /* --- MODAL --- */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.95);
+  background: rgba(0,0,0,0.9);
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -252,20 +250,4 @@
   border: none;
   padding: 5px 15px;
   cursor: pointer;
-}
-
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 1024px) {
-  .player-card { flex: 0 1 30%; }
-  .social-overlay { position: static; opacity: 1; padding: 5px 0; }
-}
-
-@media (max-width: 768px) {
-  .player-card { flex: 0 1 45%; }
-  .video-grid { grid-template-columns: 1fr; }
-  .pagina-freefire h1 { font-size: 2.2rem; }
-}
-
-@media (max-width: 480px) {
-  .player-card { flex: 0 1 100%; }
 }

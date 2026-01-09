@@ -39,9 +39,7 @@ const FreeFirePage = () => {
       try {
         const res = await fetch(`${API_URL}/api/agenda`);
         const data = await res.json();
-        const agendaFiltrada = data
-          .filter(confronto => confronto.campeonato === 'FREEFIRE')
-          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
+        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'FREEFIRE');
         setAgendaFreeFire(agendaFiltrada);
       } catch (error) {
         console.error('Erro ao carregar agenda de Free Fire:', error);
@@ -53,29 +51,22 @@ const FreeFirePage = () => {
   }, [API_URL]);
 
   const totalPaginas = Math.ceil(noticiasFreeFire.length / noticiasPorPagina);
-  const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
-  const noticiasExibidas = noticiasFreeFire.slice(indiceInicio, indiceInicio + noticiasPorPagina);
-
-  const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
-  const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
+  const noticiasExibidas = noticiasFreeFire.slice((paginaAtual - 1) * noticiasPorPagina, paginaAtual * noticiasPorPagina);
 
   const formatEmbedLink = (url) => {
     if (!url) return '';
-    const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
-               url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
-               url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
-    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
+    const id = url.includes('watch?v=') ? new URL(url).searchParams.get('v') : url.split('.be/')[1];
+    return id ? `https://www.youtube.com/embed/${id}` : '';
   };
 
   return (
     <div className="pagina-freefire">
       <header className="header-freefire">
-        <h1>RED Canids no Free Fire</h1>
-        <p className="subtitle">MOBILE GAMING</p>
+        <h1>RED Canids Free Fire</h1>
+        <p className="subtitle">MOBILE SQUAD</p>
       </header>
 
-      {/* Line-up Estilo Creators */}
-      <section className="lineup-section">
+      <section>
         <h2 className="section-title">Line-up Oficial</h2>
         <div className="jogadores-grid">
           {jogadores.map((jogador, idx) => (
@@ -87,11 +78,6 @@ const FreeFirePage = () => {
                 <span className="player-name">{jogador.nome}</span>
                 <span className="player-role">PRO PLAYER</span>
                 <div className="social-overlay">
-                  {jogador.twitter && (
-                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
-                      <img src="/icons/x.png" alt="X" />
-                    </a>
-                  )}
                   {jogador.instagram && (
                     <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
                       <img src="/icons/instagram.png" alt="Instagram" />
@@ -113,49 +99,44 @@ const FreeFirePage = () => {
         </div>
       )}
 
-      {/* Vídeos */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-grid">
           {agendaFreeFire
             .filter(p => p.linkTransmissao)
+            .sort((a, b) => new Date(b.data) - new Date(a.data))
             .slice(0, 2)
-            .map((p, idx) => {
-              const src = formatEmbedLink(p.linkTransmissao);
-              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen className="video-iframe"></iframe> : null;
-            })}
+            .map((p, idx) => (
+              <iframe key={idx} src={formatEmbedLink(p.linkTransmissao)} title="Match" allowFullScreen className="video-iframe"></iframe>
+            ))}
         </div>
       </section>
 
-      {/* Notícias */}
       <section className="news-section">
-        <h2 className="section-title">Notícias Relacionadas</h2>
+        <h2 className="section-title">Notícias</h2>
         <div className="noticia-list">
-          {noticiasExibidas.map(noticia => (
-            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
+          {noticiasExibidas.map(n => (
+            <Link key={n._id} to={`/noticia/${n._id}`} className="card-noticia">
               <div className="news-img-container">
-                <img src={noticia.imagem} alt={noticia.titulo} />
+                <img src={n.imagem} alt={n.titulo} />
               </div>
               <div className="news-content">
-                <p className="categoria">{noticia.categoria}</p>
-                <h3>{noticia.titulo}</h3>
-                <small>{new Date(noticia.data).toLocaleDateString('pt-BR')}</small>
+                <p className="categoria">{n.categoria}</p>
+                <h3>{n.titulo}</h3>
               </div>
             </Link>
           ))}
         </div>
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
-            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
+            <button onClick={() => setPaginaAtual(p => p - 1)} disabled={paginaAtual === 1}>Anterior</button>
             <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
-            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
+            <button onClick={() => setPaginaAtual(p => p + 1)} disabled={paginaAtual === totalPaginas}>Próxima</button>
           </div>
         )}
       </section>
 
-      <section className="agenda-section">
-        <Agenda partidas={agendaFreeFire} />
-      </section>
+      <Agenda partidas={agendaFreeFire} />
     </div>
   );
 };
