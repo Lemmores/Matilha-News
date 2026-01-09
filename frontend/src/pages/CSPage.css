@@ -52,7 +52,7 @@ html, body {
   margin: 10px auto;
 }
 
-/* --- GRID DE JOGADORES (Resolução de Corte de Rosto) --- */
+/* --- GRID DE JOGADORES --- */
 .jogadores-grid {
   display: flex;
   flex-wrap: wrap;
@@ -88,7 +88,6 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Ajuste para centralizar o rosto e não cortar o queixo/cabelo */
   object-position: center 15%; 
 }
 
@@ -112,14 +111,13 @@ html, body {
   letter-spacing: 2px;
 }
 
-/* --- SEÇÃO DE VÍDEOS (Correção de Corte no Mobile) --- */
+/* --- SEÇÃO DE VÍDEOS --- */
 .video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
   width: 100%;
-  /* Padding lateral para o vídeo não encostar na borda da tela */
   padding: 0 20px; 
 }
 
@@ -153,31 +151,38 @@ html, body {
   }
 
   .player-card {
-    /* Garante que o card ocupe quase a tela toda, mas com margem */
     flex: 0 0 92%; 
     max-width: 340px;
   }
 
+  /* AJUSTE ESPECÍFICO PARA O VÍDEO NÃO CORTAR NO MOBILE */
   .video-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    /* Aumentamos o respiro lateral no celular */
-    padding: 0 15px; 
+    padding: 0 25px; /* Aumentado para garantir o respiro lateral */
+  }
+
+  .video-iframe {
+    width: 95%; /* Reduzido levemente para evitar o transbordamento do player */
+    margin: 0 auto;
   }
 
   .image-container {
-    /* No mobile, uma foto levemente menos alta enquadra melhor o busto */
     aspect-ratio: 1 / 1.1; 
   }
 }
 
-/* Para telas muito pequenas (ex: iPhone SE) */
+/* Ajuste fino para aparelhos muito pequenos */
 @media (max-width: 360px) {
   .video-grid {
-    padding: 0 8px;
+    padding: 0 15px;
   }
   
   .player-card {
     flex: 0 0 98%;
+  }
+
+  .video-iframe {
+    width: 100%; /* Em telas minúsculas voltamos ao 100% para não perder visibilidade */
   }
 }
