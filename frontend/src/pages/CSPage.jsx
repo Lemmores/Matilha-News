@@ -4,36 +4,11 @@ import Agenda from '../components/Agenda';
 import './CSPage.css';
 
 const jogadores = [
-  {
-    nome: 'HISTORY',
-    img: '/jogadores/history.jpg',
-    twitter: 'https://x.com/historyfps',
-    instagram: 'https://www.instagram.com/historycsgo/',
-  },
-  {
-    nome: 'DROP',
-    img: '/jogadores/drop.jpg',
-    twitter: 'https://x.com/dropcs__',
-    instagram: 'https://www.instagram.com/dropcsgo_/',
-  },
-  {
-    nome: 'KAUEZ',
-    img: '/jogadores/kauez.jpg',
-    twitter: 'https://x.com/kauezcs',
-    instagram: 'https://www.instagram.com/kauezcsgo/',
-  },
-  {
-    nome: 'PONTER',
-    img: '/jogadores/ponter.jpg',
-    twitter: 'https://x.com/ponterzin',
-    instagram: 'https://www.instagram.com/ponterzin/',
-  },
-  {
-    nome: 'VENOMZERA',
-    img: '/jogadores/venomzera.jpg',
-    twitter: 'https://x.com/venomzeracs',
-    instagram: 'https://www.instagram.com/venomzeracs/',
-  },
+  { nome: 'HISTORY', img: '/jogadores/history.jpg', twitter: 'https://x.com/historyfps', instagram: 'https://www.instagram.com/historycsgo/' },
+  { nome: 'DROP', img: '/jogadores/drop.jpg', twitter: 'https://x.com/dropcs__', instagram: 'https://www.instagram.com/dropcsgo_/' },
+  { nome: 'KAUEZ', img: '/jogadores/kauez.jpg', twitter: 'https://x.com/kauezcs', instagram: 'https://www.instagram.com/kauezcsgo/' },
+  { nome: 'PONTER', img: '/jogadores/ponter.jpg', twitter: 'https://x.com/ponterzin', instagram: 'https://www.instagram.com/ponterzin/' },
+  { nome: 'VENOMZERA', img: '/jogadores/venomzera.jpg', twitter: 'https://x.com/venomzeracs', instagram: 'https://www.instagram.com/venomzeracs/' },
 ];
 
 const CSPage = () => {
@@ -50,10 +25,10 @@ const CSPage = () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
-        const CSNoticias = data
+        const filtradas = data
           .filter(n => n.categoria === 'CS2')
-          .sort((a, b) => new Date(b.data) - new Date(a.data));
-        setNoticiasCS(CSNoticias);
+          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
+        setNoticiasCS(filtradas);
       } catch (error) {
         console.error('Erro ao carregar notícias de CS2:', error);
       }
@@ -65,7 +40,7 @@ const CSPage = () => {
         const data = await res.json();
         const agendaFiltrada = data
           .filter(confronto => confronto.campeonato === 'CS2')
-          .sort((a, b) => new Date(b.data) - new Date(a.data));
+          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
         setAgendaCS(agendaFiltrada);
       } catch (error) {
         console.error('Erro ao carregar agenda de CS2:', error);
@@ -80,115 +55,104 @@ const CSPage = () => {
   const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
   const noticiasExibidas = noticiasCS.slice(indiceInicio, indiceInicio + noticiasPorPagina);
 
-  const irParaAnterior = () => {
-    if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
-  };
+  const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
+  const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
 
-  const irParaProxima = () => {
-    if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
-  };
-
-  // Função para padronizar qualquer link do YouTube para formato embed
-  const formatarLinkYoutube = (url) => {
-    if (!url) return null;
-
-    // Suporta watch?v=, youtu.be/ e youtube.com/live/
-    const regex = /(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(regex);
-
-    if (match && match[1]) {
-      return `https://www.youtube.com/embed/${match[1]}`;
-    }
-
-    return null;
+  const formatEmbedLink = (url) => {
+    if (!url) return '';
+    const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
+               url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
+               url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
+    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
   };
 
   return (
     <div className="pagina-cs">
-      <h1>RED Canids no CS2</h1>
+      <header className="header-cs">
+        <h1>RED Canids no CS2</h1>
+        <p className="subtitle">COUNTER-STRIKE 2</p>
+      </header>
 
-      {/* Line-up */}
-      <section>
-        <h2 className="cs-section-title">Line-up</h2>
-        <div className="jogadores">
+      {/* Line-up Estilo 3x2 */}
+      <section className="lineup-section">
+        <h2 className="section-title">Line-up Oficial</h2>
+        <div className="jogadores-grid">
           {jogadores.map((jogador, idx) => (
-            <div key={idx} className="jogador">
-              <img
-                src={jogador.img}
-                alt={jogador.nome}
-                onClick={() => setImagemAberta(jogador.img)}
-              />
-              <span>{jogador.nome}</span>
-              <div className="social-buttons">
-                {jogador.twitter && (
-                  <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <img src="/icons/x.png" alt="Twitter" />
-                  </a>
-                )}
-                {jogador.instagram && (
-                  <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <img src="/icons/instagram.png" alt="Instagram" />
-                  </a>
-                )}
+            <div key={idx} className="player-card">
+              <div className="image-container">
+                <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
+              </div>
+              <div className="player-footer">
+                <span className="player-name">{jogador.nome}</span>
+                <span className="player-role">PRO PLAYER</span>
+                <div className="social-overlay">
+                  {jogador.twitter && (
+                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
+                      <img src="/icons/x.png" alt="X" />
+                    </a>
+                  )}
+                  {jogador.instagram && (
+                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
+                      <img src="/icons/instagram.png" alt="Instagram" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Modal da imagem ampliada */}
       {imagemAberta && (
-        <div className="modal" onClick={() => setImagemAberta(null)}>
-          <img src={imagemAberta} alt="Imagem ampliada" />
+        <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
+          <div className="modal-content">
+            <img src={imagemAberta} alt="Zoom" />
+            <button className="close-modal">X</button>
+          </div>
         </div>
       )}
 
-      {/* Últimos confrontos com vídeos do YouTube */}
-      <section>
-        <h2 className="cs-section-title">Últimos Confrontos</h2>
-        <div className="video-list">
+      {/* Vídeos */}
+      <section className="videos-section">
+        <h2 className="section-title">Últimos Confrontos</h2>
+        <div className="video-grid">
           {agendaCS
-            .filter(partida => partida.linkTransmissao)
-            .sort((a, b) => new Date(b.data) - new Date(a.data))
+            .filter(p => p.linkTransmissao)
             .slice(0, 2)
-            .map((partida, index) => {
-              const linkEmbed = formatarLinkYoutube(partida.linkTransmissao);
-              if (!linkEmbed) return null;
-              return (
-                <iframe
-                  key={index}
-                  src={linkEmbed}
-                  title={`Confronto ${index + 1}`}
-                  allowFullScreen
-                ></iframe>
-              );
+            .map((p, idx) => {
+              const src = formatEmbedLink(p.linkTransmissao);
+              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen className="video-iframe"></iframe> : null;
             })}
         </div>
       </section>
 
-      {/* Últimas Notícias */}
-      <section>
-        <h2 className="cs-section-title">Últimas Notícias da RED no CS2</h2>
+      {/* Notícias */}
+      <section className="news-section">
+        <h2 className="section-title">Notícias Relacionadas</h2>
         <div className="noticia-list">
           {noticiasExibidas.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <img src={noticia.imagem} alt={noticia.titulo} />
-              <p className="categoria">{noticia.categoria}</p>
-              <h3>{noticia.titulo}</h3>
+              <div className="news-img-container">
+                <img src={noticia.imagem} alt={noticia.titulo} />
+              </div>
+              <div className="news-content">
+                <p className="categoria">{noticia.categoria}</p>
+                <h3>{noticia.titulo}</h3>
+                <small>{new Date(noticia.data).toLocaleDateString('pt-BR')}</small>
+              </div>
             </Link>
           ))}
         </div>
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
             <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-            <span>Página {paginaAtual} de {totalPaginas}</span>
+            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
             <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
           </div>
         )}
       </section>
 
-      {/* Agenda */}
-      <section>
+      <section className="agenda-section">
         <Agenda partidas={agendaCS} />
       </section>
     </div>

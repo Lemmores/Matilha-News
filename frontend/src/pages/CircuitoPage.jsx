@@ -69,7 +69,7 @@ const CircuitoPage = () => {
   return (
     <div className="pagina-circuito">
       <header className="header-circuito">
-        <h1>RED Canids no Circuito</h1>
+        <h1>RED Canids No Circuito Desafiante</h1>
         <p className="subtitle">CIRCUITO DESAFIANTE</p>
       </header>
 
