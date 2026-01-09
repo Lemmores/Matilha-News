@@ -1,24 +1,22 @@
-/* --- TRAVA DE SEGURANÇA GLOBAL --- */
+/* --- RESET E SEGURANÇA GLOBAL --- */
 html, body {
   max-width: 100%;
-  overflow-x: hidden; /* Resolve o erro de ter que diminuir a tela para clicar */
+  overflow-x: hidden; /* Elimina a rolagem lateral e libera os cliques no header */
   margin: 0;
   padding: 0;
-  position: relative;
 }
 
 * {
-  box-sizing: border-box; /* Impede que elementos "vazem" para a direita */
+  box-sizing: border-box; /* Impede que o padding aumente o tamanho dos elementos */
 }
 
 .pagina-cs {
-  width: 100%;
+  padding: 2rem 1rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
   color: white;
   background-color: #111;
-  overflow-x: hidden; /* Camada extra de proteção contra o corte direito */
+  width: 100%;
 }
 
 /* --- HEADER --- */
@@ -29,7 +27,7 @@ html, body {
 }
 
 .pagina-cs h1 {
-  font-size: 2.8rem;
+  font-size: 3rem;
   color: #d60000;
   text-transform: uppercase;
   font-weight: 900;
@@ -54,7 +52,7 @@ html, body {
   margin: 10px auto;
 }
 
-/* --- GRID DE JOGADORES (Enquadramento Perfeito) --- */
+/* --- GRID DE JOGADORES (Resolução de Corte de Rosto) --- */
 .jogadores-grid {
   display: flex;
   flex-wrap: wrap;
@@ -68,9 +66,15 @@ html, body {
   flex: 0 0 280px;
   background: #151515;
   border-radius: 12px;
-  border: 1px solid #222;
   overflow: hidden;
+  border: 1px solid #222;
   transition: all 0.3s ease;
+}
+
+.player-card:hover {
+  border-color: #d60000;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.2);
 }
 
 .image-container {
@@ -84,7 +88,7 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Centraliza o rosto do jogador conforme suas fotos */
+  /* Ajuste para centralizar o rosto e não cortar o queixo/cabelo */
   object-position: center 15%; 
 }
 
@@ -98,68 +102,82 @@ html, body {
   font-size: 1.4rem;
   font-weight: 800;
   color: #fff;
+  margin-bottom: 5px;
 }
 
-/* --- ÚLTIMOS CONFRONTOS (Correção do Corte Direito) --- */
+.player-role {
+  font-size: 0.75rem;
+  color: #d60000;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* --- SEÇÃO DE VÍDEOS (Correção de Corte no Mobile) --- */
 .video-grid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
   width: 100%;
-  /* Padding lateral cria a margem preta nas bordas do celular */
+  /* Padding lateral para o vídeo não encostar na borda da tela */
   padding: 0 20px; 
 }
 
 .video-iframe {
   width: 100%;
-  /* Impede que o vídeo ultrapasse a largura da tela */
-  max-width: 100%; 
+  max-width: 850px;
   aspect-ratio: 16 / 9;
   border: 2px solid #222;
   border-radius: 12px;
+  margin: 0 auto;
   display: block;
 }
 
-/* --- RESPONSIVIDADE MOBILE --- */
+/* --- RESPONSIVIDADE GERAL --- */
 @media (max-width: 768px) {
   .pagina-cs {
-    padding: 1rem 0; /* Remove padding lateral que acumulava com outros */
+    padding: 1rem 0.5rem;
+  }
+
+  .pagina-cs h1 {
+    font-size: 2.2rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
   }
 
   .jogadores-grid {
+    gap: 2.5rem;
     padding: 0 10px;
-    gap: 3rem; /* Espaço entre cards empilhados */
   }
 
   .player-card {
-    /* Define largura relativa à tela (vw) para garantir que caiba sempre */
-    flex: 0 0 88vw; 
-    max-width: 330px;
-    margin: 0 auto;
+    /* Garante que o card ocupe quase a tela toda, mas com margem */
+    flex: 0 0 92%; 
+    max-width: 340px;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    /* Aumentamos o respiro lateral no celular */
+    padding: 0 15px; 
   }
 
   .image-container {
-    /* Foto levemente menos "alta" no mobile para não cortar o queixo */
+    /* No mobile, uma foto levemente menos alta enquadra melhor o busto */
     aspect-ratio: 1 / 1.1; 
-  }
-
-  .video-grid {
-    padding: 0 15px; /* Margem de segurança para os vídeos */
-  }
-
-  .video-iframe {
-    border-width: 1px;
   }
 }
 
-/* Ajuste fino para aparelhos muito estreitos */
+/* Para telas muito pequenas (ex: iPhone SE) */
 @media (max-width: 360px) {
-  .player-card {
-    flex: 0 0 92vw;
-  }
   .video-grid {
-    padding: 0 10px;
+    padding: 0 8px;
+  }
+  
+  .player-card {
+    flex: 0 0 98%;
   }
 }
