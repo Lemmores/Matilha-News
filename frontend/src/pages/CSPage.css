@@ -1,11 +1,13 @@
-/* --- RESET E TRAVA DE LARGURA GLOBAL --- */
+/* --- RESET E SEGURANÇA GLOBAL --- */
 html, body {
   max-width: 100%;
-  overflow-x: hidden; /* Impede a rolagem lateral irritante */
+  overflow-x: hidden; /* Elimina a rolagem lateral e libera os cliques no header */
+  margin: 0;
+  padding: 0;
 }
 
 * {
-  box-sizing: border-box; /* Garante que padding não estique o elemento */
+  box-sizing: border-box; /* Impede que o padding aumente o tamanho dos elementos */
 }
 
 .pagina-cs {
@@ -15,7 +17,6 @@ html, body {
   color: white;
   background-color: #111;
   width: 100%;
-  overflow-x: hidden; /* Camada extra de segurança */
 }
 
 /* --- HEADER --- */
@@ -33,15 +34,8 @@ html, body {
   margin-bottom: 0.5rem;
 }
 
-.subtitle {
-  color: #888;
-  letter-spacing: 4px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
 .section-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #fff;
   text-align: center;
   margin-bottom: 2.5rem;
@@ -58,18 +52,14 @@ html, body {
   margin: 10px auto;
 }
 
-/* --- GRID DE JOGADORES --- */
+/* --- GRID DE JOGADORES (Resolução de Corte de Rosto) --- */
 .jogadores-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  margin: 0 auto 4rem auto;
+  margin-bottom: 4rem;
   width: 100%;
-}
-
-@media (min-width: 1025px) {
-  .jogadores-grid { max-width: 900px; }
 }
 
 .player-card {
@@ -78,23 +68,19 @@ html, body {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #222;
-  position: relative;
   transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
 }
 
 .player-card:hover {
-  transform: translateY(-10px);
   border-color: #d60000;
-  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.2);
 }
 
 .image-container {
   width: 100%;
-  aspect-ratio: 3 / 4; 
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  cursor: pointer;
   background: #222;
 }
 
@@ -102,23 +88,21 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* FOCO NO ROSTO: Evita cortar o topo da cabeça ou queixo */
+  /* Ajuste para centralizar o rosto e não cortar o queixo/cabelo */
   object-position: center 15%; 
-  transition: transform 0.6s ease;
 }
 
 .player-footer {
   padding: 1.2rem 0.5rem;
   text-align: center;
-  background: #151515;
 }
 
 .player-name {
   display: block;
   font-size: 1.4rem;
   font-weight: 800;
-  text-transform: uppercase;
   color: #fff;
+  margin-bottom: 5px;
 }
 
 .player-role {
@@ -126,85 +110,74 @@ html, body {
   color: #d60000;
   font-weight: bold;
   letter-spacing: 2px;
-  display: block;
-  margin-bottom: 10px;
 }
 
-.social-overlay {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-}
-
-.social-icon img {
-  width: 22px;
-  height: 22px;
-}
-
-/* --- VÍDEOS E NOTÍCIAS --- */
+/* --- SEÇÃO DE VÍDEOS (Correção de Corte no Mobile) --- */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
   margin-bottom: 4rem;
+  width: 100%;
+  /* Padding lateral para o vídeo não encostar na borda da tela */
+  padding: 0 20px; 
 }
 
 .video-iframe {
   width: 100%;
+  max-width: 850px;
   aspect-ratio: 16 / 9;
   border: 2px solid #222;
-  border-radius: 8px;
+  border-radius: 12px;
+  margin: 0 auto;
+  display: block;
 }
 
-/* --- AJUSTES PARA MOBILE (Resolução do problema de cliques e corte) --- */
+/* --- RESPONSIVIDADE GERAL --- */
 @media (max-width: 768px) {
-  .pagina-cs { 
-    padding: 1rem;
-    max-width: 100vw; 
+  .pagina-cs {
+    padding: 1rem 0.5rem;
   }
-  
-  .pagina-cs h1 { font-size: 2rem; }
+
+  .pagina-cs h1 {
+    font-size: 2.2rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
 
   .jogadores-grid {
-    gap: 3rem; /* Espaço maior entre cards para o brilho aparecer */
+    gap: 2.5rem;
     padding: 0 10px;
-    width: 100%;
   }
 
   .player-card {
-    /* Largura fluida mas com limite para não quebrar o layout */
-    flex: 0 0 95%; 
-    max-width: 330px; 
-    margin: 0 auto;
-  }
-
-  .image-container {
-    aspect-ratio: 1 / 1.1; /* Foto menos alta no mobile para melhor enquadramento */
-  }
-
-  .image-container img {
-    object-position: center 10%; /* Ajuste fino do rosto no mobile */
+    /* Garante que o card ocupe quase a tela toda, mas com margem */
+    flex: 0 0 92%; 
+    max-width: 340px;
   }
 
   .video-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    /* Aumentamos o respiro lateral no celular */
+    padding: 0 15px; 
+  }
+
+  .image-container {
+    /* No mobile, uma foto levemente menos alta enquadra melhor o busto */
+    aspect-ratio: 1 / 1.1; 
   }
 }
 
-/* --- MODAL --- */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  z-index: 10000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content img {
-  max-width: 90vw;
-  max-height: 80vh;
-  border: 2px solid #d60000;
-  border-radius: 8px;
+/* Para telas muito pequenas (ex: iPhone SE) */
+@media (max-width: 360px) {
+  .video-grid {
+    padding: 0 8px;
+  }
+  
+  .player-card {
+    flex: 0 0 98%;
+  }
 }
