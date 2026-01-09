@@ -69,8 +69,8 @@ const CircuitoPage = () => {
   return (
     <div className="pagina-circuito">
       <header className="header-circuito">
-        <h1>RED Canids No Circuito Desafiante</h1>
-        <p className="subtitle">CIRCUITO DESAFIANTE</p>
+        <h1>RED CANIDS NO CIRCUITÃO</h1>
+        <p className="subtitle">LEAGUE OF LEGENDS</p>
       </header>
 
       {/* Line-up Estilo 3x2 */}

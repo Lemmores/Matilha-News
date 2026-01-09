@@ -1,150 +1,169 @@
+/* FreeFirePage.css - Estilo RED Canids Creators */
+
 .pagina-freefire {
   padding: 2rem 1rem;
   max-width: 1200px;
   margin: 0 auto;
   color: white;
+  background-color: #111;
+}
+
+.header-freefire {
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
 .pagina-freefire h1 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
+  font-size: 3.5rem;
+  color: #d60000;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
 }
 
-.pagina-freefire section {
-  margin-bottom: 3rem;
+.subtitle {
+  color: #888;
+  letter-spacing: 4px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
 }
 
-.freefire-section-title {
-  font-size: 2rem;
-  color: #ffffff;
+.section-title {
+  font-size: 2.2rem;
+  color: #fff;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
   position: relative;
-  font-family: 'Poppins', sans-serif;
 }
 
-.freefire-section-title::after {
+.section-title::after {
   content: '';
   display: block;
-  width: 60px;
-  height: 3px;
-  background-color: #b90000;
-  margin: 0.5rem auto 0;
-  border-radius: 2px;
+  width: 50px;
+  height: 4px;
+  background: #d60000;
+  margin: 10px auto;
 }
 
-/* Line-up dos Jogadores */
-.jogadores {
+/* --- GRID DE JOGADORES --- */
+.jogadores-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
   justify-content: center;
+  gap: 2rem;
+  margin: 0 auto 4rem auto;
+  width: 100%; 
 }
 
-.jogador {
-  text-align: center;
-  max-width: 180px;
-  cursor: pointer;
+.player-card {
+  flex: 0 0 260px; 
+  background: #151515;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #222;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.jogador img {
+.player-card:hover {
+  transform: translateY(-10px);
+  border-color: #d60000;
+  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.3);
+}
+
+.image-container {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.2s ease;
+  aspect-ratio: 3 / 4; 
+  overflow: hidden;
+  cursor: pointer;
+  background: #222; 
 }
 
-.jogador img:hover {
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.6s ease;
+}
+
+.player-card:hover .image-container img {
   transform: scale(1.05);
 }
 
-.jogador span {
+.player-footer {
+  padding: 1.2rem 0.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.player-name {
   display: block;
-  margin-top: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.player-role {
+  font-size: 0.7rem;
+  color: #d60000;
   font-weight: bold;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 10px;
 }
 
-/* Botões Sociais */
-.social-buttons {
-  margin-top: 0.5rem;
+.social-overlay {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-}
-
-.social-btn {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.social-btn img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  transition: transform 0.2s ease, filter 0.3s ease, opacity 0.3s ease;
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-.social-btn img:hover {
-  transform: scale(1.2);
-  filter: none;
-  opacity: 1;
-}
-
-.social-btn img[alt="Twitter"] {
-  width: 22px;
-  height: 22px;
-}
-
-/* Modal da imagem ampliada */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.modal img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-}
-
-/* Vídeos */
-.video-list {
-  display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
-  justify-content: center;
 }
 
-.video-list iframe {
+.social-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 1025px) {
+  .social-overlay {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 15px 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  .player-card:hover .social-overlay {
+    opacity: 1;
+    top: -58px;
+    pointer-events: auto;
+  }
+}
+
+/* --- VÍDEOS --- */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.video-iframe {
   width: 100%;
-  max-width: 560px;
-  height: 315px;
-  border: none;
+  aspect-ratio: 16 / 9;
+  border: 2px solid #222;
   border-radius: 8px;
 }
 
-/* Notícias */
+/* --- NOTÍCIAS --- */
 .noticia-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -152,90 +171,101 @@
 }
 
 .card-noticia {
-  background-color: #1e1e1e;
-  border-radius: 8px;
+  background: #151515;
+  border: 1px solid #222;
+  border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
 }
 
-.card-noticia img {
+.news-img-container img {
   width: 100%;
   height: 180px;
   object-fit: cover;
 }
 
-.card-noticia p.categoria {
-  color: #ffffff;
-  font-size: 0.9rem;
-  margin: 0.5rem 1rem;
-  font-weight: bold;
+.news-content {
+  padding: 1rem;
 }
 
-.card-noticia h3 {
-  font-size: 1.2rem;
-  margin: 0.5rem 1rem 1rem;
-  color: white;
+.categoria {
+  color: #d60000;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .card-noticia:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 15px rgba(185, 0, 0, 0.4);
+  border-color: #d60000;
+  transform: translateY(-5px);
 }
 
-/* Paginação de Notícias */
 .paginacao-noticias {
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
 .paginacao-noticias button {
-  background-color: #b90000;
-  color: white;
-  padding: 0.5rem 1rem;
+  background: #d60000;
   border: none;
-  border-radius: 6px;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.paginacao-noticias button:hover {
-  background-color: #8e0000;
+  font-weight: bold;
 }
 
 .paginacao-noticias button:disabled {
-  background-color: #888;
-  cursor: default;
+  background: #333;
+  cursor: not-allowed;
 }
 
-/* Agenda */
-.agenda ul {
-  list-style: none;
-  padding: 0;
+/* --- MODAL --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.agenda li {
-  background-color: #1e1e1e;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
-  border-radius: 6px;
-  font-size: 1rem;
+.modal-content img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border: 2px solid #d60000;
+  border-radius: 8px;
 }
 
-/* Responsivo */
+.close-modal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: #d60000;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1024px) {
+  .player-card { flex: 0 1 30%; }
+  .social-overlay { position: static; opacity: 1; padding: 5px 0; }
+}
+
 @media (max-width: 768px) {
-  .jogador {
-    max-width: 100%;
-  }
+  .player-card { flex: 0 1 45%; }
+  .video-grid { grid-template-columns: 1fr; }
+  .pagina-freefire h1 { font-size: 2.2rem; }
+}
 
-  .jogador img {
-    height: 200px;
-  }
-
-  .video-list iframe {
-    height: 200px;
-  }
+@media (max-width: 480px) {
+  .player-card { flex: 0 1 100%; }
 }

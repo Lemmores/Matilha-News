@@ -4,49 +4,13 @@ import Agenda from '../components/Agenda';
 import './FreeFirePage.css';
 
 const jogadores = [
-  {
-    nome: 'IGUINMVP',
-    img: '/jogadores/IGUINMVP.jpg',
-    // twitter: 'https://twitter.com/fNbLOL',
-    instagram: 'https://www.instagram.com/iguin.mvp/',
-  },
-  {
-    nome: 'ITALO7',
-    img: '/jogadores/ITALO7.jpg',
-    // twitter: 'https://x.com/DoomLol11',
-     instagram: 'https://www.instagram.com/italosete7/',
-  },
-  {
-    nome: 'ABREU',
-    img: '/jogadores/ABREU.jpg',
-    // twitter: 'https://x.com/1Kazelol',
-     instagram: 'https://www.instagram.com/abreu.coach/',
-  },
-  {
-    nome: 'LUCASAWP',
-    img: '/jogadores/LUCASAWP.jpg',
-    // twitter: 'https://x.com/rabeloxv',
-     instagram: 'https://www.instagram.com/lucasawp7/',
-  },
-  {
-    nome: 'ROJÃO',
-    img: '/jogadores/ROJÃO.jpg',
-    // twitter: 'https://x.com/frostylolx',
-     instagram: 'https://www.instagram.com/rojaowq/',
-  },
-   {
-    nome: 'ERICK11',
-    img: '/jogadores/ERICK11.jpg',
-    // twitter: 'https://x.com/frostylolx',
-     instagram: 'https://www.instagram.com/erickonze/',
-  },
-
-  {
-    nome: 'KOGA012',
-    img: '/jogadores/KOGA012.jpg',
-    // twitter: 'https://x.com/frostylolx',
-    instagram: 'https://www.instagram.com/koguinha012/',
-  },
+  { nome: 'IGUINMVP', img: '/jogadores/IGUINMVP.jpg', instagram: 'https://www.instagram.com/iguin.mvp/' },
+  { nome: 'ITALO7', img: '/jogadores/ITALO7.jpg', instagram: 'https://www.instagram.com/italosete7/' },
+  { nome: 'ABREU', img: '/jogadores/ABREU.jpg', instagram: 'https://www.instagram.com/abreu.coach/' },
+  { nome: 'LUCASAWP', img: '/jogadores/LUCASAWP.jpg', instagram: 'https://www.instagram.com/lucasawp7/' },
+  { nome: 'ROJÃO', img: '/jogadores/ROJÃO.jpg', instagram: 'https://www.instagram.com/rojaowq/' },
+  { nome: 'ERICK11', img: '/jogadores/ERICK11.jpg', instagram: 'https://www.instagram.com/erickonze/' },
+  { nome: 'KOGA012', img: '/jogadores/KOGA012.jpg', instagram: 'https://www.instagram.com/koguinha012/' },
 ];
 
 const FreeFirePage = () => {
@@ -63,12 +27,12 @@ const FreeFirePage = () => {
       try {
         const res = await fetch(`${API_URL}/api/noticias`);
         const data = await res.json();
-        const FreeFireNoticias = data
+        const filtradas = data
           .filter(n => n.categoria === 'FREEFIRE')
-          .sort((a, b) => new Date(b.data) - new Date(a.data));
-        setNoticiasFreeFire(FreeFireNoticias);
+          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
+        setNoticiasFreeFire(filtradas);
       } catch (error) {
-        console.error('Erro ao carregar notícias de FREEFIRE:', error);
+        console.error('Erro ao carregar notícias de Free Fire:', error);
       }
     };
 
@@ -76,10 +40,12 @@ const FreeFirePage = () => {
       try {
         const res = await fetch(`${API_URL}/api/agenda`);
         const data = await res.json();
-        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'FREEFIRE');
+        const agendaFiltrada = data
+          .filter(confronto => confronto.campeonato === 'FREEFIRE')
+          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
         setAgendaFreeFire(agendaFiltrada);
       } catch (error) {
-        console.error('Erro ao carregar agenda da FREEFIRE:', error);
+        console.error('Erro ao carregar agenda de Free Fire:', error);
       }
     };
 
@@ -91,40 +57,48 @@ const FreeFirePage = () => {
   const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
   const noticiasExibidas = noticiasFreeFire.slice(indiceInicio, indiceInicio + noticiasPorPagina);
 
-  const irParaAnterior = () => {
-    if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
-  };
+  const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
+  const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
 
-  const irParaProxima = () => {
-    if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
+  const formatEmbedLink = (url) => {
+    if (!url) return '';
+    const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
+               url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
+               url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
+    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
   };
 
   return (
     <div className="pagina-freefire">
-      <h1>RED Canids no FREEFIRE</h1>
+      <header className="header-freefire">
+        <h1>RED Canids no Free Fire</h1>
+        <p className="subtitle">MOBILE GAMING</p>
+      </header>
 
-      <section>
-        <h2 className="freefire-section-title">Line-up</h2>
-        <div className="jogadores">
+      {/* Line-up Estilo Creators */}
+      <section className="lineup-section">
+        <h2 className="section-title">Line-up Oficial</h2>
+        <div className="jogadores-grid">
           {jogadores.map((jogador, idx) => (
-            <div key={idx} className="jogador">
-              <img
-                src={jogador.img}
-                alt={jogador.nome}
-                onClick={() => setImagemAberta(jogador.img)}
-              />
-              <span>{jogador.nome}</span>
-              <div className="social-buttons">
-                {jogador.twitter && (
-                  <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <img src="/icons/x.png" alt="Twitter" />
-                  </a>
-                )}
-                {jogador.instagram && (
-                  <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <img src="/icons/instagram.png" alt="Instagram" />
-                  </a>
-                )}
+            <div key={idx} className="player-card">
+              <div className="image-container">
+                <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
+              </div>
+              <div className="player-footer">
+                <span className="player-name">{jogador.nome}</span>
+                <span className="player-role">PRO PLAYER</span>
+                <div className="social-overlay">
+                  {jogador.twitter && (
+                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
+                      <img src="/icons/x.png" alt="X" />
+                    </a>
+                  )}
+                  {jogador.instagram && (
+                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
+                      <img src="/icons/instagram.png" alt="Instagram" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
@@ -132,54 +106,55 @@ const FreeFirePage = () => {
       </section>
 
       {imagemAberta && (
-        <div className="modal" onClick={() => setImagemAberta(null)}>
-          <img src={imagemAberta} alt="Imagem ampliada" />
+        <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
+          <div className="modal-content">
+            <img src={imagemAberta} alt="Zoom" />
+            <button className="close-modal">X</button>
+          </div>
         </div>
       )}
 
-     <section>
-  <h2 className="freefire-section-title">Últimos Confrontos</h2>
-  <div className="video-list">
-    {agendaFreeFire
-  .filter(partida => partida.linkTransmissao)
-  .sort((a, b) => new Date(b.data) - new Date(a.data))
-  .slice(0, 2)
-  .map((partida, index) => {
-    const link = partida.linkTransmissao.replace("watch?v=", "embed/");
-    return (
-      <iframe
-        key={index}
-        src={link}
-        title={`Confronto ${index + 1}`}
-        allowFullScreen
-      ></iframe>
-    );
-  })}
-  </div>
-</section>
+      {/* Vídeos */}
+      <section className="videos-section">
+        <h2 className="section-title">Últimos Confrontos</h2>
+        <div className="video-grid">
+          {agendaFreeFire
+            .filter(p => p.linkTransmissao)
+            .slice(0, 2)
+            .map((p, idx) => {
+              const src = formatEmbedLink(p.linkTransmissao);
+              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen className="video-iframe"></iframe> : null;
+            })}
+        </div>
+      </section>
 
-
-      <section>
-        <h2 className="freefire-section-title">Últimas Notícias da RED no FREEFIRE</h2>
+      {/* Notícias */}
+      <section className="news-section">
+        <h2 className="section-title">Notícias Relacionadas</h2>
         <div className="noticia-list">
           {noticiasExibidas.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <img src={noticia.imagem} alt={noticia.titulo} />
-              <p className="categoria">{noticia.categoria}</p>
-              <h3>{noticia.titulo}</h3>
+              <div className="news-img-container">
+                <img src={noticia.imagem} alt={noticia.titulo} />
+              </div>
+              <div className="news-content">
+                <p className="categoria">{noticia.categoria}</p>
+                <h3>{noticia.titulo}</h3>
+                <small>{new Date(noticia.data).toLocaleDateString('pt-BR')}</small>
+              </div>
             </Link>
           ))}
         </div>
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
             <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-            <span>Página {paginaAtual} de {totalPaginas}</span>
+            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
             <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
           </div>
         )}
       </section>
 
-      <section>
+      <section className="agenda-section">
         <Agenda partidas={agendaFreeFire} />
       </section>
     </div>

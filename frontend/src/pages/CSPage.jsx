@@ -69,7 +69,7 @@ const CSPage = () => {
   return (
     <div className="pagina-cs">
       <header className="header-cs">
-        <h1>RED Canids no CS2</h1>
+        <h1>RED Canids no CS</h1>
         <p className="subtitle">COUNTER-STRIKE 2</p>
       </header>
 
