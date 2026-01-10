@@ -53,6 +53,9 @@ const FreeFirePage = () => {
   const totalPaginas = Math.ceil(noticiasFreeFire.length / noticiasPorPagina);
   const noticiasExibidas = noticiasFreeFire.slice((paginaAtual - 1) * noticiasPorPagina, paginaAtual * noticiasPorPagina);
 
+  const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
+  const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
+
   const formatEmbedLink = (url) => {
     if (!url) return '';
     const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
@@ -101,7 +104,6 @@ const FreeFirePage = () => {
         </div>
       )}
 
-      {/* SEÇÃO DE VÍDEOS CENTRALIZADA */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
@@ -135,15 +137,17 @@ const FreeFirePage = () => {
               <div className="news-content">
                 <p className="categoria">{n.categoria}</p>
                 <h3>{n.titulo}</h3>
+                <small>{new Date(n.data).toLocaleDateString('pt-BR')}</small>
               </div>
             </Link>
           ))}
         </div>
+        
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
-            <button onClick={() => setPaginaAtual(p => p - 1)} disabled={paginaAtual === 1}>Anterior</button>
+            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
             <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
-            <button onClick={() => setPaginaAtual(p => p + 1)} disabled={paginaAtual === totalPaginas}>Próxima</button>
+            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
           </div>
         )}
       </section>

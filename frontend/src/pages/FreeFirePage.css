@@ -1,7 +1,7 @@
-/* FreeFirePage.css - Centralizado e Seguro para Mobile */
+/* FreeFirePage.css - Versão Final */
 
 .pagina-freefire {
-  padding: 2rem 15px; /* Padding de segurança */
+  padding: 2rem 15px;
   max-width: 1200px;
   margin: 0 auto;
   color: white;
@@ -90,6 +90,11 @@
   height: 100%;
   object-fit: cover;
   object-position: center 12%; 
+  transition: transform 0.6s ease;
+}
+
+.player-card:hover .image-container img {
+  transform: scale(1.05);
 }
 
 .player-footer {
@@ -110,6 +115,7 @@
   color: #d60000;
   font-weight: bold;
   letter-spacing: 2px;
+  display: block;
 }
 
 .social-overlay {
@@ -121,7 +127,7 @@
 
 .social-icon img { width: 22px; height: 22px; }
 
-/* --- SEÇÃO DE VÍDEOS (CENTRALIZAÇÃO TOTAL) --- */
+/* --- VÍDEOS CENTRALIZADOS --- */
 .videos-section {
   width: 100%;
   display: flex;
@@ -169,28 +175,92 @@
   transition: all 0.3s ease;
 }
 
-.news-img-container img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
+.card-noticia:hover {
+  border-color: #d60000;
+  transform: translateY(-5px);
 }
 
+.news-img-container img { width: 100%; height: 180px; object-fit: cover; }
 .news-content { padding: 1rem; }
+.categoria { color: #d60000; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
+
+/* --- PAGINAÇÃO (PADRONIZADA) --- */
+.paginacao-noticias {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.paginacao-noticias button {
+  background-color: #d60000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 110px;
+}
+
+.paginacao-noticias button:hover:not(:disabled) {
+  background-color: #ff0000;
+  transform: scale(1.05);
+}
+
+.paginacao-noticias button:disabled {
+  background-color: #333;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.page-indicator {
+  font-weight: 900;
+  font-size: 1rem;
+  color: #fff;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* --- MODAL --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border: 2px solid #d60000;
+  border-radius: 8px;
+}
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
   .pagina-freefire h1 { font-size: 2.2rem; }
   .section-title { font-size: 1.8rem; }
 
-  .video-container-box {
-    width: 96%;
-    margin: 0 auto;
-  }
+  .video-container-box { width: 96%; margin: 0 auto; }
+  .player-card { flex: 0 1 100%; max-width: 320px; }
 
-  .player-card {
-    flex: 0 1 100%;
-    max-width: 320px;
+  .paginacao-noticias { gap: 0.8rem; }
+  .paginacao-noticias button {
+    padding: 12px 10px;
+    flex: 1;
+    max-width: 130px;
+    font-size: 0.75rem;
   }
 }
 
-.agenda-section { width: 100%; overflow-x: auto; }
+.agenda-section { width: 100%; overflow-x: auto; margin-top: 4rem; }
