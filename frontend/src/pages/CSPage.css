@@ -12,7 +12,7 @@ html, body {
 
 .pagina-cs {
   padding: 2rem 1rem;
-  max-width: 1200px;
+  max-width: 100%; /* Mudado de 1200px para 100% para evitar conflito lateral */
   margin: 0 auto;
   color: white;
   background-color: #111;
@@ -71,119 +71,62 @@ html, body {
   transition: all 0.3s ease;
 }
 
-.player-card:hover {
-  border-color: #d60000;
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.2);
-}
-
-.image-container {
+/* --- SEÇÃO DE VÍDEOS (FOCO TOTAL AQUI) --- */
+.videos-section {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  max-width: 100%;
   overflow: hidden;
-  background: #222;
+  padding: 0;
 }
 
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 15%; 
-}
-
-.player-footer {
-  padding: 1.2rem 0.5rem;
-  text-align: center;
-}
-
-.player-name {
-  display: block;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 5px;
-}
-
-.player-role {
-  font-size: 0.75rem;
-  color: #d60000;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-/* --- SEÇÃO DE VÍDEOS (REFORMULADA) --- */
 .video-grid {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  margin-bottom: 4rem;
   width: 100%;
-  padding: 0; 
+  padding: 0 10px;
 }
 
-/* Mantém a proporção 16:9 independente da tela */
-.video-container {
+.iframe-wrapper {
   position: relative;
   width: 100%;
-  max-width: 850px;
-  padding-bottom: 56.25%; /* Proporção 16:9 */
-  height: 0;
-  overflow: hidden;
+  max-width: 800px;
+  /* Garante que o container nunca ultrapasse a largura da tela do celular */
+  margin: 0 auto;
+}
+
+/* Técnica moderna de Aspect Ratio */
+.iframe-wrapper iframe {
+  width: 100% !important;
+  aspect-ratio: 16 / 9;
   border-radius: 12px;
   border: 2px solid #222;
-  background: #000;
+  display: block;
 }
 
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* --- RESPONSIVIDADE GERAL --- */
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
   .pagina-cs {
-    padding: 1rem 0.5rem;
+    padding: 1rem 10px; /* Reduzi o padding lateral para o máximo de espaço */
   }
 
-  .pagina-cs h1 {
-    font-size: 2.2rem;
-  }
+  .pagina-cs h1 { font-size: 2rem; }
 
-  .section-title {
-    font-size: 1.8rem;
-  }
-
-  .jogadores-grid {
-    gap: 2.5rem;
-    padding: 0 10px;
-  }
-
-  .player-card {
-    flex: 0 0 92%; 
-    max-width: 340px;
+  /* Forçamos o wrapper a não ter margens extras que empurrem o vídeo */
+  .iframe-wrapper {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
   }
 
   .video-grid {
-    padding: 0 10px; /* Garante que o container não encoste na borda do celular */
-  }
-
-  .image-container {
-    aspect-ratio: 1 / 1.1; 
+    padding: 0;
   }
 }
 
-/* Ajuste para telas muito pequenas */
-@media (max-width: 360px) {
-  .video-grid {
-    padding: 0 5px;
-  }
-  
-  .player-card {
-    flex: 0 0 98%;
-  }
+/* Caso o problema seja no componente Agenda ou outro que esteja "empurrando" a tela */
+.agenda-section {
+  width: 100%;
+  overflow-x: auto; /* Se a tabela da agenda for larga, ela criará scroll interno nela, não na página */
 }

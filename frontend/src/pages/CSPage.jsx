@@ -73,7 +73,6 @@ const CSPage = () => {
         <p className="subtitle">COUNTER-STRIKE 2</p>
       </header>
 
-      {/* Line-up Estilo 3x2 */}
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
         <div className="jogadores-grid">
@@ -103,7 +102,6 @@ const CSPage = () => {
         </div>
       </section>
 
-      {/* Modal de Imagem */}
       {imagemAberta && (
         <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
           <div className="modal-content">
@@ -113,7 +111,7 @@ const CSPage = () => {
         </div>
       )}
 
-      {/* Vídeos - AQUI FOI O AJUSTE PRINCIPAL */}
+      {/* --- SEÇÃO DE VÍDEOS --- */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-grid">
@@ -123,11 +121,12 @@ const CSPage = () => {
             .map((p, idx) => {
               const src = formatEmbedLink(p.linkTransmissao);
               return src ? (
-                <div key={idx} className="video-container">
+                <div key={idx} className="iframe-wrapper">
                   <iframe 
                     src={src} 
                     title={`Confronto ${idx + 1}`} 
                     allowFullScreen
+                    frameBorder="0"
                   ></iframe>
                 </div>
               ) : null;
@@ -135,7 +134,6 @@ const CSPage = () => {
         </div>
       </section>
 
-      {/* Notícias */}
       <section className="news-section">
         <h2 className="section-title">Notícias Relacionadas</h2>
         <div className="noticia-list">
