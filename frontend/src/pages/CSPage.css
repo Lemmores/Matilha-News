@@ -12,11 +12,12 @@ html, body {
 
 .pagina-cs {
   padding: 2rem 1rem;
-  max-width: 100%; /* Mudado de 1200px para 100% para evitar conflito lateral */
+  max-width: 1200px; /* Voltamos ao limite, mas com segurança lateral */
   margin: 0 auto;
   color: white;
   background-color: #111;
   width: 100%;
+  overflow-x: hidden; /* Trava extra */
 }
 
 /* --- HEADER --- */
@@ -71,12 +72,12 @@ html, body {
   transition: all 0.3s ease;
 }
 
-/* --- SEÇÃO DE VÍDEOS (FOCO TOTAL AQUI) --- */
+/* --- SEÇÃO DE VÍDEOS (FIX DEFINITIVO) --- */
 .videos-section {
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
   padding: 0;
+  margin-bottom: 4rem;
 }
 
 .video-grid {
@@ -85,48 +86,63 @@ html, body {
   align-items: center;
   gap: 2rem;
   width: 100%;
-  padding: 0 10px;
+  padding: 0; /* Removido padding que causava o "empurrão" */
 }
 
 .iframe-wrapper {
   position: relative;
   width: 100%;
-  max-width: 800px;
-  /* Garante que o container nunca ultrapasse a largura da tela do celular */
-  margin: 0 auto;
-}
-
-/* Técnica moderna de Aspect Ratio */
-.iframe-wrapper iframe {
-  width: 100% !important;
-  aspect-ratio: 16 / 9;
+  max-width: 850px;
+  /* Técnica de proporção intrínseca (Hacks de 16:9) */
+  padding-bottom: 56.25%; 
+  height: 0;
+  overflow: hidden;
   border-radius: 12px;
   border: 2px solid #222;
-  display: block;
+  background: #000;
+}
+
+.iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0; /* Força o vídeo a começar na quina esquerda do container */
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
 }
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
   .pagina-cs {
-    padding: 1rem 10px; /* Reduzi o padding lateral para o máximo de espaço */
+    padding: 1rem 10px; /* Margem mínima lateral */
   }
 
   .pagina-cs h1 { font-size: 2rem; }
-
-  /* Forçamos o wrapper a não ter margens extras que empurrem o vídeo */
-  .iframe-wrapper {
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-  }
+  .section-title { font-size: 1.8rem; }
 
   .video-grid {
-    padding: 0;
+    padding: 0 5px; /* Quase nada de padding para o vídeo respirar */
+  }
+
+  .iframe-wrapper {
+    width: 100%;
+    max-width: 100%; /* No mobile ele ocupa a largura real disponível */
+  }
+  
+  .player-card {
+    flex: 0 0 100%;
+    max-width: 320px;
   }
 }
 
-/* Caso o problema seja no componente Agenda ou outro que esteja "empurrando" a tela */
-.agenda-section {
+/* Agenda e Notícias */
+.agenda-section, .news-section {
   width: 100%;
-  overflow-x: auto; /* Se a tabela da agenda for larga, ela criará scroll interno nela, não na página */
+  overflow-x: hidden;
+}
+
+.noticia-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
