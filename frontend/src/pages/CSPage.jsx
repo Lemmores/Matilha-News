@@ -90,7 +90,6 @@ const CSPage = () => {
         </div>
       </section>
 
-      {/* SEÇÃO DE VÍDEOS REFORMULADA */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
@@ -128,6 +127,15 @@ const CSPage = () => {
             </Link>
           ))}
         </div>
+
+        {/* PAGINAÇÃO ADICIONADA AQUI */}
+        {totalPaginas > 1 && (
+          <div className="paginacao-noticias">
+            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
+            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
+            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
+          </div>
+        )}
       </section>
 
       <section className="agenda-section">
