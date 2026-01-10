@@ -30,7 +30,7 @@ const CblolPage = () => {
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
         setNoticiasLtaSul(ltaSulNoticias);
       } catch (error) {
-        console.error('Erro ao carregar notícias do CBLOL:', error);
+        console.error('Erro ao carregar notícias:', error);
       }
     };
 
@@ -43,7 +43,7 @@ const CblolPage = () => {
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
         setAgendaLtaSul(agendaFiltrada);
       } catch (error) {
-        console.error('Erro ao carregar agenda do CBLOL:', error);
+        console.error('Erro ao carregar agenda:', error);
       }
     };
 
@@ -52,18 +52,14 @@ const CblolPage = () => {
   }, [API_URL]);
 
   const totalPaginas = Math.ceil(noticiasLtaSul.length / noticiasPorPagina);
-  const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
-  const noticiasExibidas = noticiasLtaSul.slice(indiceInicio, indiceInicio + noticiasPorPagina);
-
-  const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
-  const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
+  const noticiasExibidas = noticiasLtaSul.slice((paginaAtual - 1) * noticiasPorPagina, paginaAtual * noticiasPorPagina);
 
   const formatEmbedLink = (url) => {
     if (!url) return '';
     const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
                url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
                url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
-    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
+    return id ? `https://www.youtube.com/embed/${id}` : '';
   };
 
   return (
@@ -75,51 +71,36 @@ const CblolPage = () => {
 
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
-        <div className="jogadores-compact-grid">
-          {jogadores.map((jogador, idx) => (
-            <div key={idx} className="mini-player-card">
-              <div className="mini-image-container">
-                <img 
-                  src={jogador.img} 
-                  alt={jogador.nome} 
-                  onClick={() => setImagemAberta(jogador.img)} 
-                />
-                
-                {/* Overlay para PC (Hover) - Ícones mais abaixo */}
-                <div className="social-overlay-hover">
-                  {jogador.twitter && (
-                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
-                      <img src="/icons/x.png" alt="X" />
-                    </a>
-                  )}
-                  {jogador.instagram && (
-                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
-                      <img src="/icons/instagram.png" alt="Instagram" />
-                    </a>
-                  )}
+        <div className="jogadores-wrapper-centralizado">
+          <div className="jogadores-compact-grid">
+            {jogadores.map((jogador, idx) => (
+              <div key={idx} className="mini-player-card">
+                <div className="mini-image-container">
+                  <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
+                  <div className="social-overlay-hover">
+                    {jogador.twitter && (
+                      <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
+                        <img src="/icons/x.png" alt="X" />
+                      </a>
+                    )}
+                    {jogador.instagram && (
+                      <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
+                        <img src="/icons/instagram.png" alt="Instagram" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <div className="mini-player-footer">
+                  <span className="mini-player-name">{jogador.nome}</span>
+                  <span className="mini-player-role">PRO PLAYER</span>
+                  <div className="social-mobile-only">
+                    {jogador.twitter && <a href={jogador.twitter} target="_blank" rel="noopener noreferrer"><img src="/icons/x.png" alt="X" /></a>}
+                    {jogador.instagram && <a href={jogador.instagram} target="_blank" rel="noopener noreferrer"><img src="/icons/instagram.png" alt="Instagram" /></a>}
+                  </div>
                 </div>
               </div>
-
-              <div className="mini-player-footer">
-                <span className="mini-player-name">{jogador.nome}</span>
-                <span className="mini-player-role">PRO PLAYER</span>
-                
-                {/* Redes Sociais apenas Mobile (Fixo abaixo) */}
-                <div className="social-mobile-only">
-                  {jogador.twitter && (
-                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
-                      <img src="/icons/x.png" alt="X" />
-                    </a>
-                  )}
-                  {jogador.instagram && (
-                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
-                      <img src="/icons/instagram.png" alt="Instagram" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -132,7 +113,7 @@ const CblolPage = () => {
         </div>
       )}
 
-      {/* Seções de Vídeos, Notícias e Agenda permanecem integradas */}
+      {/* Seções de Vídeos e Notícias */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
@@ -153,18 +134,10 @@ const CblolPage = () => {
               <div className="news-content">
                 <p className="categoria">{noticia.categoria}</p>
                 <h3>{noticia.titulo}</h3>
-                <small>{new Date(noticia.data).toLocaleDateString('pt-BR')}</small>
               </div>
             </Link>
           ))}
         </div>
-        {totalPaginas > 1 && (
-          <div className="paginacao-noticias">
-            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
-            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
-          </div>
-        )}
       </section>
 
       <section className="agenda-section">
