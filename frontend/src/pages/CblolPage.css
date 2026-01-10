@@ -1,44 +1,28 @@
-/* --- CONTAINER PRINCIPAL --- */
 .pagina-cblol {
-  padding: 2rem 20px;
+  padding: 2rem 0;
   color: white;
   background-color: #111;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  align-items: center;
 }
 
-.header-cblol { 
-  text-align: center; 
-  margin-bottom: 3rem; 
-}
-
-.pagina-cblol h1 { 
-  font-size: 2.5rem; 
-  color: #d60000; 
-  text-transform: uppercase; 
-  font-weight: 900; 
-}
-
-/* --- GRID DOS JOGADORES (AJUSTADO PARA PREENCHER MELHOR) --- */
-.jogadores-compact-grid {
+/* --- GRID QUE OCUPA A TELA TODA SEM ESPAÇO SOBRANDO --- */
+.jogadores-container-horizontal {
   display: flex;
-  flex-wrap: wrap;       
-  justify-content: center; /* Mantém os cards no meio */
-  align-items: flex-start;
-  gap: 25px;             /* Aumentei levemente o espaço entre eles */
-  width: 100%;           
-  max-width: 1300px;     /* Aumentado para permitir que cards maiores fiquem alinhados */
-  margin: 0 auto 4rem auto;
+  flex-direction: row;
+  justify-content: space-between; /* ESTA LINHA ELIMINA O ESPAÇO NA DIREITA */
+  align-items: center;
+  width: 95%;            /* Ocupa quase a tela toda */
+  max-width: 1400px;     /* Limite máximo para telas ultra-wide */
+  margin: 0 auto 5rem auto;
 }
 
-/* --- CARD DO JOGADOR (AUMENTADO) --- */
 .mini-player-card {
-  /* Aumentei de 190px para 230px para ocupar mais espaço visual */
-  flex: 0 1 230px;      
-  min-width: 210px;      
+  flex: 0 1 18%;         /* Cada card ocupa quase 20% do espaço (5 cards = 100%) */
+  min-width: 200px;
   background: #151515;
-  border-radius: 10px;   /* Arredondamento levemente maior para combinar com o tamanho */
+  border-radius: 8px;
   border: 1px solid #222;
   transition: all 0.3s ease;
   overflow: hidden;
@@ -46,15 +30,15 @@
 }
 
 .mini-player-card:hover {
-  transform: translateY(-8px); /* Subida um pouco mais evidente */
+  transform: translateY(-10px);
   border-color: #d60000;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
 }
 
 .mini-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1.25; /* Mantém a proporção da foto */
+  aspect-ratio: 1 / 1.25;
 }
 
 .mini-image-container img {
@@ -63,77 +47,46 @@
   object-fit: cover;
 }
 
-/* --- HOVER DOS ÍCONES (NA BASE DA IMAGEM) --- */
-@media (min-width: 1025px) {
-  .social-mobile-only { 
-    display: none !important; 
-  }
-
-  .social-overlay-hover {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    /* Gradiente mais alto para os ícones maiores aparecerem bem */
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
-    padding: 30px 0 15px 0; 
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-  }
-
-  .mini-player-card:hover .social-overlay-hover {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
+/* --- HOVER DOS ÍCONES (NA BASE) --- */
+.social-overlay-hover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+  padding: 30px 0 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease;
 }
 
-/* Ícones levemente maiores para acompanhar o card */
-.social-overlay-hover img, 
-.social-mobile-only img {
+.mini-player-card:hover .social-overlay-hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.social-overlay-hover img {
   width: 22px !important;
   height: 22px !important;
-  object-fit: contain;
-  transition: transform 0.2s;
 }
 
-.social-overlay-hover a:hover img {
-  transform: scale(1.2); /* Efeito de zoom no ícone ao passar o mouse */
-}
-
-/* --- RESPONSIVIDADE (CELULAR) --- */
+/* --- RESPONSIVIDADE CELULAR --- */
 @media (max-width: 1024px) {
-  .jogadores-compact-grid {
+  .jogadores-container-horizontal {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 15px;
-    padding: 0 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 90%;
   }
-
-  .mini-player-card { 
+  .mini-player-card {
     flex: none;
-    width: 100%; 
-    min-width: unset;
-  }
-
-  .social-overlay-hover { 
-    display: none !important; 
-  }
-
-  .social-mobile-only {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
+    width: 100%;
   }
 }
 
-/* --- RODAPÉ DO CARD --- */
 .mini-player-footer {
   padding: 1.2rem 0.5rem;
   text-align: center;
@@ -141,15 +94,14 @@
 
 .mini-player-name {
   display: block;
-  font-size: 1.2rem; /* Nome um pouco maior */
+  font-size: 1.2rem;
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 4px;
+  color: #fff;
 }
 
 .mini-player-role {
   font-size: 0.75rem;
   color: #d60000;
   font-weight: bold;
-  letter-spacing: 1px;
 }

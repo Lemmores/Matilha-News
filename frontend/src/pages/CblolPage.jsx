@@ -15,52 +15,27 @@ const CblolPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [noticiasLtaSul, setNoticiasLtaSul] = useState([]);
   const [agendaLtaSul, setAgendaLtaSul] = useState([]);
-  const [paginaAtual, setPaginaAtual] = useState(1);
-  const noticiasPorPagina = 4;
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
-    const fetchNoticias = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/noticias`);
-        const data = await res.json();
-        const ltaSulNoticias = data
-          .filter(n => n.categoria === 'CBLOL')
-          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-        setNoticiasLtaSul(ltaSulNoticias);
+        const [newsRes, agendaRes] = await Promise.all([
+          fetch(`${API_URL}/api/noticias`),
+          fetch(`${API_URL}/api/agenda`)
+        ]);
+        const newsData = await newsRes.json();
+        const agendaData = await agendaRes.json();
+
+        setNoticiasLtaSul(newsData.filter(n => n.categoria === 'CBLOL'));
+        setAgendaLtaSul(agendaData.filter(a => a.campeonato === 'CBLOL'));
       } catch (error) {
-        console.error('Erro:', error);
+        console.error('Erro ao carregar dados:', error);
       }
     };
-
-    const fetchAgenda = async () => {
-      try {
-        const res = await fetch(`${API_URL}/api/agenda`);
-        const data = await res.json();
-        const agendaFiltrada = data
-          .filter(confronto => confronto.campeonato === 'CBLOL')
-          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-        setAgendaLtaSul(agendaFiltrada);
-      } catch (error) {
-        console.error('Erro:', error);
-      }
-    };
-
-    fetchNoticias();
-    fetchAgenda();
+    fetchData();
   }, [API_URL]);
-
-  const totalPaginas = Math.ceil(noticiasLtaSul.length / noticiasPorPagina);
-  const noticiasExibidas = noticiasLtaSul.slice((paginaAtual - 1) * noticiasPorPagina, paginaAtual * noticiasPorPagina);
-
-  const formatEmbedLink = (url) => {
-    if (!url) return '';
-    const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
-               url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
-               url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
-    return id ? `https://www.youtube.com/embed/${id}` : '';
-  };
 
   return (
     <div className="pagina-cblol">
@@ -71,38 +46,22 @@ const CblolPage = () => {
 
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
-        
-        {/* Container que força a largura total e centraliza */}
-        <div className="fullscreen-center-wrapper">
-          <div className="jogadores-compact-grid">
-            {jogadores.map((jogador, idx) => (
-              <div key={idx} className="mini-player-card">
-                <div className="mini-image-container">
-                  <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
-                  <div className="social-overlay-hover">
-                    {jogador.twitter && (
-                      <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
-                        <img src="/icons/x.png" alt="X" />
-                      </a>
-                    )}
-                    {jogador.instagram && (
-                      <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
-                        <img src="/icons/instagram.png" alt="Instagram" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-                <div className="mini-player-footer">
-                  <span className="mini-player-name">{jogador.nome}</span>
-                  <span className="mini-player-role">PRO PLAYER</span>
-                  <div className="social-mobile-only">
-                    {jogador.twitter && <a href={jogador.twitter} target="_blank" rel="noopener noreferrer"><img src="/icons/x.png" alt="X" /></a>}
-                    {jogador.instagram && <a href={jogador.instagram} target="_blank" rel="noopener noreferrer"><img src="/icons/instagram.png" alt="Instagram" /></a>}
-                  </div>
+        <div className="jogadores-container-horizontal">
+          {jogadores.map((jogador, idx) => (
+            <div key={idx} className="mini-player-card">
+              <div className="mini-image-container">
+                <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
+                <div className="social-overlay-hover">
+                  {jogador.twitter && <a href={jogador.twitter} target="_blank" rel="noopener noreferrer"><img src="/icons/x.png" alt="X" /></a>}
+                  {jogador.instagram && <a href={jogador.instagram} target="_blank" rel="noopener noreferrer"><img src="/icons/instagram.png" alt="Instagram" /></a>}
                 </div>
               </div>
-            ))}
-          </div>
+              <div className="mini-player-footer">
+                <span className="mini-player-name">{jogador.nome}</span>
+                <span className="mini-player-role">PRO PLAYER</span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -110,22 +69,11 @@ const CblolPage = () => {
         <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
           <div className="modal-content">
             <img src={imagemAberta} alt="Zoom" />
-            <button className="close-modal" onClick={() => setImagemAberta(null)}>X</button>
           </div>
         </div>
       )}
-
-      {/* Outras seções... */}
-      <section className="videos-section">
-        <h2 className="section-title">Últimos Confrontos</h2>
-        <div className="video-column">
-          {agendaLtaSul.filter(p => p.linkTransmissao).slice(0, 2).map((p, idx) => (
-            <div key={idx} className="video-container-box">
-              <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
-            </div>
-          ))}
-        </div>
-      </section>
+      
+      {/* Restante das seções (Vídeos/Agenda) */}
     </div>
   );
 };
