@@ -30,7 +30,7 @@ const CblolPage = () => {
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
         setNoticiasLtaSul(ltaSulNoticias);
       } catch (error) {
-        console.error('Erro ao carregar notícias:', error);
+        console.error('Erro:', error);
       }
     };
 
@@ -43,7 +43,7 @@ const CblolPage = () => {
           .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
         setAgendaLtaSul(agendaFiltrada);
       } catch (error) {
-        console.error('Erro ao carregar agenda:', error);
+        console.error('Erro:', error);
       }
     };
 
@@ -71,7 +71,9 @@ const CblolPage = () => {
 
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
-        <div className="jogadores-wrapper-centralizado">
+        
+        {/* Container que força a largura total e centraliza */}
+        <div className="fullscreen-center-wrapper">
           <div className="jogadores-compact-grid">
             {jogadores.map((jogador, idx) => (
               <div key={idx} className="mini-player-card">
@@ -113,7 +115,7 @@ const CblolPage = () => {
         </div>
       )}
 
-      {/* Seções de Vídeos e Notícias */}
+      {/* Outras seções... */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
@@ -123,25 +125,6 @@ const CblolPage = () => {
             </div>
           ))}
         </div>
-      </section>
-
-      <section className="news-section">
-        <h2 className="section-title">Notícias Relacionadas</h2>
-        <div className="noticia-list">
-          {noticiasExibidas.map(noticia => (
-            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <div className="news-img-container"><img src={noticia.imagem} alt={noticia.titulo} /></div>
-              <div className="news-content">
-                <p className="categoria">{noticia.categoria}</p>
-                <h3>{noticia.titulo}</h3>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="agenda-section">
-        <Agenda partidas={agendaLtaSul} />
       </section>
     </div>
   );
