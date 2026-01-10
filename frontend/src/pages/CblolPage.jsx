@@ -81,11 +81,9 @@ const CblolPage = () => {
               <div className="image-container">
                 <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
               </div>
-              
               <div className="player-footer">
                 <span className="player-name">{jogador.nome}</span>
                 <span className="player-role">PRO PLAYER</span>
-                
                 <div className="social-overlay">
                   {jogador.twitter && (
                     <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
@@ -113,7 +111,6 @@ const CblolPage = () => {
         </div>
       )}
 
-      {/* SEÇÃO DE VÍDEOS CENTRALIZADA */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
@@ -151,6 +148,7 @@ const CblolPage = () => {
             </Link>
           ))}
         </div>
+
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
             <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>

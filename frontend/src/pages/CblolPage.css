@@ -1,7 +1,7 @@
-/* CblolPage.css - Versão Corrigida e Centralizada */
+/* CblolPage.css - Versão Final com Paginação */
 
 .pagina-cblol {
-  padding: 2rem 15px; /* Padding equilibrado para segurança mobile */
+  padding: 2rem 15px;
   max-width: 1200px;
   margin: 0 auto;
   color: white;
@@ -49,7 +49,7 @@
   margin: 10px auto;
 }
 
-/* --- GRID DE JOGADORES (LÓGICA 3x2) --- */
+/* --- GRID DE JOGADORES --- */
 .jogadores-grid {
   display: flex;
   flex-wrap: wrap;
@@ -61,7 +61,7 @@
 
 @media (min-width: 1025px) {
   .jogadores-grid {
-    max-width: 900px; /* Força o 3+2 em telas grandes */
+    max-width: 900px;
   }
 }
 
@@ -71,8 +71,13 @@
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #222;
-  position: relative;
   transition: all 0.3s ease;
+}
+
+.player-card:hover {
+  transform: translateY(-10px);
+  border-color: #d60000;
+  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.3);
 }
 
 .image-container {
@@ -87,6 +92,11 @@
   height: 100%;
   object-fit: cover;
   object-position: top;
+  transition: transform 0.6s ease;
+}
+
+.player-card:hover .image-container img {
+  transform: scale(1.05);
 }
 
 .player-footer {
@@ -107,6 +117,7 @@
   color: #d60000;
   font-weight: bold;
   letter-spacing: 2px;
+  display: block;
 }
 
 .social-overlay {
@@ -116,7 +127,12 @@
   margin-top: 10px;
 }
 
-/* --- SEÇÃO DE VÍDEOS (CENTRALIZAÇÃO TOTAL) --- */
+.social-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- VÍDEOS CENTRALIZADOS --- */
 .videos-section {
   width: 100%;
   display: flex;
@@ -135,7 +151,7 @@
 
 .video-container-box {
   width: 100%;
-  max-width: 800px; /* Limite confortável no PC */
+  max-width: 800px;
   aspect-ratio: 16 / 9;
   position: relative;
 }
@@ -154,6 +170,98 @@
   gap: 1.5rem;
 }
 
+.card-noticia {
+  background: #151515;
+  border: 1px solid #222;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.card-noticia:hover {
+  border-color: #d60000;
+  transform: translateY(-5px);
+}
+
+.news-img-container img { width: 100%; height: 180px; object-fit: cover; }
+.news-content { padding: 1rem; }
+.categoria { color: #d60000; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
+
+/* --- PAGINAÇÃO (ESTILO PADRÃO) --- */
+.paginacao-noticias {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.paginacao-noticias button {
+  background-color: #d60000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 110px;
+}
+
+.paginacao-noticias button:hover:not(:disabled) {
+  background-color: #ff0000;
+  transform: scale(1.05);
+}
+
+.paginacao-noticias button:disabled {
+  background-color: #333;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.page-indicator {
+  font-weight: 900;
+  font-size: 1rem;
+  color: #fff;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* --- MODAL --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border: 2px solid #d60000;
+  border-radius: 8px;
+}
+
+.close-modal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: #d60000;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
   .pagina-cblol h1 { font-size: 2.2rem; }
@@ -168,6 +276,17 @@
     flex: 0 1 100%;
     max-width: 320px;
   }
+
+  .paginacao-noticias {
+    gap: 0.8rem;
+  }
+  
+  .paginacao-noticias button {
+    padding: 12px 10px;
+    flex: 1;
+    max-width: 130px;
+    font-size: 0.75rem;
+  }
 }
 
-.agenda-section { width: 100%; overflow-x: auto; }
+.agenda-section { width: 100%; overflow-x: auto; margin-top: 4rem; }
