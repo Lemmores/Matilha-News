@@ -84,49 +84,27 @@ const CSPage = () => {
               <div className="player-footer">
                 <span className="player-name">{jogador.nome}</span>
                 <span className="player-role">PRO PLAYER</span>
-                <div className="social-overlay">
-                  {jogador.twitter && (
-                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
-                      <img src="/icons/x.png" alt="X" />
-                    </a>
-                  )}
-                  {jogador.instagram && (
-                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
-                      <img src="/icons/instagram.png" alt="Instagram" />
-                    </a>
-                  )}
-                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {imagemAberta && (
-        <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
-          <div className="modal-content">
-            <img src={imagemAberta} alt="Zoom" />
-            <button className="close-modal">X</button>
-          </div>
-        </div>
-      )}
-
-      {/* --- SEÇÃO DE VÍDEOS --- */}
+      {/* SEÇÃO DE VÍDEOS */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
-        <div className="video-grid">
+        <div className="video-column">
           {agendaCS
             .filter(p => p.linkTransmissao)
             .slice(0, 2)
             .map((p, idx) => {
               const src = formatEmbedLink(p.linkTransmissao);
               return src ? (
-                <div key={idx} className="iframe-wrapper">
+                <div key={idx} className="video-wrapper">
                   <iframe 
                     src={src} 
                     title={`Confronto ${idx + 1}`} 
                     allowFullScreen
-                    frameBorder="0"
                   ></iframe>
                 </div>
               ) : null;
@@ -150,13 +128,6 @@ const CSPage = () => {
             </Link>
           ))}
         </div>
-        {totalPaginas > 1 && (
-          <div className="paginacao-noticias">
-            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
-            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
-          </div>
-        )}
       </section>
 
       <section className="agenda-section">
