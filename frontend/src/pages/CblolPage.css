@@ -5,7 +5,7 @@
   background-color: #111;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza tudo que estiver dentro da página */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
 }
 
 .header-cblol { 
@@ -13,24 +13,32 @@
   margin-bottom: 3rem; 
 }
 
-/* --- GRID DOS JOGADORES (O SEGREDO ESTÁ AQUI) --- */
-.jogadores-compact-grid {
-  display: flex;
-  flex-wrap: wrap;       /* Permite que os cards se ajustem */
-  justify-content: center; /* CENTRALIZA OS CARDS NO MEIO */
-  align-items: center;
-  gap: 20px;             /* Espaçamento entre os cards */
-  width: 100%;           /* Ocupa a largura disponível */
-  max-width: 1200px;     /* Não deixa os cards espalharem demais em monitores gigantes */
-  margin: 0 auto 4rem auto; /* Centraliza o bloco do grid na página */
+.pagina-cblol h1 { 
+  font-size: 2.5rem; 
+  color: #d60000; 
+  text-transform: uppercase; 
+  font-weight: 900; 
 }
 
-/* --- CARD DO JOGADOR --- */
+/* --- GRID DOS JOGADORES (AJUSTADO PARA PREENCHER MELHOR) --- */
+.jogadores-compact-grid {
+  display: flex;
+  flex-wrap: wrap;       
+  justify-content: center; /* Mantém os cards no meio */
+  align-items: flex-start;
+  gap: 25px;             /* Aumentei levemente o espaço entre eles */
+  width: 100%;           
+  max-width: 1300px;     /* Aumentado para permitir que cards maiores fiquem alinhados */
+  margin: 0 auto 4rem auto;
+}
+
+/* --- CARD DO JOGADOR (AUMENTADO) --- */
 .mini-player-card {
-  flex: 0 1 190px;      /* Define uma largura base de 190px */
-  min-width: 180px;      /* Não deixa o card espremer demais */
+  /* Aumentei de 190px para 230px para ocupar mais espaço visual */
+  flex: 0 1 230px;      
+  min-width: 210px;      
   background: #151515;
-  border-radius: 8px;
+  border-radius: 10px;   /* Arredondamento levemente maior para combinar com o tamanho */
   border: 1px solid #222;
   transition: all 0.3s ease;
   overflow: hidden;
@@ -38,14 +46,15 @@
 }
 
 .mini-player-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px); /* Subida um pouco mais evidente */
   border-color: #d60000;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
 }
 
 .mini-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1.25;
+  aspect-ratio: 1 / 1.25; /* Mantém a proporção da foto */
 }
 
 .mini-image-container img {
@@ -54,7 +63,7 @@
   object-fit: cover;
 }
 
-/* --- HOVER DOS ÍCONES (IGUAL CREATORS) --- */
+/* --- HOVER DOS ÍCONES (NA BASE DA IMAGEM) --- */
 @media (min-width: 1025px) {
   .social-mobile-only { 
     display: none !important; 
@@ -65,11 +74,12 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-    padding: 25px 0 10px 0;
+    /* Gradiente mais alto para os ícones maiores aparecerem bem */
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+    padding: 30px 0 15px 0; 
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s ease;
@@ -83,19 +93,24 @@
   }
 }
 
-/* Ajuste do tamanho dos ícones */
+/* Ícones levemente maiores para acompanhar o card */
 .social-overlay-hover img, 
 .social-mobile-only img {
-  width: 20px !important;
-  height: 20px !important;
+  width: 22px !important;
+  height: 22px !important;
   object-fit: contain;
+  transition: transform 0.2s;
+}
+
+.social-overlay-hover a:hover img {
+  transform: scale(1.2); /* Efeito de zoom no ícone ao passar o mouse */
 }
 
 /* --- RESPONSIVIDADE (CELULAR) --- */
 @media (max-width: 1024px) {
   .jogadores-compact-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 cards por linha no celular */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 15px;
     padding: 0 10px;
   }
@@ -103,6 +118,7 @@
   .mini-player-card { 
     flex: none;
     width: 100%; 
+    min-width: unset;
   }
 
   .social-overlay-hover { 
@@ -112,26 +128,28 @@
   .social-mobile-only {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 15px;
     margin-top: 10px;
   }
 }
 
 /* --- RODAPÉ DO CARD --- */
 .mini-player-footer {
-  padding: 1rem 0.5rem;
+  padding: 1.2rem 0.5rem;
   text-align: center;
 }
 
 .mini-player-name {
   display: block;
-  font-size: 1.1rem;
+  font-size: 1.2rem; /* Nome um pouco maior */
   font-weight: 800;
   text-transform: uppercase;
+  margin-bottom: 4px;
 }
 
 .mini-player-role {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: #d60000;
   font-weight: bold;
+  letter-spacing: 1px;
 }
