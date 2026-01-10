@@ -54,7 +54,6 @@ const CblolPage = () => {
 
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
-        {/* Container ajustado para centralização uniforme */}
         <div className="jogadores-container-horizontal">
           {jogadores.map((jogador, idx) => (
             <div key={idx} className="mini-player-card">
@@ -65,7 +64,7 @@ const CblolPage = () => {
                   onClick={() => setImagemAberta(jogador.img)} 
                 />
                 
-                {/* Overlay Hover estilo Creators */}
+                {/* Ícones de Hover (PC) */}
                 <div className="social-overlay-hover">
                   {jogador.twitter && (
                     <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
@@ -84,7 +83,7 @@ const CblolPage = () => {
                 <span className="mini-player-name">{jogador.nome}</span>
                 <span className="mini-player-role">PRO PLAYER</span>
                 
-                {/* Ícones Mobile (Aparecem apenas abaixo de 1024px) */}
+                {/* Ícones Fixos (Mobile) */}
                 <div className="social-mobile-only">
                    {jogador.twitter && <a href={jogador.twitter} target="_blank" rel="noopener noreferrer"><img src="/icons/x.png" alt="X" /></a>}
                    {jogador.instagram && <a href={jogador.instagram} target="_blank" rel="noopener noreferrer"><img src="/icons/instagram.png" alt="Instagram" /></a>}

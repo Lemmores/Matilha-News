@@ -1,43 +1,29 @@
-/* --- CONFIGURAÇÃO GERAL DA PÁGINA --- */
 .pagina-cblol {
   padding: 2rem 0;
   color: white;
   background-color: #111;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza tudo (Header, Grid, Seções) */
+  align-items: center;
   width: 100%;
 }
 
-.header-cblol { 
-  text-align: center; 
-  margin-bottom: 3rem; 
-}
+.header-cblol { text-align: center; margin-bottom: 3rem; }
+.pagina-cblol h1 { font-size: 2.5rem; color: #d60000; text-transform: uppercase; font-weight: 900; }
 
-.pagina-cblol h1 { 
-  font-size: 2.5rem; 
-  color: #d60000; 
-  text-transform: uppercase; 
-  font-weight: 900; 
-}
-
-/* --- GRID DOS JOGADORES (CORREÇÃO DE ALINHAMENTO) --- */
+/* --- GRID CENTRALIZADA --- */
 .jogadores-container-horizontal {
   display: flex;
-  flex-wrap: nowrap;     /* Mantém todos na mesma linha no PC */
-  justify-content: center; /* Centraliza o grupo de cards no meio da tela */
-  gap: 20px;             /* Distanciamento uniforme entre cada card */
-  width: 95%;            /* Ocupa quase a largura total da tela */
-  max-width: 1300px;     /* Ajuste conforme necessário para o seu monitor */
+  flex-direction: row;
+  justify-content: center; /* Mantém o bloco unido no centro */
+  gap: 20px;
+  width: 95%;
+  max-width: 1300px; /* Largura total ideal para os 5 cards */
   margin: 0 auto 5rem auto;
 }
 
-/* --- CARD DO JOGADOR --- */
 .mini-player-card {
-  /* Largura calculada para que os 5 caibam perfeitamente sem sobrar espaço */
-  flex: 1;               
-  max-width: 240px;      /* Tamanho máximo para não ficarem gigantes em telas 4k */
-  min-width: 180px;
+  flex: 0 1 230px; /* Largura base do card */
   background: #151515;
   border-radius: 8px;
   border: 1px solid #222;
@@ -47,100 +33,86 @@
 }
 
 .mini-player-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   border-color: #d60000;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
 }
 
 .mini-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1.25; /* Proporção da foto */
-  overflow: hidden;
+  aspect-ratio: 1 / 1.25;
 }
 
 .mini-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
 }
 
-/* --- HOVER DOS ÍCONES (POSICIONADOS MAIS ABAIXO) --- */
-.social-overlay-hover {
-  position: absolute;
-  bottom: 0; /* Coloca na base da imagem */
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.95)); /* Degradê igual Creators */
-  padding: 30px 0 10px 0; /* Espaço para os ícones ficarem bem embaixo */
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  
-  /* Estado inicial (escondido) */
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-
-.mini-player-card:hover .social-overlay-hover {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.social-overlay-hover img {
-  width: 22px !important;
-  height: 22px !important;
-  object-fit: contain;
-}
-
-/* --- RESPONSIVIDADE (TABLET E CELULAR) --- */
-@media (max-width: 1024px) {
-  .jogadores-container-horizontal {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 por linha no mobile */
-    gap: 15px;
-    width: 90%;
-  }
-
-  .mini-player-card {
-    max-width: 100%;
-    min-width: unset;
+/* --- LOGICA DE ÍCONES (PC) --- */
+@media (min-width: 1025px) {
+  .social-mobile-only { 
+    display: none !important; /* Esconde os de baixo no PC */
   }
 
   .social-overlay-hover {
-    display: none !important; /* Desativa hover no mobile */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+    padding: 30px 0 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    opacity: 0; /* Começa invisível */
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
   }
 
-  /* Se você quiser ícones fixos no mobile, use a div social-mobile-only no JSX */
+  .mini-player-card:hover .social-overlay-hover {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .social-overlay-hover img {
+    width: 22px !important; /* Tamanho fixo para não crescer */
+    height: 22px !important;
+  }
+}
+
+/* --- LOGICA DE ÍCONES (MOBILE) --- */
+@media (max-width: 1024px) {
+  .social-overlay-hover {
+    display: none !important; /* Esconde o hover no celular */
+  }
+
+  .jogadores-container-horizontal {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .mini-player-card { flex: none; width: 100%; }
+
   .social-mobile-only {
     display: flex;
     justify-content: center;
     gap: 15px;
-    padding: 10px 0;
+    margin-top: 10px;
+  }
+
+  .social-mobile-only img {
+    width: 20px !important; /* Tamanho fixo no mobile */
+    height: 20px !important;
   }
 }
 
-/* --- RODAPÉ DO CARD --- */
-.mini-player-footer {
-  padding: 1.2rem 0.5rem;
-  text-align: center;
-}
+.mini-player-footer { padding: 1.2rem 0.5rem; text-align: center; }
+.mini-player-name { display: block; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; }
+.mini-player-role { font-size: 0.75rem; color: #d60000; font-weight: bold; }
 
-.mini-player-name {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.mini-player-role {
-  font-size: 0.75rem;
-  color: #d60000;
-  font-weight: bold;
-}
+/* Título de seções */
+.section-title { text-align: center; margin-bottom: 2rem; text-transform: uppercase; font-size: 1.8rem; }
