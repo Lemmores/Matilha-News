@@ -85,8 +85,8 @@ const CblolPage = () => {
                   onClick={() => setImagemAberta(jogador.img)} 
                 />
                 
-                {/* OVERLAY PARA PC (HOVER) */}
-                <div className="social-overlay-pc">
+                {/* Overlay para PC (Hover) - Ícones mais abaixo */}
+                <div className="social-overlay-hover">
                   {jogador.twitter && (
                     <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/x.png" alt="X" />
@@ -104,8 +104,8 @@ const CblolPage = () => {
                 <span className="mini-player-name">{jogador.nome}</span>
                 <span className="mini-player-role">PRO PLAYER</span>
                 
-                {/* ÍCONES PARA CELULAR (FIXOS) */}
-                <div className="social-mobile-fixo">
+                {/* Redes Sociais apenas Mobile (Fixo abaixo) */}
+                <div className="social-mobile-only">
                   {jogador.twitter && (
                     <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/x.png" alt="X" />
@@ -132,21 +132,15 @@ const CblolPage = () => {
         </div>
       )}
 
-      {/* Seção de Vídeos e Notícias permanecem as mesmas abaixo */}
+      {/* Seções de Vídeos, Notícias e Agenda permanecem integradas */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
-          {agendaLtaSul
-            .filter(p => p.linkTransmissao)
-            .slice(0, 2)
-            .map((p, idx) => {
-              const src = formatEmbedLink(p.linkTransmissao);
-              return src ? (
-                <div key={idx} className="video-container-box">
-                  <iframe src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe>
-                </div>
-              ) : null;
-            })}
+          {agendaLtaSul.filter(p => p.linkTransmissao).slice(0, 2).map((p, idx) => (
+            <div key={idx} className="video-container-box">
+              <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
+            </div>
+          ))}
         </div>
       </section>
 
