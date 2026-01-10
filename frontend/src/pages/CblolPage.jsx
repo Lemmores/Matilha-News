@@ -5,7 +5,7 @@ import './CblolPage.css';
 
 const jogadores = [
   { nome: 'FNB', img: '/jogadores/fnb.jpg', twitter: 'https://twitter.com/fNbLOL', instagram: 'https://instagram.com/fNbLOL' },
-  { nome: 'DOOM', img: '/jogadores/Doom.jpg', twitter: 'https://x.com/DoomLol11', instagram: 'https://www.instagram.com/curse_lol1/' },
+  { nome: 'CURSE', img: '/jogadores/Doom.jpg', twitter: 'https://x.com/DoomLol11', instagram: 'https://www.instagram.com/curse_lol1/' },
   { nome: 'KAZE', img: '/jogadores/Kaze.jpg', twitter: 'https://x.com/1Kazelol', instagram: 'https://www.instagram.com/kaze.g_/' },
   { nome: 'RABELO', img: '/jogadores/Rabelo.jpg', twitter: 'https://x.com/rabeloxv', instagram: 'https://www.instagram.com/rabelokoo/' },
   { nome: 'FROSTY', img: '/jogadores/Frosty.jpg', twitter: 'https://x.com/frostylolx', instagram: 'https://www.instagram.com/lolfrosty1/' },

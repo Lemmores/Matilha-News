@@ -67,8 +67,8 @@ const FreeFirePage = () => {
   return (
     <div className="pagina-freefire">
       <header className="header-freefire">
-        <h1>RED Canids Free Fire</h1>
-        <p className="subtitle">MOBILE SQUAD</p>
+        <h1>RED Canids no Free Fire</h1>
+        <p className="subtitle">MOBILE GAMING</p>
       </header>
 
       <section className="lineup-section">
