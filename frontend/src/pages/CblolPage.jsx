@@ -79,17 +79,21 @@ const CblolPage = () => {
           {jogadores.map((jogador, idx) => (
             <div key={idx} className="mini-player-card">
               <div className="mini-image-container">
-                <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
+                <img 
+                  src={jogador.img} 
+                  alt={jogador.nome} 
+                  onClick={() => setImagemAberta(jogador.img)} 
+                />
                 
-                {/* Overlay visível no hover (PC) */}
-                <div className="social-overlay hover-only">
+                {/* Overlay para PC (Hover) */}
+                <div className="social-overlay-hover">
                   {jogador.twitter && (
-                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/x.png" alt="X" />
                     </a>
                   )}
                   {jogador.instagram && (
-                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/instagram.png" alt="Instagram" />
                     </a>
                   )}
@@ -100,15 +104,15 @@ const CblolPage = () => {
                 <span className="mini-player-name">{jogador.nome}</span>
                 <span className="mini-player-role">PRO PLAYER</span>
                 
-                {/* Redes visíveis sempre (Mobile) */}
-                <div className="social-overlay mobile-only">
+                {/* Redes Sociais para Mobile (Fixo abaixo do nome) */}
+                <div className="social-mobile-only">
                   {jogador.twitter && (
-                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/x.png" alt="X" />
                     </a>
                   )}
                   {jogador.instagram && (
-                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/instagram.png" alt="Instagram" />
                     </a>
                   )}

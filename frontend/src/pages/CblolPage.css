@@ -1,4 +1,4 @@
-/* CblolPage.css - Versão Final com Paginação */
+/* CblolPage.css - Centralizado e Compacto */
 
 .pagina-cblol {
   padding: 2rem 15px;
@@ -6,287 +6,191 @@
   margin: 0 auto;
   color: white;
   background-color: #111;
-  width: 100%;
-  overflow-x: hidden;
 }
 
 .header-cblol {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .pagina-cblol h1 {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   color: #d60000;
   text-transform: uppercase;
   font-weight: 900;
-  letter-spacing: -1px;
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
   color: #888;
-  letter-spacing: 4px;
-  font-size: 0.9rem;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
   text-transform: uppercase;
 }
 
 .section-title {
-  font-size: 2.2rem;
-  color: #fff;
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   text-transform: uppercase;
-  position: relative;
+  font-size: 1.8rem;
 }
 
 .section-title::after {
   content: '';
   display: block;
-  width: 50px;
-  height: 4px;
+  width: 40px;
+  height: 3px;
   background: #d60000;
-  margin: 10px auto;
+  margin: 8px auto;
 }
 
-/* --- GRID DE JOGADORES --- */
-.jogadores-grid {
+/* --- GRID DE JOGADORES CENTRALIZADO --- */
+.jogadores-compact-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin: 0 auto 4rem auto;
-  width: 100%; 
+  justify-content: center; /* Centraliza os 5 jogadores */
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 4rem;
 }
 
-@media (min-width: 1025px) {
-  .jogadores-grid {
-    max-width: 900px;
-  }
-}
-
-.player-card {
-  flex: 0 1 260px; 
+.mini-player-card {
+  flex: 0 1 180px; /* Tamanho compacto fixo no PC */
   background: #151515;
-  border-radius: 12px;
-  overflow: hidden;
+  border-radius: 8px;
   border: 1px solid #222;
   transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.player-card:hover {
-  transform: translateY(-10px);
+.mini-player-card:hover {
+  transform: translateY(-5px);
   border-color: #d60000;
-  box-shadow: 0 10px 30px rgba(214, 0, 0, 0.3);
 }
 
-.image-container {
+.mini-image-container {
   width: 100%;
-  aspect-ratio: 3 / 4; 
+  aspect-ratio: 1 / 1.15;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
 }
 
-.image-container img {
+.mini-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
-  transition: transform 0.6s ease;
 }
 
-.player-card:hover .image-container img {
-  transform: scale(1.05);
-}
-
-.player-footer {
-  padding: 1.2rem 0.5rem;
-  text-align: center;
-}
-
-.player-name {
-  display: block;
-  font-size: 1.3rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #fff;
-}
-
-.player-role {
-  font-size: 0.7rem;
-  color: #d60000;
-  font-weight: bold;
-  letter-spacing: 2px;
-  display: block;
-}
-
-.social-overlay {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 10px;
-}
-
-.social-icon img {
-  width: 20px;
-  height: 20px;
-}
-
-/* --- VÍDEOS CENTRALIZADOS --- */
-.videos-section {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 4rem;
-}
-
-.video-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
-  width: 100%;
-}
-
-.video-container-box {
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 16 / 9;
-  position: relative;
-}
-
-.video-container-box iframe {
-  width: 100%;
-  height: 100%;
-  border: 2px solid #222;
-  border-radius: 12px;
-}
-
-/* --- NOTÍCIAS --- */
-.noticia-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.card-noticia {
-  background: #151515;
-  border: 1px solid #222;
-  border-radius: 12px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
-}
-
-.card-noticia:hover {
-  border-color: #d60000;
-  transform: translateY(-5px);
-}
-
-.news-img-container img { width: 100%; height: 180px; object-fit: cover; }
-.news-content { padding: 1rem; }
-.categoria { color: #d60000; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
-
-/* --- PAGINAÇÃO (ESTILO PADRÃO) --- */
-.paginacao-noticias {
-  margin-top: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  width: 100%;
-}
-
-.paginacao-noticias button {
-  background-color: #d60000;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 110px;
-}
-
-.paginacao-noticias button:hover:not(:disabled) {
-  background-color: #ff0000;
-  transform: scale(1.05);
-}
-
-.paginacao-noticias button:disabled {
-  background-color: #333;
-  color: #666;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.page-indicator {
-  font-weight: 900;
-  font-size: 1rem;
-  color: #fff;
-  min-width: 60px;
-  text-align: center;
-}
-
-/* --- MODAL --- */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content img {
-  max-width: 90vw;
-  max-height: 80vh;
-  border: 2px solid #d60000;
-  border-radius: 8px;
-}
-
-.close-modal {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: #d60000;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  cursor: pointer;
-}
-
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 768px) {
-  .pagina-cblol h1 { font-size: 2.2rem; }
-  .section-title { font-size: 1.8rem; }
-
-  .video-container-box {
-    width: 96%;
-    margin: 0 auto;
+/* --- LÓGICA DE REDES SOCIAIS (PC HOVER) --- */
+@media (min-width: 1025px) {
+  .social-mobile-only {
+    display: none !important; /* Remove do rodapé no PC */
   }
 
-  .player-card {
-    flex: 0 1 100%;
-    max-width: 320px;
+  .social-overlay-hover {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    
+    /* Estado inicial oculto */
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+    pointer-events: none;
   }
 
-  .paginacao-noticias {
+  .mini-player-card:hover .social-overlay-hover {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+.social-overlay-hover img, 
+.social-mobile-only img {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+}
+
+.social-overlay-hover a:hover img {
+  transform: scale(1.2);
+}
+
+/* --- LÓGICA MOBILE --- */
+@media (max-width: 1024px) {
+  .social-overlay-hover {
+    display: none !important;
+  }
+
+  .social-mobile-only {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 10px;
+  }
+
+  .jogadores-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.8rem;
   }
-  
-  .paginacao-noticias button {
-    padding: 12px 10px;
-    flex: 1;
-    max-width: 130px;
-    font-size: 0.75rem;
+
+  .mini-player-card {
+    flex: none;
+    max-width: 100%;
   }
 }
 
-.agenda-section { width: 100%; overflow-x: auto; margin-top: 4rem; }
+.mini-player-footer {
+  padding: 0.8rem 0.5rem;
+  text-align: center;
+}
+
+.mini-player-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.mini-player-role {
+  font-size: 0.6rem;
+  color: #d60000;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* --- VÍDEOS --- */
+.videos-section { width: 100%; margin-bottom: 4rem; }
+.video-column { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.video-container-box { width: 100%; max-width: 800px; aspect-ratio: 16 / 9; }
+.video-container-box iframe { width: 100%; height: 100%; border: 2px solid #222; border-radius: 12px; }
+
+/* --- NOTÍCIAS --- */
+.noticia-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; }
+.card-noticia { background: #151515; border: 1px solid #222; border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; transition: 0.3s; }
+.card-noticia:hover { border-color: #d60000; }
+.news-img-container img { width: 100%; height: 160px; object-fit: cover; }
+.news-content { padding: 1rem; }
+
+/* --- PAGINAÇÃO --- */
+.paginacao-noticias { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 1rem; }
+.paginacao-noticias button { background: #d60000; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+.paginacao-noticias button:disabled { background: #333; cursor: not-allowed; }
+
+/* --- MODAL --- */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+.modal-content img { max-width: 90vw; max-height: 85vh; border: 2px solid #d60000; }
+.close-modal { position: absolute; top: -40px; right: 0; background: #d60000; color: white; border: none; padding: 5px 12px; cursor: pointer; font-weight: bold; }
