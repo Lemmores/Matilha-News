@@ -103,6 +103,7 @@ const CSPage = () => {
         </div>
       </section>
 
+      {/* Modal de Imagem */}
       {imagemAberta && (
         <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
           <div className="modal-content">
@@ -112,7 +113,7 @@ const CSPage = () => {
         </div>
       )}
 
-      {/* Vídeos */}
+      {/* Vídeos - AQUI FOI O AJUSTE PRINCIPAL */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-grid">
@@ -121,7 +122,15 @@ const CSPage = () => {
             .slice(0, 2)
             .map((p, idx) => {
               const src = formatEmbedLink(p.linkTransmissao);
-              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen className="video-iframe"></iframe> : null;
+              return src ? (
+                <div key={idx} className="video-container">
+                  <iframe 
+                    src={src} 
+                    title={`Confronto ${idx + 1}`} 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : null;
             })}
         </div>
       </section>

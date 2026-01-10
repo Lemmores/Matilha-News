@@ -1,13 +1,13 @@
 /* --- RESET E SEGURANÇA GLOBAL --- */
 html, body {
   max-width: 100%;
-  overflow-x: hidden; /* Elimina a rolagem lateral e libera os cliques no header */
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
 }
 
 * {
-  box-sizing: border-box; /* Impede que o padding aumente o tamanho dos elementos */
+  box-sizing: border-box;
 }
 
 .pagina-cs {
@@ -111,24 +111,37 @@ html, body {
   letter-spacing: 2px;
 }
 
-/* --- SEÇÃO DE VÍDEOS --- */
+/* --- SEÇÃO DE VÍDEOS (REFORMULADA) --- */
 .video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 2rem;
   margin-bottom: 4rem;
   width: 100%;
-  padding: 0 20px; 
+  padding: 0; 
 }
 
-.video-iframe {
+/* Mantém a proporção 16:9 independente da tela */
+.video-container {
+  position: relative;
   width: 100%;
   max-width: 850px;
-  aspect-ratio: 16 / 9;
-  border: 2px solid #222;
+  padding-bottom: 56.25%; /* Proporção 16:9 */
+  height: 0;
+  overflow: hidden;
   border-radius: 12px;
-  margin: 0 auto;
-  display: block;
+  border: 2px solid #222;
+  background: #000;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* --- RESPONSIVIDADE GERAL --- */
@@ -155,16 +168,8 @@ html, body {
     max-width: 340px;
   }
 
-  /* AJUSTE ESPECÍFICO PARA O VÍDEO NÃO CORTAR NO MOBILE */
   .video-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 0 25px; /* Aumentado para garantir o respiro lateral */
-  }
-
-  .video-iframe {
-    width: 95%; /* Reduzido levemente para evitar o transbordamento do player */
-    margin: 0 auto;
+    padding: 0 10px; /* Garante que o container não encoste na borda do celular */
   }
 
   .image-container {
@@ -172,17 +177,13 @@ html, body {
   }
 }
 
-/* Ajuste fino para aparelhos muito pequenos */
+/* Ajuste para telas muito pequenas */
 @media (max-width: 360px) {
   .video-grid {
-    padding: 0 15px;
+    padding: 0 5px;
   }
   
   .player-card {
     flex: 0 0 98%;
-  }
-
-  .video-iframe {
-    width: 100%; /* Em telas minúsculas voltamos ao 100% para não perder visibilidade */
   }
 }
