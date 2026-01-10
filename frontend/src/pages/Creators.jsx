@@ -19,6 +19,8 @@ export default function Creators() {
   const [imagemAberta, setImagemAberta] = useState(null);
   const [conteudos, setConteudos] = useState([]);
   const [filtro, setFiltro] = useState('TUDO');
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const conteudosPorPagina = 3;
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -32,10 +34,23 @@ export default function Creators() {
       .catch(err => console.error('Erro ao carregar conteúdos:', err));
   }, [API_URL]);
 
+  // Resetar para a página 1 sempre que mudar o filtro
+  const handleFiltro = (nome) => {
+    setFiltro(nome);
+    setPaginaAtual(1);
+  };
+
   const nomesCreators = ['TUDO', ...creators.map(c => c.nome)];
-  const conteudosFiltrados = filtro === 'TUDO'
+  
+  const conteudosFiltradosTotal = filtro === 'TUDO'
     ? conteudos
     : conteudos.filter(c => c.creator === filtro);
+
+  const totalPaginas = Math.ceil(conteudosFiltradosTotal.length / conteudosPorPagina);
+  const conteudosExibidos = conteudosFiltradosTotal.slice(
+    (paginaAtual - 1) * conteudosPorPagina,
+    paginaAtual * conteudosPorPagina
+  );
 
   const ajustarUrlReel = (url) => {
     const limpo = url.replace(/\/$/, ''); 
@@ -60,7 +75,6 @@ export default function Creators() {
                   loading="lazy" 
                   onClick={() => setImagemAberta(creator.img)}
                 />
-                {/* Overlay visível no hover (PC) */}
                 <div className="mini-social-overlay hover-only">
                   {creator.twitter && (
                     <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
@@ -78,8 +92,6 @@ export default function Creators() {
               <div className="mini-creator-footer">
                 <span className="mini-creator-name">{creator.nome}</span>
                 <span className="mini-creator-role">CONTENT CREATOR</span>
-                
-                {/* Redes visíveis sempre (Mobile) */}
                 <div className="mini-social-overlay mobile-only">
                   {creator.twitter && (
                     <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
@@ -115,7 +127,7 @@ export default function Creators() {
             <button
               key={nome}
               className={filtro === nome ? 'filter-btn active' : 'filter-btn'}
-              onClick={() => setFiltro(nome)}
+              onClick={() => handleFiltro(nome)}
             >
               {nome}
             </button>
@@ -123,11 +135,11 @@ export default function Creators() {
         </div>
 
         <div className="feed-grid">
-          {conteudosFiltrados.length === 0 && (
+          {conteudosExibidos.length === 0 && (
             <p className="no-content">Aguardando novos conteúdos da matilha...</p>
           )}
           
-          {conteudosFiltrados.map((conteudo) => (
+          {conteudosExibidos.map((conteudo) => (
             <div key={conteudo._id} className="feed-card">
               <div className="media-container">
                 {conteudo.tipo === 'reel' && (
@@ -151,10 +163,28 @@ export default function Creators() {
                   ></iframe>
                 )}
               </div>
-             
+              
             </div>
           ))}
         </div>
+
+        {totalPaginas > 1 && (
+          <div className="paginacao-creators">
+            <button 
+              onClick={() => setPaginaAtual(p => p - 1)} 
+              disabled={paginaAtual === 1}
+            >
+              Anterior
+            </button>
+            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
+            <button 
+              onClick={() => setPaginaAtual(p => p + 1)} 
+              disabled={paginaAtual === totalPaginas}
+            >
+              Próxima
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );

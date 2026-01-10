@@ -1,4 +1,4 @@
-/* Creators.css - Final Compacto com Hover Social */
+/* Creators.css - Final Compacto com Paginação */
 
 .pagina-creators {
   padding: 2rem 15px;
@@ -93,7 +93,7 @@
   transform: scale(1.2);
 }
 
-/* --- PC HOVER (min-width 1025px) --- */
+/* --- PC HOVER --- */
 @media (min-width: 1025px) {
   .hover-only {
     position: absolute;
@@ -117,14 +117,9 @@
   .mobile-only { display: none; }
 }
 
-/* --- MOBILE & TABLET (max-width 1024px) --- */
 @media (max-width: 1024px) {
   .hover-only { display: none; }
-  
-  .mobile-only {
-    margin-top: 8px;
-    opacity: 1;
-  }
+  .mobile-only { margin-top: 8px; opacity: 1; }
 }
 
 .mini-creator-footer {
@@ -147,7 +142,7 @@
   letter-spacing: 1px;
 }
 
-/* --- CONTEÚDOS E IFRAMES --- */
+/* --- CONTEÚDOS E PAGINAÇÃO --- */
 .feed-section {
   margin-top: 4rem;
   padding-top: 2rem;
@@ -177,7 +172,6 @@
   border-radius: 20px;
   font-size: 0.75rem;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .filter-btn.active {
@@ -189,7 +183,7 @@
 .feed-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 
 .feed-card {
@@ -199,26 +193,60 @@
   overflow: hidden;
 }
 
-/* Alturas generosas para evitar cortes no embed social */
 .iframe-media.reel { height: 560px; width: 100%; border:none; }
 .iframe-media.tiktok { height: 600px; width: 100%; border:none; }
 
-.feed-info { padding: 0.8rem; text-align: center; }
-.feed-creator-tag { color: #d60000; font-weight: bold; font-size: 0.8rem; }
+/* ESTILO DOS BOTÕES DE PAGINAÇÃO */
+.paginacao-creators {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
 
-/* --- RESPONSIVIDADE FINAL --- */
+.paginacao-creators button {
+  background-color: #d60000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 110px;
+}
+
+.paginacao-creators button:disabled {
+  background-color: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  font-weight: 900;
+  color: #fff;
+}
+
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
   .creators-compact-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.8rem;
   }
-  .mini-image-container { aspect-ratio: 1 / 1.1; }
   .iframe-media.reel { height: 480px; }
   .iframe-media.tiktok { height: 520px; }
-  .pagina-creators h1 { font-size: 1.8rem; }
+  
+  .paginacao-creators button {
+    padding: 12px 10px;
+    min-width: 90px;
+    font-size: 0.7rem;
+  }
 }
 
-/* --- MODAL --- */
 .modal-overlay {
   position: fixed;
   inset: 0;
