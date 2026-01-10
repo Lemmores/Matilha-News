@@ -151,9 +151,7 @@ export default function Creators() {
                   ></iframe>
                 )}
               </div>
-              <div className="feed-info">
-                <span className="feed-creator-tag">@{conteudo.creator}</span>
-              </div>
+             
             </div>
           ))}
         </div>
