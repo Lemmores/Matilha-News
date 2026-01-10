@@ -16,7 +16,7 @@ const CircuitoPage = () => {
   const [noticiasCircuito, setNoticiasCircuito] = useState([]);
   const [agendaCircuito, setAgendaCircuito] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
-  const noticiasPorPagina = 4;
+  const noticiasPorPagina = 3;
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -73,7 +73,6 @@ const CircuitoPage = () => {
         <p className="subtitle">LEAGUE OF LEGENDS</p>
       </header>
 
-      {/* Line-up Estilo 3x2 */}
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
         <div className="jogadores-grid">
@@ -112,21 +111,28 @@ const CircuitoPage = () => {
         </div>
       )}
 
-      {/* Vídeos */}
+      {/* SEÇÃO DE VÍDEOS CENTRALIZADA */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
-        <div className="video-grid">
+        <div className="video-column">
           {agendaCircuito
             .filter(p => p.linkTransmissao)
             .slice(0, 2)
             .map((p, idx) => {
               const src = formatEmbedLink(p.linkTransmissao);
-              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen className="video-iframe"></iframe> : null;
+              return src ? (
+                <div key={idx} className="video-container-box">
+                  <iframe 
+                    src={src} 
+                    title={`Confronto ${idx + 1}`} 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : null;
             })}
         </div>
       </section>
 
-      {/* Notícias */}
       <section className="news-section">
         <h2 className="section-title">Notícias Relacionadas</h2>
         <div className="noticia-list">
