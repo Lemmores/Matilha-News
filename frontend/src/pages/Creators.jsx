@@ -60,18 +60,34 @@ export default function Creators() {
                   loading="lazy" 
                   onClick={() => setImagemAberta(creator.img)}
                 />
-              </div>
-
-              <div className="mini-creator-footer">
-                <span className="mini-creator-name">{creator.nome}</span>
-                <div className="mini-social-row">
+                {/* Overlay visível no hover (PC) */}
+                <div className="mini-social-overlay hover-only">
                   {creator.twitter && (
-                    <a href={creator.twitter} target="_blank" rel="noopener noreferrer">
+                    <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
                       <img src="/icons/x.png" alt="X" />
                     </a>
                   )}
                   {creator.instagram && (
-                    <a href={creator.instagram} target="_blank" rel="noopener noreferrer">
+                    <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
+                      <img src="/icons/instagram.png" alt="Instagram" />
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              <div className="mini-creator-footer">
+                <span className="mini-creator-name">{creator.nome}</span>
+                <span className="mini-creator-role">CONTENT CREATOR</span>
+                
+                {/* Redes visíveis sempre (Mobile) */}
+                <div className="mini-social-overlay mobile-only">
+                  {creator.twitter && (
+                    <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
+                      <img src="/icons/x.png" alt="X" />
+                    </a>
+                  )}
+                  {creator.instagram && (
+                    <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
                       <img src="/icons/instagram.png" alt="Instagram" />
                     </a>
                   )}

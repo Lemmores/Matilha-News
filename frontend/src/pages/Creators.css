@@ -1,4 +1,4 @@
-/* Creators.css - Versão Compacta & Corrigida */
+/* Creators.css - Final Compacto com Hover Social */
 
 .pagina-creators {
   padding: 2rem 15px;
@@ -28,11 +28,11 @@
   text-transform: uppercase;
 }
 
-/* --- GRID COMPACTO DE CREATORS (5-6 por linha no PC) --- */
+/* --- GRID COMPACTO --- */
 .creators-compact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1.5rem;
+  gap: 1.2rem;
   justify-items: center;
   width: 100%;
 }
@@ -45,6 +45,8 @@
   border: 1px solid #222;
   transition: all 0.3s ease;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .mini-creator-card:hover {
@@ -54,9 +56,10 @@
 
 .mini-image-container {
   width: 100%;
-  aspect-ratio: 1 / 1.1;
+  aspect-ratio: 1 / 1.15;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
 }
 
 .mini-image-container img {
@@ -64,34 +67,87 @@
   height: 100%;
   object-fit: cover;
   object-position: top;
+  transition: transform 0.5s ease;
 }
 
-.mini-creator-footer {
-  padding: 0.7rem;
-  text-align: center;
+.mini-creator-card:hover .mini-image-container img {
+  transform: scale(1.05);
 }
 
-.mini-creator-name {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 5px;
-}
-
-.mini-social-row {
+/* --- LÓGICA SOCIAL OVERLAY --- */
+.mini-social-overlay {
   display: flex;
   justify-content: center;
   gap: 0.8rem;
 }
 
-.mini-social-row img {
-  width: 16px;
-  height: 16px;
-  opacity: 0.7;
+.mini-social-icon img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.8;
+  transition: all 0.2s ease;
 }
 
-/* --- FEED DE CONTEÚDOS (CORREÇÃO DE CORTE) --- */
+.mini-social-icon:hover img {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* --- PC HOVER (min-width 1025px) --- */
+@media (min-width: 1025px) {
+  .hover-only {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    padding: 12px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .mini-creator-card:hover .hover-only {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .mobile-only { display: none; }
+}
+
+/* --- MOBILE & TABLET (max-width 1024px) --- */
+@media (max-width: 1024px) {
+  .hover-only { display: none; }
+  
+  .mobile-only {
+    margin-top: 8px;
+    opacity: 1;
+  }
+}
+
+.mini-creator-footer {
+  padding: 0.8rem 0.5rem;
+  text-align: center;
+}
+
+.mini-creator-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.mini-creator-role {
+  font-size: 0.6rem;
+  color: #d60000;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* --- CONTEÚDOS E IFRAMES --- */
 .feed-section {
   margin-top: 4rem;
   padding-top: 2rem;
@@ -110,17 +166,18 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
 }
 
 .filter-btn {
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 0.9rem;
   background: #1a1a1a;
   border: 1px solid #333;
   color: #777;
   border-radius: 20px;
   font-size: 0.75rem;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .filter-btn.active {
@@ -131,8 +188,8 @@
 
 .feed-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
 }
 
 .feed-card {
@@ -142,36 +199,22 @@
   overflow: hidden;
 }
 
-.media-container {
-  width: 100%;
-  background: #000;
-}
-
-.iframe-media {
-  width: 100%;
-  border: none;
-  display: block;
-}
-
-/* Alturas aumentadas para não cortar bordas e rodapés do Insta/TikTok */
-.iframe-media.reel { height: 560px; }
-.iframe-media.tiktok { height: 600px; }
+/* Alturas generosas para evitar cortes no embed social */
+.iframe-media.reel { height: 560px; width: 100%; border:none; }
+.iframe-media.tiktok { height: 600px; width: 100%; border:none; }
 
 .feed-info { padding: 0.8rem; text-align: center; }
 .feed-creator-tag { color: #d60000; font-weight: bold; font-size: 0.8rem; }
 
-/* --- RESPONSIVIDADE --- */
+/* --- RESPONSIVIDADE FINAL --- */
 @media (max-width: 768px) {
   .creators-compact-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.8rem;
   }
-
-  .mini-creator-card { max-width: 100%; }
-
+  .mini-image-container { aspect-ratio: 1 / 1.1; }
   .iframe-media.reel { height: 480px; }
   .iframe-media.tiktok { height: 520px; }
-  
   .pagina-creators h1 { font-size: 1.8rem; }
 }
 
@@ -185,20 +228,5 @@
   justify-content: center;
   z-index: 9999;
 }
-
-.modal-content img {
-  max-width: 90vw;
-  max-height: 80vh;
-  border: 2px solid #d60000;
-}
-
-.close-modal {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: #d60000;
-  color: white;
-  border: none;
-  padding: 5px 12px;
-  cursor: pointer;
-}
+.modal-content img { max-width: 90vw; max-height: 80vh; border: 2px solid #d60000; }
+.close-modal { position: absolute; top: -40px; right: 0; background: #d60000; color: white; border: none; padding: 5px 12px; cursor: pointer; }
