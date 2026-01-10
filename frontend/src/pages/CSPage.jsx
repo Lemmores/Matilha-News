@@ -90,17 +90,17 @@ const CSPage = () => {
         </div>
       </section>
 
-      {/* SEÇÃO DE VÍDEOS */}
+      {/* Seção de Vídeos Centralizada */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
-        <div className="video-column">
+        <div className="video-grid">
           {agendaCS
             .filter(p => p.linkTransmissao)
             .slice(0, 2)
             .map((p, idx) => {
               const src = formatEmbedLink(p.linkTransmissao);
               return src ? (
-                <div key={idx} className="video-wrapper">
+                <div key={idx} className="iframe-wrapper">
                   <iframe 
                     src={src} 
                     title={`Confronto ${idx + 1}`} 

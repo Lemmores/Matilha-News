@@ -1,57 +1,19 @@
-/* --- RESET E SEGURANÇA GLOBAL --- */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
+/* --- SEGURANÇA NA PÁGINA --- */
 .pagina-cs {
   padding: 2rem 1rem;
-  max-width: 1200px; /* Voltamos ao limite, mas com segurança lateral */
+  max-width: 1200px;
   margin: 0 auto;
   color: white;
   background-color: #111;
   width: 100%;
-  overflow-x: hidden; /* Trava extra */
+  overflow-x: hidden;
 }
 
 /* --- HEADER --- */
-.header-cs {
-  text-align: center;
-  margin-bottom: 3rem;
-  width: 100%;
-}
-
-.pagina-cs h1 {
-  font-size: 3rem;
-  color: #d60000;
-  text-transform: uppercase;
-  font-weight: 900;
-  margin-bottom: 0.5rem;
-}
-
-.section-title {
-  font-size: 2.2rem;
-  color: #fff;
-  text-align: center;
-  margin-bottom: 2.5rem;
-  text-transform: uppercase;
-  position: relative;
-}
-
-.section-title::after {
-  content: '';
-  display: block;
-  width: 50px;
-  height: 4px;
-  background: #d60000;
-  margin: 10px auto;
-}
+.header-cs { text-align: center; margin-bottom: 3rem; width: 100%; }
+.pagina-cs h1 { font-size: 3rem; color: #d60000; text-transform: uppercase; font-weight: 900; }
+.section-title { font-size: 2.2rem; text-align: center; margin-bottom: 2.5rem; text-transform: uppercase; position: relative; }
+.section-title::after { content: ''; display: block; width: 50px; height: 4px; background: #d60000; margin: 10px auto; }
 
 /* --- GRID DE JOGADORES --- */
 .jogadores-grid {
@@ -69,32 +31,38 @@ html, body {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #222;
-  transition: all 0.3s ease;
 }
 
-/* --- SEÇÃO DE VÍDEOS (FIX DEFINITIVO) --- */
+.image-container { width: 100%; aspect-ratio: 3 / 4; overflow: hidden; }
+.image-container img { width: 100%; height: 100%; object-fit: cover; }
+.player-footer { padding: 1.2rem 0.5rem; text-align: center; }
+.player-name { display: block; font-size: 1.4rem; font-weight: 800; color: #fff; }
+.player-role { font-size: 0.75rem; color: #d60000; font-weight: bold; letter-spacing: 2px; }
+
+/* --- SEÇÃO DE VÍDEOS (CENTRALIZAÇÃO TOTAL) --- */
 .videos-section {
   width: 100%;
-  max-width: 100%;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 4rem;
+  padding: 0;
 }
 
 .video-grid {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
   width: 100%;
-  padding: 0; /* Removido padding que causava o "empurrão" */
+  max-width: 850px;
 }
 
 .iframe-wrapper {
   position: relative;
-  width: 100%;
-  max-width: 850px;
-  /* Técnica de proporção intrínseca (Hacks de 16:9) */
-  padding-bottom: 56.25%; 
+  width: 100%; 
+  padding-bottom: 56.25%; /* Mantém 16:9 */
   height: 0;
   overflow: hidden;
   border-radius: 12px;
@@ -105,7 +73,7 @@ html, body {
 .iframe-wrapper iframe {
   position: absolute;
   top: 0;
-  left: 0; /* Força o vídeo a começar na quina esquerda do container */
+  left: 0;
   width: 100% !important;
   height: 100% !important;
   border: 0;
@@ -113,36 +81,19 @@ html, body {
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
-  .pagina-cs {
-    padding: 1rem 10px; /* Margem mínima lateral */
-  }
-
+  .pagina-cs { padding: 1rem 10px; }
   .pagina-cs h1 { font-size: 2rem; }
-  .section-title { font-size: 1.8rem; }
+  .section-title { font-size: 1.6rem; }
 
   .video-grid {
-    padding: 0 5px; /* Quase nada de padding para o vídeo respirar */
+    width: 96%; /* Respiro lateral igual nos dois lados */
+    margin: 0 auto;
   }
 
-  .iframe-wrapper {
-    width: 100%;
-    max-width: 100%; /* No mobile ele ocupa a largura real disponível */
-  }
-  
   .player-card {
     flex: 0 0 100%;
     max-width: 320px;
   }
 }
 
-/* Agenda e Notícias */
-.agenda-section, .news-section {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-.noticia-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
+.agenda-section { width: 100%; overflow-x: auto; }
