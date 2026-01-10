@@ -1,19 +1,25 @@
-body {
+/* --- CONFIGURAÇÕES GLOBAIS E SEGURANÇA --- */
+html, body {
   margin: 0;
+  padding: 0;
   background-color: #111;
   color: #f1f1f1;
   font-family: 'Montserrat', sans-serif;
-  /* Garante que o corpo do site nunca seja maior que a tela */
+  /* Impede que o site "balance" para os lados no mobile */
+  width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
-  width: 100%;
 }
 
 #root {
   width: 100%;
-  overflow-x: hidden;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+/* --- UTILITÁRIOS DE LAYOUT --- */
 .container {
   display: flex;
   justify-content: center;
@@ -34,8 +40,10 @@ body {
 
 button {
   font: inherit;
+  cursor: pointer;
 }
 
+/* --- ESTILIZAÇÃO DOS CARDS DE NOTÍCIA --- */
 .card-noticia {
   background-color: white;
   border-radius: 6px;
@@ -46,6 +54,8 @@ button {
   padding-bottom: 1rem;
   text-align: center;
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-noticia:hover {
@@ -58,16 +68,6 @@ button {
   object-fit: cover;
 }
 
-.card-noticia h3 {
-  font-size: 1rem;
-  padding: 0.3rem 1rem 0.25rem;
-  color: #b90000;
-  text-align: center;
-  white-space: normal;
-  word-break: break-word;
-  line-height: 1.4;
-}
-
 .card-noticia .categoria {
   display: inline-block;
   font-size: 0.75rem;
@@ -78,4 +78,36 @@ button {
   padding: 0.25rem 0.75rem;
   margin: 0.5rem auto 0.1rem; 
   text-align: center;
+  width: fit-content;
+}
+
+.card-noticia h3 {
+  font-size: 1rem;
+  padding: 0.3rem 1rem 0.25rem;
+  color: #b90000;
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.card-noticia .conteudo {
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 1rem 0.1rem;  
+  line-height: 1.5;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* --- AJUSTE PARA ELEMENTOS QUE PODEM QUEBRAR O MOBILE --- */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+iframe {
+  max-width: 100%;
 }
