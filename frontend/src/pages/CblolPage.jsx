@@ -85,8 +85,8 @@ const CblolPage = () => {
                   onClick={() => setImagemAberta(jogador.img)} 
                 />
                 
-                {/* Overlay para PC (Hover) */}
-                <div className="social-overlay-hover">
+                {/* OVERLAY PARA PC (HOVER) */}
+                <div className="social-overlay-pc">
                   {jogador.twitter && (
                     <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/x.png" alt="X" />
@@ -104,8 +104,8 @@ const CblolPage = () => {
                 <span className="mini-player-name">{jogador.nome}</span>
                 <span className="mini-player-role">PRO PLAYER</span>
                 
-                {/* Redes Sociais para Mobile (Fixo abaixo do nome) */}
-                <div className="social-mobile-only">
+                {/* ÍCONES PARA CELULAR (FIXOS) */}
+                <div className="social-mobile-fixo">
                   {jogador.twitter && (
                     <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/x.png" alt="X" />
@@ -132,6 +132,7 @@ const CblolPage = () => {
         </div>
       )}
 
+      {/* Seção de Vídeos e Notícias permanecem as mesmas abaixo */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
@@ -142,11 +143,7 @@ const CblolPage = () => {
               const src = formatEmbedLink(p.linkTransmissao);
               return src ? (
                 <div key={idx} className="video-container-box">
-                  <iframe 
-                    src={src} 
-                    title={`Confronto ${idx + 1}`} 
-                    allowFullScreen
-                  ></iframe>
+                  <iframe src={src} title={`Confronto ${idx + 1}`} allowFullScreen></iframe>
                 </div>
               ) : null;
             })}
@@ -158,9 +155,7 @@ const CblolPage = () => {
         <div className="noticia-list">
           {noticiasExibidas.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <div className="news-img-container">
-                <img src={noticia.imagem} alt={noticia.titulo} />
-              </div>
+              <div className="news-img-container"><img src={noticia.imagem} alt={noticia.titulo} /></div>
               <div className="news-content">
                 <p className="categoria">{noticia.categoria}</p>
                 <h3>{noticia.titulo}</h3>
@@ -169,7 +164,6 @@ const CblolPage = () => {
             </Link>
           ))}
         </div>
-
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
             <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>

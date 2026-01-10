@@ -1,4 +1,4 @@
-/* CblolPage.css - Centralizado e Compacto */
+/* CblolPage.css - Correção de Escala e Centralização */
 
 .pagina-cblol {
   padding: 2rem 15px;
@@ -8,61 +8,28 @@
   background-color: #111;
 }
 
-.header-cblol {
-  text-align: center;
-  margin-bottom: 3rem;
-}
+.header-cblol { text-align: center; margin-bottom: 3rem; }
+.pagina-cblol h1 { font-size: 2.5rem; color: #d60000; text-transform: uppercase; font-weight: 900; }
+.subtitle { color: #888; letter-spacing: 2px; font-size: 0.8rem; }
 
-.pagina-cblol h1 {
-  font-size: 2.5rem;
-  color: #d60000;
-  text-transform: uppercase;
-  font-weight: 900;
-  margin-bottom: 0.5rem;
-}
-
-.subtitle {
-  color: #888;
-  letter-spacing: 2px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-  font-size: 1.8rem;
-}
-
-.section-title::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #d60000;
-  margin: 8px auto;
-}
-
-/* --- GRID DE JOGADORES CENTRALIZADO --- */
+/* --- GRID CENTRALIZADO --- */
 .jogadores-compact-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centraliza os 5 jogadores */
+  justify-content: center; /* Centraliza os 5 cards */
   gap: 1.5rem;
   width: 100%;
-  margin-bottom: 4rem;
+  margin: 0 auto 4rem auto;
 }
 
 .mini-player-card {
-  flex: 0 1 180px; /* Tamanho compacto fixo no PC */
+  flex: 0 1 180px; /* Largura fixa no PC */
   background: #151515;
   border-radius: 8px;
   border: 1px solid #222;
   transition: all 0.3s ease;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 
 .mini-player-card:hover {
@@ -71,69 +38,61 @@
 }
 
 .mini-image-container {
+  position: relative;
   width: 100%;
   aspect-ratio: 1 / 1.15;
   overflow: hidden;
-  cursor: pointer;
-  position: relative;
 }
 
 .mini-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
 }
 
-/* --- LÓGICA DE REDES SOCIAIS (PC HOVER) --- */
+/* --- ESTILO DOS ÍCONES (IMPORTANTE PARA NÃO FICAR GIGANTE) --- */
+.social-overlay-pc img, 
+.social-mobile-fixo img {
+  width: 22px !important;  /* Tamanho pequeno fixo */
+  height: 22px !important;
+  object-fit: contain !important;
+}
+
+/* --- VERSÃO PC (HOVER) --- */
 @media (min-width: 1025px) {
-  .social-mobile-only {
-    display: none !important; /* Remove do rodapé no PC */
+  /* Esconde os ícones de baixo no PC */
+  .social-mobile-fixo {
+    display: none !important;
   }
 
-  .social-overlay-hover {
+  .social-overlay-pc {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-    padding: 15px 0;
+    inset: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.2rem;
     
-    /* Estado inicial oculto */
+    /* Invisível por padrão */
     opacity: 0;
-    transform: translateY(100%);
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease;
     pointer-events: none;
   }
 
-  .mini-player-card:hover .social-overlay-hover {
+  .mini-player-card:hover .social-overlay-pc {
     opacity: 1;
-    transform: translateY(0);
     pointer-events: auto;
   }
 }
 
-.social-overlay-hover img, 
-.social-mobile-only img {
-  width: 18px;
-  height: 18px;
-  transition: transform 0.2s;
-}
-
-.social-overlay-hover a:hover img {
-  transform: scale(1.2);
-}
-
-/* --- LÓGICA MOBILE --- */
+/* --- VERSÃO MOBILE --- */
 @media (max-width: 1024px) {
-  .social-overlay-hover {
+  .social-overlay-pc {
     display: none !important;
   }
 
-  .social-mobile-only {
+  .social-mobile-fixo {
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -143,7 +102,7 @@
   .jogadores-compact-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
+    gap: 10px;
   }
 
   .mini-player-card {
@@ -152,45 +111,27 @@
   }
 }
 
-.mini-player-footer {
-  padding: 0.8rem 0.5rem;
-  text-align: center;
-}
+/* --- RESTANTE DO ESTILO --- */
+.mini-player-footer { padding: 0.8rem 0.5rem; text-align: center; }
+.mini-player-name { display: block; font-size: 1rem; font-weight: 800; color: #fff; text-transform: uppercase; }
+.mini-player-role { font-size: 0.6rem; color: #d60000; font-weight: bold; }
 
-.mini-player-name {
-  display: block;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #fff;
-  text-transform: uppercase;
-}
-
-.mini-player-role {
-  font-size: 0.6rem;
-  color: #d60000;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-/* --- VÍDEOS --- */
-.videos-section { width: 100%; margin-bottom: 4rem; }
-.video-column { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
-.video-container-box { width: 100%; max-width: 800px; aspect-ratio: 16 / 9; }
+.section-title { text-align: center; margin-bottom: 2rem; text-transform: uppercase; font-size: 1.8rem; }
+.video-container-box { width: 100%; max-width: 800px; aspect-ratio: 16 / 9; margin: 0 auto; }
 .video-container-box iframe { width: 100%; height: 100%; border: 2px solid #222; border-radius: 12px; }
 
-/* --- NOTÍCIAS --- */
-.noticia-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; }
+.noticia-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
 .card-noticia { background: #151515; border: 1px solid #222; border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; transition: 0.3s; }
-.card-noticia:hover { border-color: #d60000; }
 .news-img-container img { width: 100%; height: 160px; object-fit: cover; }
 .news-content { padding: 1rem; }
+.categoria { color: #d60000; font-weight: bold; font-size: 0.8rem; }
 
-/* --- PAGINAÇÃO --- */
-.paginacao-noticias { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 1rem; }
-.paginacao-noticias button { background: #d60000; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+.paginacao-noticias { margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1.5rem; }
+.paginacao-noticias button { background: #d60000; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; }
 .paginacao-noticias button:disabled { background: #333; cursor: not-allowed; }
 
-/* --- MODAL --- */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; }
-.modal-content img { max-width: 90vw; max-height: 85vh; border: 2px solid #d60000; }
-.close-modal { position: absolute; top: -40px; right: 0; background: #d60000; color: white; border: none; padding: 5px 12px; cursor: pointer; font-weight: bold; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.modal-content img { max-width: 90vw; max-height: 80vh; border: 2px solid #d60000; }
+.close-modal { position: absolute; top: -40px; right: 0; background: #d60000; color: white; border: none; padding: 5px 12px; cursor: pointer; }
+
+.agenda-section { width: 100%; overflow-x: auto; margin-top: 4rem; }
