@@ -49,12 +49,11 @@ export default function Creators() {
         <p className="subtitle">O ELITE SQUAD DA RED CANIDS</p>
       </header>
 
-      {/* Grid Principal de Creators */}
       <section className="creators-section">
-        <div className="jogadores-grid">
+        <div className="creators-compact-grid">
           {creators.map((creator, idx) => (
-            <div key={idx} className="creator-card">
-              <div className="image-container">
+            <div key={idx} className="mini-creator-card">
+              <div className="mini-image-container">
                 <img
                   src={creator.img}
                   alt={creator.nome}
@@ -63,19 +62,16 @@ export default function Creators() {
                 />
               </div>
 
-              <div className="creator-footer">
-                <span className="creator-name">{creator.nome}</span>
-                <span className="creator-role">CONTENT CREATOR</span>
-                
-                {/* Overlay movido para fora da imagem para funcionar no mobile */}
-                <div className="social-overlay">
+              <div className="mini-creator-footer">
+                <span className="mini-creator-name">{creator.nome}</span>
+                <div className="mini-social-row">
                   {creator.twitter && (
-                    <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={creator.twitter} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/x.png" alt="X" />
                     </a>
                   )}
                   {creator.instagram && (
-                    <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={creator.instagram} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/instagram.png" alt="Instagram" />
                     </a>
                   )}
@@ -86,7 +82,6 @@ export default function Creators() {
         </div>
       </section>
 
-      {/* Modal de Zoom */}
       {imagemAberta && (
         <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
           <div className="modal-content">
@@ -96,9 +91,8 @@ export default function Creators() {
         </div>
       )}
 
-      {/* Seção de Conteúdos Dinâmicos */}
       <section className="feed-section">
-        <h2>Últimos Conteúdos</h2>
+        <h2 className="section-title">Últimos Conteúdos</h2>
 
         <div className="filter-bar">
           {nomesCreators.map((nome) => (
@@ -125,6 +119,7 @@ export default function Creators() {
                     src={ajustarUrlReel(conteudo.url)}
                     title={`Reel de ${conteudo.creator}`}
                     allowFullScreen
+                    scrolling="no"
                     loading="lazy"
                     className="iframe-media reel"
                   ></iframe>
@@ -134,6 +129,7 @@ export default function Creators() {
                     src={conteudo.url}
                     title={`TikTok de ${conteudo.creator}`}
                     allowFullScreen
+                    scrolling="no"
                     loading="lazy"
                     className="iframe-media tiktok"
                   ></iframe>
