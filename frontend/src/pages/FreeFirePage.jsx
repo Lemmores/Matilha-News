@@ -55,8 +55,10 @@ const FreeFirePage = () => {
 
   const formatEmbedLink = (url) => {
     if (!url) return '';
-    const id = url.includes('watch?v=') ? new URL(url).searchParams.get('v') : url.split('.be/')[1];
-    return id ? `https://www.youtube.com/embed/${id}` : '';
+    const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
+               url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
+               url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
+    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
   };
 
   return (
@@ -66,7 +68,7 @@ const FreeFirePage = () => {
         <p className="subtitle">MOBILE SQUAD</p>
       </header>
 
-      <section>
+      <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
         <div className="jogadores-grid">
           {jogadores.map((jogador, idx) => (
@@ -99,16 +101,26 @@ const FreeFirePage = () => {
         </div>
       )}
 
+      {/* SEÇÃO DE VÍDEOS CENTRALIZADA */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
-        <div className="video-grid">
+        <div className="video-column">
           {agendaFreeFire
             .filter(p => p.linkTransmissao)
             .sort((a, b) => new Date(b.data) - new Date(a.data))
             .slice(0, 2)
-            .map((p, idx) => (
-              <iframe key={idx} src={formatEmbedLink(p.linkTransmissao)} title="Match" allowFullScreen className="video-iframe"></iframe>
-            ))}
+            .map((p, idx) => {
+              const src = formatEmbedLink(p.linkTransmissao);
+              return src ? (
+                <div key={idx} className="video-container-box">
+                  <iframe 
+                    src={src} 
+                    title={`Confronto ${idx + 1}`} 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : null;
+            })}
         </div>
       </section>
 
@@ -136,7 +148,9 @@ const FreeFirePage = () => {
         )}
       </section>
 
-      <Agenda partidas={agendaFreeFire} />
+      <section className="agenda-section">
+        <Agenda partidas={agendaFreeFire} />
+      </section>
     </div>
   );
 };

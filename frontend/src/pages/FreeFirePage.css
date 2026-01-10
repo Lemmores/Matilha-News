@@ -1,11 +1,13 @@
-/* FreeFirePage.css - Versão Final para 6 Jogadores */
+/* FreeFirePage.css - Centralizado e Seguro para Mobile */
 
 .pagina-freefire {
-  padding: 2rem 1rem;
+  padding: 2rem 15px; /* Padding de segurança */
   max-width: 1200px;
   margin: 0 auto;
   color: white;
   background-color: #111;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .header-freefire {
@@ -47,23 +49,23 @@
   margin: 10px auto;
 }
 
-/* --- GRID DE JOGADORES (3x2 no Desktop) --- */
+/* --- GRID DE JOGADORES --- */
 .jogadores-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
   margin: 0 auto 4rem auto;
+  width: 100%;
   max-width: 1000px; 
 }
 
 .player-card {
-  flex: 0 0 280px; 
+  flex: 0 1 280px; 
   background: #151515;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #222;
-  position: relative;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -87,19 +89,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* AJUSTE PARA NÃO CORTAR O ROSTO */
   object-position: center 12%; 
-  transition: transform 0.6s ease;
-}
-
-.player-card:hover .image-container img {
-  transform: scale(1.05);
 }
 
 .player-footer {
   padding: 1.2rem 0.5rem;
   text-align: center;
-  background: #151515;
 }
 
 .player-name {
@@ -115,67 +110,52 @@
   color: #d60000;
   font-weight: bold;
   letter-spacing: 2px;
-  display: block;
-  margin-bottom: 8px;
 }
 
 .social-overlay {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  margin-top: 10px;
 }
 
-.social-icon img {
-  width: 22px;
-  height: 22px;
-}
+.social-icon img { width: 22px; height: 22px; }
 
-/* --- RESPONSIVIDADE MOBILE --- */
-@media (max-width: 768px) {
-  .jogadores-grid {
-    gap: 2.5rem;
-    padding: 0 15px;
-  }
-
-  .player-card {
-    flex: 0 0 320px;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
-  .image-container {
-    aspect-ratio: 1 / 1.1; 
-  }
-
-  .image-container img {
-    object-position: center 8%; 
-  }
-
-  .pagina-freefire h1 { font-size: 2.2rem; }
-}
-
-@media (max-width: 400px) {
-  .player-card { flex: 0 0 100%; }
-}
-
-/* --- VÍDEOS E NOTÍCIAS --- */
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 1.5rem;
+/* --- SEÇÃO DE VÍDEOS (CENTRALIZAÇÃO TOTAL) --- */
+.videos-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 4rem;
 }
 
-.video-iframe {
+.video-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  border: 2px solid #222;
-  border-radius: 8px;
 }
 
+.video-container-box {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+.video-container-box iframe {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #222;
+  border-radius: 12px;
+}
+
+/* --- NOTÍCIAS --- */
 .noticia-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
@@ -189,11 +169,6 @@
   transition: all 0.3s ease;
 }
 
-.card-noticia:hover {
-  border-color: #d60000;
-  transform: translateY(-5px);
-}
-
 .news-img-container img {
   width: 100%;
   height: 180px;
@@ -202,52 +177,20 @@
 
 .news-content { padding: 1rem; }
 
-.categoria { color: #d60000; font-weight: bold; font-size: 0.8rem; }
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+  .pagina-freefire h1 { font-size: 2.2rem; }
+  .section-title { font-size: 1.8rem; }
 
-.paginacao-noticias {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
+  .video-container-box {
+    width: 96%;
+    margin: 0 auto;
+  }
+
+  .player-card {
+    flex: 0 1 100%;
+    max-width: 320px;
+  }
 }
 
-.paginacao-noticias button {
-  background: #d60000;
-  border: none;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.paginacao-noticias button:disabled { background: #333; }
-
-/* --- MODAL --- */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content img {
-  max-width: 90vw;
-  max-height: 80vh;
-  border: 2px solid #d60000;
-  border-radius: 8px;
-}
-
-.close-modal {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: #d60000;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  cursor: pointer;
-}
+.agenda-section { width: 100%; overflow-x: auto; }

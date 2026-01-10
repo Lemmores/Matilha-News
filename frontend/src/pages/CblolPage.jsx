@@ -73,7 +73,6 @@ const CblolPage = () => {
         <p className="subtitle">LEAGUE OF LEGENDS</p>
       </header>
 
-      {/* Line-up Estilo Creators */}
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
         <div className="jogadores-grid">
@@ -114,21 +113,28 @@ const CblolPage = () => {
         </div>
       )}
 
-      {/* Vídeos e Confrontos */}
+      {/* SEÇÃO DE VÍDEOS CENTRALIZADA */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
-        <div className="video-grid">
+        <div className="video-column">
           {agendaLtaSul
             .filter(p => p.linkTransmissao)
             .slice(0, 2)
             .map((p, idx) => {
               const src = formatEmbedLink(p.linkTransmissao);
-              return src ? <iframe key={idx} src={src} title={`Confronto ${idx + 1}`} allowFullScreen className="video-iframe"></iframe> : null;
+              return src ? (
+                <div key={idx} className="video-container-box">
+                  <iframe 
+                    src={src} 
+                    title={`Confronto ${idx + 1}`} 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : null;
             })}
         </div>
       </section>
 
-      {/* Notícias */}
       <section className="news-section">
         <h2 className="section-title">Notícias Relacionadas</h2>
         <div className="noticia-list">
