@@ -22,32 +22,25 @@ const FreeFirePage = () => {
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
-    const fetchNoticias = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/noticias`);
-        const data = await res.json();
-        const filtradas = data
+        const [newsRes, agendaRes] = await Promise.all([
+          fetch(`${API_URL}/api/noticias`),
+          fetch(`${API_URL}/api/agenda`)
+        ]);
+        const newsData = await newsRes.json();
+        const agendaData = await agendaRes.json();
+
+        setNoticiasFreeFire(newsData
           .filter(n => n.categoria === 'FREEFIRE')
-          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-        setNoticiasFreeFire(filtradas);
+          .sort((a, b) => new Date(b.data) - new Date(a.data)));
+        
+        setAgendaFreeFire(agendaData.filter(a => a.campeonato === 'FREEFIRE'));
       } catch (error) {
-        console.error('Erro ao carregar notícias de Free Fire:', error);
+        console.error('Erro ao carregar dados:', error);
       }
     };
-
-    const fetchAgenda = async () => {
-      try {
-        const res = await fetch(`${API_URL}/api/agenda`);
-        const data = await res.json();
-        const agendaFiltrada = data.filter(confronto => confronto.campeonato === 'FREEFIRE');
-        setAgendaFreeFire(agendaFiltrada);
-      } catch (error) {
-        console.error('Erro ao carregar agenda de Free Fire:', error);
-      }
-    };
-
-    fetchNoticias();
-    fetchAgenda();
+    fetchData();
   }, [API_URL]);
 
   const totalPaginas = Math.ceil(noticiasFreeFire.length / noticiasPorPagina);
@@ -73,21 +66,33 @@ const FreeFirePage = () => {
 
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
-        <div className="jogadores-grid">
+        <div className="jogadores-container-horizontal">
           {jogadores.map((jogador, idx) => (
-            <div key={idx} className="player-card">
-              <div className="image-container">
-                <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
-              </div>
-              <div className="player-footer">
-                <span className="player-name">{jogador.nome}</span>
-                <span className="player-role">PRO PLAYER</span>
-                <div className="social-overlay">
+            <div key={idx} className="mini-player-card">
+              <div className="mini-image-container">
+                <img 
+                  src={jogador.img} 
+                  alt={jogador.nome} 
+                  onClick={() => setImagemAberta(jogador.img)} 
+                />
+                
+                {/* Overlay Hover (PC) */}
+                <div className="social-overlay-hover">
                   {jogador.instagram && (
-                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/instagram.png" alt="Instagram" />
                     </a>
                   )}
+                </div>
+              </div>
+
+              <div className="mini-player-footer">
+                <span className="mini-player-name">{jogador.nome}</span>
+                <span className="mini-player-role">PRO PLAYER</span>
+                
+                {/* Ícones Fixos (Mobile) */}
+                <div className="social-mobile-only">
+                   {jogador.instagram && <a href={jogador.instagram} target="_blank" rel="noopener noreferrer"><img src="/icons/instagram.png" alt="Instagram" /></a>}
                 </div>
               </div>
             </div>
@@ -99,7 +104,7 @@ const FreeFirePage = () => {
         <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
           <div className="modal-content">
             <img src={imagemAberta} alt="Zoom" />
-            <button className="close-modal">X</button>
+            <button className="close-modal" onClick={() => setImagemAberta(null)}>X</button>
           </div>
         </div>
       )}
@@ -111,18 +116,11 @@ const FreeFirePage = () => {
             .filter(p => p.linkTransmissao)
             .sort((a, b) => new Date(b.data) - new Date(a.data))
             .slice(0, 2)
-            .map((p, idx) => {
-              const src = formatEmbedLink(p.linkTransmissao);
-              return src ? (
-                <div key={idx} className="video-container-box">
-                  <iframe 
-                    src={src} 
-                    title={`Confronto ${idx + 1}`} 
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              ) : null;
-            })}
+            .map((p, idx) => (
+              <div key={idx} className="video-container-box">
+                <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
+              </div>
+          ))}
         </div>
       </section>
 
@@ -131,13 +129,10 @@ const FreeFirePage = () => {
         <div className="noticia-list">
           {noticiasExibidas.map(n => (
             <Link key={n._id} to={`/noticia/${n._id}`} className="card-noticia">
-              <div className="news-img-container">
-                <img src={n.imagem} alt={n.titulo} />
-              </div>
+              <div className="news-img-container"><img src={n.imagem} alt={n.titulo} /></div>
               <div className="news-content">
                 <p className="categoria">{n.categoria}</p>
                 <h3>{n.titulo}</h3>
-                <small>{new Date(n.data).toLocaleDateString('pt-BR')}</small>
               </div>
             </Link>
           ))}
