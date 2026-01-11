@@ -21,34 +21,26 @@ const CircuitoPage = () => {
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
-    const fetchNoticias = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/noticias`);
-        const data = await res.json();
-        const filtradas = data
+        const [newsRes, agendaRes] = await Promise.all([
+          fetch(`${API_URL}/api/noticias`),
+          fetch(`${API_URL}/api/agenda`)
+        ]);
+        const newsData = await newsRes.json();
+        const agendaData = await agendaRes.json();
+
+        setNoticiasCircuito(newsData
           .filter(n => n.categoria === 'CIRCUITO DESAFIANTE')
-          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-        setNoticiasCircuito(filtradas);
+          .sort((a, b) => new Date(b.data) - new Date(a.data)));
+        
+        setAgendaCircuito(agendaData
+          .filter(a => a.campeonato === 'CIRCUITO DESAFIANTE'));
       } catch (error) {
-        console.error('Erro ao buscar notícias:', error);
+        console.error('Erro ao carregar dados:', error);
       }
     };
-
-    const fetchAgenda = async () => {
-      try {
-        const res = await fetch(`${API_URL}/api/agenda`);
-        const data = await res.json();
-        const filtrada = data
-          .filter(p => p.campeonato === 'CIRCUITO DESAFIANTE')
-          .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-        setAgendaCircuito(filtrada);
-      } catch (error) {
-        console.error('Erro ao carregar agenda:', error);
-      }
-    };
-
-    fetchNoticias();
-    fetchAgenda();
+    fetchData();
   }, [API_URL]);
 
   const totalPaginas = Math.ceil(noticiasCircuito.length / noticiasPorPagina);
@@ -63,7 +55,7 @@ const CircuitoPage = () => {
     const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
                url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
                url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
-    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
+    return id ? `https://www.youtube.com/embed/${id}` : '';
   };
 
   return (
@@ -75,26 +67,40 @@ const CircuitoPage = () => {
 
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
-        <div className="jogadores-grid">
+        {/* Container centralizado para os 5 cards */}
+        <div className="jogadores-container-horizontal">
           {jogadores.map((jogador, idx) => (
-            <div key={idx} className="player-card">
-              <div className="image-container">
-                <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
-              </div>
-              <div className="player-footer">
-                <span className="player-name">{jogador.nome}</span>
-                <span className="player-role">PRO PLAYER</span>
-                <div className="social-overlay">
+            <div key={idx} className="mini-player-card">
+              <div className="mini-image-container">
+                <img 
+                  src={jogador.img} 
+                  alt={jogador.nome} 
+                  onClick={() => setImagemAberta(jogador.img)} 
+                />
+                
+                {/* Ícones de Hover (PC) */}
+                <div className="social-overlay-hover">
                   {jogador.twitter && (
-                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/x.png" alt="X" />
                     </a>
                   )}
                   {jogador.instagram && (
-                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
                       <img src="/icons/instagram.png" alt="Instagram" />
                     </a>
                   )}
+                </div>
+              </div>
+
+              <div className="mini-player-footer">
+                <span className="mini-player-name">{jogador.nome}</span>
+                <span className="mini-player-role">PRO PLAYER</span>
+                
+                {/* Ícones Fixos (Mobile) */}
+                <div className="social-mobile-only">
+                   {jogador.twitter && <a href={jogador.twitter} target="_blank" rel="noopener noreferrer"><img src="/icons/x.png" alt="X" /></a>}
+                   {jogador.instagram && <a href={jogador.instagram} target="_blank" rel="noopener noreferrer"><img src="/icons/instagram.png" alt="Instagram" /></a>}
                 </div>
               </div>
             </div>
@@ -106,30 +112,19 @@ const CircuitoPage = () => {
         <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
           <div className="modal-content">
             <img src={imagemAberta} alt="Zoom" />
-            <button className="close-modal">X</button>
+            <button className="close-modal" onClick={() => setImagemAberta(null)}>X</button>
           </div>
         </div>
       )}
 
-      {/* SEÇÃO DE VÍDEOS CENTRALIZADA */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
-          {agendaCircuito
-            .filter(p => p.linkTransmissao)
-            .slice(0, 2)
-            .map((p, idx) => {
-              const src = formatEmbedLink(p.linkTransmissao);
-              return src ? (
-                <div key={idx} className="video-container-box">
-                  <iframe 
-                    src={src} 
-                    title={`Confronto ${idx + 1}`} 
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              ) : null;
-            })}
+          {agendaCircuito.filter(p => p.linkTransmissao).slice(0, 2).map((p, idx) => (
+            <div key={idx} className="video-container-box">
+              <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -138,13 +133,10 @@ const CircuitoPage = () => {
         <div className="noticia-list">
           {noticiasExibidas.map(noticia => (
             <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <div className="news-img-container">
-                <img src={noticia.imagem} alt={noticia.titulo} />
-              </div>
+              <div className="news-img-container"><img src={noticia.imagem} alt={noticia.titulo} /></div>
               <div className="news-content">
                 <p className="categoria">{noticia.categoria}</p>
                 <h3>{noticia.titulo}</h3>
-                <small>{new Date(noticia.data).toLocaleDateString('pt-BR')}</small>
               </div>
             </Link>
           ))}
