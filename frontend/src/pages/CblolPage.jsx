@@ -115,19 +115,21 @@ const CblolPage = () => {
       </section>
 
       <section className="news-section">
-        <h2 className="section-title">Notícias Relacionadas</h2>
-        <div className="noticia-list">
-          {noticiasLtaSul.slice(0, 4).map(noticia => (
-            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <div className="news-img-container"><img src={noticia.imagem} alt={noticia.titulo} /></div>
-              <div className="news-content">
-                <p className="categoria">{noticia.categoria}</p>
-                <h3>{noticia.titulo}</h3>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+  <h2 className="section-title">Notícias Relacionadas</h2>
+  <div className="noticia-list">
+    {noticiasLtaSul.slice(0, 4).map(noticia => (
+      <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
+        {/* Imagem Direta */}
+        <img src={noticia.imagem} alt={noticia.titulo} />
+        
+        {/* Elementos soltos para respeitar as margens do CSS */}
+        <p className="categoria">{noticia.categoria}</p>
+        <h3>{noticia.titulo}</h3>
+        <p className="conteudo">{noticia.conteudo}</p>
+      </Link>
+    ))}
+  </div>
+</section>
 
       <section className="agenda-section">
         <Agenda partidas={agendaLtaSul} />

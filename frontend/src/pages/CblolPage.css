@@ -1,5 +1,5 @@
 /* --- CONTAINER PRINCIPAL --- */
-.pagina-cblol, .pagina-freefire {
+.pagina-cblol {
   padding: 2rem 0;
   color: white;
   background-color: #111;
@@ -10,8 +10,8 @@
   overflow-x: hidden;
 }
 
-.header-cblol, .header-freefire { text-align: center; margin-bottom: 3rem; }
-.pagina-cblol h1, .pagina-freefire h1 { 
+.header-cblol { text-align: center; margin-bottom: 3rem; }
+.pagina-cblol h1 { 
   font-size: 2.5rem; 
   color: #d60000; 
   text-transform: uppercase; 
@@ -19,21 +19,19 @@
 }
 .subtitle { color: #888; letter-spacing: 2px; font-size: 0.8rem; text-transform: uppercase; }
 
-/* --- LINE-UP (GRID CENTRALIZADA) --- */
+/* --- LINE-UP (JOGADORES) --- */
 .jogadores-container-horizontal {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* Permitir wrap apenas se a tela for realmente pequena */
   flex-wrap: nowrap; 
   gap: 15px;
   width: 98%;
-  max-width: 1400px; /* Aumentado para garantir que todos caibam na mesma linha */
+  max-width: 1400px;
   margin: 0 auto 5rem auto;
 }
 
 .mini-player-card {
-  /* Ajuste para que os cards diminuam levemente antes de quebrar a linha */
   flex: 0 1 230px; 
   background: #151515;
   border-radius: 8px;
@@ -59,12 +57,12 @@
   height: 100%;
   object-fit: cover;
   cursor: pointer;
+  display: block;
 }
 
-/* --- REDES SOCIAIS (PC HOVER) --- */
+/* Redes Sociais no Hover (PC) */
 @media (min-width: 1025px) {
   .social-mobile-only { display: none !important; }
-
   .social-overlay-hover {
     position: absolute;
     bottom: 0;
@@ -80,71 +78,60 @@
     transition: all 0.3s ease;
     pointer-events: none;
   }
-
   .mini-player-card:hover .social-overlay-hover {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
   }
-
-  .social-overlay-hover img {
-    width: 22px !important;
-    height: 22px !important;
-  }
+  .social-overlay-hover img { width: 22px !important; height: 22px !important; }
 }
 
-/* --- REDES SOCIAIS (MOBILE E TABLET) --- */
 @media (max-width: 1024px) {
   .social-overlay-hover { display: none !important; }
-
   .jogadores-container-horizontal {
     display: grid;
-    /* No tablet/celular ele volta para grid para não esmagar os cards */
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    flex-wrap: wrap;
   }
-
-  /* Ajuste para não ficar um card sozinho na última linha se possível */
-  @media (max-width: 768px) {
-    .jogadores-container-horizontal {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   .mini-player-card { flex: none; width: 100%; }
-
   .social-mobile-only {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 10px;
   }
-
-  .social-mobile-only img {
-    width: 20px !important;
-    height: 20px !important;
-  }
+  .social-mobile-only img { width: 20px !important; height: 20px !important; }
 }
 
 .mini-player-footer { padding: 1.2rem 0.5rem; text-align: center; }
 .mini-player-name { display: block; font-size: 1.1rem; font-weight: 800; text-transform: uppercase; color: #fff; }
 .mini-player-role { font-size: 0.7rem; color: #d60000; font-weight: bold; }
 
-/* --- NOTÍCIAS (DESIGN DOS PRINTS) --- */
-.news-section { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.section-title { text-align: center; margin-bottom: 2rem; text-transform: uppercase; font-size: 1.8rem; color: #fff; }
+
+/* --- VÍDEOS --- */
+.videos-section { width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 4rem; }
+.video-column { display: flex; flex-direction: column; align-items: center; gap: 2.5rem; width: 100%; }
+.video-container-box { width: 95%; max-width: 800px; aspect-ratio: 16 / 9; }
+.video-container-box iframe { width: 100%; height: 100%; border: 2px solid #222; border-radius: 12px; }
+
+/* --- SEÇÃO DE NOTÍCIAS (REPLICAÇÃO DA PÁGINA PERFEITA) --- */
+.news-section {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 4rem;
+}
 
 .noticia-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   width: 95%;
-  max-width: 1200px;
-  margin-bottom: 2rem;
+  margin: 0 auto;
 }
 
 .card-noticia {
-  background: #fff; /* Fundo branco como no seu print */
+  background: #fff;
   border-radius: 8px;
   overflow: hidden;
   text-decoration: none;
@@ -153,57 +140,65 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  text-align: left;
 }
 
-.news-img-container {
+.card-noticia:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.card-noticia img {
   width: 100%;
   height: 200px;
-}
-
-.news-img-container img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.news-content {
-  padding: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  text-align: center; /* Título centralizado como no mobile */
+.card-noticia .categoria {
+  padding: 0.5rem 1rem;
+  background-color: #b90000;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  width: fit-content;
+  margin: 1.5rem 1rem 0.5rem 1rem; /* Margens internas idênticas à página de notícias */
 }
 
-.news-content h3 {
-  font-size: 1rem;
-  margin-top: 0.5rem;
+.card-noticia h3 {
+  font-size: 1.3rem;
+  margin: 0 1rem 0.5rem 1rem;
+  color: #111;
+  font-weight: 800;
   line-height: 1.3;
-  color: #c00; /* Vermelho escuro/sangue para o título */
-  font-weight: 700;
-  white-space: normal;
-  word-wrap: break-word;
 }
 
-.categoria {
-  background: #d60000;
-  color: #fff;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 0.65rem;
-  align-self: flex-end; /* Categoria no canto como no print */
-  text-transform: uppercase;
+.card-noticia .conteudo {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0 1rem 1.5rem 1rem;
+  line-height: 1.5;
+  /* Limita texto para manter altura dos cards */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* --- VÍDEOS --- */
-.videos-section { width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 4rem; }
-.video-column { display: flex; flex-direction: column; align-items: center; gap: 2.5rem; width: 100%; }
-.video-container-box { width: 95%; max-width: 800px; aspect-ratio: 16 / 9; }
-.video-container-box iframe { width: 100%; height: 100%; border: 2px solid #222; border-radius: 12px; }
+/* --- MODAL E AGENDA --- */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.modal-content img { max-width: 90vw; max-height: 80vh; border: 2px solid #d60000; border-radius: 8px; }
+.close-modal { position: absolute; top: -40px; right: 0; background: #d60000; color: white; border: none; padding: 5px 15px; cursor: pointer; }
 
-/* --- AJUSTES FINAIS MOBILE --- */
+.agenda-section { width: 100%; margin-top: 4rem; display: flex; justify-content: center; }
+
+/* --- RESPONSIVIDADE CELULAR --- */
 @media (max-width: 480px) {
-  .noticia-list { grid-template-columns: 1fr; }
-  .news-img-container { height: 220px; }
-  .pagina-cblol h1, .pagina-freefire h1 { font-size: 1.8rem; }
+  .noticia-list {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+  .card-noticia img { height: 180px; }
+  .pagina-cblol h1 { font-size: 1.8rem; }
 }
