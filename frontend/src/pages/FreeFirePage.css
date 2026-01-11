@@ -17,15 +17,14 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  flex-wrap: wrap; /* Importante para acomodar 6 jogadores se a tela diminuir */
-  gap: 20px;
+  gap: 15px;
   width: 95%;
-  max-width: 1400px;
+  max-width: 1400px; /* Aumentado para caber os 6 jogadores */
   margin: 0 auto 5rem auto;
 }
 
 .mini-player-card {
-  flex: 0 1 220px; /* Um pouco menor para caberem 6 com folga */
+  flex: 0 1 210px; /* Tamanho fixo para manter a proporção dos outros */
   background: #151515;
   border-radius: 8px;
   border: 1px solid #222;
@@ -49,10 +48,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  cursor: pointer;
 }
 
-/* --- LOGICA SOCIAL PC (HOVER) --- */
+/* --- LOGICA DE ÍCONES (PC) --- */
 @media (min-width: 1025px) {
   .social-mobile-only { display: none !important; }
 
@@ -84,7 +82,7 @@
   }
 }
 
-/* --- LOGICA SOCIAL MOBILE (FIXO) --- */
+/* --- LOGICA DE ÍCONES (MOBILE) --- */
 @media (max-width: 1024px) {
   .social-overlay-hover { display: none !important; }
 
@@ -129,12 +127,10 @@
 .news-content { padding: 1rem; }
 .categoria { color: #d60000; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
 
-/* --- PAGINAÇÃO --- */
 .paginacao-noticias { margin-top: 3rem; display: flex; justify-content: center; align-items: center; gap: 1.5rem; }
 .paginacao-noticias button { background-color: #d60000; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 800; cursor: pointer; }
 .paginacao-noticias button:disabled { background-color: #333; color: #666; cursor: not-allowed; }
 
-/* --- MODAL --- */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; }
 .modal-content { position: relative; }
 .modal-content img { max-width: 90vw; max-height: 80vh; border: 2px solid #d60000; border-radius: 8px; }

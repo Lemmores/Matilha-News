@@ -31,10 +31,7 @@ const FreeFirePage = () => {
         const newsData = await newsRes.json();
         const agendaData = await agendaRes.json();
 
-        setNoticiasFreeFire(newsData
-          .filter(n => n.categoria === 'FREEFIRE')
-          .sort((a, b) => new Date(b.data) - new Date(a.data)));
-        
+        setNoticiasFreeFire(newsData.filter(n => n.categoria === 'FREEFIRE').sort((a, b) => new Date(b.data) - new Date(a.data)));
         setAgendaFreeFire(agendaData.filter(a => a.campeonato === 'FREEFIRE'));
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
@@ -54,7 +51,7 @@ const FreeFirePage = () => {
     const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
                url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
                url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
-    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
+    return id ? `https://www.youtube.com/embed/${id}` : '';
   };
 
   return (
@@ -76,7 +73,6 @@ const FreeFirePage = () => {
                   onClick={() => setImagemAberta(jogador.img)} 
                 />
                 
-                {/* Overlay Hover (PC) */}
                 <div className="social-overlay-hover">
                   {jogador.instagram && (
                     <a href={jogador.instagram} target="_blank" rel="noopener noreferrer">
@@ -90,7 +86,6 @@ const FreeFirePage = () => {
                 <span className="mini-player-name">{jogador.nome}</span>
                 <span className="mini-player-role">PRO PLAYER</span>
                 
-                {/* Ícones Fixos (Mobile) */}
                 <div className="social-mobile-only">
                    {jogador.instagram && <a href={jogador.instagram} target="_blank" rel="noopener noreferrer"><img src="/icons/instagram.png" alt="Instagram" /></a>}
                 </div>
@@ -112,14 +107,10 @@ const FreeFirePage = () => {
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
-          {agendaFreeFire
-            .filter(p => p.linkTransmissao)
-            .sort((a, b) => new Date(b.data) - new Date(a.data))
-            .slice(0, 2)
-            .map((p, idx) => (
-              <div key={idx} className="video-container-box">
-                <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
-              </div>
+          {agendaFreeFire.filter(p => p.linkTransmissao).slice(0, 2).map((p, idx) => (
+            <div key={idx} className="video-container-box">
+              <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
+            </div>
           ))}
         </div>
       </section>
@@ -137,7 +128,6 @@ const FreeFirePage = () => {
             </Link>
           ))}
         </div>
-        
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
             <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
