@@ -125,26 +125,28 @@ const CSPage = () => {
       </section>
 
       <section className="news-section">
-        <h2 className="section-title">Notícias Relacionadas</h2>
-        <div className="noticia-list">
-          {noticiasExibidas.map(noticia => (
-            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-              <div className="news-img-container"><img src={noticia.imagem} alt={noticia.titulo} /></div>
-              <div className="news-content">
-                <p className="categoria">{noticia.categoria}</p>
-                <h3>{noticia.titulo}</h3>
-              </div>
-            </Link>
-          ))}
-        </div>
-        {totalPaginas > 1 && (
-          <div className="paginacao-noticias">
-            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
-            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
-          </div>
-        )}
-      </section>
+  <h2 className="section-title">Notícias Relacionadas</h2>
+  <div className="noticia-list">
+    {noticiasExibidas.map(noticia => (
+      <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
+        {/* Imagem direta */}
+        <img src={noticia.imagem} alt={noticia.titulo} />
+        
+        {/* Elementos soltos para respeitar as margens do CSS padronizado */}
+        <p className="categoria">{noticia.categoria}</p>
+        <h3>{noticia.titulo}</h3>
+        <p className="conteudo">{noticia.conteudo}</p>
+      </Link>
+    ))}
+  </div>
+  {totalPaginas > 1 && (
+    <div className="paginacao-noticias">
+      <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
+      <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
+      <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
+    </div>
+  )}
+</section>
 
       <section className="agenda-section">
         <Agenda partidas={agendaCS} />
