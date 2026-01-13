@@ -3,5 +3,8 @@
     "mongod": "^2.0.0",
     "mongodb": "^6.17.0",
     "multer": "^2.0.1"
+  },
+  "devDependencies": {
+    "vite-plugin-pwa": "^1.2.0"
   }
 }
