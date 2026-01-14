@@ -5,11 +5,12 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [
     react(),
-    VitePWA({ 
+ VitePWA({
   registerType: 'autoUpdate',
-  injectRegister: 'script', // Força a injeção do registro
   workbox: {
-    globPatterns: ['**/*.{js,css,html,ico,png,svg}'] // Garante que ele faz cache de tudo
+    cleanupOutdatedCaches: true,
+    skipWaiting: true, // Resolve o problema da imagem e1c5ed.jpg
+    clientsClaim: true,
   },
   manifest: {
     name: 'Matilha News',
@@ -21,16 +22,23 @@ export default defineConfig({
     start_url: '/',
     icons: [
       {
-        src: 'icons/icon-192x192.png',
+        src: 'icons/icon192.png',
         sizes: '192x192',
-        type: 'image/png',
-        purpose: 'any maskable' // Ajuda no Android
+        type: 'image/png'
       },
       {
-        src: 'icons/icon-512x512.png',
+        src: 'icons/icon512.png',
+        sizes: '512x512',
+        type: 'image/png'
+      }
+    ],
+    // Isso resolve o aviso de "Add screenshots" do PWABuilder
+    screenshots: [
+      {
+        src: 'icons/icon512.png', // Use seu ícone provisoriamente se não tiver prints
         sizes: '512x512',
         type: 'image/png',
-        purpose: 'any maskable'
+        form_factor: 'wide'
       }
     ]
   }
