@@ -34,29 +34,35 @@ export default defineConfig({
             src: 'icon192.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'maskable' // Essencial para o ícone não ficar cortado no Android
+            purpose: 'maskable' // Isso tira o erro de ícone do Android
           },
           {
             src: 'icon512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any'
-          }
-        ],
-        screenshots: [
-          {
-            src: 'icon512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            form_factor: 'wide',
-            label: 'Matilha News Desktop'
           },
           {
             src: 'icon512.png',
             sizes: '512x512',
             type: 'image/png',
-            form_factor: 'narrow',
-            label: 'Matilha News Mobile'
+            purpose: 'maskable'
+          }
+        ],
+        screenshots: [
+          {
+            src: 'icon512.png', 
+            sizes: '512x512',
+            type: 'image/png',
+            form_factor: 'narrow', // Identifica como print de celular
+            label: 'Matilha News no Celular'
+          },
+          {
+            src: 'icon512.png', 
+            sizes: '512x512',
+            type: 'image/png',
+            form_factor: 'wide', // Identifica como print de computador
+            label: 'Portal Matilha News Desktop'
           }
         ]
       }
