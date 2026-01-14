@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.matilha_news.twa",
+        "sha256_cert_fingerprints": ["54:6D:48:60:35:CD:3D:8D:46:F4:D4:4F:4D:15:C7:C6:75:65:E5:02:03:3A:92:E3:71:D6:76:80:3F:89:F0:EE"]
+      }
+    }]
