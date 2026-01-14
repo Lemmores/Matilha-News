@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     react(),
  VitePWA({
-  registerType: 'autoUpdate',
+  registerType: 'prompt',
   workbox: {
     cleanupOutdatedCaches: true,
     skipWaiting: true, // Resolve o problema da imagem e1c5ed.jpg
