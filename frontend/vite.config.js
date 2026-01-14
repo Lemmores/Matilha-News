@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'prompt', // Evita o loop de recarregamento
+      registerType: 'prompt',
       injectRegister: 'auto',
       workbox: {
         cleanupOutdatedCaches: true,
@@ -23,6 +23,7 @@ export default defineConfig({
         display: 'standalone',
         scope: '/',
         start_url: '/',
+        orientation: 'portrait', // Resolve o alerta "Specify your app's preferred device orientation"
         icons: [
           {
             src: 'icon192.png',
@@ -34,7 +35,7 @@ export default defineConfig({
             src: 'icon192.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'maskable' // Isso tira o erro de ícone do Android
+            purpose: 'maskable' // Resolve o alerta "Fix the icon sizes"
           },
           {
             src: 'icon512.png',
@@ -49,20 +50,20 @@ export default defineConfig({
             purpose: 'maskable'
           }
         ],
-        screenshots: [
+        screenshots: [ // Resolve o alerta "Add screenshots to showcase your app"
           {
             src: 'icon512.png', 
             sizes: '512x512',
             type: 'image/png',
-            form_factor: 'narrow', // Identifica como print de celular
-            label: 'Matilha News no Celular'
+            form_factor: 'narrow',
+            label: 'Matilha News Mobile'
           },
           {
             src: 'icon512.png', 
             sizes: '512x512',
             type: 'image/png',
-            form_factor: 'wide', // Identifica como print de computador
-            label: 'Portal Matilha News Desktop'
+            form_factor: 'wide',
+            label: 'Matilha News Desktop'
           }
         ]
       }
