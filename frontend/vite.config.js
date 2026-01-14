@@ -6,29 +6,34 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({ 
-      registerType: 'prompt',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
-      manifest: {
-        name: 'Matilha News',
-        short_name: 'Matilha',
-        description: 'Portal de notícias Matilha News',
-        theme_color: '#000000',
-        background_color: '#ffffff',
-        display: 'standalone',
-        start_url: '.',
-        icons: [
-          {
-            src: 'icons/icon-192x192.png', 
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'icons/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
+  registerType: 'autoUpdate',
+  injectRegister: 'script', // Força a injeção do registro
+  workbox: {
+    globPatterns: ['**/*.{js,css,html,ico,png,svg}'] // Garante que ele faz cache de tudo
+  },
+  manifest: {
+    name: 'Matilha News',
+    short_name: 'Matilha',
+    description: 'Notícias, agenda e watch parties da Matilha RED Canids',
+    theme_color: '#000000',
+    background_color: '#ffffff',
+    display: 'standalone',
+    start_url: '/',
+    icons: [
+      {
+        src: 'icons/icon-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        purpose: 'any maskable' // Ajuda no Android
+      },
+      {
+        src: 'icons/icon-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'any maskable'
       }
-    })
+    ]
+  }
+})
   ]
 })
