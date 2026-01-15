@@ -71,6 +71,8 @@ export default function Creators() {
                 <img
                   src={creator.img}
                   alt={creator.nome}
+                  width="180"   // Adicione o tamanho aproximado do card
+                  height="200"  // Adicione o tamanho aproximado do card
                   // Carrega as 4 primeiras imagens imediatamente (LCP), o resto em lazy
                   loading={idx < 4 ? "eager" : "lazy"}
                   // Dá prioridade máxima para os primeiros da lista
