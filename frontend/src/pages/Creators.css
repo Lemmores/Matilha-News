@@ -1,4 +1,4 @@
-/* Creators.css - Final Compacto com Paginação */
+/* Creators.css - Versão de Alta Performance */
 
 .pagina-creators {
   padding: 2rem 15px;
@@ -60,6 +60,8 @@
   overflow: hidden;
   cursor: pointer;
   position: relative;
+  /* Espaço reservado com cor de fundo enquanto a imagem não carrega */
+  background: #1a1a1a;
 }
 
 .mini-image-container img {
@@ -67,7 +69,14 @@
   height: 100%;
   object-fit: cover;
   object-position: top;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.4s ease-in;
+  /* Começa transparente e aparece suavemente ao carregar */
+  opacity: 0;
+}
+
+/* Quando o browser começa a injetar a imagem */
+.mini-image-container img[src] {
+  opacity: 1;
 }
 
 .mini-creator-card:hover .mini-image-container img {
@@ -149,6 +158,16 @@
   border-top: 1px solid #222;
 }
 
+.feed-card {
+  background: #000;
+  border-radius: 12px;
+  border: 1px solid #222;
+  overflow: hidden;
+  /* Performance: O browser só renderiza o que estiver perto da viewport */
+  content-visibility: auto;
+  contain-intrinsic-size: 500px;
+}
+
 .section-title {
   text-align: center;
   margin-bottom: 2rem;
@@ -172,6 +191,7 @@
   border-radius: 20px;
   font-size: 0.75rem;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .filter-btn.active {
@@ -184,13 +204,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
-}
-
-.feed-card {
-  background: #000;
-  border-radius: 12px;
-  border: 1px solid #222;
-  overflow: hidden;
 }
 
 .iframe-media.reel { height: 560px; width: 100%; border:none; }
@@ -239,12 +252,6 @@
   }
   .iframe-media.reel { height: 480px; }
   .iframe-media.tiktok { height: 520px; }
-  
-  .paginacao-creators button {
-    padding: 12px 10px;
-    min-width: 90px;
-    font-size: 0.7rem;
-  }
 }
 
 .modal-overlay {

@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react';
 import './Creators.css';
 
 const creators = [
-  { nome: 'MEDU', img: '/creators/Medu.jpg', twitter: 'https://x.com/medulol1', instagram: 'https://www.instagram.com/medulol1/' },
-  { nome: 'PEU', img: '/creators/Peu.jpg', twitter: 'https://x.com/peuzinholol', instagram: 'https://www.instagram.com/peuzinholol/' },
-  { nome: 'DYEN', img: '/creators/Dyen.jpg', twitter: 'https://x.com/DyenffnyM', instagram: 'https://www.instagram.com/dyenffnym/' },
-  { nome: 'IASSER', img: '/creators/Iasser.jpg', twitter: 'https://x.com/iasserzinlol', instagram: 'https://www.instagram.com/iasserzinlol/' },
-  { nome: 'AMMY', img: '/creators/Ammy.jpg', twitter: 'https://x.com/ammyzitta', instagram: 'https://www.instagram.com/ammyzitta/' },
-  { nome: 'DERSIN', img: '/creators/Dersin.jpg', twitter: 'https://x.com/dersin2k', instagram: 'https://www.instagram.com/dersin2k' },
-  { nome: 'ISAC', img: '/creators/Isac.jpg', twitter: 'https://x.com/isac_lemus', instagram: 'https://www.instagram.com/isac.lemus/' },
-  { nome: 'JOÃO DIAS', img: '/creators/João Dias.jpg', twitter: 'https://x.com/jdiasss_', instagram: 'https://www.instagram.com/jdiasss_/' },
-  { nome: 'IONIAN', img: '/creators/Ionian.jpg', twitter: 'https://x.com/ionianzin', instagram: 'https://www.instagram.com/ionianzin/' },
-  { nome: 'JM', img: '/creators/JM.jpg', twitter: 'https://x.com/JMdeck_', instagram: 'https://www.instagram.com/jmdeck_' },
-  { nome: 'ANINHA', img: '/creators/Aninha.jpg', twitter: 'https://x.com/aninhamagica', instagram: 'https://www.instagram.com/aninhamagica' },
+  { nome: 'MEDU', img: '/creators/Medu.webp', twitter: 'https://x.com/medulol1', instagram: 'https://www.instagram.com/medulol1/' },
+  { nome: 'PEU', img: '/creators/Peu.webp', twitter: 'https://x.com/peuzinholol', instagram: 'https://www.instagram.com/peuzinholol/' },
+  { nome: 'DYEN', img: '/creators/Dyen.webp', twitter: 'https://x.com/DyenffnyM', instagram: 'https://www.instagram.com/dyenffnym/' },
+  { nome: 'IASSER', img: '/creators/Iasser.webp', twitter: 'https://x.com/iasserzinlol', instagram: 'https://www.instagram.com/iasserzinlol/' },
+  { nome: 'AMMY', img: '/creators/Ammy.webp', twitter: 'https://x.com/ammyzitta', instagram: 'https://www.instagram.com/ammyzitta/' },
+  { nome: 'DERSIN', img: '/creators/Dersin.webp', twitter: 'https://x.com/dersin2k', instagram: 'https://www.instagram.com/dersin2k' },
+  { nome: 'ISAC', img: '/creators/Isac.webp', twitter: 'https://x.com/isac_lemus', instagram: 'https://www.instagram.com/isac.lemus/' },
+  { nome: 'JOÃO DIAS', img: '/creators/João Dias.webp', twitter: 'https://x.com/jdiasss_', instagram: 'https://www.instagram.com/jdiasss_/' },
+  { nome: 'IONIAN', img: '/creators/Ionian.webp', twitter: 'https://x.com/ionianzin', instagram: 'https://www.instagram.com/ionianzin/' },
+  { nome: 'JM', img: '/creators/JM.webp', twitter: 'https://x.com/JMdeck_', instagram: 'https://www.instagram.com/jmdeck_' },
+  { nome: 'ANINHA', img: '/creators/Aninha.webp', twitter: 'https://x.com/aninhamagica', instagram: 'https://www.instagram.com/aninhamagica' },
 ];
 
 export default function Creators() {
@@ -34,7 +34,6 @@ export default function Creators() {
       .catch(err => console.error('Erro ao carregar conteúdos:', err));
   }, [API_URL]);
 
-  // Resetar para a página 1 sempre que mudar o filtro
   const handleFiltro = (nome) => {
     setFiltro(nome);
     setPaginaAtual(1);
@@ -72,18 +71,23 @@ export default function Creators() {
                 <img
                   src={creator.img}
                   alt={creator.nome}
-                  loading="lazy" 
+                  // Carrega as 4 primeiras imagens imediatamente (LCP), o resto em lazy
+                  loading={idx < 4 ? "eager" : "lazy"}
+                  // Dá prioridade máxima para os primeiros da lista
+                  fetchPriority={idx < 4 ? "high" : "low"}
+                  // Decodificação assíncrona para não travar o scroll
+                  decoding="async"
                   onClick={() => setImagemAberta(creator.img)}
                 />
                 <div className="mini-social-overlay hover-only">
                   {creator.twitter && (
                     <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
-                      <img src="/icons/x.png" alt="X" />
+                      <img src="/icons/x.png" alt="X" loading="lazy" />
                     </a>
                   )}
                   {creator.instagram && (
                     <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
-                      <img src="/icons/instagram.png" alt="Instagram" />
+                      <img src="/icons/instagram.png" alt="Instagram" loading="lazy" />
                     </a>
                   )}
                 </div>
@@ -95,12 +99,12 @@ export default function Creators() {
                 <div className="mini-social-overlay mobile-only">
                   {creator.twitter && (
                     <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
-                      <img src="/icons/x.png" alt="X" />
+                      <img src="/icons/x.png" alt="X" loading="lazy" />
                     </a>
                   )}
                   {creator.instagram && (
                     <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="mini-social-icon">
-                      <img src="/icons/instagram.png" alt="Instagram" />
+                      <img src="/icons/instagram.png" alt="Instagram" loading="lazy" />
                     </a>
                   )}
                 </div>
@@ -163,7 +167,6 @@ export default function Creators() {
                   ></iframe>
                 )}
               </div>
-              
             </div>
           ))}
         </div>
