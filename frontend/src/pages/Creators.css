@@ -1,4 +1,4 @@
-/* Creators.css - Versão de Alta Performance */
+/* Creators.css - Versão Final Otimizada e Corrigida */
 
 .pagina-creators {
   padding: 2rem 15px;
@@ -28,7 +28,7 @@
   text-transform: uppercase;
 }
 
-/* --- GRID COMPACTO --- */
+/* --- GRID DE CREATORS --- */
 .creators-compact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -60,8 +60,7 @@
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  /* Espaço reservado com cor de fundo enquanto a imagem não carrega */
-  background: #1a1a1a;
+  background: #1a1a1a; /* Placeholder enquanto carrega */
 }
 
 .mini-image-container img {
@@ -70,11 +69,9 @@
   object-fit: cover;
   object-position: top;
   transition: transform 0.5s ease, opacity 0.4s ease-in;
-  /* Começa transparente e aparece suavemente ao carregar */
-  opacity: 0;
+  opacity: 0; /* Começa invisível para o efeito fade-in */
 }
 
-/* Quando o browser começa a injetar a imagem */
 .mini-image-container img[src] {
   opacity: 1;
 }
@@ -83,18 +80,29 @@
   transform: scale(1.05);
 }
 
-/* --- LÓGICA SOCIAL OVERLAY --- */
+/* --- REDE SOCIAIS E ÍCONES (CORRIGIDO) --- */
 .mini-social-overlay {
   display: flex;
   justify-content: center;
-  gap: 0.8rem;
+  gap: 12px;
+  align-items: center;
+}
+
+.mini-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; 
+  height: 28px;
+  text-decoration: none;
 }
 
 .mini-social-icon img {
-  width: 18px;
-  height: 18px;
-  opacity: 0.8;
+  width: 18px !important; 
+  height: 18px !important;
+  opacity: 0.7;
   transition: all 0.2s ease;
+  object-fit: contain;
 }
 
 .mini-social-icon:hover img {
@@ -102,7 +110,7 @@
   transform: scale(1.2);
 }
 
-/* --- PC HOVER --- */
+/* --- COMPORTAMENTO HOVER (PC) --- */
 @media (min-width: 1025px) {
   .hover-only {
     position: absolute;
@@ -110,7 +118,7 @@
     left: 0;
     right: 0;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-    padding: 12px 0;
+    padding: 15px 0;
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s ease;
@@ -126,9 +134,20 @@
   .mobile-only { display: none; }
 }
 
+/* --- COMPORTAMENTO MOBILE --- */
 @media (max-width: 1024px) {
   .hover-only { display: none; }
-  .mobile-only { margin-top: 8px; opacity: 1; }
+  
+  .mobile-only { 
+    margin-top: 10px; 
+    display: flex; 
+    opacity: 1; 
+  }
+
+  .mini-social-icon img {
+    width: 20px !important; /* Ligeiramente maior para facilitar o toque */
+    height: 20px !important;
+  }
 }
 
 .mini-creator-footer {
@@ -151,7 +170,7 @@
   letter-spacing: 1px;
 }
 
-/* --- CONTEÚDOS E PAGINAÇÃO --- */
+/* --- SEÇÃO DE FEED E IFRAMES --- */
 .feed-section {
   margin-top: 4rem;
   padding-top: 2rem;
@@ -163,8 +182,7 @@
   border-radius: 12px;
   border: 1px solid #222;
   overflow: hidden;
-  /* Performance: O browser só renderiza o que estiver perto da viewport */
-  content-visibility: auto;
+  content-visibility: auto; /* Otimização de renderização */
   contain-intrinsic-size: 500px;
 }
 
@@ -191,7 +209,7 @@
   border-radius: 20px;
   font-size: 0.75rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s;
 }
 
 .filter-btn.active {
@@ -209,7 +227,7 @@
 .iframe-media.reel { height: 560px; width: 100%; border:none; }
 .iframe-media.tiktok { height: 600px; width: 100%; border:none; }
 
-/* ESTILO DOS BOTÕES DE PAGINAÇÃO */
+/* --- PAGINAÇÃO --- */
 .paginacao-creators {
   margin-top: 3rem;
   display: flex;
@@ -229,8 +247,7 @@
   text-transform: uppercase;
   font-size: 0.8rem;
   cursor: pointer;
-  transition: all 0.2s;
-  min-width: 110px;
+  transition: background 0.2s;
 }
 
 .paginacao-creators button:disabled {
@@ -244,20 +261,18 @@
   color: #fff;
 }
 
-/* --- RESPONSIVIDADE --- */
+/* --- MODAL E RESPONSIVIDADE --- */
 @media (max-width: 768px) {
   .creators-compact-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.8rem;
   }
-  .iframe-media.reel { height: 480px; }
-  .iframe-media.tiktok { height: 520px; }
 }
 
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.95);
   display: flex;
   align-items: center;
   justify-content: center;
