@@ -1,12 +1,18 @@
 // app/noticia/[id]/page.jsx
-import Head from "next/head";
 
 export async function generateMetadata({ params }) {
-  const API_URL =
-    process.env.API_URL || process.env.NEXT_PUBLIC_API_URL;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  // Segurança: se a env não existir
+  if (!API_URL) {
+    return {
+      title: "Matilha News",
+      description: "Notícia",
+    };
+  }
 
   const res = await fetch(
-    `${API_URL}/api/noticias/${params.id}`,
+    `${API_URL}/noticias/${params.id}`,
     { cache: "no-store" }
   );
 
@@ -23,79 +29,96 @@ export async function generateMetadata({ params }) {
     noticia.resumo ||
     (Array.isArray(noticia.textoCompleto)
       ? noticia.textoCompleto[0]
-      : noticia.textoCompleto);
+      : noticia.textoCompleto) ||
+    "Confira as últimas notícias da Matilha News.";
 
   return {
     title: `${noticia.titulo} | Matilha News`,
     description: descricao,
+
+    openGraph: {
+      title: noticia.titulo,
+      description: descricao,
+      type: "article",
+      images: noticia.imagem
+        ? [
+            {
+              url: noticia.imagem,
+              width: 1200,
+              height: 630,
+              alt: noticia.titulo,
+            },
+          ]
+        : [],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: noticia.titulo,
+      description: descricao,
+      images: noticia.imagem ? [noticia.imagem] : [],
+    },
   };
 }
 
 export default async function NoticiaPage({ params }) {
-  const API_URL =
-    process.env.API_URL || process.env.NEXT_PUBLIC_API_URL;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const res = await fetch(
-    `${API_URL}/api/noticias/${params.id}`,
+    `${API_URL}/noticias/${params.id}`,
     { cache: "no-store" }
   );
 
   if (!res.ok) {
-    return <h1>Notícia não encontrada</h1>;
+    return (
+      <main style={{ maxWidth: 800, margin: "0 auto", padding: 24 }}>
+        <h1>Notícia não encontrada</h1>
+      </main>
+    );
   }
 
   const noticia = await res.json();
 
-  const descricao =
-    noticia.resumo ||
-    (Array.isArray(noticia.textoCompleto)
-      ? noticia.textoCompleto[0]
-      : noticia.textoCompleto);
-
   return (
-    <>
-      <Head>
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={noticia.titulo} />
-        <meta name="twitter:description" content={descricao} />
-        <meta name="twitter:image" content={noticia.imagem} />
+    <main style={{ maxWidth: 800, margin: "0 auto", padding: 24 }}>
+      <h1>{noticia.titulo}</h1>
 
-        {/* Open Graph */}
-        <meta property="og:title" content={noticia.titulo} />
-        <meta property="og:description" content={descricao} />
-        <meta property="og:image" content={noticia.imagem} />
-        <meta property="og:type" content="article" />
-      </Head>
+      <p style={{ color: "#999", marginTop: 8 }}>
+        {new Date(noticia.data).toLocaleDateString("pt-BR")}
+        {noticia.autor && ` • ${noticia.autor}`}
+      </p>
 
-      <main style={{ maxWidth: 800, margin: "0 auto", padding: 24 }}>
-        <h1>{noticia.titulo}</h1>
+      {noticia.imagem && (
+        <img
+          src={noticia.imagem}
+          alt={noticia.titulo}
+          style={{
+            width: "100%",
+            margin: "24px 0",
+            borderRadius: 8,
+          }}
+        />
+      )}
 
-        <p style={{ color: "#999" }}>
-          {new Date(noticia.data).toLocaleDateString("pt-BR")}
-          {noticia.autor && ` • ${noticia.autor}`}
-        </p>
+      {Array.isArray(noticia.textoCompleto) &&
+        noticia.textoCompleto.map((paragrafo, index) => (
+          <p
+            key={index}
+            style={{ lineHeight: 1.6, marginBottom: 16 }}
+          >
+            {paragrafo}
+          </p>
+        ))}
 
-        {noticia.imagem && (
-          <img
-            src={noticia.imagem}
-            alt={noticia.titulo}
-            style={{ width: "100%", margin: "24px 0" }}
-          />
-        )}
-
-        {Array.isArray(noticia.textoCompleto) &&
-          noticia.textoCompleto.map((p, i) => <p key={i}>{p}</p>)}
-
-        {noticia.videoUrl && (
-          <iframe
-            src={noticia.videoUrl}
-            width="100%"
-            height="400"
-            allowFullScreen
-          />
-        )}
-      </main>
-    </>
+      {noticia.videoUrl && (
+        <iframe
+          src={noticia.videoUrl}
+          width="100%"
+          height="400"
+          allowFullScreen
+          style={{ marginTop: 24, borderRadius: 8 }}
+        />
+      )}
+    </main>
   );
 }
