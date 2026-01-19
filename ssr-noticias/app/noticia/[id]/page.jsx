@@ -1,20 +1,13 @@
 // app/noticia/[id]/page.jsx
 
 export async function generateMetadata({ params }) {
+  const { id } = await params;
+
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  // Segurança: se a env não existir
-  if (!API_URL) {
-    return {
-      title: "Matilha News",
-      description: "Notícia",
-    };
-  }
-
-  const res = await fetch(
-    `${API_URL}/noticias/${params.id}`,
-    { cache: "no-store" }
-  );
+  const res = await fetch(`${API_URL}/api/noticias/${id}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     return {
@@ -29,52 +22,37 @@ export async function generateMetadata({ params }) {
     noticia.resumo ||
     (Array.isArray(noticia.textoCompleto)
       ? noticia.textoCompleto[0]
-      : noticia.textoCompleto) ||
-    "Confira as últimas notícias da Matilha News.";
+      : noticia.textoCompleto);
 
   return {
     title: `${noticia.titulo} | Matilha News`,
     description: descricao,
-
     openGraph: {
       title: noticia.titulo,
       description: descricao,
+      images: [noticia.imagem],
       type: "article",
-      images: noticia.imagem
-        ? [
-            {
-              url: noticia.imagem,
-              width: 1200,
-              height: 630,
-              alt: noticia.titulo,
-            },
-          ]
-        : [],
     },
-
     twitter: {
       card: "summary_large_image",
       title: noticia.titulo,
       description: descricao,
-      images: noticia.imagem ? [noticia.imagem] : [],
+      images: [noticia.imagem],
     },
   };
 }
 
 export default async function NoticiaPage({ params }) {
+  const { id } = await params;
+
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  const res = await fetch(
-    `${API_URL}/noticias/${params.id}`,
-    { cache: "no-store" }
-  );
+  const res = await fetch(`${API_URL}/api/noticias/${id}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
-    return (
-      <main style={{ maxWidth: 800, margin: "0 auto", padding: 24 }}>
-        <h1>Notícia não encontrada</h1>
-      </main>
-    );
+    return <h1>Notícia não encontrada</h1>;
   }
 
   const noticia = await res.json();
@@ -83,7 +61,7 @@ export default async function NoticiaPage({ params }) {
     <main style={{ maxWidth: 800, margin: "0 auto", padding: 24 }}>
       <h1>{noticia.titulo}</h1>
 
-      <p style={{ color: "#999", marginTop: 8 }}>
+      <p style={{ color: "#999" }}>
         {new Date(noticia.data).toLocaleDateString("pt-BR")}
         {noticia.autor && ` • ${noticia.autor}`}
       </p>
@@ -92,23 +70,12 @@ export default async function NoticiaPage({ params }) {
         <img
           src={noticia.imagem}
           alt={noticia.titulo}
-          style={{
-            width: "100%",
-            margin: "24px 0",
-            borderRadius: 8,
-          }}
+          style={{ width: "100%", margin: "24px 0" }}
         />
       )}
 
       {Array.isArray(noticia.textoCompleto) &&
-        noticia.textoCompleto.map((paragrafo, index) => (
-          <p
-            key={index}
-            style={{ lineHeight: 1.6, marginBottom: 16 }}
-          >
-            {paragrafo}
-          </p>
-        ))}
+        noticia.textoCompleto.map((p, i) => <p key={i}>{p}</p>)}
 
       {noticia.videoUrl && (
         <iframe
@@ -116,7 +83,6 @@ export default async function NoticiaPage({ params }) {
           width="100%"
           height="400"
           allowFullScreen
-          style={{ marginTop: 24, borderRadius: 8 }}
         />
       )}
     </main>
