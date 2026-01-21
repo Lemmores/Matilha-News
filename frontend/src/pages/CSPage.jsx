@@ -8,7 +8,7 @@ const jogadores = [
   { nome: 'DROP', img: '/jogadores/drop.jpg', twitter: 'https://x.com/dropcs__', instagram: 'https://www.instagram.com/dropcsgo_/' },
   { nome: 'KAUEZ', img: '/jogadores/kauez.jpg', twitter: 'https://x.com/kauezcs', instagram: 'https://www.instagram.com/kauezcsgo/' },
   { nome: 'PONTER', img: '/jogadores/ponter.jpg', twitter: 'https://x.com/ponterzin', instagram: 'https://www.instagram.com/ponterzin/' },
-  { nome: 'VENOMZERA', img: '/jogadores/venomzera.jpg', twitter: 'https://x.com/venomzeracs', instagram: 'https://www.instagram.com/venomzeracs/' },
+  { nome: 'DAV1DEUS', img: '/jogadores/dav1deus.jpg', twitter: 'https://x.com/dav1deuS_', instagram: 'https://www.instagram.com/dav1deus_/' },
 ];
 
 const CSPage = () => {
