@@ -20,7 +20,6 @@ const CSPage = () => {
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-  // IGUAL AO CBLOL: Busca e filtra sem aplicar .sort() na agenda
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,8 +32,8 @@ const CSPage = () => {
 
         setNoticiasCS(newsData.filter(n => n.categoria === 'CS2').sort((a, b) => new Date(b.data) - new Date(a.data)));
         
-        // Exatamente como está no CBLOL Page:
-        setAgendaCS(agendaData.filter(a => a.campeonato === 'CS2'));
+        // AQUI ESTÁ A CHAVE: Filtra e inverte para os novos virem primeiro
+        setAgendaCS(agendaData.filter(a => a.campeonato === 'CS2').reverse());
 
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
@@ -50,7 +49,6 @@ const CSPage = () => {
   const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
   const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
 
-  // IGUAL AO CBLOL: Sem parâmetros extras como autoplay
   const formatEmbedLink = (url) => {
     if (!url) return '';
     const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
@@ -108,10 +106,10 @@ const CSPage = () => {
         </div>
       )}
 
-      {/* IGUAL AO CBLOL: Pega os 2 primeiros itens da agenda filtrada */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
+          {/* Agora o reverse lá em cima garante que esses 0, 2 sejam os novos */}
           {agendaCS.filter(p => p.linkTransmissao).slice(0, 2).map((p, idx) => (
             <div key={idx} className="video-container-box">
               <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
