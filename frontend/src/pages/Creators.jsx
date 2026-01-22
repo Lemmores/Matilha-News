@@ -7,7 +7,6 @@ const creators = [
   { nome: 'DYEN', img: '/creators/Dyen.webp', twitter: 'https://x.com/DyenffnyM', instagram: 'https://www.instagram.com/dyenffnym/' },
   { nome: 'IASSER', img: '/creators/Iasser.webp', twitter: 'https://x.com/iasserzinlol', instagram: 'https://www.instagram.com/iasserzinlol/' },
   { nome: 'AMMY', img: '/creators/Ammy.webp', twitter: 'https://x.com/ammyzitta', instagram: 'https://www.instagram.com/ammyzitta/' },
-  { nome: 'DERSIN', img: '/creators/Dersin.webp', twitter: 'https://x.com/dersin2k', instagram: 'https://www.instagram.com/dersin2k' },
   { nome: 'ISAC', img: '/creators/Isac.webp', twitter: 'https://x.com/isac_lemus', instagram: 'https://www.instagram.com/isac.lemus/' },
   { nome: 'JOÃO DIAS', img: '/creators/João Dias.webp', twitter: 'https://x.com/jdiasss_', instagram: 'https://www.instagram.com/jdiasss_/' },
   { nome: 'IONIAN', img: '/creators/Ionian.webp', twitter: 'https://x.com/ionianzin', instagram: 'https://www.instagram.com/ionianzin/' },
