@@ -33,7 +33,7 @@ const CSPage = () => {
         setNoticiasCS(newsData.filter(n => n.categoria === 'CS2').sort((a, b) => new Date(b.data) - new Date(a.data)));
         
         // AQUI ESTÁ A CHAVE: Filtra e inverte para os novos virem primeiro
-        setAgendaCS(agendaData.filter(a => a.campeonato === 'CS2').reverse());
+        setAgendaCS(agendaData.filter(a => a.campeonato === 'CS2'));
 
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
