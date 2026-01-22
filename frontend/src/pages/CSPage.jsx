@@ -20,6 +20,7 @@ const CSPage = () => {
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+  // IGUAL AO CBLOL: Busca e filtra sem aplicar .sort() na agenda
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,13 +31,9 @@ const CSPage = () => {
         const newsData = await newsRes.json();
         const agendaData = await agendaRes.json();
 
-        // Notícias continuam ordenadas por data
-        setNoticiasCS(newsData
-          .filter(n => n.categoria === 'CS2')
-          .sort((a, b) => new Date(b.data) - new Date(a.data)));
+        setNoticiasCS(newsData.filter(n => n.categoria === 'CS2').sort((a, b) => new Date(b.data) - new Date(a.data)));
         
-        // CORREÇÃO AQUI: Removido o .sort() da agenda para seguir o comportamento da CBLOL Page
-        // Isso garante que os vídeos que você acabou de adicionar apareçam corretamente
+        // Exatamente como está no CBLOL Page:
         setAgendaCS(agendaData.filter(a => a.campeonato === 'CS2'));
 
       } catch (error) {
@@ -53,12 +50,12 @@ const CSPage = () => {
   const irParaAnterior = () => { if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1); };
   const irParaProxima = () => { if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1); };
 
+  // IGUAL AO CBLOL: Sem parâmetros extras como autoplay
   const formatEmbedLink = (url) => {
     if (!url) return '';
     const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
                url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
                url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
-    // Removido o ?autoplay=0 para ficar IDÊNTICO à função da CBLOL
     return id ? `https://www.youtube.com/embed/${id}` : '';
   };
 
@@ -111,10 +108,10 @@ const CSPage = () => {
         </div>
       )}
 
+      {/* IGUAL AO CBLOL: Pega os 2 primeiros itens da agenda filtrada */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
-          {/* Aqui ele pega os 2 primeiros da lista filtrada, assim como na CBLOL */}
           {agendaCS.filter(p => p.linkTransmissao).slice(0, 2).map((p, idx) => (
             <div key={idx} className="video-container-box">
               <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
