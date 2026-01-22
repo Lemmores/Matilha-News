@@ -27,16 +27,30 @@ export default function Agenda({ partidas }) {
 
   function filtrarProximos20Dias(lista) {
   const hoje = new Date();
-  hoje.setHours(0, 0, 0, 0); // Zera hora
+  hoje.setHours(0, 0, 0, 0);
 
   const dataLimite = new Date();
-  dataLimite.setDate(hoje.getDate() + 20); // 7 dias à frente
+  dataLimite.setDate(hoje.getDate() + 20);
 
-  return lista.filter((jogo) => {
-    const [dia, mes, ano] = jogo.data.split("/").map(Number);
-    const dataJogo = new Date(ano, mes - 1, dia);
-    return dataJogo >= hoje && dataJogo <= dataLimite;
-  });
+  return lista
+    .filter((jogo) => {
+      const [dia, mes, ano] = jogo.data.split("/").map(Number);
+      const dataJogo = new Date(ano, mes - 1, dia);
+      return dataJogo >= hoje && dataJogo <= dataLimite;
+    })
+    .sort((a, b) => {
+      // 1. Criar objetos Date completos para comparação (Data + Hora)
+      const [diaA, mesA, anoA] = a.data.split("/").map(Number);
+      const [horaA, minA] = a.hora.split(":").map(Number);
+      const dataCompletaA = new Date(anoA, mesA - 1, diaA, horaA, minA);
+
+      const [diaB, mesB, anoB] = b.data.split("/").map(Number);
+      const [horaB, minB] = b.hora.split(":").map(Number);
+      const dataCompletaB = new Date(anoB, mesB - 1, diaB, horaB, minB);
+
+      // 2. Subtrair as datas para ordenar da mais antiga para a mais recente
+      return dataCompletaA - dataCompletaB;
+    });
 }
 
   return (
