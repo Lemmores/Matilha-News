@@ -30,13 +30,15 @@ const CSPage = () => {
         const newsData = await newsRes.json();
         const agendaData = await agendaRes.json();
 
+        // Notícias continuam ordenadas por data
         setNoticiasCS(newsData
           .filter(n => n.categoria === 'CS2')
           .sort((a, b) => new Date(b.data) - new Date(a.data)));
         
-        setAgendaCS(agendaData
-          .filter(a => a.campeonato === 'CS2')
-          .sort((a, b) => new Date(b.data) - new Date(a.data)));
+        // CORREÇÃO AQUI: Removido o .sort() da agenda para seguir o comportamento da CBLOL Page
+        // Isso garante que os vídeos que você acabou de adicionar apareçam corretamente
+        setAgendaCS(agendaData.filter(a => a.campeonato === 'CS2'));
+
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
       }
@@ -56,7 +58,8 @@ const CSPage = () => {
     const id = url.includes('/live/') ? url.split('/live/')[1].split(/[?&]/)[0] :
                url.includes('watch?v=') ? new URL(url).searchParams.get('v') :
                url.includes('youtu.be/') ? url.split('youtu.be/')[1].split(/[?&]/)[0] : null;
-    return id ? `https://www.youtube.com/embed/${id}?autoplay=0` : '';
+    // Removido o ?autoplay=0 para ficar IDÊNTICO à função da CBLOL
+    return id ? `https://www.youtube.com/embed/${id}` : '';
   };
 
   return (
@@ -73,8 +76,6 @@ const CSPage = () => {
             <div key={idx} className="mini-player-card">
               <div className="mini-image-container">
                 <img src={jogador.img} alt={jogador.nome} onClick={() => setImagemAberta(jogador.img)} />
-                
-                {/* Overlay Hover estilo Creators (Apenas PC) */}
                 <div className="social-overlay-hover">
                   {jogador.twitter && (
                     <a href={jogador.twitter} target="_blank" rel="noopener noreferrer">
@@ -88,12 +89,9 @@ const CSPage = () => {
                   )}
                 </div>
               </div>
-
               <div className="mini-player-footer">
                 <span className="mini-player-name">{jogador.nome}</span>
                 <span className="mini-player-role">PRO PLAYER</span>
-                
-                {/* Ícones Fixos (Apenas Mobile) */}
                 <div className="social-mobile-only">
                    {jogador.twitter && <a href={jogador.twitter} target="_blank" rel="noopener noreferrer"><img src="/icons/x.png" alt="X" /></a>}
                    {jogador.instagram && <a href={jogador.instagram} target="_blank" rel="noopener noreferrer"><img src="/icons/instagram.png" alt="Instagram" /></a>}
@@ -116,6 +114,7 @@ const CSPage = () => {
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
         <div className="video-column">
+          {/* Aqui ele pega os 2 primeiros da lista filtrada, assim como na CBLOL */}
           {agendaCS.filter(p => p.linkTransmissao).slice(0, 2).map((p, idx) => (
             <div key={idx} className="video-container-box">
               <iframe src={formatEmbedLink(p.linkTransmissao)} title={`Match ${idx}`} allowFullScreen></iframe>
@@ -125,28 +124,25 @@ const CSPage = () => {
       </section>
 
       <section className="news-section">
-  <h2 className="section-title">Notícias Relacionadas</h2>
-  <div className="noticia-list">
-    {noticiasExibidas.map(noticia => (
-      <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
-        {/* Imagem direta */}
-        <img src={noticia.imagem} alt={noticia.titulo} />
-        
-        {/* Elementos soltos para respeitar as margens do CSS padronizado */}
-        <p className="categoria">{noticia.categoria}</p>
-        <h3>{noticia.titulo}</h3>
-        <p className="conteudo">{noticia.conteudo}</p>
-      </Link>
-    ))}
-  </div>
-  {totalPaginas > 1 && (
-    <div className="paginacao-noticias">
-      <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
-      <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
-      <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
-    </div>
-  )}
-</section>
+        <h2 className="section-title">Notícias Relacionadas</h2>
+        <div className="noticia-list">
+          {noticiasExibidas.map(noticia => (
+            <Link key={noticia._id} to={`/noticia/${noticia._id}`} className="card-noticia">
+              <img src={noticia.imagem} alt={noticia.titulo} />
+              <p className="categoria">{noticia.categoria}</p>
+              <h3>{noticia.titulo}</h3>
+              <p className="conteudo">{noticia.conteudo}</p>
+            </Link>
+          ))}
+        </div>
+        {totalPaginas > 1 && (
+          <div className="paginacao-noticias">
+            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>Anterior</button>
+            <span className="page-indicator">{paginaAtual} / {totalPaginas}</span>
+            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>Próxima</button>
+          </div>
+        )}
+      </section>
 
       <section className="agenda-section">
         <Agenda partidas={agendaCS} />
