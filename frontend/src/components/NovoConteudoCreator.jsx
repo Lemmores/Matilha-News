@@ -43,7 +43,6 @@ const NovaConteudoCreator = () => {
           <option value="DYEN">DYEN</option>
           <option value="IASSER">IASSER</option>
           <option value="AMMY">AMMY</option>
-          <option value="ISAC">ISAC</option>
           <option value="IONIAN">IONIAN</option>
           <option value="JOÃO DIAS">JOÃO DIAS</option>
           <option value="ANINHA">ANINHA</option>
