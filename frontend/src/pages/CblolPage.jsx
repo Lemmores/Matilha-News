@@ -36,12 +36,19 @@ const CblolPage = () => {
             .sort((a, b) => new Date(b.data) - new Date(a.data))
         );
 
+        console.log(agendaData.map(a => ({
+        id: a._id,
+        data: a.data,
+        createdAt: a.createdAt
+      })));
+
         // 🔥 Agenda CBLOL (mais recentes primeiro — MongoDB)
         setAgendaLtaSul(
-          agendaData
-            .filter(a => a.campeonato === 'CBLOL')
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        );
+        agendaData
+          .filter(a => a.campeonato === 'CBLOL')
+          .sort((a, b) => new Date(b.data) - new Date(a.data))
+      );
+
 
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
