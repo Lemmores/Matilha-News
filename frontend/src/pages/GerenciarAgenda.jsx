@@ -8,7 +8,15 @@ export default function GerenciarAgenda() {
   const [filtro, setFiltro] = useState("TUDO");
   const navigate = useNavigate();
 
-  const campeonatos = ["TUDO", "CBLOL", "CIRCUITO DESAFIANTE", "CS2", "VALORANT", "FREEFIRE"];
+  const campeonatos = [
+    "TUDO",
+    "CBLOL",
+    "CIRCUITO DESAFIANTE",
+    "CS2",
+    "VALORANT",
+    "FREEFIRE",
+  ];
+
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {
@@ -17,7 +25,12 @@ export default function GerenciarAgenda() {
 
     axios
       .get(`${API_URL}/api/agenda`)
-      .then((res) => setAgenda(res.data))
+      .then((res) => {
+        const ordenado = res.data.sort(
+          (a, b) => new Date(b.data) - new Date(a.data)
+        );
+        setAgenda(ordenado);
+      })
       .catch((err) => console.error(err));
   }, [navigate, API_URL]);
 
@@ -29,15 +42,22 @@ export default function GerenciarAgenda() {
       await axios.delete(`${API_URL}/api/agenda/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setAgenda(agenda.filter((p) => p._id !== id));
+      setAgenda((prev) => prev.filter((p) => p._id !== id));
     } catch (err) {
       alert("Erro ao deletar a partida.");
       console.error(err);
     }
   };
 
+  const formatarData = (data) => {
+    if (!data) return "";
+    return new Date(data).toLocaleDateString("pt-BR");
+  };
+
   const partidasFiltradas =
-    filtro === "TUDO" ? agenda : agenda.filter((p) => p.campeonato === filtro);
+    filtro === "TUDO"
+      ? agenda
+      : agenda.filter((p) => p.campeonato === filtro);
 
   return (
     <div className="pagina-painel">
@@ -59,30 +79,52 @@ export default function GerenciarAgenda() {
         {partidasFiltradas.map((partida) => (
           <div key={partida._id} className="card-partida-admin">
             <div className="info-principal">
-              <p><strong>{partida.data}</strong> - {partida.hora}</p>
+              <p>
+                <strong>{formatarData(partida.data)}</strong>
+                {partida.hora && ` - ${partida.hora}`}
+              </p>
+
               <p className="campeonato">{partida.campeonato}</p>
-              {partida.local && <p className="local">{partida.local}</p>}
+
+              {partida.local && (
+                <p className="local">{partida.local}</p>
+              )}
             </div>
 
             <div className="times">
               <div className="time">
-                <img src={partida.timeA.logo} alt={partida.timeA.nome} />
-                <span>{partida.timeA.nome}</span>
+                {partida.timeA?.logo && (
+                  <img
+                    src={partida.timeA.logo}
+                    alt={partida.timeA.nome}
+                  />
+                )}
+                <span>{partida.timeA?.nome || "Time A"}</span>
               </div>
+
               <span className="versus">vs</span>
+
               <div className="time">
-                <img src={partida.timeB.logo} alt={partida.timeB.nome} />
-                <span>{partida.timeB.nome}</span>
+                {partida.timeB?.logo && (
+                  <img
+                    src={partida.timeB.logo}
+                    alt={partida.timeB.nome}
+                  />
+                )}
+                <span>{partida.timeB?.nome || "Time B"}</span>
               </div>
             </div>
 
             <div className="botoes-acoes">
               <button
                 className="botao-editar"
-                onClick={() => navigate(`/editar-agenda/${partida._id}`)}
+                onClick={() =>
+                  navigate(`/editar-agenda/${partida._id}`)
+                }
               >
                 Editar
               </button>
+
               <button
                 className="botao-deletar"
                 onClick={() => deletarPartida(partida._id)}
