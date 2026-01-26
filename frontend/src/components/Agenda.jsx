@@ -9,75 +9,104 @@ export default function Agenda({ partidas }) {
 
   useEffect(() => {
     const carregar = async () => {
-      if (!partidas) {
-        try {
-          const resposta = await axios.get(`${API_URL}/api/agenda`);
-          const jogosFiltrados = filtrarProximos20Dias(resposta.data);
-          setJogos(jogosFiltrados);
-        } catch (err) {
-          console.error("Erro ao carregar partidas:", err);
-        }
-      } else {
-        const jogosFiltrados = filtrarProximos20Dias(partidas);
+      try {
+        const dados = partidas
+          ? partidas
+          : (await axios.get(`${API_URL}/api/agenda`)).data;
+
+        const jogosFiltrados = filtrarProximos20Dias(dados);
         setJogos(jogosFiltrados);
+      } catch (err) {
+        console.error("Erro ao carregar partidas:", err);
       }
     };
+
     carregar();
   }, [partidas]);
 
+  /* ======================
+      FILTRO + ORDENAÇÃO
+     ====================== */
   function filtrarProximos20Dias(lista) {
-  const hoje = new Date();
-  hoje.setHours(0, 0, 0, 0);
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
 
-  const dataLimite = new Date();
-  dataLimite.setDate(hoje.getDate() + 20);
+    const dataLimite = new Date();
+    dataLimite.setDate(hoje.getDate() + 20);
 
-  return lista
-    .filter((jogo) => {
-      const [dia, mes, ano] = jogo.data.split("/").map(Number);
-      const dataJogo = new Date(ano, mes - 1, dia);
-      return dataJogo >= hoje && dataJogo <= dataLimite;
-    })
-    .sort((a, b) => {
-      // 1. Criar objetos Date completos para comparação (Data + Hora)
-      const [diaA, mesA, anoA] = a.data.split("/").map(Number);
-      const [horaA, minA] = a.hora.split(":").map(Number);
-      const dataCompletaA = new Date(anoA, mesA - 1, diaA, horaA, minA);
+    return lista
+      .filter((jogo) => {
+        const dataJogo = new Date(jogo.data);
+        return dataJogo >= hoje && dataJogo <= dataLimite;
+      })
+      .sort((a, b) => {
+        const dataA = new Date(a.data);
+        const dataB = new Date(b.data);
 
-      const [diaB, mesB, anoB] = b.data.split("/").map(Number);
-      const [horaB, minB] = b.hora.split(":").map(Number);
-      const dataCompletaB = new Date(anoB, mesB - 1, diaB, horaB, minB);
+        // adiciona hora na comparação (se existir)
+        if (a.hora) {
+          const [hA, mA] = a.hora.split(":").map(Number);
+          dataA.setHours(hA, mA);
+        }
 
-      // 2. Subtrair as datas para ordenar da mais antiga para a mais recente
-      return dataCompletaA - dataCompletaB;
-    });
-}
+        if (b.hora) {
+          const [hB, mB] = b.hora.split(":").map(Number);
+          dataB.setHours(hB, mB);
+        }
+
+        return dataA - dataB;
+      });
+  }
+
+  /* ======================
+      FORMATA DATA
+     ====================== */
+  const formatarData = (data) =>
+    new Date(data).toLocaleDateString("pt-BR");
 
   return (
     <section className="agenda">
       <h2>Agenda de Jogos</h2>
+
       <div className="jogos">
-        {jogos.length === 0 && <p>Sem partidas nos próximos 20 dias.</p>}
-        {jogos.map((jogo, index) => {
+        {jogos.length === 0 && (
+          <p>Sem partidas nos próximos 20 dias.</p>
+        )}
+
+        {jogos.map((jogo) => {
           const timeA_nome = jogo?.timeA?.nome || "Time A";
-          const timeA_logo = jogo?.timeA?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
+          const timeA_logo =
+            jogo?.timeA?.logo ||
+            "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
 
           const timeB_nome = jogo?.timeB?.nome || "Time B";
-          const timeB_logo = jogo?.timeB?.logo || "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
+          const timeB_logo =
+            jogo?.timeB?.logo ||
+            "https://res.cloudinary.com/matilha-news/image/upload/v1719856619/matilha-news/default.png";
 
           const cardContent = (
-            <div className="jogo-card" key={index}>
+            <div className="jogo-card">
               <div className="jogo-info">
-                <span className="data-hora">{jogo.data} - {jogo.hora}</span>
+                <span className="data-hora">
+                  {formatarData(jogo.data)}
+                  {jogo.hora && ` - ${jogo.hora}`}
+                </span>
+
                 <span className="campeonato">{jogo.campeonato}</span>
-                {jogo.local && <span className="local">{jogo.local}</span>}
+
+                {jogo.local && (
+                  <span className="local">{jogo.local}</span>
+                )}
               </div>
+
               <div className="jogo-times">
                 <div className="time">
                   <img src={timeA_logo} alt={timeA_nome} />
                   <span>{timeA_nome}</span>
                 </div>
+
                 <span className="versus">vs</span>
+
                 <div className="time">
                   <img src={timeB_logo} alt={timeB_nome} />
                   <span>{timeB_nome}</span>
@@ -88,17 +117,16 @@ export default function Agenda({ partidas }) {
 
           return jogo.linkTransmissao ? (
             <a
+              key={jogo._id}
               href={jogo.linkTransmissao}
               target="_blank"
               rel="noopener noreferrer"
-              key={index}
               className="jogo-link"
-              style={{ textDecoration: "none", color: "inherit" }}
             >
               {cardContent}
             </a>
           ) : (
-            <div key={index}>{cardContent}</div>
+            <div key={jogo._id}>{cardContent}</div>
           );
         })}
       </div>
