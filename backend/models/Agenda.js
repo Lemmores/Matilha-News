@@ -1,23 +1,51 @@
 import mongoose from 'mongoose';
 
-const agendaSchema = new mongoose.Schema({
-  data: String,
-  hora: String,
-  campeonato: String,
-  local: String,
-  linkTransmissao: { // novo campo opcional
-    type: String,
-    required: false,
+const agendaSchema = new mongoose.Schema(
+  {
+    data: {
+      type: Date,
+      required: true,
+    },
+    hora: {
+      type: String,
+      required: true,
+    },
+    campeonato: {
+      type: String,
+      required: true,
+    },
+    local: {
+      type: String,
+    },
+    linkTransmissao: {
+      type: String,
+      required: false,
+    },
+    timeA: {
+      nome: {
+        type: String,
+        required: true,
+      },
+      logo: {
+        type: String,
+        required: true,
+      },
+    },
+    timeB: {
+      nome: {
+        type: String,
+        required: true,
+      },
+      logo: {
+        type: String,
+        required: true,
+      },
+    },
   },
-  timeA: {
-    nome: String,
-    logo: String
-  },
-  timeB: {
-    nome: String,
-    logo: String
+  {
+    timestamps: true, // 🔥 cria createdAt e updatedAt automaticamente
   }
-});
+);
 
 const Agenda = mongoose.model('Agenda', agendaSchema);
 

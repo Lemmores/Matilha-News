@@ -102,7 +102,14 @@ export default function NovaAgenda() {
     <div className="nova-agenda">
       <h2>Nova Partida</h2>
       <form onSubmit={handleSubmit}>
-        <input name="data" value={form.data} onChange={handleChange} placeholder="Data (ex: 09/07)" required />
+        <input
+  type="date"
+  name="data"
+  value={form.data}
+  onChange={handleChange}
+  required
+/>
+
         <input name="hora" value={form.hora} onChange={handleChange} placeholder="Hora (ex: 18:00)" required />
         <select name="campeonato" value={form.campeonato} onChange={handleChange} required>
           <option value="">Selecione o campeonato</option>

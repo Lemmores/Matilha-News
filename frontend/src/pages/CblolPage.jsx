@@ -29,26 +29,19 @@ const CblolPage = () => {
         const newsData = await newsRes.json();
         const agendaData = await agendaRes.json();
 
-        // 🔥 Notícias CBLOL (mais recentes primeiro)
+        // 🔥 Notícias CBLOL — mais recentes primeiro
         setNoticiasLtaSul(
           newsData
             .filter(n => n.categoria === 'CBLOL')
             .sort((a, b) => new Date(b.data) - new Date(a.data))
         );
 
-        console.log(agendaData.map(a => ({
-        id: a._id,
-        data: a.data,
-        createdAt: a.createdAt
-      })));
-
-        // 🔥 Agenda CBLOL (mais recentes primeiro — MongoDB)
+        // 🔥 Agenda CBLOL — ordenada pela DATA DO CONFRONTO
         setAgendaLtaSul(
-        agendaData
-          .filter(a => a.campeonato === 'CBLOL')
-          .sort((a, b) => new Date(b.data) - new Date(a.data))
-      );
-
+          agendaData
+            .filter(a => a.campeonato === 'CBLOL')
+            .sort((a, b) => new Date(b.data) - new Date(a.data))
+        );
 
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
@@ -148,7 +141,7 @@ const CblolPage = () => {
                   src={formatEmbedLink(p.linkTransmissao)}
                   title={`Match ${idx}`}
                   allowFullScreen
-                ></iframe>
+                />
               </div>
             ))}
         </div>
