@@ -76,7 +76,7 @@ const EditarWatchParty = () => {
     try {
       const eventoAtualizado = {
         titulo: formData.titulo,
-        data: formData.data,
+        data: new Date(formData.data + "T12:00:00"),
         local: formData.local,
         imagem: formData.imagem,
         grupo: formData.grupo,

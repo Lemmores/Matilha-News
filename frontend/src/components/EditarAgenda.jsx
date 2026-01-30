@@ -91,7 +91,7 @@ export default function EditarAgenda() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const partidaAtualizada = {
-      data: form.data,
+      data: new Date(form.data + "T12:00:00"),
       hora: form.hora,
       campeonato: form.campeonato,
       local: form.local,

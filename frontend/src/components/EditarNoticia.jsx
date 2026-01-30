@@ -74,7 +74,7 @@ const EditarNoticia = () => {
     try {
       const noticiaAtualizada = {
         titulo: formData.titulo,
-        data: new Date(formData.data).toISOString(),
+        data: new Date(formData.data + "T12:00:00"),
         imagem: formData.imagem,
         textoCompleto: formData.conteudo.split('\n').filter(Boolean),
         autor: formData.autor,

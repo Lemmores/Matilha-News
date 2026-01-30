@@ -61,7 +61,7 @@ export default function NovaAgenda() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const novaAgenda = {
-      data: form.data,
+      data: new Date(form.data + "T12:00:00"),
       hora: form.hora,
       campeonato: form.campeonato,
       local: form.local,
