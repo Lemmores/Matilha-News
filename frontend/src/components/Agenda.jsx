@@ -28,41 +28,48 @@ export default function Agenda({ partidas }) {
       FILTRO + ORDENAÇÃO
      ====================== */
   function filtrarProximos20Dias(lista) {
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
+  const hoje = new Date();
+  hoje.setHours(0, 0, 0, 0);
 
-    const dataLimite = new Date();
-    dataLimite.setDate(hoje.getDate() + 20);
+  const dataLimite = new Date();
+  dataLimite.setDate(hoje.getDate() + 20);
 
-    return lista
-      .filter((jogo) => {
-        const dataJogo = new Date(jogo.data);
-        return dataJogo >= hoje && dataJogo <= dataLimite;
-      })
-      .sort((a, b) => {
-        const dataA = new Date(a.data);
-        const dataB = new Date(b.data);
+  return lista
+    .filter((jogo) => {
+      const dataJogo = new Date(jogo.data);
+      dataJogo.setHours(12, 0, 0, 0);
+      return dataJogo >= hoje && dataJogo <= dataLimite;
+    })
+    .sort((a, b) => {
+      const dataA = new Date(a.data);
+      const dataB = new Date(b.data);
 
-        // adiciona hora na comparação (se existir)
-        if (a.hora) {
-          const [hA, mA] = a.hora.split(":").map(Number);
-          dataA.setHours(hA, mA);
-        }
+      dataA.setHours(12, 0, 0, 0);
+      dataB.setHours(12, 0, 0, 0);
 
-        if (b.hora) {
-          const [hB, mB] = b.hora.split(":").map(Number);
-          dataB.setHours(hB, mB);
-        }
+      if (a.hora) {
+        const [hA, mA] = a.hora.split(":").map(Number);
+        dataA.setHours(hA, mA);
+      }
 
-        return dataA - dataB;
-      });
-  }
+      if (b.hora) {
+        const [hB, mB] = b.hora.split(":").map(Number);
+        dataB.setHours(hB, mB);
+      }
+
+      return dataA - dataB;
+    });
+}
+
 
   /* ======================
       FORMATA DATA
      ====================== */
   const formatarData = (data) =>
-    new Date(data).toLocaleDateString("pt-BR");
+  new Date(data).toLocaleDateString("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+  });
+
 
   return (
     <section className="agenda">
