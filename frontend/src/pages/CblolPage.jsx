@@ -16,6 +16,7 @@ const CblolPage = () => {
   const [noticiasLtaSul, setNoticiasLtaSul] = useState([]);
   const [agendaLtaSul, setAgendaLtaSul] = useState([]);
 
+  const noticiasPorPagina = 3;
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
@@ -163,6 +164,22 @@ const CblolPage = () => {
             </Link>
           ))}
         </div>
+
+        {totalPaginas > 1 && (
+          <div className="paginacao-noticias">
+            <button onClick={irParaAnterior} disabled={paginaAtual === 1}>
+              Anterior
+            </button>
+
+            <span className="page-indicator">
+              {paginaAtual} / {totalPaginas}
+            </span>
+
+            <button onClick={irParaProxima} disabled={paginaAtual === totalPaginas}>
+              Próxima
+            </button>
+          </div>
+        )}
       </section>
 
       <section className="agenda-section">
