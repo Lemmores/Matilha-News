@@ -176,17 +176,19 @@ const CblolPage = () => {
 
         <div className="video-column">
           {agendaCBLOL
-            .filter(p => p.linkTransmissao)
-            .slice(0, 2)
-            .map((p, idx) => (
-              <div key={idx} className="video-container-box">
-                <iframe
-                  src={formatEmbedLink(p.linkTransmissao)}
-                  title={`Match ${idx}`}
-                  allowFullScreen
-                ></iframe>
-              </div>
-            ))}
+  .filter(p => p.linkTransmissao)
+  .sort((a, b) => new Date(b.data) - new Date(a.data)) // mais recente primeiro
+  .slice(0, 2)
+  .map((p, idx) => (
+    <div key={idx} className="video-container-box">
+      <iframe
+        src={formatEmbedLink(p.linkTransmissao)}
+        title={`Match ${idx}`}
+        allowFullScreen
+      ></iframe>
+    </div>
+))}
+
         </div>
       </section>
 
