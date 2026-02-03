@@ -25,6 +25,7 @@ import Creators from './pages/Creators';
 import NovoConteudoCreator from './components/NovoConteudoCreator';
 import GerenciarConteudosCreators from './pages/GerenciarConteudosCreators';
 import FreeFirePage from './pages/FreeFirePage';
+import ValorantPage from "./pages/ValorantPage";
 
 
 export default function App() {
@@ -57,6 +58,7 @@ export default function App() {
          <Route path="/novo-conteudo" element={<NovoConteudoCreator />} />
          <Route path="/gerenciar-conteudo" element={<GerenciarConteudosCreators/>} />
          <Route path="/freefire" element={<FreeFirePage/>} />
+         <Route path="/valorant" element={<ValorantPage />} />
         
       </Routes>
       
