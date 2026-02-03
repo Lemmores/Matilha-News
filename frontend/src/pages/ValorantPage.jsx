@@ -5,11 +5,11 @@ import "./ValorantPage.css"; // reutilizando o mesmo CSS
 
 // Line-up Valorant (sem imagens)
 const jogadoresValorant = [
-  { nome: "tincho", twitter: "https://x.com/tinchoffvlr", instagram: "" },
+  { nome: "tinchoff", twitter: "https://x.com/tinchoffvlr", instagram: "" },
   { nome: "skz", twitter: "https://x.com/skzvlr", instagram: "" },
   { nome: "Lowz", twitter: "https://x.com/Lowzval", instagram: "" },
-  { nome: "Heat", twitter: "", instagram: "" },
-  { nome: "Coach", twitter: "", instagram: "" },
+  { nome: "Urango", twitter: "", instagram: "" },
+  { nome: "RgLMeister", twitter: "", instagram: "" },
 ];
 
 const ValorantPage = () => {
