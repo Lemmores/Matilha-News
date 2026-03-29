@@ -13,12 +13,16 @@ const jogadores = [
 
 const CblolPage = () => {
   const [imagemAberta, setImagemAberta] = useState(null);
-  const [noticiasLtaSul, setNoticiasLtaSul] = useState([]);
-  const [agendaLtaSul, setAgendaLtaSul] = useState([]);
+  const [noticiasCBLOL, setNoticiasCBLOL] = useState([]);
+  const [agendaCBLOL, setAgendaCBLOL] = useState([]);
+  const [paginaAtual, setPaginaAtual] = useState(1);
 
   const noticiasPorPagina = 3;
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+  /* ======================
+      FETCH DADOS
+     ====================== */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,18 +34,18 @@ const CblolPage = () => {
         const newsData = await newsRes.json();
         const agendaData = await agendaRes.json();
 
-        // 🔥 Notícias CBLOL — mais recentes primeiro
-        setNoticiasLtaSul(
+        // 🔥 Notícias CBLOL
+        setNoticiasCBLOL(
           newsData
             .filter(n => n.categoria === 'CBLOL')
             .sort((a, b) => new Date(b.data) - new Date(a.data))
         );
 
-        // 🔥 Agenda CBLOL — ordenada pela DATA DO CONFRONTO
-        setAgendaLtaSul(
+        // 🔥 Agenda CBLOL (próximos jogos primeiro)
+        setAgendaCBLOL(
           agendaData
             .filter(a => a.campeonato === 'CBLOL')
-            .sort((a, b) => new Date(b.data) - new Date(a.data))
+            .sort((a, b) => new Date(a.data) - new Date(b.data))
         );
 
       } catch (error) {
@@ -52,18 +56,45 @@ const CblolPage = () => {
     fetchData();
   }, [API_URL]);
 
+  /* ======================
+      PAGINAÇÃO NOTÍCIAS
+     ====================== */
+  const totalPaginas = Math.ceil(noticiasCBLOL.length / noticiasPorPagina);
+  const indiceInicio = (paginaAtual - 1) * noticiasPorPagina;
+  const noticiasExibidas = noticiasCBLOL.slice(
+    indiceInicio,
+    indiceInicio + noticiasPorPagina
+  );
+
+  const irParaAnterior = () => {
+    if (paginaAtual > 1) setPaginaAtual(paginaAtual - 1);
+  };
+
+  const irParaProxima = () => {
+    if (paginaAtual < totalPaginas) setPaginaAtual(paginaAtual + 1);
+  };
+
+  /* ======================
+      YOUTUBE EMBED SAFE
+     ====================== */
   const formatEmbedLink = (url) => {
     if (!url) return '';
-    const id =
-      url.includes('/live/')
-        ? url.split('/live/')[1].split(/[?&]/)[0]
-        : url.includes('watch?v=')
-        ? new URL(url).searchParams.get('v')
-        : url.includes('youtu.be/')
-        ? url.split('youtu.be/')[1].split(/[?&]/)[0]
-        : null;
 
-    return id ? `https://www.youtube.com/embed/${id}` : '';
+    try {
+      const id =
+        url.includes('/live/')
+          ? url.split('/live/')[1].split(/[?&]/)[0]
+          : url.includes('watch?v=')
+          ? new URL(url).searchParams.get('v')
+          : url.includes('youtu.be/')
+          ? url.split('youtu.be/')[1].split(/[?&]/)[0]
+          : null;
+
+      return id ? `https://www.youtube.com/embed/${id}` : '';
+    } catch (e) {
+      console.error("Erro no link YouTube:", url);
+      return '';
+    }
   };
 
   return (
@@ -73,8 +104,12 @@ const CblolPage = () => {
         <p className="subtitle">LEAGUE OF LEGENDS</p>
       </header>
 
+      {/* ======================
+          LINE-UP
+         ====================== */}
       <section className="lineup-section">
         <h2 className="section-title">Line-up Oficial</h2>
+
         <div className="jogadores-container-horizontal">
           {jogadores.map((jogador, idx) => (
             <div key={idx} className="mini-player-card">
@@ -121,6 +156,9 @@ const CblolPage = () => {
         </div>
       </section>
 
+      {/* ======================
+          MODAL IMAGEM
+         ====================== */}
       {imagemAberta && (
         <div className="modal-overlay" onClick={() => setImagemAberta(null)}>
           <div className="modal-content">
@@ -130,28 +168,38 @@ const CblolPage = () => {
         </div>
       )}
 
+      {/* ======================
+          ÚLTIMOS CONFRONTOS
+         ====================== */}
       <section className="videos-section">
         <h2 className="section-title">Últimos Confrontos</h2>
+
         <div className="video-column">
-          {agendaLtaSul
-            .filter(p => p.linkTransmissao)
-            .slice(0, 2)
-            .map((p, idx) => (
-              <div key={idx} className="video-container-box">
-                <iframe
-                  src={formatEmbedLink(p.linkTransmissao)}
-                  title={`Match ${idx}`}
-                  allowFullScreen
-                />
-              </div>
-            ))}
+          {agendaCBLOL
+  .filter(p => p.linkTransmissao)
+  .sort((a, b) => new Date(b.data) - new Date(a.data)) // mais recente primeiro
+  .slice(0, 2)
+  .map((p, idx) => (
+    <div key={idx} className="video-container-box">
+      <iframe
+        src={formatEmbedLink(p.linkTransmissao)}
+        title={`Match ${idx}`}
+        allowFullScreen
+      ></iframe>
+    </div>
+))}
+
         </div>
       </section>
 
+      {/* ======================
+          NOTÍCIAS
+         ====================== */}
       <section className="news-section">
         <h2 className="section-title">Notícias Relacionadas</h2>
+
         <div className="noticia-list">
-          {noticiasLtaSul.slice(0, 4).map(noticia => (
+          {noticiasExibidas.map(noticia => (
             <Link
               key={noticia._id}
               to={`/noticia/${noticia._id}`}
@@ -165,6 +213,7 @@ const CblolPage = () => {
           ))}
         </div>
 
+        {/* PAGINAÇÃO */}
         {totalPaginas > 1 && (
           <div className="paginacao-noticias">
             <button onClick={irParaAnterior} disabled={paginaAtual === 1}>
@@ -182,8 +231,11 @@ const CblolPage = () => {
         )}
       </section>
 
+      {/* ======================
+          AGENDA COMPLETA
+         ====================== */}
       <section className="agenda-section">
-        <Agenda partidas={agendaLtaSul} />
+        <Agenda partidas={agendaCBLOL} />
       </section>
     </div>
   );

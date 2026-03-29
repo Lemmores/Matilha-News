@@ -1,0 +1,296 @@
+/* --- CONTAINER PRINCIPAL --- */
+.pagina-valorant {
+  padding: 2rem 0;
+  color: white;
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.header-valorant {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pagina-valorant h1 { 
+  font-size: 2.5rem; 
+  color: #ff4655; /* vermelho Valorant */
+  text-transform: uppercase; 
+  font-weight: 900; 
+}
+
+.subtitle-valorant {
+  color: #888;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+/* --- LINE-UP (JOGADORES) --- */
+.valorant-players-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 15px;
+  width: 98%;
+  max-width: 1400px;
+  margin: 0 auto 5rem auto;
+}
+
+.valorant-player-card {
+  flex: 0 1 230px;
+  background: #151515;
+  border-radius: 8px;
+  border: 1px solid #222;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.valorant-player-card:hover {
+  transform: translateY(-8px);
+  border-color: #ff4655;
+}
+
+.valorant-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.25;
+  background: #1c1c1c; /* placeholder sem foto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.valorant-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  display: block;
+}
+
+/* Texto placeholder se não tiver foto */
+.valorant-no-photo {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* --- REDES SOCIAIS HOVER (PC) --- */
+@media (min-width: 1025px) {
+  .valorant-social-mobile { display: none !important; }
+
+  .valorant-social-hover {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+    padding: 30px 0 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .valorant-player-card:hover .valorant-social-hover {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .valorant-social-hover img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+}
+
+/* --- MOBILE --- */
+@media (max-width: 1024px) {
+  .valorant-social-hover { display: none !important; }
+
+  .valorant-players-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .valorant-player-card {
+    flex: none;
+    width: 100%;
+  }
+
+  .valorant-social-mobile {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .valorant-social-mobile img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* --- FOOTER DO CARD --- */
+.valorant-player-footer {
+  padding: 1.2rem 0.5rem;
+  text-align: center;
+}
+
+.valorant-player-name {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.valorant-player-role {
+  font-size: 0.7rem;
+  color: #ff4655;
+  font-weight: bold;
+}
+
+/* --- TÍTULOS DE SEÇÃO --- */
+.valorant-section-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+/* --- VÍDEOS --- */
+.valorant-videos-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.valorant-video-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.valorant-video-box {
+  width: 95%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+}
+
+.valorant-video-box iframe {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #222;
+  border-radius: 12px;
+}
+
+/* --- SEÇÃO DE NOTÍCIAS --- */
+.valorant-news-section {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 4rem;
+}
+
+.valorant-news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.valorant-news-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: left;
+}
+
+.valorant-news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.valorant-news-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.valorant-news-card .categoria {
+  padding: 0.5rem 1rem;
+  background-color: #ff4655;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  width: fit-content;
+  margin: 1.5rem 1rem 0.5rem 1rem;
+}
+
+.valorant-news-card h3 {
+  font-size: 1.3rem;
+  margin: 0 1rem 0.5rem 1rem;
+  color: #111;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.valorant-news-card .conteudo {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0 1rem 1.5rem 1rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- AGENDA --- */
+.valorant-agenda-section {
+  width: 100%;
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* --- RESPONSIVO CELULAR --- */
+@media (max-width: 480px) {
+  .valorant-news-list {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+
+  .valorant-news-card img {
+    height: 180px;
+  }
+
+  .pagina-valorant h1 {
+    font-size: 1.8rem;
+  }
+}
