@@ -7,7 +7,7 @@ const jogadores = [
   { nome: 'ZYNTS', img: '/jogadores/ZYNTS.png', twitter: 'https://x.com/zyntslol', instagram: 'https://www.instagram.com/matheuszynts1/' },
   { nome: 'STEPZ', img: '/jogadores/STEPZ.png', twitter: 'https://x.com/StepZ7_', instagram: 'https://www.instagram.com/notstepz/' },
   { nome: 'KAZE', img: '/jogadores/KAZE.png', twitter: 'https://x.com/1Kazelol', instagram: 'https://www.instagram.com/kaze.g_/' },
-  { nome: 'RABELO', img: '/jogadores/RABELO.png', twitter: 'https://x.com/rabeloxv', instagram: 'https://www.instagram.com/rabelokoo/' },
+  { nome: 'MORTTHEUS', img: '/jogadores/MORTTHEUS.png', twitter: 'https://x.com/Morttheus', instagram: 'https://www.instagram.com/morttheus/' },
   { nome: 'FROSTY', img: '/jogadores/FROSTY.png', twitter: 'https://x.com/frostylolx', instagram: 'https://www.instagram.com/lolfrosty1/' },
 ];
 
