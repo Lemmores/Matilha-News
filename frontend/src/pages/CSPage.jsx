@@ -4,7 +4,7 @@ import Agenda from '../components/Agenda';
 import './CSPage.css';
 
 const jogadores = [
-  { nome: 'HISTORY', img: '/jogadores/history.jpg', twitter: 'https://x.com/historyfps', instagram: 'https://www.instagram.com/historycsgo/' },
+  { nome: 'RENTU', img: '/jogadores/reNTU.jpg', twitter: 'https://x.com/rentufps', instagram: 'https://www.instagram.com/rentufps/' },
   { nome: 'DROP', img: '/jogadores/drop.jpg', twitter: 'https://x.com/dropcs__', instagram: 'https://www.instagram.com/dropcsgo_/' },
   { nome: 'KAUEZ', img: '/jogadores/kauez.jpg', twitter: 'https://x.com/kauezcs', instagram: 'https://www.instagram.com/kauezcsgo/' },
   { nome: 'CHAY', img: '/jogadores/chayJESUS.jpg', instagram: 'https://www.instagram.com/chayfps' },
