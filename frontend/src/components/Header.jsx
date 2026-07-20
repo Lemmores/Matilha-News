@@ -59,8 +59,8 @@ export default function Header() {
               <div className="dropdown">
                 <Link to="/cblol">CBLOL</Link>
                 {/* <Link to="/circuito">CIRCUITO DESAFIANTE</Link> */}
-                <Link to="/cs2">CS2</Link>
-                <Link to="/freefire">FREEFIRE</Link>
+                {/* <Link to="/cs2">CS2</Link>
+                <Link to="/freefire">FREEFIRE</Link> */}
               </div>
             )}
           </div>
@@ -132,8 +132,8 @@ export default function Header() {
             <div className="dropdown">
               <Link to="/cblol">CBLOL</Link>
               {/* <Link to="/circuito">CIRCUITO DESAFIANTE</Link> */}
-              <Link to="/cs2">CS2</Link>
-              <Link to="/freefire">FREEFIRE</Link>
+              {/* <Link to="/cs2">CS2</Link>
+              <Link to="/freefire">FREEFIRE</Link> */}
             </div>
           )}
         </div>

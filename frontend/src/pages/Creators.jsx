@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import './Creators.css';
 
 const creators = [
-  { nome: 'MEDU', img: '/creators/Medu.webp', twitter: 'https://x.com/medulol1', instagram: 'https://www.instagram.com/medulol1/' },
-  { nome: 'PEU', img: '/creators/Peu.webp', twitter: 'https://x.com/peuzinholol', instagram: 'https://www.instagram.com/peuzinholol/' },
+
+ 
   { nome: 'DYEN', img: '/creators/Dyen.webp', twitter: 'https://x.com/DyenffnyM', instagram: 'https://www.instagram.com/dyenffnym/' },
   { nome: 'IASSER', img: '/creators/Iasser.webp', twitter: 'https://x.com/iasserzinlol', instagram: 'https://www.instagram.com/iasserzinlol/' },
   { nome: 'AMMY', img: '/creators/Ammy.webp', twitter: 'https://x.com/ammyzitta', instagram: 'https://www.instagram.com/ammyzitta/' },
   { nome: 'JOÃO DIAS', img: '/creators/João Dias.webp', twitter: 'https://x.com/jdiasss_', instagram: 'https://www.instagram.com/jdiasss_/' },
-  { nome: 'IONIAN', img: '/creators/Ionian.webp', twitter: 'https://x.com/ionianzin', instagram: 'https://www.instagram.com/ionianzin/' },
-  { nome: 'JM', img: '/creators/JM.webp', twitter: 'https://x.com/JMdeck_', instagram: 'https://www.instagram.com/jmdeck_' },
   { nome: 'ANINHA', img: '/creators/Aninha.webp', twitter: 'https://x.com/aninhamagica', instagram: 'https://www.instagram.com/aninhamagica' },
 ];
 

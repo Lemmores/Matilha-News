@@ -4,11 +4,11 @@ import Agenda from '../components/Agenda';
 import './CircuitoPage.css';
 
 const jogadores = [
-  { nome: 'ZYNTS', img: '/jogadores/zynts.jpg', twitter: 'https://twitter.com/zyntsLOL', instagram: 'https://www.instagram.com/matheuszynts1/' },
-  { nome: 'NERO', img: '/jogadores/Nero.jpg', twitter: 'https://x.com/nerothefik', instagram: 'https://www.instagram.com/nerothefik/' },
-  { nome: 'MAGO', img: '/jogadores/mago.jpg', twitter: 'https://x.com/jeanmag0', instagram: 'https://www.instagram.com/jeanmagolol/' },
-  { nome: 'KOJIMA', img: '/jogadores/Kojima.jpg', twitter: 'https://x.com/kojimalol1', instagram: 'https://www.instagram.com/caio__y/' },
-  { nome: 'UZENT', img: '/jogadores/uzent.jpg', twitter: 'https://x.com/uzentLOL', instagram: 'https://www.instagram.com/matheus_uzent/' },
+  // { nome: 'ZYNTS', img: '/jogadores/zynts.jpg', twitter: 'https://twitter.com/zyntsLOL', instagram: 'https://www.instagram.com/matheuszynts1/' },
+  // { nome: 'NERO', img: '/jogadores/Nero.jpg', twitter: 'https://x.com/nerothefik', instagram: 'https://www.instagram.com/nerothefik/' },
+  // { nome: 'MAGO', img: '/jogadores/mago.jpg', twitter: 'https://x.com/jeanmag0', instagram: 'https://www.instagram.com/jeanmagolol/' },
+  // { nome: 'KOJIMA', img: '/jogadores/Kojima.jpg', twitter: 'https://x.com/kojimalol1', instagram: 'https://www.instagram.com/caio__y/' },
+  // { nome: 'UZENT', img: '/jogadores/uzent.jpg', twitter: 'https://x.com/uzentLOL', instagram: 'https://www.instagram.com/matheus_uzent/' },
 ];
 
 const CircuitoPage = () => {
